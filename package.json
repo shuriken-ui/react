@@ -1,0 +1,29 @@
+{
+  "name": "tsup-react-library-starter",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Tsup React library starter",
+  "scripts": {
+    "install:all": "pnpm -r install",
+    "watch": "pnpm --filter=@shuriken-ui/react dev",
+    "dev": "pnpm run watch --onSuccess \"pnpm  --filter=demo  dev\"",
+    "build": "pnpm --filter=@shuriken-ui/react build",
+    "lint": "pnpm --filter=@shuriken-ui/react lint",
+    "lint:fix": "pnpm --filter=@shuriken-ui/react lint:fix",
+    "pre-commit": "pnpm run --filter=@shuriken-ui/react pre-commit",
+    "prepare": "husky install",
+    "postinstall": "pnpm prepare"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@commitlint/cli": "^17.8.0",
+    "@commitlint/config-conventional": "^17.8.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^15.0.2"
+  },
+  "dependencies": {
+    "@shuriken-ui/react": "workspace:^"
+  }
+}
