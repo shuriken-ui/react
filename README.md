@@ -17,3 +17,10 @@
 Shuriken UI is a free and open-source Tailwind CSS UI Kit. It is a collection of components and templates that you can use to build your next Tailwind CSS project.
 
 This repository contains the React version of Shuriken UI with ready to use components (form inputs, buttons, cards, etc.) that you can use to build your project.
+
+## Installation
+
+```shell
+pnpm add -D @shuriken-ui/tailwind
+pnpm add @shuriken-ui/react
+```
