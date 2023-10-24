@@ -79,13 +79,13 @@ importers:
       '@headlessui/react':
         specifier: ^1.7.17
         version: 1.7.17(react-dom@18.2.0)(react@18.2.0)
+      '@iconify/react':
+        specifier: ^4.1.1
+        version: 4.1.1(react@18.2.0)
       '@shuriken-ui/tailwind':
         specifier: ^1.4.0
         version: 1.4.0(ts-node@10.9.1)
     devDependencies:
-      '@iconify/react':
-        specifier: ^4.1.1
-        version: 4.1.1(react@18.2.0)
       '@types/react':
         specifier: ^18.2.15
         version: 18.2.27
@@ -685,11 +685,11 @@ packages:
     dependencies:
       '@iconify/types': 2.0.0
       react: 18.2.0
-    dev: true
+    dev: false
 
   /@iconify/types@2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
-    dev: true
+    dev: false
 
   /@jridgewell/gen-mapping@0.3.3:
     resolution: {integrity: sha512-HLhSWOLRi875zjjMG/r+Nv0oCW8umGb0BgEhyX3dDX3egwZtB8PqLnjz3yedt8R5StBrzcg4aBpnh8UA9D1BoQ==}

@@ -43,7 +43,6 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@iconify/react": "^4.1.1",
     "@types/react": "^18.2.15",
     "@typescript-eslint/eslint-plugin": "^6.8.0",
     "@typescript-eslint/parser": "^6.8.0",
@@ -64,6 +63,7 @@
     "typescript": "^5.0.2"
   },
   "dependencies": {
+    "@iconify/react": "^4.1.1",
     "@headlessui-float/react": "^0.11.4",
     "@headlessui/react": "^1.7.17",
     "@shuriken-ui/tailwind": "^1.4.0"
