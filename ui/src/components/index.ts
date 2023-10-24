@@ -11,3 +11,4 @@ export * from "./base/BaseButtonClose";
 export * from "./base/BaseSnack";
 export * from "./base/BaseProse";
 export * from "./base/BaseProgress";
+export * from "./base/BasePlacehold";
