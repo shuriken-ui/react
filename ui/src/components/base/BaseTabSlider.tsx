@@ -97,8 +97,9 @@ export const BaseTabSlider: FC<BaseTabSliderProps> = ({
                 activeValue === tab.value ? "nui-active" : ""
               }`}
               onKeyDown={(e) => {
-                console.log(e);
-                //   @keydown.space="toggle(tab?.value)"
+                if (e.code === "Space") {
+                  setActiveValue(tab.value);
+                }
               }}
               onClick={() => setActiveValue(tab.value)}
             >
