@@ -5,3 +5,4 @@ export * from "./icons";
  */
 export * from "./base/BaseText";
 export * from "./base/BaseTag";
+export * from "./base/BaseTabs";
