@@ -40,6 +40,7 @@ module.exports = {
     "react/prop-types": "off",
     "react/jsx-uses-react": "off",
     "react/self-closing-comp": "warn",
+    "react/no-array-index-key": "off",
     "import/prefer-default-export": "off",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
