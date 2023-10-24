@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, FC } from "react";
+import { ButtonHTMLAttributes, FC } from "react";
 import { useConfig } from "../../Provider";
 import { IconClose } from "../icons/IconClose";
 
