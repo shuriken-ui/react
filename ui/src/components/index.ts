@@ -16,3 +16,4 @@ export * from "./base/BasePlaceholderPage";
 export * from "./base/BaseHeading";
 export * from "./base/BaseParagraph";
 export * from "./base/BaseMessage";
+export * from "./base/BaseListItem";
