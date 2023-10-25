@@ -14,3 +14,4 @@ export * from "./base/BaseProgress";
 export * from "./base/BasePlacehold";
 export * from "./base/BasePlaceholderPage";
 export * from "./base/BaseHeading";
+export * from "./base/BaseParagraph";
