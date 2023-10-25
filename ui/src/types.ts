@@ -1,3 +1,51 @@
+import {
+  ComponentPropsWithRef,
+  ComponentPropsWithoutRef,
+  ElementType,
+  PropsWithChildren,
+} from "react";
+
+/**
+ * Polymotphic Component Utils
+ */
+
+/**
+ * as props util
+ */
+type AsProp<C extends ElementType> = {
+  as?: C;
+};
+/**
+ * Omit Util
+ */
+type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
+/**
+ * Polymorphic Component Props
+ */
+export type PolymorphicComponentProps<
+  C extends ElementType,
+  Props = object,
+> = PropsWithChildren<Props & AsProp<C>> &
+  Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
+
+/**
+ * Ref Util
+ */
+export type PolymorphicRef<C extends React.ElementType> =
+  React.ComponentPropsWithRef<C>["ref"];
+/**
+ * Polymorphic Component Props with Ref
+ */
+export type PolymorphicComponentPropsWithRef<
+  C extends ElementType,
+  Props = object,
+> = PropsWithChildren<Props & AsProp<C>> &
+  Omit<ComponentPropsWithRef<C>, PropsToOmit<C, Props>>;
+
+/**
+ * Config
+ */
+
 export type DefaultShapes = {
   accordion: "straight" | "rounded" | "smooth" | "curved";
   autocompleteItem: "straight" | "rounded" | "smooth" | "curved" | "full";
