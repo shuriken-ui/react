@@ -51,5 +51,19 @@ module.exports = {
         argsIgnorePattern: "^_.*?$",
       },
     ],
+    "padding-line-between-statements": [
+      "warn",
+      { blankLine: "always", prev: "*", next: "return" },
+      {
+        blankLine: "always",
+        prev: ["const", "let", "var", "block-like"],
+        next: "*",
+      },
+      {
+        blankLine: "always",
+        prev: ["const", "let", "var", "block-like"],
+        next: ["const", "let", "var", "block-like"],
+      },
+    ],
   },
 };
