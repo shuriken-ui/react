@@ -11,6 +11,7 @@ interface BaseTabSliderProps {
     /** The value associated with the tab. */
     value: string;
   }[];
+
   /**
    * The value of the currently selected tab.
    */
@@ -22,18 +23,22 @@ interface BaseTabSliderProps {
    *
    */
   onChange?: (value: string) => void;
+
   /**
    * Controls the alignment of the tabs. Can be 'start', 'center', or 'end'.
    */
   justify?: "start" | "center" | "end";
+
   /**
    * The size of the tabs.
    */
   size?: "sm" | "md";
+
   /**
    * Controls the shape of the tabs. Can be 'rounded' or 'full'.
    */
   shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+
   /**
    * Controls the size of the tabs. Can be condensed or default.
    */
@@ -45,10 +50,12 @@ const justifyStyle = {
   center: "nui-tabs-centered",
   end: "nui-tabs-end",
 };
+
 const sizeStyle = {
   sm: "nui-tabs-sm",
   md: "nui-tabs-md",
 };
+
 const shapeStyle = {
   straight: "",
   rounded: "nui-tabs-rounded",
@@ -69,6 +76,7 @@ export const BaseTabSlider: FC<BaseTabSliderProps> = ({
   const [activeValue, setActiveValue] = useState<string>(
     defaultValue || tabs[0]?.value || "",
   );
+
   const config = useConfig();
 
   const shape = defaultShape ?? config.defaultShapes.tabSlider;

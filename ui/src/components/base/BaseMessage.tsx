@@ -39,6 +39,7 @@ type BaseMessageProps = {
    * The icon to show in the close button
    */
   closeIcon?: string;
+
   /**
    * close handler
    */
@@ -52,6 +53,7 @@ const shapeStyle = {
   curved: "nui-message-curved",
   full: "nui-message-full",
 };
+
 const typeStyle = {
   default: "nui-message-default",
   muted: "nui-message-muted",
@@ -61,6 +63,7 @@ const typeStyle = {
   warning: "nui-message-warning",
   danger: "nui-message-danger",
 };
+
 const iconTypeStyle = {
   info: "akar-icons:info-fill",
   warning: "ci:warning",

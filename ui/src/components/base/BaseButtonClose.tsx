@@ -7,7 +7,10 @@ interface BaseButtonCloseProps extends ButtonHTMLAttributes<HTMLButtonElement> {
    * The shape of the button.
    */
   shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
-  /** The color of the button. Can be 'default' or 'muted. */
+
+  /**
+   * The color of the button. Can be 'default' or 'muted.
+   */
   color?:
     | "default"
     | "muted"
@@ -26,6 +29,7 @@ const shapeStyle = {
   curved: "nui-button-curved",
   full: "nui-button-full",
 };
+
 const colorStyle = {
   default: "nui-button-default",
   muted: "nui-button-muted",
@@ -36,6 +40,7 @@ const colorStyle = {
   danger: "nui-button-danger",
   none: "",
 };
+
 export const BaseButtonClose: FC<BaseButtonCloseProps> = ({
   shape: defaultShape,
   color = "default",
@@ -43,6 +48,7 @@ export const BaseButtonClose: FC<BaseButtonCloseProps> = ({
   ...props
 }) => {
   const config = useConfig();
+
   const shape = defaultShape ?? config.defaultShapes.buttonClose;
 
   return (

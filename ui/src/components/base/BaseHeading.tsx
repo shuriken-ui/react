@@ -53,6 +53,7 @@ const sizeStyle = {
   "8xl": "nui-heading-8xl",
   "9xl": "nui-heading-9xl",
 };
+
 const weightStyle = {
   light: "nui-weight-light",
   normal: "nui-weight-normal",
@@ -61,6 +62,7 @@ const weightStyle = {
   bold: "nui-weight-bold",
   extrabold: "nui-weight-extrabold",
 };
+
 const leadStyle = {
   none: "nui-lead-none",
   tight: "nui-lead-tight",

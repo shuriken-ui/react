@@ -41,16 +41,19 @@ const colorStyle = {
   warning: "nui-progress-warning",
   danger: "nui-progress-danger",
 };
+
 const contrastStyle = {
   default: "nui-progress-default",
   contrast: "nui-progress-contrast",
 };
+
 const shapeStyle = {
   straight: "",
   rounded: "nui-progress-rounded",
   curved: "nui-progress-curved",
   full: "nui-progress-full",
 };
+
 const sizeStyle = {
   xs: "nui-progress-xs",
   sm: "nui-progress-sm",
@@ -78,6 +81,7 @@ export const BaseProgress: FC<BaseProgressProps> = ({
 
     return typeof currentValue === "number" ? (currentValue / max) * 100 : null;
   }, [currentValue, max]);
+
   return (
     <div
       role="progressbar"

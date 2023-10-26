@@ -51,6 +51,7 @@ const sizeStyle = {
   "8xl": "nui-paragraph-8xl",
   "9xl": "nui-paragraph-9xl",
 };
+
 const weightStyle = {
   light: "nui-weight-light",
   normal: "nui-weight-normal",
@@ -59,6 +60,7 @@ const weightStyle = {
   bold: "nui-weight-bold",
   extrabold: "nui-weight-extrabold",
 };
+
 const leadStyle = {
   none: "nui-lead-none",
   tight: "nui-lead-tight",
@@ -78,6 +80,7 @@ export const BaseParagraph = <E extends ElementType = "p">({
   ...props
 }: PolymorphicComponentPropsWithRef<E, BaseParagraphProps<E>>) => {
   const Component = element || "p";
+
   return (
     <Component
       className={`nui-paragraph ${sizeStyle[size]} ${weightStyle[weight]} ${leadStyle[lead]} ${classes}`}

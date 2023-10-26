@@ -7,11 +7,20 @@ type BaseListItemProps = {
    * The title of the list item.
    */
   title?: string;
+
   /**
    * The subtitle of the list item.
    */
   subtitle?: string;
+
+  /**
+   * children
+   */
   children: ReactNode;
+
+  /**
+   * end
+   */
   end: ReactNode;
 };
 export const BaseListItem: FC<BaseListItemProps> = ({

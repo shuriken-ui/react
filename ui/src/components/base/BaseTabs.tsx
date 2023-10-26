@@ -19,6 +19,7 @@ interface BaseTabsProps {
      */
     icon?: string;
   }[];
+
   /**
    * The value of the currently selected tab. This should match the value of one of the tabs in the tabs array.
    */
@@ -30,18 +31,22 @@ interface BaseTabsProps {
    *
    */
   onChange?: (value: string) => void;
+
   /**
    * The type of tabs to display. Can be either "tabs" or "box".
    */
   type?: "tabs" | "box";
+
   /**
    * The horizontal alignment of the tabs. Can be "start", "center", or "end".
    */
   justify?: "start" | "center" | "end";
+
   /**
    * Whether or not to display the tabs as boxes.
    */
   boxed?: boolean;
+
   /**
    * Whether or not to hide the label for the tab.
    */
@@ -53,10 +58,12 @@ const justifyStyle = {
   center: "nui-tabs-centered",
   end: "nui-tabs-end",
 };
+
 const typeStyle = {
   tabs: "nui-tab-item",
   box: "nui-pill-item",
 };
+
 export const BaseTabs: FC<BaseTabsProps> = ({
   justify,
   type = "box",

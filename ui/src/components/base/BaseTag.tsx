@@ -41,6 +41,7 @@ const flavorStyle = {
   pastel: "nui-tag-pastel",
   outline: "nui-tag-outline",
 };
+
 const shapeStyle = {
   straight: "",
   rounded: "nui-tag-rounded",
@@ -48,6 +49,7 @@ const shapeStyle = {
   curved: "nui-tag-curved",
   full: "nui-tag-full",
 };
+
 const colorStyle = {
   default: "nui-tag-default",
   muted: "nui-tag-muted",
@@ -57,14 +59,17 @@ const colorStyle = {
   warning: "nui-tag-warning",
   danger: "nui-tag-danger",
 };
+
 const shadowStyle = {
   flat: "nui-tag-shadow",
   hover: "nui-tag-shadow-hover",
 };
+
 const sizeStyle = {
   sm: "nui-tag-sm",
   md: "nui-tag-md",
 };
+
 export const BaseTag: FC<BaseTagProps> = ({
   flavor = "solid",
   color = "default",
@@ -74,6 +79,7 @@ export const BaseTag: FC<BaseTagProps> = ({
   children,
 }) => {
   const config = useConfig();
+
   const shape = defaultShape ?? config.defaultShapes.tag;
 
   return (

@@ -2,7 +2,11 @@ import { FC, ReactNode } from "react";
 import { useConfig } from "../../Provider";
 
 interface BaseProseProps {
+  /**
+   * children
+   */
   children: ReactNode;
+
   /**
    * Inner elements shapes.
    */

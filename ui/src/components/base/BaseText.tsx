@@ -1,7 +1,11 @@
 import { FC, ReactNode } from "react";
 
 interface BaseTextProps {
+  /**
+   * children
+   */
   children: ReactNode;
+
   /**
    * The size of the text.
    */
@@ -46,6 +50,7 @@ const sizeStyle = {
   "8xl": "nui-content-8xl",
   "9xl": "nui-content-9xl",
 };
+
 const weightStyle = {
   light: "nui-weight-light",
   normal: "nui-weight-normal",
@@ -54,6 +59,7 @@ const weightStyle = {
   bold: "nui-weight-bold",
   extrabold: "nui-weight-extrabold",
 };
+
 const leadStyle = {
   none: "nui-lead-none",
   tight: "nui-lead-tight",
