@@ -17,3 +17,5 @@ export * from "./base/BaseHeading";
 export * from "./base/BaseParagraph";
 export * from "./base/BaseMessage";
 export * from "./base/BaseListItem";
+export * from "./base/BaseLink";
+export * from "./base/BaseIconBox";
