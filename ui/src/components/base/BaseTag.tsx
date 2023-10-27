@@ -2,7 +2,11 @@ import { FC, ReactNode } from "react";
 import { useConfig } from "../../Provider";
 
 interface BaseTagProps {
+  /**
+   * children
+   */
   children: ReactNode;
+
   /**
    * The flavor of the tag.
    */

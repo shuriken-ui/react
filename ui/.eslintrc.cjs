@@ -56,13 +56,13 @@ module.exports = {
       { blankLine: "always", prev: "*", next: "return" },
       {
         blankLine: "always",
-        prev: ["const", "let", "var", "block-like"],
+        prev: ["const", "let", "var", "block-like", "export"],
         next: "*",
       },
       {
         blankLine: "always",
-        prev: ["const", "let", "var", "block-like"],
-        next: ["const", "let", "var", "block-like"],
+        prev: ["const", "let", "var", "block-like", "export"],
+        next: ["const", "let", "var", "block-like", "export"],
       },
     ],
   },

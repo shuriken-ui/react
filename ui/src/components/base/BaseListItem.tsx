@@ -23,6 +23,7 @@ type BaseListItemProps = {
    */
   end: ReactNode;
 };
+
 export const BaseListItem: FC<BaseListItemProps> = ({
   title,
   subtitle,
