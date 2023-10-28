@@ -4,6 +4,8 @@ export * from "./icons";
  * Base Components
  */
 
+export * from "./base/BaseButtonAction";
+
 export * from "./base/BaseButtonGroup";
 
 export * from "./base/BaseButtonIcon";
