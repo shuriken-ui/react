@@ -4,6 +4,12 @@ export * from "./icons";
  * Base Components
  */
 
+export * from "./base/BaseDropdown";
+
+export * from "./base/BasePlaceload";
+
+export * from "./base/BaseButton";
+
 export * from "./base/BaseText";
 
 export * from "./base/BaseTag";
