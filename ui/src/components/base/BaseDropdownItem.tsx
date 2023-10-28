@@ -1,5 +1,6 @@
 import { Menu } from "@headlessui/react";
-import React, { FC, ReactNode } from "react";
+import { FC, ReactNode } from "react";
+import { useNinjaButton } from "../../hooks/use-ninja-button";
 
 type BaseDropdownItemProps = {
   /**
@@ -81,11 +82,6 @@ const colorStyle = {
 };
 
 export const BaseDropdownItem: FC<BaseDropdownItemProps> = ({
-  type,
-  to,
-  href,
-  rel,
-  target,
   title,
   text,
   shape,
@@ -98,9 +94,9 @@ export const BaseDropdownItem: FC<BaseDropdownItemProps> = ({
       "font-heading text-muted-800 text-xs font-semibold leading-tight dark:text-white",
     text: "text-muted-400 font-sans text-xs",
   },
+  ...props
 }) => {
-  // TODO:  const { is, attributes } = useNinjaButton(props)
-  const Component = "div";
+  const { is: Component, attributes } = useNinjaButton({ ...props, disabled });
 
   return (
     <Menu.Item as="div">
@@ -110,6 +106,7 @@ export const BaseDropdownItem: FC<BaseDropdownItemProps> = ({
             shape ? shapeStyle[shape] : ""
           } ${colorStyle[color]}`}
           onClick={close}
+          {...attributes}
         >
           {start && start}
           <div className="nui-item-content">

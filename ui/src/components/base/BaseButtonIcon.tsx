@@ -1,6 +1,7 @@
 import { FC, HTMLAttributes } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
+import { useNinjaButton } from "../../hooks/use-ninja-button";
 
 type BaseButtonIconProps = HTMLAttributes<HTMLDivElement> & {
   /**
@@ -89,14 +90,10 @@ const colorStyle = {
   none: "",
 };
 
-// TODO: const { attributes, is } = useNinjaButton(props)
-
 export const BaseButtonIcon: FC<BaseButtonIconProps> = ({
   color = "default",
   shape: defaultShape,
-  to,
-  href,
-  type,
+
   rel = "",
   target = "",
   loading = false,
@@ -105,18 +102,24 @@ export const BaseButtonIcon: FC<BaseButtonIconProps> = ({
   children,
   ...props
 }) => {
+  const { is: Component, attributes } = useNinjaButton({
+    ...props,
+    rel,
+    target,
+  });
+
   const config = useConfig();
 
   const shape = defaultShape ?? config.defaultShapes.buttonIcon;
 
   return (
-    <div
+    <Component
       className={`nui-button-icon  ${loading ? "nui-button-loading" : ""} ${
         shape ? shapeStyle[shape] : ""
       } ${sizeStyle[size]} ${colorStyle[color]} ${classes}`}
-      {...props}
+      {...attributes}
     >
       {loading ? <BasePlaceload className="h-4 w-4 rounded-md" /> : children}
-    </div>
+    </Component>
   );
 };

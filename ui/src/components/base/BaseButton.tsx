@@ -1,6 +1,7 @@
 import { FC, ReactNode } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
+import { useNinjaButton } from "../../hooks/use-ninja-button";
 
 type BaseButtonProps = {
   /** The type of the button. Can be 'button', 'submit', or 'reset'. */
@@ -122,9 +123,7 @@ export const BaseButton: FC<BaseButtonProps> = ({
   color = "default",
   size = "md",
   shape: defaultShape,
-  type,
-  to,
-  href,
+
   disabled = false,
   badge = false,
   badgePulse = false,
@@ -134,8 +133,14 @@ export const BaseButton: FC<BaseButtonProps> = ({
   className: classes = "",
   loading,
   children,
+  ...props
 }) => {
-  const Component = "button";
+  const { is: Component, attributes } = useNinjaButton({
+    ...props,
+    rel,
+    target,
+    disabled,
+  });
 
   const config = useConfig();
 
@@ -146,7 +151,6 @@ export const BaseButton: FC<BaseButtonProps> = ({
       ? ""
       : `nui-button-badge ${badgeColorStyle[color]}`;
 
-  // TODO: const { attributes, is } = useNinjaButton(props)
   return (
     <Component
       className={`nui-button ${loading ? "nui-button-loading" : ""} ${
@@ -154,6 +158,7 @@ export const BaseButton: FC<BaseButtonProps> = ({
       } ${shape ? shapeStyle[shape] : ""} ${flavorStyle[flavor]} ${
         colorStyle[color]
       } ${shadow ? shadowStyle[shadow] : ""} ${classes}`}
+      {...attributes}
     >
       {!loading && children}
       {loading && <BasePlaceload className="h-4 w-12 rounded" />}
