@@ -1,9 +1,10 @@
-import { ElementType } from "react";
-import { PolymorphicComponentPropsWithRef } from "../../types";
+import { PolymorphicComponentProps } from "../../types";
 
-// type Headings = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "p";
+type Headings = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "p";
+
 // TODO: allow Headings type only
-type HeadingProps<E extends ElementType> = {
+
+type HeadingProps<E extends Headings = "p"> = {
   /**
    * The heading element to use (e.g. 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p').
    */
@@ -74,7 +75,7 @@ const leadStyle = {
 
 // TODO: use forwardRef
 
-export const BaseHeading = <E extends ElementType = "p">({
+export const BaseHeading = <E extends Headings = "p">({
   as: element,
   size = "xl",
   weight = "semibold",
@@ -82,7 +83,7 @@ export const BaseHeading = <E extends ElementType = "p">({
   className: classes = "",
   children,
   ...props
-}: PolymorphicComponentPropsWithRef<E, HeadingProps<E>>) => {
+}: PolymorphicComponentProps<E, HeadingProps<E>>) => {
   const Component = element || "p";
 
   return (
