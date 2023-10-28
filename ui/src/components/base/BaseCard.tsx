@@ -1,4 +1,4 @@
-import React, { FC, HTMLAttributes } from "react";
+import { FC, HTMLAttributes } from "react";
 import { useConfig } from "../../Provider";
 
 type BaseCardProps = HTMLAttributes<HTMLDivElement> & {

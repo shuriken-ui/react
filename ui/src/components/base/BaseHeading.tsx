@@ -2,8 +2,6 @@ import { PolymorphicComponentProps } from "../../types";
 
 type Headings = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "p";
 
-// TODO: allow Headings type only
-
 type HeadingProps<E extends Headings = "p"> = {
   /**
    * The heading element to use (e.g. 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p').

@@ -5,9 +5,7 @@ import {
   PropsWithChildren,
 } from "react";
 
-/**
- * Polymotphic Component Utils
- */
+/** Polymotphic Component Utils */
 
 /**
  * as props util
@@ -33,6 +31,7 @@ export type PolymorphicComponentProps<
  */
 export type PolymorphicRef<C extends React.ElementType> =
   React.ComponentPropsWithRef<C>["ref"];
+
 /**
  * Polymorphic Component Props with Ref
  */
