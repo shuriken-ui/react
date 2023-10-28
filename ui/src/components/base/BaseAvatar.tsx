@@ -1,7 +1,8 @@
 import { FC, ImgHTMLAttributes } from "react";
+import { PolymorphicComponentProps } from "src/types";
 import { useConfig } from "../../Provider";
 
-type BaseAvatarProps = ImgHTMLAttributes<HTMLImageElement> & {
+type BaseAvatarProps = {
   /**
    * The URL of the image to display.
    */
@@ -111,17 +112,22 @@ const maskStyle = {
   diamond: "nui-mask-diamond",
 };
 
-export const BaseAvatar: FC<BaseAvatarProps> = ({
+export const BaseAvatar: FC<
+  PolymorphicComponentProps<"img", BaseAvatarProps>
+> = ({
   src,
+  as: Component = "img",
   srcDark,
   text = "?",
   badgeSrc,
   size = "sm",
   shape: defaultShape,
   mask,
+  className: classes = "",
   dot = false,
   ring = false,
   alt = "",
+  ...props
 }) => {
   const config = useConfig();
 
@@ -140,15 +146,21 @@ export const BaseAvatar: FC<BaseAvatarProps> = ({
     >
       <div className="nui-avatar-inner">
         {src && (
-          <img
+          <Component
             src={src}
+            {...props}
             className={`nui-avatar-img ${srcDark ? "dark:hidden" : ""}`}
             alt={alt}
           />
         )}
 
         {src && srcDark && (
-          <img src={srcDark} className="nui-avatar-img hidden" alt="" />
+          <Component
+            src={srcDark}
+            {...props}
+            className="nui-avatar-img hidden"
+            alt=""
+          />
         )}
 
         {!src && <span className="nui-avatar-text">{text}</span>}
@@ -164,7 +176,7 @@ export const BaseAvatar: FC<BaseAvatarProps> = ({
         <span
           className={`nui-avatar-dot  ${
             dot === true ? dotStyle.primary : dotStyle[dot]
-          } `}
+          }`}
         />
       )}
     </div>
