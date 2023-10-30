@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 
 interface BaseTextProps {
   /**
@@ -69,17 +69,18 @@ const leadStyle = {
   loose: "nui-lead-loose",
 };
 
-export const BaseText: FC<BaseTextProps> = ({
-  size = "md",
-  weight = "normal",
-  lead = "normal",
-  children,
-}) => {
-  return (
-    <p
-      className={`nui-text ${sizeStyle[size]} ${weightStyle[weight]} ${leadStyle[lead]}`}
-    >
-      {children}
-    </p>
-  );
-};
+export const BaseText = forwardRef<HTMLParagraphElement, BaseTextProps>(
+  function BaseText(
+    { size = "md", weight = "normal", lead = "normal", children },
+    ref,
+  ) {
+    return (
+      <p
+        className={`nui-text ${sizeStyle[size]} ${weightStyle[weight]} ${leadStyle[lead]}`}
+        ref={ref}
+      >
+        {children}
+      </p>
+    );
+  },
+);
