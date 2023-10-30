@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 
 interface BaseTagProps {
@@ -74,27 +74,33 @@ const sizeStyle = {
   md: "nui-tag-md",
 };
 
-export const BaseTag: FC<BaseTagProps> = ({
-  flavor = "solid",
-  color = "default",
-  shape: defaultShape,
-  shadow,
-  size = "md",
-  children,
-}) => {
-  const config = useConfig();
+export const BaseTag = forwardRef<HTMLSpanElement, BaseTagProps>(
+  function BaseTag(
+    {
+      flavor = "solid",
+      color = "default",
+      shape: defaultShape,
+      shadow,
+      size = "md",
+      children,
+    },
+    ref,
+  ) {
+    const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.tag;
+    const shape = defaultShape ?? config.defaultShapes.tag;
 
-  return (
-    <span
-      className={`nui-tag ${sizeStyle[size]} ${flavorStyle[flavor]} ${
-        colorStyle[color]
-      } ${shape ? shapeStyle[shape] : ""} ${
-        shadow && flavor === "solid" ? shadowStyle[shadow] : ""
-      }`}
-    >
-      {children}
-    </span>
-  );
-};
+    return (
+      <span
+        className={`nui-tag ${sizeStyle[size]} ${flavorStyle[flavor]} ${
+          colorStyle[color]
+        } ${shape ? shapeStyle[shape] : ""} ${
+          shadow && flavor === "solid" ? shadowStyle[shadow] : ""
+        }`}
+        ref={ref}
+      >
+        {children}
+      </span>
+    );
+  },
+);
