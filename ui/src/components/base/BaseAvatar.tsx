@@ -1,4 +1,4 @@
-import { FC, ImgHTMLAttributes } from "react";
+import { FC } from "react";
 import { PolymorphicComponentProps } from "src/types";
 import { useConfig } from "../../Provider";
 

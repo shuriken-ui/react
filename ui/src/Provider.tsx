@@ -131,9 +131,8 @@ export const ShurikenUIProvider: FC<{
     () => ({ ...defaultConfig, ...options }),
     [options],
   );
+
   return (
-    <ConfigContext.Provider value={config}>
-      <div className="">{children}</div>
-    </ConfigContext.Provider>
+    <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>
   );
 };
