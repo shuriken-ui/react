@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { forwardRef } from "react";
 import { Icon } from "@iconify/react";
 import { useConfig } from "../../Provider";
 
@@ -74,44 +74,54 @@ const iconTypeStyle = {
   default: "",
 };
 
-export const BaseMessage: FC<BaseMessageProps> = ({
-  type = "success",
-  shape: defaultShape,
-  message = "",
-  icon: defaultIcon = false,
-  closable = false,
-  closeIcon = "lucide:x",
-  onClose = () => {},
-}) => {
-  const config = useConfig();
+export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
+  function BaseMessage(
+    {
+      type = "success",
+      shape: defaultShape,
+      message = "",
+      icon: defaultIcon = false,
+      closable = false,
+      closeIcon = "lucide:x",
+      onClose = () => {},
+    },
+    ref,
+  ) {
+    const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.message;
+    const shape = defaultShape ?? config.defaultShapes.message;
 
-  const icon =
-    typeof defaultIcon === "string" ? defaultIcon : iconTypeStyle[type];
+    const icon =
+      typeof defaultIcon === "string" ? defaultIcon : iconTypeStyle[type];
 
-  return (
-    <div
-      className={`nui-message ${shape ? shapeStyle[shape] : ""}  ${
-        typeStyle[type]
-      }`}
-    >
-      {icon && (
-        <div className="nui-message-icon-outer">
-          <Icon icon={icon} name="icon" className="nui-message-icon" />
-        </div>
-      )}
-      <span className="nui-message-inner-text">{message}</span>
-      {closable && (
-        <button
-          type="button"
-          tabIndex={0}
-          className={`nui-message-close ${shape ? shapeStyle[shape] : ""}`}
-          onClick={onClose}
-        >
-          <Icon icon={closeIcon} name="closeIcon" className="nui-close-icon" />
-        </button>
-      )}
-    </div>
-  );
-};
+    return (
+      <div
+        className={`nui-message ${shape ? shapeStyle[shape] : ""}  ${
+          typeStyle[type]
+        }`}
+        ref={ref}
+      >
+        {icon && (
+          <div className="nui-message-icon-outer">
+            <Icon icon={icon} name="icon" className="nui-message-icon" />
+          </div>
+        )}
+        <span className="nui-message-inner-text">{message}</span>
+        {closable && (
+          <button
+            type="button"
+            tabIndex={0}
+            className={`nui-message-close ${shape ? shapeStyle[shape] : ""}`}
+            onClick={onClose}
+          >
+            <Icon
+              icon={closeIcon}
+              name="closeIcon"
+              className="nui-close-icon"
+            />
+          </button>
+        )}
+      </div>
+    );
+  },
+);

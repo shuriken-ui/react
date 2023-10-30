@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 
 interface BaseTabsProps {
@@ -64,51 +64,59 @@ const typeStyle = {
   box: "nui-pill-item",
 };
 
-export const BaseTabs: FC<BaseTabsProps> = ({
-  justify,
-  type = "box",
-  boxed,
-  hideLabel,
-  defaultValue = "",
-  onChange = () => {},
-  tabs,
-}) => {
-  const [activeValue, setActiveValue] = useState<string>(defaultValue);
+export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
+  function BaseTabs(
+    {
+      justify,
+      type = "box",
+      boxed,
+      hideLabel,
+      defaultValue = "",
+      onChange = () => {},
+      tabs,
+    },
+    ref,
+  ) {
+    const [activeValue, setActiveValue] = useState<string>(defaultValue);
 
-  useEffect(() => {
-    onChange(activeValue);
-  }, [activeValue, onChange]);
+    useEffect(() => {
+      onChange(activeValue);
+    }, [activeValue, onChange]);
 
-  return (
-    <div className={`nui-tabs ${justify ? justifyStyle[justify] : ""}`}>
-      <div className="nui-tabs-inner">
-        {tabs.map((tab, index) => (
-          <a
-            href="/#"
-            key={index}
-            className={`${typeStyle[type]} ${
-              activeValue === tab.value ? "nui-active" : ""
-            } ${tab.icon ? "nui-has-icon" : ""}`}
-            tabIndex={0}
-            onClick={() => {
-              setActiveValue(tab.value);
-            }}
-          >
-            {tab.icon && (
-              <Icon icon={tab.icon} className="me-1 block h-5 w-5" />
-            )}
-            <span
-              className={`${
-                type === "box" && tab.icon ? "text-[.85rem]" : ""
-              } ${type === "tabs" ? "text-sm" : ""}`}
+    return (
+      <div
+        className={`nui-tabs ${justify ? justifyStyle[justify] : ""}`}
+        ref={ref}
+      >
+        <div className="nui-tabs-inner">
+          {tabs.map((tab, index) => (
+            <a
+              href="/#"
+              key={index}
+              className={`${typeStyle[type]} ${
+                activeValue === tab.value ? "nui-active" : ""
+              } ${tab.icon ? "nui-has-icon" : ""}`}
+              tabIndex={0}
+              onClick={() => {
+                setActiveValue(tab.value);
+              }}
             >
-              {tab.label}
-            </span>
-          </a>
-        ))}
-      </div>
+              {tab.icon && (
+                <Icon icon={tab.icon} className="me-1 block h-5 w-5" />
+              )}
+              <span
+                className={`${
+                  type === "box" && tab.icon ? "text-[.85rem]" : ""
+                } ${type === "tabs" ? "text-sm" : ""}`}
+              >
+                {tab.label}
+              </span>
+            </a>
+          ))}
+        </div>
 
-      <div className="relative block">{activeValue}</div>
-    </div>
-  );
-};
+        <div className="relative block">{activeValue}</div>
+      </div>
+    );
+  },
+);

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { forwardRef, useEffect, useState } from "react";
 import { useConfig } from "../../Provider";
 
 interface BaseTabSliderProps {
@@ -64,61 +64,67 @@ const shapeStyle = {
   full: "nui-tabs-full",
 };
 
-export const BaseTabSlider: FC<BaseTabSliderProps> = ({
-  size = "md",
-  tabs,
-  condensed,
-  justify,
-  shape: defaultShape,
-  defaultValue,
-  onChange = () => {},
-}) => {
-  const [activeValue, setActiveValue] = useState<string>(
-    defaultValue || tabs[0]?.value || "",
-  );
+export const BaseTabSlider = forwardRef<HTMLDivElement, BaseTabSliderProps>(
+  function BaseTabSlider(
+    {
+      size = "md",
+      tabs,
+      condensed,
+      justify,
+      shape: defaultShape,
+      defaultValue,
+      onChange = () => {},
+    },
+    ref,
+  ) {
+    const [activeValue, setActiveValue] = useState<string>(
+      defaultValue || tabs[0]?.value || "",
+    );
 
-  const config = useConfig();
+    const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.tabSlider;
+    const shape = defaultShape ?? config.defaultShapes.tabSlider;
 
-  const tabsLength = Math.min(3, Math.max(2, tabs.length));
+    const tabsLength = Math.min(3, Math.max(2, tabs.length));
 
-  useEffect(() => {
-    onChange(activeValue);
-  }, [activeValue, onChange]);
+    useEffect(() => {
+      onChange(activeValue);
+    }, [activeValue, onChange]);
 
-  return (
-    <div
-      className={`nui-tab-slider ${justify ? justifyStyle[justify] : ""} ${
-        shape ? shapeStyle[shape] : ""
-      } ${sizeStyle[size]} ${
-        tabsLength === 2 ? "nui-tabs-two-slots" : "nui-tabs-three-slots"
-      }`}
-    >
-      <div className="nui-tab-slider-inner">
-        <div className="nui-tab-slider-track">
-          {tabs.slice(0, tabsLength).map((tab, index) => (
-            <button
-              key={index}
-              type="button"
-              className={`nui-tab-slider-item ${
-                activeValue === tab.value ? "nui-active" : ""
-              }`}
-              onKeyDown={(e) => {
-                if (e.code === "Space") {
-                  setActiveValue(tab.value);
-                }
-              }}
-              onClick={() => setActiveValue(tab.value)}
-            >
-              {tab.label ?? tab.value}
-            </button>
-          ))}
-          {activeValue && <div className="nui-tab-slider-naver" />}
+    return (
+      <div
+        className={`nui-tab-slider ${justify ? justifyStyle[justify] : ""} ${
+          shape ? shapeStyle[shape] : ""
+        } ${sizeStyle[size]} ${
+          tabsLength === 2 ? "nui-tabs-two-slots" : "nui-tabs-three-slots"
+        }`}
+        ref={ref}
+      >
+        <div className="nui-tab-slider-inner">
+          <div className="nui-tab-slider-track">
+            {tabs.slice(0, tabsLength).map((tab, index) => (
+              <button
+                key={index}
+                type="button"
+                className={`nui-tab-slider-item ${
+                  activeValue === tab.value ? "nui-active" : ""
+                }`}
+                onKeyDown={(e) => {
+                  if (e.code === "Space") {
+                    setActiveValue(tab.value);
+                  }
+                }}
+                onClick={() => setActiveValue(tab.value)}
+              >
+                {tab.label ?? tab.value}
+              </button>
+            ))}
+            {activeValue && <div className="nui-tab-slider-naver" />}
+          </div>
         </div>
+        {/* // TODO: */}
+        <div className="nui-tab-content">{activeValue}</div>
       </div>
-
-      <div className="nui-tab-content">{activeValue}</div>
-    </div>
-  );
-};
+    );
+  },
+);

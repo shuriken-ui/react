@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 
 interface BaseProseProps {
@@ -20,17 +20,16 @@ const shapeStyle = {
   full: "",
 };
 
-export const BaseProse: FC<BaseProseProps> = ({
-  shape: defaultShape,
-  children,
-}) => {
-  const config = useConfig();
+export const BaseProse = forwardRef<HTMLDivElement, BaseProseProps>(
+  function BaseProse({ shape: defaultShape, children }, ref) {
+    const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.progress;
+    const shape = defaultShape ?? config.defaultShapes.progress;
 
-  return (
-    <div className={`nui-prose ${shape ? shapeStyle[shape] : ""}`}>
-      {children}
-    </div>
-  );
-};
+    return (
+      <div className={`nui-prose ${shape ? shapeStyle[shape] : ""}`} ref={ref}>
+        {children}
+      </div>
+    );
+  },
+);

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 import { useConfig } from "src";
 
 type BaseIconBoxProps = {
@@ -81,28 +81,34 @@ const maskStyle = {
   diamond: "nui-mask nui-mask-diamond",
 };
 
-export const BaseIconBox: FC<BaseIconBoxProps> = ({
-  shape: defaultShape,
-  size = "xs",
-  color,
-  flavor = "pastel",
-  bordered = false,
-  mask,
-  children,
-}) => {
-  const config = useConfig();
+export const BaseIconBox = forwardRef<HTMLDivElement, BaseIconBoxProps>(
+  function BaseIconBox(
+    {
+      shape: defaultShape,
+      size = "xs",
+      color,
+      flavor = "pastel",
+      bordered = false,
+      mask,
+      children,
+    },
+    ref,
+  ) {
+    const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.iconBox;
+    const shape = defaultShape ?? config.defaultShapes.iconBox;
 
-  return (
-    <div
-      className={`nui-icon-box ${bordered ? "nui-box-bordered" : ""} ${
-        shape ? shapeStyle[shape] : ""
-      } ${sizeStyle[size]} ${flavorStyle[flavor]} ${
-        color ? colorStyle[color] : ""
-      } ${mask ? maskStyle[mask] : ""}`}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <div
+        className={`nui-icon-box ${bordered ? "nui-box-bordered" : ""} ${
+          shape ? shapeStyle[shape] : ""
+        } ${sizeStyle[size]} ${flavorStyle[flavor]} ${
+          color ? colorStyle[color] : ""
+        } ${mask ? maskStyle[mask] : ""}`}
+        ref={ref}
+      >
+        {children}
+      </div>
+    );
+  },
+);

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 import { BaseParagraph } from "./BaseParagraph";
 import { BaseHeading } from "./BaseHeading";
 
@@ -24,33 +24,30 @@ type BaseListItemProps = {
   end: ReactNode;
 };
 
-export const BaseListItem: FC<BaseListItemProps> = ({
-  title,
-  subtitle,
-  children,
-  end,
-}) => {
-  return (
-    <li className="nui-list-item">
-      {children}
+export const BaseListItem = forwardRef<HTMLLIElement, BaseListItemProps>(
+  function BaseListItem({ title, subtitle, children, end }, ref) {
+    return (
+      <li className="nui-list-item" ref={ref}>
+        {children}
 
-      <div>
-        {title && (
-          <BaseHeading as="h6" weight="medium" size="md" lead="tight">
-            {title}
-          </BaseHeading>
-        )}
-        {subtitle && (
-          <BaseParagraph
-            size="xs"
-            className="text-muted-500 dark:text-muted-400"
-          >
-            {subtitle}
-          </BaseParagraph>
-        )}
-      </div>
+        <div>
+          {title && (
+            <BaseHeading as="h6" weight="medium" size="md" lead="tight">
+              {title}
+            </BaseHeading>
+          )}
+          {subtitle && (
+            <BaseParagraph
+              size="xs"
+              className="text-muted-500 dark:text-muted-400"
+            >
+              {subtitle}
+            </BaseParagraph>
+          )}
+        </div>
 
-      <div className="ms-auto">{end}</div>
-    </li>
-  );
-};
+        <div className="ms-auto">{end}</div>
+      </li>
+    );
+  },
+);

@@ -1,4 +1,4 @@
-import React, { FC, ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 import { BaseHeading } from "./BaseHeading";
 
 interface BasePlaceholderPageProps {
@@ -28,15 +28,15 @@ const sizeStyle = {
   xl: "nui-placeholder-xl",
 };
 
-export const BasePlaceholderPage: FC<BasePlaceholderPageProps> = ({
-  subtitle,
-  title,
-  imageSize = "xs",
-  image,
-  children,
-}) => {
+export const BasePlaceholderPage = forwardRef<
+  HTMLDivElement,
+  BasePlaceholderPageProps
+>(function BasePlaceholderPage(
+  { subtitle, title, imageSize = "xs", image, children },
+  ref,
+) {
   return (
-    <div className={`nui-placeholder-page ${sizeStyle[imageSize]}`}>
+    <div className={`nui-placeholder-page ${sizeStyle[imageSize]}`} ref={ref}>
       <div className="nui-placeholder-page-inner">
         {image && <div className="nui-placeholder-page-img">{image}</div>}
         <div className="nui-placeholder-page-content">
@@ -56,4 +56,4 @@ export const BasePlaceholderPage: FC<BasePlaceholderPageProps> = ({
       </div>
     </div>
   );
-};
+});

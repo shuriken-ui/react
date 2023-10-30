@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { forwardRef } from "react";
 import { Icon } from "@iconify/react";
 import { BaseButtonClose } from "./BaseButtonClose";
 
@@ -43,38 +43,44 @@ const colorStyle = {
   muted: "nui-snack-muted",
 };
 
-export const BaseSnack: FC<BaseSnackProps> = ({
-  icon,
-  image,
-  label = "",
-  size = "md",
-  color = "default",
-  onClick = () => {},
-}) => {
-  return (
-    <div
-      className={`nui-snack  ${sizeStyle[size]} ${colorStyle[color]} ${
-        icon || image ? "nui-has-media" : ""
-      }`}
-    >
-      {icon && !image && (
-        <div className="nui-snack-icon">
-          <Icon icon={icon} name={icon} className="nui-snack-icon-inner" />
-        </div>
-      )}
-      {image && !icon && (
-        <div className="nui-snack-image">
-          <img src={image} className="nui-snack-image-inner" alt="" />
-        </div>
-      )}
-      <span className="nui-snack-text">
-        <slot>{label}</slot>
-      </span>
-      <BaseButtonClose
-        className="nui-snack-button"
-        shape="full"
-        onClick={onClick}
-      />
-    </div>
-  );
-};
+export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
+  function BaseSnack(
+    {
+      icon,
+      image,
+      label = "",
+      size = "md",
+      color = "default",
+      onClick = () => {},
+    },
+    ref,
+  ) {
+    return (
+      <div
+        className={`nui-snack  ${sizeStyle[size]} ${colorStyle[color]} ${
+          icon || image ? "nui-has-media" : ""
+        }`}
+        ref={ref}
+      >
+        {icon && !image && (
+          <div className="nui-snack-icon">
+            <Icon icon={icon} name={icon} className="nui-snack-icon-inner" />
+          </div>
+        )}
+        {image && !icon && (
+          <div className="nui-snack-image">
+            <img src={image} className="nui-snack-image-inner" alt="" />
+          </div>
+        )}
+        <span className="nui-snack-text">
+          <slot>{label}</slot>
+        </span>
+        <BaseButtonClose
+          className="nui-snack-button"
+          shape="full"
+          onClick={onClick}
+        />
+      </div>
+    );
+  },
+);

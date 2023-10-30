@@ -1,4 +1,4 @@
-import { FC, ReactNode, forwardRef } from "react";
+import { ReactNode, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 
 interface BaseTagProps {

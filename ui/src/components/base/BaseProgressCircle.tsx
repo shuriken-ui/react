@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { forwardRef } from "react";
 
 type BaseProgressCircleProps = {
   /**
@@ -22,16 +22,18 @@ type BaseProgressCircleProps = {
   thickness?: number;
 };
 
-export const BaseProgressCircle: FC<BaseProgressCircleProps> = ({
-  value: defaultValue = 0,
-  max = 100,
-  size = 60,
-  thickness = 4,
-}) => {
+export const BaseProgressCircle = forwardRef<
+  SVGSVGElement,
+  BaseProgressCircleProps
+>(function BaseProgressCircle(
+  { value: defaultValue = 0, max = 100, size = 60, thickness = 4 },
+  ref,
+) {
   const value = max === 0 ? 0 : (defaultValue / max) * 100;
 
   return (
     <svg
+      ref={ref}
       role="progressbar"
       aria-valuenow={value}
       aria-valuemax={max}
@@ -60,7 +62,7 @@ export const BaseProgressCircle: FC<BaseProgressCircleProps> = ({
       />
     </svg>
   );
-};
+});
 
 // TODO: STYLES
 // <style scoped>

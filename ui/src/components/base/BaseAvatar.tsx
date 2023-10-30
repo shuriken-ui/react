@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { forwardRef } from "react";
 import { PolymorphicComponentProps } from "src/types";
 import { useConfig } from "../../Provider";
 
@@ -112,23 +112,27 @@ const maskStyle = {
   diamond: "nui-mask-diamond",
 };
 
-export const BaseAvatar: FC<
+export const BaseAvatar = forwardRef<
+  HTMLDivElement,
   PolymorphicComponentProps<"img", BaseAvatarProps>
-> = ({
-  src,
-  as: Component = "img",
-  srcDark,
-  text = "?",
-  badgeSrc,
-  size = "sm",
-  shape: defaultShape,
-  mask,
-  className: classes = "",
-  dot = false,
-  ring = false,
-  alt = "",
-  ...props
-}) => {
+>(function BaseAvatar(
+  {
+    src,
+    as: Component = "img",
+    srcDark,
+    text = "?",
+    badgeSrc,
+    size = "sm",
+    shape: defaultShape,
+    mask,
+    className: classes = "",
+    dot = false,
+    ring = false,
+    alt = "",
+    ...props
+  },
+  ref,
+) {
   const config = useConfig();
 
   const shape = defaultShape ?? config.defaultShapes.avatar;
@@ -143,6 +147,7 @@ export const BaseAvatar: FC<
           ? `nui-avatar-ring ${ringStyle.primary}`
           : `nui-avatar-ring  ${ring ? ringStyle[ring] : ""}`
       } `}
+      ref={ref}
     >
       <div className="nui-avatar-inner">
         {src && (
@@ -181,4 +186,4 @@ export const BaseAvatar: FC<
       )}
     </div>
   );
-};
+});

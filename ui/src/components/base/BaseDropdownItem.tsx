@@ -1,5 +1,5 @@
 import { Menu } from "@headlessui/react";
-import { FC, ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 import { useNinjaButton } from "../../hooks/use-ninja-button";
 
 type BaseDropdownItemProps = {
@@ -81,22 +81,31 @@ const colorStyle = {
   contrast: "nui-item-contrast",
 };
 
-export const BaseDropdownItem: FC<BaseDropdownItemProps> = ({
-  title,
-  text,
-  shape,
-  color = "default",
-  disabled = false,
-  start,
-  end,
-  classes = {
-    title:
-      "font-heading text-muted-800 text-xs font-semibold leading-tight dark:text-white",
-    text: "text-muted-400 font-sans text-xs",
+export const BaseDropdownItem = forwardRef<
+  HTMLAnchorElement | HTMLButtonElement,
+  BaseDropdownItemProps
+>(function BaseDropdownItem(
+  {
+    title,
+    text,
+    shape,
+    color = "default",
+    disabled = false,
+    start,
+    end,
+    classes = {
+      title:
+        "font-heading text-muted-800 text-xs font-semibold leading-tight dark:text-white",
+      text: "text-muted-400 font-sans text-xs",
+    },
+    ...props
   },
-  ...props
-}) => {
-  const { is: Component, attributes } = useNinjaButton({ ...props, disabled });
+  ref,
+) {
+  const { is: Component, attributes } = useNinjaButton({
+    ...props,
+    disabled,
+  });
 
   return (
     <Menu.Item as="div">
@@ -107,6 +116,7 @@ export const BaseDropdownItem: FC<BaseDropdownItemProps> = ({
           } ${colorStyle[color]}`}
           onClick={close}
           {...attributes}
+          ref={ref}
         >
           {start && start}
           <div className="nui-item-content">
@@ -118,4 +128,4 @@ export const BaseDropdownItem: FC<BaseDropdownItemProps> = ({
       )}
     </Menu.Item>
   );
-};
+});

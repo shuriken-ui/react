@@ -1,13 +1,15 @@
-import { FC, HTMLAttributes } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 
-export const BaseButtonGroup: FC<HTMLAttributes<HTMLDivElement>> = ({
-  className: classes = "",
-  children,
-  ...props
-}) => {
+export const BaseButtonGroup = forwardRef<
+  HTMLDivElement,
+  HTMLAttributes<HTMLDivElement>
+>(function BaseButtonGroup(
+  { className: classes = "", children, ...props },
+  ref,
+) {
   return (
-    <div className={`nui-button-group ${classes}`} {...props}>
+    <div className={`nui-button-group ${classes}`} {...props} ref={ref}>
       {children}
     </div>
   );
-};
+});

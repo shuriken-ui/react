@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 
 type BaseCardProps = HTMLAttributes<HTMLDivElement> & {
@@ -53,29 +53,35 @@ const colorStyle = {
   none: "",
 };
 
-export const BaseCard: FC<BaseCardProps> = ({
-  shape: defaultShape,
-  elevated = false,
-  elevatedHover = false,
-  color = "white",
-  className: classes = "",
-  children,
-  ...props
-}) => {
-  const config = useConfig();
+export const BaseCard = forwardRef<HTMLDivElement, BaseCardProps>(
+  function BaseCard(
+    {
+      shape: defaultShape,
+      elevated = false,
+      elevatedHover = false,
+      color = "white",
+      className: classes = "",
+      children,
+      ...props
+    },
+    ref,
+  ) {
+    const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.card;
+    const shape = defaultShape ?? config.defaultShapes.card;
 
-  return (
-    <div
-      className={`nui-card  ${shape && shapeStyle[shape]} ${
-        colorStyle[color]
-      }  ${elevated ? "nui-card-shadow" : ""}  ${
-        elevatedHover ? "nui-card-shadow-hover" : ""
-      } ${classes}`}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-};
+    return (
+      <div
+        className={`nui-card  ${shape && shapeStyle[shape]} ${
+          colorStyle[color]
+        }  ${elevated ? "nui-card-shadow" : ""}  ${
+          elevatedHover ? "nui-card-shadow-hover" : ""
+        } ${classes}`}
+        {...props}
+        ref={ref}
+      >
+        {children}
+      </div>
+    );
+  },
+);

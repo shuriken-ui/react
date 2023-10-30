@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import { forwardRef, useMemo } from "react";
 import { useConfig } from "../../Provider";
 
 interface BaseProgressProps {
@@ -62,43 +62,51 @@ const sizeStyle = {
   xl: "nui-progress-xl",
 };
 
-export const BaseProgress: FC<BaseProgressProps> = ({
-  color = "primary",
-  contrast = "default",
-  shape: defaultShape,
-  size = "sm",
-  value: currentValue,
-  max = 100,
-}) => {
-  const config = useConfig();
+export const BaseProgress = forwardRef<HTMLDivElement, BaseProgressProps>(
+  function BaseProgress(
+    {
+      color = "primary",
+      contrast = "default",
+      shape: defaultShape,
+      size = "sm",
+      value: currentValue,
+      max = 100,
+    },
+    ref,
+  ) {
+    const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.progress;
+    const shape = defaultShape ?? config.defaultShapes.progress;
 
-  const value = useMemo(() => {
-    if (max === 0) {
-      return 0;
-    }
+    const value = useMemo(() => {
+      if (max === 0) {
+        return 0;
+      }
 
-    return typeof currentValue === "number" ? (currentValue / max) * 100 : null;
-  }, [currentValue, max]);
+      return typeof currentValue === "number"
+        ? (currentValue / max) * 100
+        : null;
+    }, [currentValue, max]);
 
-  return (
-    <div
-      role="progressbar"
-      aria-valuenow={value || undefined}
-      aria-valuemax={max}
-      className={`nui-progress ${contrastStyle[contrast]} ${
-        colorStyle[color]
-      } ${sizeStyle[size]} ${shape ? shapeStyle[shape] : ""}`}
-    >
+    return (
       <div
-        className={`nui-progress-bar ${
-          value === null
-            ? "nui-progress-indeterminate animate-nui-progress-indeterminate"
-            : ""
-        } `}
-        style={{ width: value !== null ? `${value}%` : "100%" }}
-      />
-    </div>
-  );
-};
+        role="progressbar"
+        aria-valuenow={value || undefined}
+        aria-valuemax={max}
+        className={`nui-progress ${contrastStyle[contrast]} ${
+          colorStyle[color]
+        } ${sizeStyle[size]} ${shape ? shapeStyle[shape] : ""}`}
+        ref={ref}
+      >
+        <div
+          className={`nui-progress-bar ${
+            value === null
+              ? "nui-progress-indeterminate animate-nui-progress-indeterminate"
+              : ""
+          } `}
+          style={{ width: value !== null ? `${value}%` : "100%" }}
+        />
+      </div>
+    );
+  },
+);
