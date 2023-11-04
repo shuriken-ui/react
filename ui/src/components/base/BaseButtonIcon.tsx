@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
 import { useNinjaButton } from "../../hooks/use-ninja-button";
@@ -90,18 +90,24 @@ const colorStyle = {
   none: "",
 };
 
-export const BaseButtonIcon: FC<BaseButtonIconProps> = ({
-  color = "default",
-  shape: defaultShape,
+export const BaseButtonIcon = forwardRef<
+  HTMLAnchorElement & HTMLButtonElement,
+  BaseButtonIconProps
+>(function BaseButtonIcon(
+  {
+    color = "default",
+    shape: defaultShape,
 
-  rel = "",
-  target = "",
-  loading = false,
-  size = "md",
-  className: classes = "",
-  children,
-  ...props
-}) => {
+    rel = "",
+    target = "",
+    loading = false,
+    size = "md",
+    className: classes = "",
+    children,
+    ...props
+  },
+  ref,
+) {
   const { is: Component, attributes } = useNinjaButton({
     ...props,
     rel,
@@ -118,8 +124,9 @@ export const BaseButtonIcon: FC<BaseButtonIconProps> = ({
         shape ? shapeStyle[shape] : ""
       } ${sizeStyle[size]} ${colorStyle[color]} ${classes}`}
       {...attributes}
+      ref={ref}
     >
       {loading ? <BasePlaceload className="h-4 w-4 rounded-md" /> : children}
     </Component>
   );
-};
+});

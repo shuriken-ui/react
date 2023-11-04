@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import { ReactNode, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
 import { useNinjaButton } from "../../hooks/use-ninja-button";
@@ -118,23 +118,28 @@ const shadowStyle = {
   hover: "nui-button-shadow-hover",
 };
 
-export const BaseButton: FC<BaseButtonProps> = ({
-  flavor = "solid",
-  color = "default",
-  size = "md",
-  shape: defaultShape,
-
-  disabled = false,
-  badge = false,
-  badgePulse = false,
-  shadow,
-  rel = "",
-  target = "",
-  className: classes = "",
-  loading,
-  children,
-  ...props
-}) => {
+export const BaseButton = forwardRef<
+  HTMLAnchorElement & HTMLButtonElement,
+  BaseButtonProps
+>(function BaseButton(
+  {
+    flavor = "solid",
+    color = "default",
+    size = "md",
+    shape: defaultShape,
+    disabled = false,
+    badge = false,
+    badgePulse = false,
+    shadow,
+    rel = "",
+    target = "",
+    className: classes = "",
+    loading,
+    children,
+    ...props
+  },
+  ref,
+) {
   const { is: Component, attributes } = useNinjaButton({
     ...props,
     rel,
@@ -159,6 +164,7 @@ export const BaseButton: FC<BaseButtonProps> = ({
         colorStyle[color]
       } ${shadow ? shadowStyle[shadow] : ""} ${classes}`}
       {...attributes}
+      ref={ref}
     >
       {!loading && children}
       {loading && <BasePlaceload className="h-4 w-12 rounded" />}
@@ -170,4 +176,4 @@ export const BaseButton: FC<BaseButtonProps> = ({
       )}
     </Component>
   );
-};
+});

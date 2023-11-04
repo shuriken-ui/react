@@ -82,7 +82,7 @@ const colorStyle = {
 };
 
 export const BaseDropdownItem = forwardRef<
-  HTMLAnchorElement | HTMLButtonElement,
+  HTMLAnchorElement & HTMLButtonElement,
   BaseDropdownItemProps
 >(function BaseDropdownItem(
   {
@@ -116,6 +116,7 @@ export const BaseDropdownItem = forwardRef<
           } ${colorStyle[color]}`}
           onClick={close}
           {...attributes}
+          // TODO: fix ref typing
           ref={ref}
         >
           {start && start}
