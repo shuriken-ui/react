@@ -1,5 +1,5 @@
-import { ElementType } from "react";
-import { PolymorphicComponentPropsWithRef } from "../../types";
+import { ElementType, forwardRef } from "react";
+import { PolymorphicComponentProps, PolymorphicRef } from "../../types";
 
 type BaseParagraphProps<E extends ElementType = "p"> = {
   /**
@@ -70,23 +70,29 @@ const leadStyle = {
   loose: "nui-lead-loose",
 };
 
-export const BaseParagraph = <E extends ElementType = "p">({
-  as: element,
-  size = "md",
-  weight = "normal",
-  lead = "normal",
-  children,
-  className: classes = "",
-  ...props
-}: PolymorphicComponentPropsWithRef<E, BaseParagraphProps<E>>) => {
+export const BaseParagraph = forwardRef(function BaseParagraph<
+  E extends ElementType = "p",
+>(
+  {
+    as: element,
+    size = "md",
+    weight = "normal",
+    lead = "normal",
+    className: classes = "",
+    children,
+    ...props
+  }: PolymorphicComponentProps<E, BaseParagraphProps<E>>,
+  ref: PolymorphicRef<E>,
+) {
   const Component = element || "p";
 
   return (
     <Component
       className={`nui-paragraph ${sizeStyle[size]} ${weightStyle[weight]} ${leadStyle[lead]} ${classes}`}
       {...props}
+      ref={ref}
     >
       {children}
     </Component>
   );
-};
+});

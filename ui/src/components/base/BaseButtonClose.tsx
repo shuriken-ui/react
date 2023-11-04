@@ -1,8 +1,8 @@
-import { ButtonHTMLAttributes, FC } from "react";
+import { ButtonHTMLAttributes, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { IconClose } from "../icons/IconClose";
 
-interface BaseButtonCloseProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+type BaseButtonCloseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
    * The shape of the button.
    */
@@ -20,7 +20,7 @@ interface BaseButtonCloseProps extends ButtonHTMLAttributes<HTMLButtonElement> {
     | "warning"
     | "danger"
     | "none";
-}
+};
 
 const shapeStyle = {
   straight: "",
@@ -41,12 +41,13 @@ const colorStyle = {
   none: "",
 };
 
-export const BaseButtonClose: FC<BaseButtonCloseProps> = ({
-  shape: defaultShape,
-  color = "default",
-  className: classes = "",
-  ...props
-}) => {
+export const BaseButtonClose = forwardRef<
+  HTMLButtonElement,
+  BaseButtonCloseProps
+>(function BaseButtonClose(
+  { shape: defaultShape, color = "default", className: classes = "", ...props },
+  ref,
+) {
   const config = useConfig();
 
   const shape = defaultShape ?? config.defaultShapes.buttonClose;
@@ -58,8 +59,9 @@ export const BaseButtonClose: FC<BaseButtonCloseProps> = ({
         colorStyle[color]
       } ${classes}`}
       {...props}
+      ref={ref}
     >
       <IconClose className="nui-button-icon" />
     </button>
   );
-};
+});
