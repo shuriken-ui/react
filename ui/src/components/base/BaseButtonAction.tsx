@@ -1,6 +1,6 @@
 import { ReactNode, forwardRef } from "react";
 import { BasePlaceload, useConfig } from "src";
-import { useNinjaButton } from "../../hooks/use-ninja-button";
+import { useNinjaButton } from "../../hooks/useNinjaButton";
 
 type BaseButtonActionProps = {
   /**

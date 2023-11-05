@@ -1,6 +1,6 @@
 import { Menu } from "@headlessui/react";
 import { ReactNode, forwardRef } from "react";
-import { useNinjaButton } from "../../hooks/use-ninja-button";
+import { useNinjaButton } from "../../hooks/useNinjaButton";
 
 type BaseDropdownItemProps = {
   /**

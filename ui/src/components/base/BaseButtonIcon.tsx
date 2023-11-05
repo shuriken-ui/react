@@ -1,7 +1,7 @@
 import { HTMLAttributes, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
-import { useNinjaButton } from "../../hooks/use-ninja-button";
+import { useNinjaButton } from "../../hooks/useNinjaButton";
 
 type BaseButtonIconProps = HTMLAttributes<HTMLDivElement> & {
   /**
