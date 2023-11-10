@@ -1,8 +1,8 @@
 {
-  "name": "tsup-react-library-starter",
+  "name": "shuriken-ui",
   "private": true,
   "version": "1.0.0",
-  "description": "Tsup React library starter",
+  "description": "",
   "scripts": {
     "install:all": "pnpm -r install",
     "watch": "pnpm --filter=@shuriken-ui/react dev",

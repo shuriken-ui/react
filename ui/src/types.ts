@@ -1,45 +1,49 @@
-import {
-  ComponentPropsWithRef,
-  ComponentPropsWithoutRef,
-  ElementType,
-  PropsWithChildren,
-} from "react";
+import { ComponentPropsWithRef, ElementType, PropsWithChildren } from "react";
 
 /** Polymotphic Component Utils */
 
 /**
  * as props util
  */
+
 type AsProp<C extends ElementType> = {
   as?: C;
 };
+
 /**
- * Omit Util
+ * Utility to omit properties from a component's props
  */
+
 type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
+
 /**
  * Polymorphic Component Props
  */
+
 export type PolymorphicComponentProps<
-  C extends ElementType,
+  C extends ElementType = "div",
   Props = object,
 > = PropsWithChildren<Props & AsProp<C>> &
-  Omit<ComponentPropsWithoutRef<C>, PropsToOmit<C, Props>>;
+  Omit<ComponentPropsWithRef<C>, PropsToOmit<C, Props> | "ref">;
 
 /**
- * Ref Util
+ * Utility to extract the ref type for a component
  */
-export type PolymorphicRef<C extends React.ElementType> =
-  React.ComponentPropsWithRef<C>["ref"];
+
+export type PolymorphicRef<C extends ElementType> =
+  ComponentPropsWithRef<C>["ref"];
 
 /**
  * Polymorphic Component Props with Ref
  */
+
 export type PolymorphicComponentPropsWithRef<
-  C extends ElementType,
+  C extends ElementType = "div",
   Props = object,
 > = PropsWithChildren<Props & AsProp<C>> &
   Omit<ComponentPropsWithRef<C>, PropsToOmit<C, Props>>;
+
+/** ********************************************************************* */
 
 /**
  * Config
