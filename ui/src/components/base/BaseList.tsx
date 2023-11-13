@@ -1,4 +1,4 @@
-import { ReactNode, forwardRef } from "react";
+import { FC, ReactNode } from "react";
 
 type BaseListProps = {
   /**
@@ -14,10 +14,11 @@ type BaseListProps = {
   children?: ReactNode;
 };
 
-export const BaseList = forwardRef(function BaseList(
-  { ordered = false, media, children }: BaseListProps,
-  ref,
-) {
+export const BaseList: FC<BaseListProps> = ({
+  ordered = false,
+  media,
+  children,
+}) => {
   const Component = ordered ? "ol" : "ul";
 
   const orderedClasses = ordered ? "nui-list-ol" : "nui-list-ul";
@@ -33,4 +34,4 @@ export const BaseList = forwardRef(function BaseList(
       {children}
     </Component>
   );
-});
+};
