@@ -4,6 +4,8 @@ export * from "./icons";
  * Base Components
  */
 
+export * from "./base/BaseList";
+
 export * from "./base/BaseProgressCircle";
 
 export * from "./base/BaseAvatar";
