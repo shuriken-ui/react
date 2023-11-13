@@ -8,6 +8,8 @@ export * from "./base/BaseProgressCircle";
 
 export * from "./base/BaseAvatar";
 
+export * from "./base/BaseAvatarGroup";
+
 export * from "./base/BaseButtonAction";
 
 export * from "./base/BaseButtonGroup";
