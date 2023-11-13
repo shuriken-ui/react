@@ -3,6 +3,7 @@ export * from "./icons";
 /**
  * Base Components
  */
+export * from "./base/BaseThemeSwitch";
 
 export * from "./base/BaseList";
 
