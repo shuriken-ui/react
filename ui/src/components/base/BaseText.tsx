@@ -1,39 +1,35 @@
-import { ReactNode, forwardRef } from "react";
+import { HTMLAttributes, PropsWithChildren, forwardRef } from "react";
 
-interface BaseTextProps {
-  /**
-   * children
-   */
-  children: ReactNode;
+type BaseTextProps = HTMLAttributes<HTMLParagraphElement> &
+  PropsWithChildren<{
+    /**
+     * The size of the text.
+     */
+    size?:
+      | "xs"
+      | "sm"
+      | "md"
+      | "lg"
+      | "xl"
+      | "2xl"
+      | "3xl"
+      | "4xl"
+      | "5xl"
+      | "6xl"
+      | "7xl"
+      | "8xl"
+      | "9xl";
 
-  /**
-   * The size of the text.
-   */
-  size?:
-    | "xs"
-    | "sm"
-    | "md"
-    | "lg"
-    | "xl"
-    | "2xl"
-    | "3xl"
-    | "4xl"
-    | "5xl"
-    | "6xl"
-    | "7xl"
-    | "8xl"
-    | "9xl";
+    /**
+     * The weight of the text.
+     */
+    weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
 
-  /**
-   * The weight of the text.
-   */
-  weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
-
-  /**
-   * The lead of the text.
-   */
-  lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
-}
+    /**
+     * The lead of the text.
+     */
+    lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
+  }>;
 
 const sizeStyle = {
   xs: "nui-content-xs",
