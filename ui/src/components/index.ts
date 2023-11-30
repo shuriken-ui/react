@@ -74,3 +74,5 @@ export * from "./form/BaseTextarea";
 export * from "./form/BaseTreeSelectItem";
 
 export * from "./form/BaseInput";
+
+export * from "./form/BaseRadio";
