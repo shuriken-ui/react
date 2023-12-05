@@ -1,8 +1,9 @@
+import { Ref, forwardRef } from "react";
 import { PolymorphicComponentProps } from "../../types";
 
 type Headings = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "p";
 
-type HeadingProps<E extends Headings = "p"> = {
+type HeadingProps<E extends Headings> = {
   /**
    * The heading element to use (e.g. 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'span' | 'p').
    */
@@ -71,25 +72,30 @@ const leadStyle = {
   loose: "nui-lead-loose",
 };
 
-// TODO: use forwardRef
-
-export const BaseHeading = <E extends Headings = "p">({
-  as: element,
-  size = "xl",
-  weight = "semibold",
-  lead = "normal",
-  className: classes = "",
-  children,
-  ...props
-}: PolymorphicComponentProps<E, HeadingProps<E>>) => {
+export const BaseHeading = forwardRef(function BaseHeading<
+  E extends Headings = "p",
+>(
+  {
+    as: element,
+    size = "xl",
+    weight = "semibold",
+    lead = "normal",
+    className: classes = "",
+    children,
+    ...props
+  }: PolymorphicComponentProps<E, HeadingProps<E>>,
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ref: Ref<any>,
+) {
   const Component = element || "p";
 
   return (
     <Component
       className={`nui-heading ${sizeStyle[size]} ${weightStyle[weight]} ${leadStyle[lead]} ${classes}`}
       {...props}
+      ref={ref}
     >
       {children}
     </Component>
   );
-};
+});
