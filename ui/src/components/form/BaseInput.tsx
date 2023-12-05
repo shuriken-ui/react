@@ -12,7 +12,7 @@ type BaseInputProps = {
    * @param {string | number} value - The new value of the input.
    * @returns {void}
    */
-  onChange: (value: string | number) => void;
+  onChange?: (value: string | number) => void;
 
   /**
    * Used internaly to allow .number, .trim
@@ -150,7 +150,7 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   function BaseInput(
     {
       stateModifiers,
-      onChange = (val) => {},
+
       type = "text",
       size = "md",
       contrast = "default",
@@ -185,11 +185,11 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
 
     function handleUpdate(value: string) {
       if (stateModifiers?.trim) {
-        onChange(value.trim());
+        props.onChange?.(value.trim());
       } else if (stateModifiers?.number) {
-        onChange(looseToNumber(value));
+        props.onChange?.(looseToNumber(value));
       } else {
-        onChange(value);
+        props.onChange?.(value);
       }
     }
 
