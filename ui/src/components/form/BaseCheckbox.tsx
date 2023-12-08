@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { cn } from "../../utils";
 import { useConfig } from "../../Provider";
 import { useNinjaId } from "../../hooks/useNinjaId";
@@ -19,17 +19,17 @@ type BaseCheckboxProps = {
   /**
    * The value to set when the checkbox is checked.
    */
-  //   trueValue?: T; TODO:
+  trueValue?: string;
 
   /**
    * The value to set when the checkbox is unchecked.
    */
-  //   falseValue?: T;
+  falseValue?: string;
 
   /**
-   * The model value of the checkbox.
+   * The value of the component.
    */
-  //   modelValue?: T | T[];
+  onChange?: (value: string) => void;
 
   /**
    * The form input identifier.
@@ -107,16 +107,40 @@ const colorStyle = {
   danger: "nui-checkbox-danger",
 };
 
-export const BaseCheckbox = forwardRef<HTMLInputElement, BaseCheckboxProps>(
+export type BaseCheckboxRef = {
+  el: HTMLInputElement | null;
+};
+
+export const BaseCheckbox = forwardRef<BaseCheckboxRef, BaseCheckboxProps>(
   function BaseCheckbox(
-    { error = "", /* TODO: trueValue = true, falseValue = false, */ ...props },
+    { error = "", trueValue, falseValue, onChange = () => {}, ...props },
     ref,
   ) {
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const config = useConfig();
 
     const shape = props.shape ?? config.defaultShapes?.input;
 
     const id = useNinjaId(() => props.id);
+
+    useEffect(() => {
+      if (inputRef.current) {
+        inputRef.current.indeterminate = props.indeterminate || false;
+      }
+    }, [props.indeterminate]);
+
+    useImperativeHandle(
+      ref,
+      () => {
+        return {
+          get el() {
+            return inputRef.current;
+          },
+        };
+      },
+      [],
+    );
 
     return (
       <div
@@ -131,13 +155,12 @@ export const BaseCheckbox = forwardRef<HTMLInputElement, BaseCheckboxProps>(
         <div className="nui-checkbox-outer">
           <input
             id={id}
-            ref={ref}
+            ref={inputRef}
             value={props.value}
-            // trueValue={trueValue} TODO:
-            // falseValue={falseValue}
             disabled={props.disabled}
             className={cn("nui-checkbox-input", props.classes?.input)}
             type="checkbox"
+            onChange={(e) => onChange(e.target.value)}
           />
           <div className="nui-checkbox-inner" />
           <IconCheck className="nui-icon-check" />
