@@ -150,7 +150,6 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   function BaseInput(
     {
       stateModifiers,
-
       type = "text",
       size = "md",
       contrast = "default",
