@@ -45,6 +45,7 @@ export type PolymorphicComponentPropsWithRef<
 
 /** ********************************************************************* */
 
+export type ColorMode = "system" | "dark" | "light";
 /**
  * Config
  */

@@ -1,5 +1,12 @@
-import { FC, ReactNode, createContext, useContext, useMemo } from "react";
-import { Config } from "./types";
+import {
+  FC,
+  ReactNode,
+  createContext,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
+import { ColorMode, Config } from "./types";
 
 export const defaultConfig: Config = {
   defaultShapes: {
@@ -123,6 +130,31 @@ export const useConfig = () => {
   return config;
 };
 
+export const useTheme = () => {
+  const [colorMode, setColorMode] = useState<{
+    preference: ColorMode;
+    value: Omit<ColorMode, "system">;
+  }>({ preference: "system", value: "dark" });
+
+  return { colorMode, setColorMode };
+};
+
+type ThemeContextType = ReturnType<typeof useTheme>;
+
+const ThemeContext = createContext<ThemeContextType | null>(null);
+
+export const useThemeContext = () => {
+  const ctx = useContext(ThemeContext);
+
+  if (!ctx) {
+    throw new Error(
+      "Ensure useThemeContext is used within <ShurikenUIProvider>",
+    );
+  }
+
+  return ctx;
+};
+
 export const ShurikenUIProvider: FC<{
   children: ReactNode;
   options?: Partial<Config>;
@@ -133,6 +165,10 @@ export const ShurikenUIProvider: FC<{
   );
 
   return (
-    <ConfigContext.Provider value={config}>{children}</ConfigContext.Provider>
+    <ConfigContext.Provider value={config}>
+      <ThemeContext.Provider value={useTheme()}>
+        {children}
+      </ThemeContext.Provider>
+    </ConfigContext.Provider>
   );
 };
