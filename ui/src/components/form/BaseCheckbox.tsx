@@ -160,7 +160,16 @@ export const BaseCheckbox = forwardRef<BaseCheckboxRef, BaseCheckboxProps>(
             disabled={props.disabled}
             className={cn("nui-checkbox-input", props.classes?.input)}
             type="checkbox"
-            onChange={(e) => onChange(e.target.value)}
+            checked={props.value === trueValue}
+            onChange={(e) => {
+              if (trueValue && falseValue) {
+                onChange(e.target.checked ? trueValue : falseValue);
+
+                return;
+              }
+
+              onChange(e.target.value);
+            }}
           />
           <div className="nui-checkbox-inner" />
           <IconCheck className="nui-icon-check" />
