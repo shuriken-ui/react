@@ -5,15 +5,17 @@ import {
   useRef,
   useState,
 } from "react";
-import { useNinjaId } from "../../hooks/useNinjaId";
-import { IconCheckCircle } from "../icons/IconCheckCircle";
-import { cn } from "../../utils";
+import { useNinjaId } from "../../../hooks/useNinjaId";
+import { IconCheckCircle } from "../../icons/IconCheckCircle";
+import { cn } from "../../../utils";
+
+import "./CheckboxAnimated.css";
 
 type BaseCheckboxAnimatedProps = {
   /**
    * The value of the component.
    */
-  value?: "string";
+  value?: string;
 
   /**
    * The form input identifier.
@@ -28,12 +30,12 @@ type BaseCheckboxAnimatedProps = {
   /**
    * The value to set when the component is checked.
    */
-  trueValue?: "string";
+  trueValue?: string;
 
   /**
    * The value to set when the component is unchecked.
    */
-  falseValue?: "string";
+  falseValue?: string;
 
   /** The color of the checkbox. Can be 'default', 'primary', 'info', 'success', 'warning', or 'danger' */
   color?:
@@ -93,11 +95,14 @@ export const BaseCheckboxAnimated = forwardRef<
       label: [],
       input: [],
     },
+    value = "",
+    trueValue = "",
+    falseValue = "",
     ...props
   },
   ref,
 ) {
-  const [inputValue, setInputValue] = useState<string | undefined>(props.value);
+  const [inputValue, setInputValue] = useState<string | undefined>(value);
 
   const id = useNinjaId(() => props.id);
 
@@ -108,9 +113,9 @@ export const BaseCheckboxAnimated = forwardRef<
   const innerElementRef = useRef<HTMLDivElement>(null);
 
   const isChecked =
-    props.value !== undefined &&
-    inputValue === props.trueValue &&
-    inputValue !== props.falseValue;
+    value !== undefined &&
+    inputValue === trueValue &&
+    inputValue !== falseValue;
 
   useImperativeHandle(
     ref,
@@ -128,15 +133,12 @@ export const BaseCheckboxAnimated = forwardRef<
     [],
   );
 
-  function handleChange(value: string) {
-    // TODO: handle onChange
-    if (value === props.trueValue) {
-      setInputValue(props.falseValue);
+  function handleChange(val: string) {
+    const checkValue = val === trueValue ? falseValue : trueValue;
 
-      return;
-    }
+    onChange(checkValue);
 
-    setInputValue(props.trueValue);
+    setInputValue(checkValue);
   }
 
   useEffect(() => {
