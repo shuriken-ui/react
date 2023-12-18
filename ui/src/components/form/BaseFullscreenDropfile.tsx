@@ -27,12 +27,15 @@ type BaseFullscreenDropfileProps = {
 export const BaseFullscreenDropfile = forwardRef<
   HTMLDivElement,
   BaseFullscreenDropfileProps
->(function BaseFullscreenDropfile({
-  icon = "",
-  label = "Drop your files",
-  filterFileDropped = () => true,
-  onFilesDropped = () => {},
-}) {
+>(function BaseFullscreenDropfile(
+  {
+    icon = "",
+    label = "Drop your files",
+    filterFileDropped = () => true,
+    onFilesDropped = () => {},
+  },
+  ref,
+) {
   const [isDropping, setIsDropping] = useState(false);
 
   const dragCount = useRef(0);
@@ -99,7 +102,7 @@ export const BaseFullscreenDropfile = forwardRef<
   }, [onDrop]);
 
   return (
-    <div className="nui-fullscreen-dropfile">
+    <div className="nui-fullscreen-dropfile" ref={ref}>
       {isDropping && <div className="nui-fullscreen-dropfile-outer" />}
       {isDropping && (
         <div className="nui-fullscreen-dropfile-inner">
