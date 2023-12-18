@@ -1,17 +1,13 @@
-import { ReactNode, forwardRef } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import { useConfig } from "../../Provider";
+import { cn } from "../../utils";
 
-interface BaseProseProps {
-  /**
-   * children
-   */
-  children: ReactNode;
-
+type BaseProseProps = HTMLAttributes<HTMLDivElement> & {
   /**
    * Inner elements shapes.
    */
   shape?: "straight" | "rounded" | "curved";
-}
+};
 
 const shapeStyle = {
   straight: "nui-prose-straight",
@@ -21,13 +17,19 @@ const shapeStyle = {
 };
 
 export const BaseProse = forwardRef<HTMLDivElement, BaseProseProps>(
-  function BaseProse({ shape: defaultShape, children }, ref) {
+  function BaseProse(
+    { shape: defaultShape, children, className: classes },
+    ref,
+  ) {
     const config = useConfig();
 
     const shape = defaultShape ?? config.defaultShapes.progress;
 
     return (
-      <div className={`nui-prose ${shape ? shapeStyle[shape] : ""}`} ref={ref}>
+      <div
+        className={cn("nui-prose", shape && shapeStyle[shape], classes)}
+        ref={ref}
+      >
         {children}
       </div>
     );
