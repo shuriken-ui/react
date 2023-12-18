@@ -1,6 +1,7 @@
 import { forwardRef, useEffect, useRef } from "react";
-import { IconMoon, IconSun } from "../icons";
-import { useColorMode } from "../../hooks/useColorMode";
+import { IconMoon, IconSun } from "../../icons";
+import { useColorMode } from "../../../hooks/useColorMode";
+import "./BaseThemeSwitch.css";
 
 type BaseThemeSwitchProps = {
   /**
@@ -47,7 +48,7 @@ export const BaseThemeSwitch = forwardRef<
         className="nui-theme-switch-input"
         type="checkbox"
         onChange={(e) => handleChange(e.target.checked)}
-        checked={colorMode === "dark"}
+        checked={colorMode.value === "dark"}
       />
       <span className="nui-theme-switch-inner">
         <IconSun className="nui-sun" />
@@ -56,11 +57,3 @@ export const BaseThemeSwitch = forwardRef<
     </label>
   );
 });
-
-// TODO: add this classes globally
-// <style>
-// .nui-no-transition * {
-//   transition-property: none !important;
-//   transition-duration: 0 !important;
-// }
-// </style>
