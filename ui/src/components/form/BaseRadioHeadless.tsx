@@ -1,7 +1,11 @@
-import React, { InputHTMLAttributes, forwardRef } from "react";
+import React, {
+  InputHTMLAttributes,
+  PropsWithChildren,
+  forwardRef,
+} from "react";
 import { useNinjaId } from "../../hooks/useNinjaId";
 
-type BaseRadioHeadlessProps = InputHTMLAttributes<HTMLInputElement> & {
+type BaseRadioHeadlessProps = PropsWithChildren<{
   /**
    * The form input identifier.
    */
@@ -13,9 +17,9 @@ type BaseRadioHeadlessProps = InputHTMLAttributes<HTMLInputElement> & {
   //   value?: T;
 
   /**
-   * The model value of the radio input.
+   * The value of the radio input.
    */
-  //   modelValue?: T;
+  onChange?: (value: string) => void;
 
   /**
    * The name of the radio input.
@@ -26,13 +30,14 @@ type BaseRadioHeadlessProps = InputHTMLAttributes<HTMLInputElement> & {
    * The label for the radio input.
    */
   label?: string;
-};
+}>;
 
 export const BaseRadioHeadless = forwardRef<
   HTMLInputElement,
-  BaseRadioHeadlessProps
+  BaseRadioHeadlessProps &
+    Omit<InputHTMLAttributes<HTMLInputElement>, keyof BaseRadioHeadlessProps>
 >(function BaseRadioHeadless(
-  { id: Id, label, className, type, ...props },
+  { id: Id, label, className, type, children, onChange = () => {}, ...props },
   ref,
 ) {
   const id = useNinjaId(() => Id);
@@ -53,7 +58,10 @@ export const BaseRadioHeadless = forwardRef<
           type="radio"
           className="peer absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
           {...props}
+          onChange={(e) => onChange(e.target.value)}
         />
+
+        {children}
       </div>
     </div>
   );
