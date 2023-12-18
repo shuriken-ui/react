@@ -10,4 +10,5 @@ export default defineConfig((options) => ({
   external: ["react", "react/jsx-runtime"],
   minify: !options.watch,
   banner: { js: '"use client";' },
+  injectStyle: true,
 }));
