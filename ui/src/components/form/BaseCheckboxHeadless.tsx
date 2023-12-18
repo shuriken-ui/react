@@ -1,7 +1,7 @@
-import { forwardRef } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import { useNinjaId } from "../../hooks/useNinjaId";
 
-type BaseCheckboxHeadlessProps = {
+type BaseCheckboxHeadlessProps = PropsWithChildren<{
   /**
    * The label to display for the checkbox.
    */
@@ -31,12 +31,15 @@ type BaseCheckboxHeadlessProps = {
    * The form input identifier.
    */
   id?: string;
-};
+}>;
 
 export const BaseCheckboxHeadless = forwardRef<
   HTMLInputElement,
   BaseCheckboxHeadlessProps
->(function BaseCheckboxHeadless({ trueValue, falseValue, ...props }, ref) {
+>(function BaseCheckboxHeadless(
+  { trueValue, falseValue, children, ...props },
+  ref,
+) {
   const id = useNinjaId(() => props.id);
 
   return (
@@ -60,6 +63,8 @@ export const BaseCheckboxHeadless = forwardRef<
             props.onChange?.(event.target.value);
           }}
         />
+
+        {children}
       </div>
     </div>
   );
