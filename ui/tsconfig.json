@@ -12,6 +12,6 @@
     "noEmit": true,
     "moduleDetection": "force"
   },
-  "include": [".eslintrc.cjs", "./src/**/*.ts", "./src/**/*.tsx"],
+  "include": [".eslintrc.cjs", "./src/**/*.ts", "./src/**/*.tsx","./tsup.config.ts"],
   "exclude": ["dist", "node_modules"]
 }
