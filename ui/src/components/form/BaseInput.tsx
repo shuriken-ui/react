@@ -15,6 +15,11 @@ type BaseInputProps = {
   onChange?: (value: string | number) => void;
 
   /**
+   * The value of the input.
+   */
+  value?: string | number;
+
+  /**
    * Used internaly to allow .number, .trim
    * and .lazy v-model modifiers.
    */
@@ -225,6 +230,7 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
                 className={cn("nui-input", props.classes?.input)}
                 placeholder={placeholder}
                 onChange={(e) => handleUpdate(e.target.value)}
+                value={props.value}
               />
             ) : (
               <input
@@ -234,6 +240,7 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
                 className={cn("nui-input", props.classes?.input)}
                 placeholder={placeholder}
                 onInput={(e) => handleUpdate(e.currentTarget.value)}
+                value={props.value}
               />
             )}
             {props.label && props.labelFloat && (
