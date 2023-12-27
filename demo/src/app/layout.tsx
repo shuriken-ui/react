@@ -44,6 +44,12 @@ const routes: LinkGroup[] = [
         href: "/tests/form/checkbox",
         description: "Basic custom checkbox and radio",
       },
+      {
+        title: "Input",
+        href: "/tests/form/input",
+        description:
+          "Check how different input sizes look like compared to each other.",
+      },
     ],
   },
 ];
