@@ -60,6 +60,11 @@ const routes: LinkGroup[] = [
         href: "/tests/form/radio",
         description: "SVG icons",
       },
+      {
+        title: "Switch",
+        href: "/tests/form/switch",
+        description: "SVG icons",
+      },
     ],
   },
 ];
