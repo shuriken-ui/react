@@ -37,6 +37,16 @@ const routes: LinkGroup[] = [
     ],
   },
   {
+    title: "Content",
+    links: [
+      {
+        title: "Button Action",
+        href: "/tests/content/button-action",
+        description: "Button variations",
+      },
+    ],
+  },
+  {
     title: "Form",
     links: [
       {
