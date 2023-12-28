@@ -27,6 +27,9 @@ importers:
 
   demo:
     dependencies:
+      '@iconify/react':
+        specifier: ^4.1.1
+        version: 4.1.1(react@18.2.0)
       '@shuriken-ui/react':
         specifier: workspace:^
         version: link:../ui
