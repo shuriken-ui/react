@@ -6,17 +6,14 @@ type BaseRadioProps = InputHTMLAttributes<HTMLInputElement> & {
   /**
    * The form input identifier.
    */
-  //   id?: string;
 
   /**
    * The value of the radio input.
    */
-  //   value?: string;
 
   /**
    * The model value of the radio input.
    */
-  //   modelValue?: T;
 
   /**
    * The label for the radio input.
@@ -85,7 +82,7 @@ export const BaseRadio = forwardRef<HTMLInputElement, BaseRadioProps>(
       error,
       id: radioId,
       className: _,
-      type = "radio",
+      type: __,
       ...props
     },
     ref,
@@ -104,14 +101,13 @@ export const BaseRadio = forwardRef<HTMLInputElement, BaseRadioProps>(
           <input
             id={id}
             ref={ref}
-            type={type}
+            type="radio"
             className="nui-radio-input"
             {...props}
           />
 
-          {classes?.inputBg && <div className="nui-radio-inner" />}
-
-          {classes?.inputDot && <div className="nui-radio-dot" />}
+          <div className={cn("nui-radio-inner", classes?.inputBg)} />
+          <div className={cn("nui-radio-dot", classes?.inputDot)} />
         </div>
         <div className="nui-radio-label-wrapper">
           {label && (
