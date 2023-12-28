@@ -1,0 +1,23 @@
+.block {
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+
+.circle-value {
+  animation-name: circle-chart-fill;
+  animation-duration: var(--duration);
+  /* transform: rotate(-90deg); */
+  transform-origin: center;
+  stroke-dashoffset: 0;
+  animation-timing-function: cubic-bezier(0.78, 0.59, 0.19, 0.33);
+}
+
+@keyframes circle-chart-fill {
+  0% {
+    stroke-dasharray: 0 100;
+  }
+
+  100% {
+    stroke-dasharray: var(--dasharray);
+  }
+}
