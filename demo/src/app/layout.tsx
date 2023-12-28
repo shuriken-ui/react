@@ -44,6 +44,11 @@ const routes: LinkGroup[] = [
         href: "/tests/content/button-action",
         description: "Button variations",
       },
+      {
+        title: "Button Close",
+        href: "/tests/content/button-close",
+        description: "Button Close variations",
+      },
     ],
   },
   {
