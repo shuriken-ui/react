@@ -44,29 +44,29 @@
     "react-dom": ">=18"
   },
   "devDependencies": {
-    "@types/react": "^18.2.15",
-    "@typescript-eslint/eslint-plugin": "^6.8.0",
-    "@typescript-eslint/parser": "^6.8.0",
-    "eslint": "^8.51.0",
+    "@types/react": "^18.2.45",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.56.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^17.1.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-plugin-import": "^2.28.1",
-    "eslint-plugin-jsx-a11y": "^6.7.1",
-    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^5.1.2",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "prettier": "^3.0.3",
+    "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwindcss": "^3.3.3",
+    "tailwindcss": "^3.4.0",
     "tsup": "^7.2.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
-    "@iconify/react": "^4.1.1",
     "@headlessui-float/react": "^0.11.4",
     "@headlessui/react": "^1.7.17",
-    "@shuriken-ui/tailwind": "^1.4.0"
+    "@iconify/react": "^4.1.1",
+    "@shuriken-ui/tailwind": "^1.5.3"
   }
 }

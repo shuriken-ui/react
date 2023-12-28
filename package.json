@@ -18,10 +18,10 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@commitlint/cli": "^17.8.0",
-    "@commitlint/config-conventional": "^17.8.0",
+    "@commitlint/cli": "^17.8.1",
+    "@commitlint/config-conventional": "^17.8.1",
     "husky": "^8.0.3",
-    "lint-staged": "^15.0.2"
+    "lint-staged": "^15.2.0"
   },
   "dependencies": {
     "@shuriken-ui/react": "workspace:^"
