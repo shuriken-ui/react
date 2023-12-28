@@ -14,6 +14,11 @@ type BaseSwitchThinProps = {
   onChange?: (value: boolean) => void;
 
   /**
+   *  The checked state of the switch.
+   */
+  checked?: boolean;
+
+  /**
    * Accessible label of the switch.
    */
   label?: string;
@@ -39,7 +44,7 @@ const colorStyle = {
 
 export const BaseSwitchThin = forwardRef<HTMLInputElement, BaseSwitchThinProps>(
   function BaseSwitchThin(
-    { color = "primary", onChange = () => {}, ...props },
+    { color = "primary", checked, onChange = () => {}, ...props },
     ref,
   ) {
     const id = useNinjaId(() => props.id);
@@ -52,6 +57,7 @@ export const BaseSwitchThin = forwardRef<HTMLInputElement, BaseSwitchThinProps>(
             ref={ref}
             type="checkbox"
             className="nui-switch-thin-input peer"
+            checked={checked}
             onChange={(e) => {
               onChange(e.target.checked);
             }}

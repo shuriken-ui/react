@@ -15,6 +15,11 @@ type BaseSwitchBallProps = {
   onChange?: (value: boolean) => void;
 
   /**
+   *  The checked state of the switch.
+   */
+  checked?: boolean;
+
+  /**
    * Accessible label for the switch.
    */
   label?: string;
@@ -40,7 +45,14 @@ const colorStyle = {
 
 export const BaseSwitchBall = forwardRef<HTMLInputElement, BaseSwitchBallProps>(
   function BaseSitchBall(
-    { color = "primary", label, sublabel, onChange = () => {}, ...props },
+    {
+      color = "primary",
+      label,
+      sublabel,
+      checked,
+      onChange = () => {},
+      ...props
+    },
     ref,
   ) {
     const id = useNinjaId(() => props.id);
@@ -53,6 +65,7 @@ export const BaseSwitchBall = forwardRef<HTMLInputElement, BaseSwitchBallProps>(
             ref={ref}
             type="checkbox"
             className="nui-switch-ball-input peer"
+            checked={checked}
             onChange={(e) => {
               onChange(e.target.checked);
             }}
