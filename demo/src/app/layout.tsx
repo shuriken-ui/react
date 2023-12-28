@@ -55,6 +55,11 @@ const routes: LinkGroup[] = [
         href: "/tests/form/progress",
         description: "Progress component",
       },
+      {
+        title: "Radio",
+        href: "/tests/form/radio",
+        description: "SVG icons",
+      },
     ],
   },
 ];
