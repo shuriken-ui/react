@@ -50,6 +50,11 @@ const routes: LinkGroup[] = [
         description:
           "Check how different input sizes look like compared to each other.",
       },
+      {
+        title: "Progress",
+        href: "/tests/form/progress",
+        description: "Progress component",
+      },
     ],
   },
 ];
