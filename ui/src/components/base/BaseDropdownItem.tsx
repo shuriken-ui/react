@@ -1,6 +1,7 @@
 import { Menu } from "@headlessui/react";
 import { ReactNode, forwardRef } from "react";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
+import { cn } from "../../utils";
 
 type BaseDropdownItemProps = {
   /**
@@ -111,20 +112,22 @@ export const BaseDropdownItem = forwardRef<
     <Menu.Item as="div">
       {({ active, close }) => (
         <Component
-          className={`nui-dropdown-item ${active ? "nui-active" : ""} ${
-            shape ? shapeStyle[shape] : ""
-          } ${colorStyle[color]}`}
+          className={cn(
+            "nui-dropdown-item",
+            active && "nui-active",
+            shape && shapeStyle[shape],
+            colorStyle[color],
+          )}
           onClick={close}
           {...attributes}
-          // TODO: fix ref typing
           ref={ref}
         >
-          {start && start}
+          {start}
           <div className="nui-item-content">
-            <div className={classes.title as string}>{title}</div>
+            <div className={cn(classes?.title)}>{title}</div>
             {text && <p className="text-muted-400 font-sans text-xs">{text}</p>}
           </div>
-          {end && end}
+          {end}
         </Component>
       )}
     </Menu.Item>

@@ -1,10 +1,11 @@
-import { forwardRef } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { Icon } from "@iconify/react";
 import { useConfig } from "../../Provider";
 import { BaseButton } from "./BaseButton";
+import { cn } from "../../utils";
 
-type BaseDropdownProps = {
+type BaseDropdownProps = PropsWithChildren<{
   /**
    * The flavor of the dropdown.
    */
@@ -46,6 +47,8 @@ type BaseDropdownProps = {
 
   /**
    * The orientation of the dropdown.
+   *
+   * @deprecated use placement instead
    */
   orientation?: "start" | "end";
 
@@ -63,7 +66,7 @@ type BaseDropdownProps = {
    * The header label to display for the dropdown.
    */
   headerLabel?: string;
-};
+}>;
 
 const orientationStyle = {
   start: "nui-dropdown-start",
@@ -103,6 +106,7 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
       buttonColor = "default",
       shape: defaultShape,
       orientation = "start",
+      children,
       size = "md",
       color = "white",
       label = "",
@@ -116,13 +120,13 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
 
     return (
       <div
-        className={`nui-dropdown  ${orientationStyle[orientation]}`}
+        className={cn("nui-dropdown", orientationStyle[orientation])}
         ref={ref}
       >
         <Menu as="div" className="nui-menu">
-          {({ open, close }) => (
+          {({ open }) => (
             <>
-              <Menu.Button as="template">
+              <Menu.Button as="div">
                 {flavor === "button" && (
                   <BaseButton
                     color={buttonColor}
@@ -132,18 +136,17 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
                     <span>{label}</span>
                     <Icon
                       icon="lucide:chevron-down"
-                      className={`nui-chevron ${open ? "rotate-180" : ""}`}
+                      className={cn("nui-chevron", open && "rotate-180")}
                     />
                   </BaseButton>
                 )}
                 {flavor === "context" && (
+                  // eslint-disable-next-line jsx-a11y/control-has-associated-label
                   <button type="button" className="nui-context-button">
                     <span className="nui-context-button-inner">
                       <Icon
                         icon="lucide:more-horizontal"
-                        className={`nui-context-icon ${
-                          open ? "rotate-90" : ""
-                        }`}
+                        className={cn("nui-context-icon", open && "rotate-90")}
                       />
                     </span>
                   </button>
@@ -153,7 +156,7 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
                     <span className="nui-text-button-inner">{label}</span>
                     <Icon
                       icon="lucide:chevron-down"
-                      className={`nui-chevron ${open ? "rotate-180" : ""}`}
+                      className={cn("nui-chevron", open && "rotate-180")}
                     />
                   </button>
                 )}
@@ -167,9 +170,12 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
                 leaveTo="transform scale-95 opacity-0"
               >
                 <Menu.Items
-                  className={`nui-dropdown-menu  ${
-                    shape ? shapeStyle[shape] : ""
-                  } ${sizeStyle[size]} ${colorStyle[color]} `}
+                  className={cn(
+                    "nui-dropdown-menu",
+                    shape && shapeStyle[shape],
+                    sizeStyle[size],
+                    colorStyle[color],
+                  )}
                 >
                   {headerLabel && (
                     <div className="nui-menu-header">
@@ -178,7 +184,7 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
                       </div>
                     </div>
                   )}
-                  <div className="nui-menu-content" />
+                  <div className="nui-menu-content">{children}</div>
                 </Menu.Items>
               </Transition>
             </>
