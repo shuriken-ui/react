@@ -1,7 +1,8 @@
-import { ReactNode, forwardRef } from "react";
+import { HTMLAttributes, forwardRef } from "react";
 import { useConfig } from "src";
+import { cn } from "../../utils";
 
-type BaseIconBoxProps = {
+type BaseIconBoxProps = HTMLAttributes<HTMLDivElement> & {
   /**
    * The shape of the icon.
    */
@@ -34,11 +35,6 @@ type BaseIconBoxProps = {
    * Applies an svg mask from the available presets. (needs shape to be set to `straight`).
    */
   mask?: "hex" | "hexed" | "deca" | "blob" | "diamond";
-
-  /**
-   *  children
-   */
-  children: ReactNode;
 };
 
 const shapeStyle = {
@@ -91,6 +87,7 @@ export const BaseIconBox = forwardRef<HTMLDivElement, BaseIconBoxProps>(
       bordered = false,
       mask,
       children,
+      className: classes,
     },
     ref,
   ) {
@@ -100,11 +97,16 @@ export const BaseIconBox = forwardRef<HTMLDivElement, BaseIconBoxProps>(
 
     return (
       <div
-        className={`nui-icon-box ${bordered ? "nui-box-bordered" : ""} ${
-          shape ? shapeStyle[shape] : ""
-        } ${sizeStyle[size]} ${flavorStyle[flavor]} ${
-          color ? colorStyle[color] : ""
-        } ${mask ? maskStyle[mask] : ""}`}
+        className={cn(
+          "nui-icon-box",
+          bordered && "nui-box-bordered",
+          shape && shapeStyle[shape],
+          sizeStyle[size],
+          flavorStyle[flavor],
+          color && colorStyle[color],
+          mask && maskStyle[mask],
+          classes,
+        )}
         ref={ref}
       >
         {children}
