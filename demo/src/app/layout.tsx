@@ -94,6 +94,11 @@ const routes: LinkGroup[] = [
         href: "/tests/content/skeleton",
         description: "SVG icons",
       },
+      {
+        title: "Snack",
+        href: "/tests/content/snack",
+        description: "Snack details",
+      },
     ],
   },
   {
