@@ -69,6 +69,11 @@ const routes: LinkGroup[] = [
         href: "/tests/content/dropdown",
         description: "Dropdown examples",
       },
+      {
+        title: "Icon Box",
+        href: "/tests/content/icon-box",
+        description: "Box wrappers for icons",
+      },
     ],
   },
   {
