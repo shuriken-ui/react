@@ -150,6 +150,11 @@ const routes: LinkGroup[] = [
         href: "/tests/images/avatar",
         description: "SVG icon",
       },
+      {
+        title: "Icons",
+        href: "/tests/images/icons",
+        description: "SVG icon",
+      },
     ],
   },
 ];
