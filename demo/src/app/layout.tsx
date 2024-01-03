@@ -155,6 +155,11 @@ const routes: LinkGroup[] = [
         href: "/tests/images/icons",
         description: "SVG icon",
       },
+      {
+        title: "Mask",
+        href: "/tests/images/mask",
+        description: "Apply mask to different elements",
+      },
     ],
   },
 ];
