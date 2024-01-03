@@ -79,6 +79,11 @@ const routes: LinkGroup[] = [
         href: "/tests/content/mark",
         description: "Highlight text with a background color.",
       },
+      {
+        title: "Message",
+        href: "/tests/content/message",
+        description: "Base message component",
+      },
     ],
   },
   {
