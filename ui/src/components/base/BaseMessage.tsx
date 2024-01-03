@@ -1,8 +1,9 @@
-import { forwardRef } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import { Icon } from "@iconify/react";
 import { useConfig } from "../../Provider";
+import { cn } from "../../utils";
 
-type BaseMessageProps = {
+type BaseMessageProps = PropsWithChildren<{
   /**
    * The type of the message.
    */
@@ -44,7 +45,7 @@ type BaseMessageProps = {
    * close handler
    */
   onClose?: () => void;
-};
+}>;
 
 const shapeStyle = {
   straight: "",
@@ -84,6 +85,7 @@ export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
       closable = false,
       closeIcon = "lucide:x",
       onClose = () => {},
+      children,
     },
     ref,
   ) {
@@ -96,9 +98,11 @@ export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
 
     return (
       <div
-        className={`nui-message ${shape ? shapeStyle[shape] : ""}  ${
-          typeStyle[type]
-        }`}
+        className={cn(
+          "nui-message",
+          shape && shapeStyle[shape],
+          typeStyle[type],
+        )}
         ref={ref}
       >
         {icon && (
@@ -106,12 +110,16 @@ export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
             <Icon icon={icon} name="icon" className="nui-message-icon" />
           </div>
         )}
-        <span className="nui-message-inner-text">{message}</span>
+        <span className="nui-message-inner-text">
+          {message}
+          {children}
+        </span>
         {closable && (
+          // eslint-disable-next-line jsx-a11y/control-has-associated-label
           <button
             type="button"
             tabIndex={0}
-            className={`nui-message-close ${shape ? shapeStyle[shape] : ""}`}
+            className={cn("nui-message-close", shape && shapeStyle[shape])}
             onClick={onClose}
           >
             <Icon
