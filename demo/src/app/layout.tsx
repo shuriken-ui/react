@@ -142,6 +142,16 @@ const routes: LinkGroup[] = [
       },
     ],
   },
+  {
+    title: "Images",
+    links: [
+      {
+        title: "Avatar",
+        href: "/tests/images/avatar",
+        description: "SVG icon",
+      },
+    ],
+  },
 ];
 
 export default function RootLayout({
