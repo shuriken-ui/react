@@ -99,6 +99,11 @@ const routes: LinkGroup[] = [
         href: "/tests/content/snack",
         description: "Snack details",
       },
+      {
+        title: "Tag",
+        href: "/tests/content/tag",
+        description: "Tag variations",
+      },
     ],
   },
   {
