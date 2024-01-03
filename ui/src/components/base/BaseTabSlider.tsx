@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import { useConfig } from "../../Provider";
+import { cn } from "../../utils";
 
 interface BaseTabSliderProps {
   /**
@@ -93,11 +94,13 @@ export const BaseTabSlider = forwardRef<HTMLDivElement, BaseTabSliderProps>(
 
     return (
       <div
-        className={`nui-tab-slider ${justify ? justifyStyle[justify] : ""} ${
-          shape ? shapeStyle[shape] : ""
-        } ${sizeStyle[size]} ${
-          tabsLength === 2 ? "nui-tabs-two-slots" : "nui-tabs-three-slots"
-        }`}
+        className={cn(
+          "nui-tab-slider",
+          justify && justifyStyle[justify],
+          shape && shapeStyle[shape],
+          sizeStyle[size],
+          tabsLength === 2 ? "nui-tabs-two-slots" : "nui-tabs-three-slots",
+        )}
         ref={ref}
       >
         <div className="nui-tab-slider-inner">
@@ -122,7 +125,6 @@ export const BaseTabSlider = forwardRef<HTMLDivElement, BaseTabSliderProps>(
             {activeValue && <div className="nui-tab-slider-naver" />}
           </div>
         </div>
-        {/* // TODO: */}
         <div className="nui-tab-content">{activeValue}</div>
       </div>
     );
