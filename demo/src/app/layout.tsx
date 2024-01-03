@@ -104,6 +104,11 @@ const routes: LinkGroup[] = [
         href: "/tests/content/tag",
         description: "Tag variations",
       },
+      {
+        title: "Tooltips",
+        href: "/tests/content/tooltips",
+        description: "Add a tooltip to any element.",
+      },
     ],
   },
   {
