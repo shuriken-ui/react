@@ -74,6 +74,11 @@ const routes: LinkGroup[] = [
         href: "/tests/content/icon-box",
         description: "Box wrappers for icons",
       },
+      {
+        title: "Mark",
+        href: "/tests/content/mark",
+        description: "Highlight text with a background color.",
+      },
     ],
   },
   {
