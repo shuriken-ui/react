@@ -85,6 +85,11 @@ const routes: LinkGroup[] = [
         description: "Base message component",
       },
       {
+        title: "Pagination",
+        href: "/tests/content/pagination",
+        description: "SVG icons",
+      },
+      {
         title: "Shapes",
         href: "/tests/content/shapes",
         description: "Check out different shapes",
