@@ -13,7 +13,7 @@ export const BaseThemeSwitch = forwardRef<
   HTMLLabelElement,
   BaseThemeSwitchProps
 >(function BaseThemeSwitch({ disableTransitions = false }, ref) {
-  const timeoutRef = useRef<number>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const { colorMode, setColorMode } = useColorMode();
 

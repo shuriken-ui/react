@@ -204,9 +204,9 @@ export const BaseInputNumber = forwardRef<
 ) {
   const [value, setValue] = useState<number | string>();
 
-  const incrementInterval = useRef<number>();
+  const incrementInterval = useRef<ReturnType<typeof setInterval>>();
 
-  const decrementInterval = useRef<number>();
+  const decrementInterval = useRef<ReturnType<typeof setInterval>>();
 
   const config = useConfig();
 

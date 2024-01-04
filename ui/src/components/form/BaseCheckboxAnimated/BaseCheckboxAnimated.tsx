@@ -142,7 +142,7 @@ export const BaseCheckboxAnimated = forwardRef<
   }
 
   useEffect(() => {
-    let timeout: number;
+    let timeout: ReturnType<typeof setTimeout>;
 
     if (isChecked) {
       containerRef.current?.classList.add("is-checked");

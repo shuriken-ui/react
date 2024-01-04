@@ -23,7 +23,7 @@ export const BaseThemeToggle = forwardRef<
   { disableTransitions = false, inverted = false },
   ref,
 ) {
-  const timeoutRef = useRef<number>();
+  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const { colorMode, setColorMode } = useColorMode();
 
