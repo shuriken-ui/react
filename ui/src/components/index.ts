@@ -65,6 +65,8 @@ export * from "./base/BaseLink";
 
 export * from "./base/BaseIconBox";
 
+export * from "./base/BasePagination";
+
 /** Form Components */
 
 export * from "./form/BaseSelect";
