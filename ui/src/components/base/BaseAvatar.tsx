@@ -1,8 +1,9 @@
 import { forwardRef } from "react";
-import { PolymorphicComponentProps } from "src/types";
+import Image, { ImageProps } from "next/image";
 import { useConfig } from "../../Provider";
+import { cn } from "../../utils";
 
-type BaseAvatarProps = {
+type BaseAvatarProps = Omit<ImageProps, "width" | "height"> & {
   /**
    * The URL of the image to display.
    */
@@ -97,6 +98,36 @@ const sizeStyle = {
   "4xl": "nui-avatar-4xl",
 };
 
+/**
+ *  derived from sizeStyle to apply to next/image height and width
+ */
+const imageSizes: Record<keyof typeof sizeStyle, number> = {
+  xxs: 6,
+  xs: 8,
+  sm: 10,
+  md: 12,
+  lg: 16,
+  xl: 20,
+  "2xl": 24,
+  "3xl": 28,
+  "4xl": 32,
+};
+
+/**
+ *  derived from sizeStyle to apply to next/image (badge) height and width
+ */
+const badgeSizes: Record<keyof typeof sizeStyle, number> = {
+  xxs: 3,
+  xs: 4,
+  sm: 5,
+  md: 5,
+  lg: 6,
+  xl: 8,
+  "2xl": 10,
+  "3xl": 10,
+  "4xl": 12,
+};
+
 const shapeStyle = {
   straight: "nui-avatar-straight",
   rounded: "nui-avatar-rounded",
@@ -112,78 +143,90 @@ const maskStyle = {
   diamond: "nui-mask-diamond",
 };
 
-export const BaseAvatar = forwardRef<
-  HTMLDivElement,
-  PolymorphicComponentProps<"img", BaseAvatarProps>
->(function BaseAvatar(
-  {
-    src,
-    as: Component = "img",
-    srcDark,
-    text = "?",
-    badgeSrc,
-    size = "sm",
-    shape: defaultShape,
-    mask,
-    className: classes = "",
-    dot = false,
-    ring = false,
-    alt = "",
-    ...props
-  },
-  ref,
-) {
-  const config = useConfig();
+export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
+  function BaseAvatar(
+    {
+      src,
+      srcDark,
+      text = "?",
+      badgeSrc,
+      size = "sm",
+      shape: defaultShape,
+      mask,
+      className: classes = "",
+      dot = false,
+      ring = false,
+      alt = "",
+      ...props
+    },
+    ref,
+  ) {
+    const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.avatar;
+    const shape = defaultShape ?? config.defaultShapes.avatar;
 
-  return (
-    <div
-      className={`nui-avatar 
-      ${sizeStyle[size]} ${shape ? shapeStyle[shape] : ""} ${
-        mask ? `nui-avatar-mask  ${maskStyle[mask]}` : ""
-      }   ${
-        ring === true
-          ? `nui-avatar-ring ${ringStyle.primary}`
-          : `nui-avatar-ring  ${ring ? ringStyle[ring] : ""}`
-      } `}
-      ref={ref}
-    >
-      <div className="nui-avatar-inner">
-        {src && (
-          <Component
-            src={src}
-            {...props}
-            className={`nui-avatar-img ${srcDark ? "dark:hidden" : ""}`}
-            alt={alt}
-          />
+    const imageSize = { width: imageSizes[size], height: imageSizes[size] };
+
+    return (
+      <div
+        className={cn(
+          "nui-avatar",
+          sizeStyle[size],
+          shape && shapeStyle[shape],
+          mask && "nui-avatar-mask",
+          mask && maskStyle[mask],
+          ring === true
+            ? ["nui-avatar-ring", ringStyle.primary]
+            : "nui-avatar-ring",
+          typeof ring === "string" && ringStyle[ring],
         )}
+        ref={ref}
+      >
+        <div className="nui-avatar-inner">
+          {src && (
+            <Image
+              src={src}
+              {...props}
+              {...imageSize}
+              className={cn("nui-avatar-img", srcDark && "dark:hidden")}
+              alt={alt}
+            />
+          )}
 
-        {src && srcDark && (
-          <Component
-            src={srcDark}
-            {...props}
-            className="nui-avatar-img hidden"
-            alt=""
-          />
-        )}
+          {src && srcDark && (
+            <Image
+              src={srcDark}
+              {...props}
+              {...imageSize}
+              className="nui-avatar-img hidden"
+              alt=""
+            />
+          )}
 
-        {!src && <span className="nui-avatar-text">{text}</span>}
-      </div>
-
-      {badgeSrc && (
-        <div className="nui-avatar-badge">
-          <img src={badgeSrc} className="nui-badge-img" alt="" />
+          {!src && <span className="nui-avatar-text">{text}</span>}
         </div>
-      )}
 
-      {dot && (
-        <span
-          className={`nui-avatar-dot  ${
-            dot === true ? dotStyle.primary : dotStyle[dot]
-          }`}
-        />
-      )}
-    </div>
-  );
-});
+        {badgeSrc && (
+          <div className="nui-avatar-badge">
+            <Image
+              src={badgeSrc}
+              width={badgeSizes[size]}
+              height={badgeSizes[size]}
+              className="nui-badge-img"
+              alt=""
+            />
+          </div>
+        )}
+
+        {dot && (
+          <span
+            className={cn(
+              "nui-avatar-dot",
+              dot === true ? dotStyle.primary : dotStyle[dot],
+            )}
+          />
+        )}
+      </div>
+    );
+  },
+);
