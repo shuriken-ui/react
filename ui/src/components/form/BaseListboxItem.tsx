@@ -58,7 +58,9 @@ export const BaseListboxItem: FC<BaseListboxItemProps> = ({
 }) => {
   return (
     <>
-      {props.value?.media && <BaseAvatar src={props.value.media} size="xs" />}
+      {props.value?.media && (
+        <BaseAvatar src={props.value.media} size="xs" alt="" />
+      )}
       {props.value?.icon && !props.value?.media && (
         <BaseIconBox size="sm" shape="rounded">
           <Icon

@@ -11,7 +11,7 @@ type BaseAvatarGroupProps = {
   /** An array of avatar objects. */
   avatars: {
     /** The source URL for the avatar image. */
-    src?: string;
+    src: string;
 
     /** The source URL for the dark version of the avatar image. */
     srcDark?: string;
@@ -48,6 +48,7 @@ export const BaseAvatarGroup = forwardRef<HTMLDivElement, BaseAvatarGroupProps>(
               tabIndex={0}
               className="bg-primary-500/20 text-primary-500 !scale-90"
               {...avatar}
+              alt=""
             />
           </div>
         ))}

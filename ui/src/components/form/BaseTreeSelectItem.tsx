@@ -82,7 +82,7 @@ export const BaseTreeSelectItem = forwardRef<
 
       <Component className="flex items-center" {...ComponentProps}>
         {value && value.media && !value.icon && (
-          <BaseAvatar src={value.media} size="xs" className="me-2" />
+          <BaseAvatar src={value.media} size="xs" className="me-2" alt="" />
         )}
 
         {value && !value.media && value.icon && (

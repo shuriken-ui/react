@@ -199,7 +199,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
               {...props}
               {...imageSize}
               className="nui-avatar-img hidden"
-              alt=""
+              alt={alt}
             />
           )}
 
