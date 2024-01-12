@@ -1,6 +1,8 @@
 import { forwardRef } from "react";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
 import { BaseButtonClose } from "./BaseButtonClose";
+import { cn } from "../../utils";
 
 interface BaseSnackProps {
   /**
@@ -12,6 +14,7 @@ interface BaseSnackProps {
    * An optional icon to display in the snackbar.
    */
   icon?: string;
+
   /**
    * Click handler
    */
@@ -43,6 +46,11 @@ const colorStyle = {
   muted: "nui-snack-muted",
 };
 
+const imageSize: Record<keyof typeof sizeStyle, number> = {
+  sm: 32,
+  md: 40,
+};
+
 export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
   function BaseSnack(
     {
@@ -57,9 +65,12 @@ export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
   ) {
     return (
       <div
-        className={`nui-snack  ${sizeStyle[size]} ${colorStyle[color]} ${
-          icon || image ? "nui-has-media" : ""
-        }`}
+        className={cn(
+          "nui-snack",
+          sizeStyle[size],
+          colorStyle[color],
+          (icon || image) && "nui-has-media",
+        )}
         ref={ref}
       >
         {icon && !image && (
@@ -69,12 +80,16 @@ export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
         )}
         {image && !icon && (
           <div className="nui-snack-image">
-            <img src={image} className="nui-snack-image-inner" alt="" />
+            <Image
+              src={image}
+              height={imageSize[size]}
+              width={imageSize[size]}
+              className="nui-snack-image-inner"
+              alt=""
+            />
           </div>
         )}
-        <span className="nui-snack-text">
-          <slot>{label}</slot>
-        </span>
+        <span className="nui-snack-text">{label}</span>
         <BaseButtonClose
           className="nui-snack-button"
           shape="full"
