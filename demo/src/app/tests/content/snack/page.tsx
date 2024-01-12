@@ -13,12 +13,18 @@ function SnackPage() {
         <BaseHeading size="xl" weight="medium" className="mb-10">
           Snack
         </BaseHeading>
-        <div className="flex gap-3">
-          <BaseSnack label="I am a default snack" />
+        <div className="flex gap-3 flex-wrap">
           <BaseSnack
-            label="I am a muted snack"
-            //   kind="muted"
+            label="I am a default snack with Image"
+            image="https://source.unsplash.com/random/"
+            size="md"
           />
+          <BaseSnack
+            label="I am a default snack with Icon"
+            icon="carbon:notification"
+          />
+          <BaseSnack label="I am a default snack" />
+          <BaseSnack label="I am a muted snack" color="muted" />
           <BaseSnack label="I am a small snack" size="sm" />
         </div>
       </div>
