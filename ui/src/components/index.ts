@@ -11,6 +11,8 @@ export * from "./base/BaseList";
 
 export * from "./base/BaseProgressCircle";
 
+export * from "./base/BaseAccordion";
+
 export * from "./base/BaseAvatar";
 
 export * from "./base/BaseAvatarGroup";
