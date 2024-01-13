@@ -1,5 +1,6 @@
 import { ReactNode, forwardRef } from "react";
 import { useConfig } from "../../Provider";
+import { cn } from "../../utils";
 
 interface BaseTagProps {
   /**
@@ -92,11 +93,14 @@ export const BaseTag = forwardRef<HTMLSpanElement, BaseTagProps>(
 
     return (
       <span
-        className={`nui-tag ${sizeStyle[size]} ${flavorStyle[flavor]} ${
-          colorStyle[color]
-        } ${shape ? shapeStyle[shape] : ""} ${
-          shadow && flavor === "solid" ? shadowStyle[shadow] : ""
-        }`}
+        className={cn(
+          "nui-tag",
+          sizeStyle[size],
+          flavorStyle[flavor],
+          colorStyle[color],
+          shapeStyle[shape],
+          shadow && flavor === "solid" && shadowStyle[shadow],
+        )}
         ref={ref}
       >
         {children}

@@ -1,5 +1,6 @@
 import { ReactNode, forwardRef } from "react";
 import { BaseHeading } from "./BaseHeading";
+import { cn } from "../../utils";
 
 interface BasePlaceholderPageProps {
   children: ReactNode;
@@ -36,7 +37,7 @@ export const BasePlaceholderPage = forwardRef<
   ref,
 ) {
   return (
-    <div className={`nui-placeholder-page ${sizeStyle[imageSize]}`} ref={ref}>
+    <div className={cn("nui-placeholder-page", sizeStyle[imageSize])} ref={ref}>
       <div className="nui-placeholder-page-inner">
         {image && <div className="nui-placeholder-page-img">{image}</div>}
         <div className="nui-placeholder-page-content">

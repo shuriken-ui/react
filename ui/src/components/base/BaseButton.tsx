@@ -2,6 +2,7 @@ import { ReactNode, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
+import { cn } from "../../utils";
 
 type BaseButtonProps = {
   /** The type of the button. Can be 'button', 'submit', or 'reset'. */
@@ -133,7 +134,7 @@ export const BaseButton = forwardRef<
     shadow,
     rel = "",
     target = "",
-    className: classes = "",
+    className: classes,
     loading,
     children,
     ...props
@@ -158,11 +159,16 @@ export const BaseButton = forwardRef<
 
   return (
     <Component
-      className={`nui-button ${loading ? "nui-button-loading" : ""} ${
-        sizeStyle[size]
-      } ${shape ? shapeStyle[shape] : ""} ${flavorStyle[flavor]} ${
-        colorStyle[color]
-      } ${shadow ? shadowStyle[shadow] : ""} ${classes}`}
+      className={cn(
+        "nui-button",
+        loading && "nui-button-loading",
+        sizeStyle[size],
+        shapeStyle[shape],
+        flavorStyle[flavor],
+        colorStyle[color],
+        shadow && shadowStyle[shadow],
+        classes,
+      )}
       {...attributes}
       ref={ref}
     >

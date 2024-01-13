@@ -1,5 +1,6 @@
 import { forwardRef, useMemo } from "react";
 import { useConfig } from "../../Provider";
+import { cn } from "../../utils";
 
 interface BaseProgressProps {
   /**
@@ -89,21 +90,26 @@ export const BaseProgress = forwardRef<HTMLDivElement, BaseProgressProps>(
     }, [currentValue, max]);
 
     return (
+      // eslint-disable-next-line jsx-a11y/control-has-associated-label
       <div
         role="progressbar"
         aria-valuenow={value || undefined}
         aria-valuemax={max}
-        className={`nui-progress ${contrastStyle[contrast]} ${
-          colorStyle[color]
-        } ${sizeStyle[size]} ${shape ? shapeStyle[shape] : ""}`}
+        className={cn(
+          "nui-progress",
+          contrastStyle[contrast],
+          colorStyle[color],
+          sizeStyle[size],
+          shape && shapeStyle[shape],
+        )}
         ref={ref}
       >
         <div
-          className={`nui-progress-bar ${
-            value === null
-              ? "nui-progress-indeterminate animate-nui-progress-indeterminate"
-              : ""
-          } `}
+          className={cn(
+            "nui-progress-bar",
+            value === null &&
+              "nui-progress-indeterminate animate-nui-progress-indeterminate",
+          )}
           style={{ width: value !== null ? `${value}%` : "100%" }}
         />
       </div>

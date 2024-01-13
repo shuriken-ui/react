@@ -3,6 +3,7 @@ import { useColorMode } from "../../../hooks/useColorMode";
 import { IconMoon, IconSun } from "../../icons";
 
 import "./BaseThemeToggle.css";
+import { cn } from "../../../utils";
 
 type BaseThemeToggleProps = {
   /**
@@ -54,9 +55,10 @@ export const BaseThemeToggle = forwardRef<
   return (
     // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label
-      className={`nui-theme-toggle ${
-        inverted ? "nui-theme-toggle-inverted" : ""
-      }`}
+      className={cn(
+        "nui-theme-toggle",
+        inverted && "nui-theme-toggle-inverted",
+      )}
       ref={ref}
     >
       <input

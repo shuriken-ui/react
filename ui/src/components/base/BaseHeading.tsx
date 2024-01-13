@@ -1,5 +1,6 @@
 import { Ref, forwardRef } from "react";
 import { PolymorphicComponentProps } from "../../types";
+import { cn } from "../../utils";
 
 type Headings = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "p";
 
@@ -80,7 +81,7 @@ export const BaseHeading = forwardRef(function BaseHeading<
     size = "xl",
     weight = "semibold",
     lead = "normal",
-    className: classes = "",
+    className: classes,
     children,
     ...props
   }: PolymorphicComponentProps<E, HeadingProps<E>>,
@@ -91,7 +92,13 @@ export const BaseHeading = forwardRef(function BaseHeading<
 
   return (
     <Component
-      className={`nui-heading ${sizeStyle[size]} ${weightStyle[weight]} ${leadStyle[lead]} ${classes}`}
+      className={cn(
+        "nui-heading",
+        sizeStyle[size],
+        weightStyle[weight],
+        leadStyle[lead],
+        classes,
+      )}
       {...props}
       ref={ref}
     >

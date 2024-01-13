@@ -109,9 +109,10 @@ export const BaseTabSlider = forwardRef<HTMLDivElement, BaseTabSliderProps>(
               <button
                 key={index}
                 type="button"
-                className={`nui-tab-slider-item ${
-                  activeValue === tab.value ? "nui-active" : ""
-                }`}
+                className={cn(
+                  "nui-tab-slider-item",
+                  activeValue === tab.value && "nui-active",
+                )}
                 onKeyDown={(e) => {
                   if (e.code === "Space") {
                     setActiveValue(tab.value);

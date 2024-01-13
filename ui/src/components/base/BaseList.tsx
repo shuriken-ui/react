@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { cn } from "../../utils";
 
 type BaseListProps = {
   /**
@@ -21,15 +22,16 @@ export const BaseList: FC<BaseListProps> = ({
 }) => {
   const Component = ordered ? "ol" : "ul";
 
-  const orderedClasses = ordered ? "nui-list-ol" : "nui-list-ul";
-
   const hasMedia = media;
 
   return (
     <Component
-      className={`nui-list   ${
-        hasMedia ? "nui-list-media" : `nui-list-base ${orderedClasses}`
-      } `}
+      className={cn(
+        "nui-list",
+        hasMedia
+          ? "nui-list-media"
+          : ["nui-list-base", ordered ? "nui-list-ol" : "nui-list-ul"],
+      )}
     >
       {children}
     </Component>

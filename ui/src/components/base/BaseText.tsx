@@ -1,4 +1,5 @@
 import { HTMLAttributes, PropsWithChildren, forwardRef } from "react";
+import { cn } from "../../utils";
 
 type BaseTextProps = HTMLAttributes<HTMLParagraphElement> &
   PropsWithChildren<{
@@ -72,7 +73,12 @@ export const BaseText = forwardRef<HTMLParagraphElement, BaseTextProps>(
   ) {
     return (
       <p
-        className={`nui-text ${sizeStyle[size]} ${weightStyle[weight]} ${leadStyle[lead]}`}
+        className={cn(
+          "nui-text",
+          sizeStyle[size],
+          weightStyle[weight],
+          leadStyle[lead],
+        )}
         ref={ref}
       >
         {children}

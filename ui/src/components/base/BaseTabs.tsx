@@ -1,5 +1,6 @@
 import { forwardRef, useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
+import { cn } from "../../utils";
 
 interface BaseTabsProps {
   /**
@@ -85,7 +86,7 @@ export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
 
     return (
       <div
-        className={`nui-tabs ${justify ? justifyStyle[justify] : ""}`}
+        className={cn("nui-tabs", justify && justifyStyle[justify])}
         ref={ref}
       >
         <div className="nui-tabs-inner">
@@ -93,9 +94,11 @@ export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
             <a
               href="/#"
               key={index}
-              className={`${typeStyle[type]} ${
-                activeValue === tab.value ? "nui-active" : ""
-              } ${tab.icon ? "nui-has-icon" : ""}`}
+              className={cn(
+                typeStyle[type],
+                activeValue === tab.value && "nui-active",
+                tab.icon && "nui-has-icon",
+              )}
               tabIndex={0}
               onClick={() => {
                 setActiveValue(tab.value);
@@ -105,9 +108,10 @@ export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
                 <Icon icon={tab.icon} className="me-1 block h-5 w-5" />
               )}
               <span
-                className={`${
-                  type === "box" && tab.icon ? "text-[.85rem]" : ""
-                } ${type === "tabs" ? "text-sm" : ""}`}
+                className={cn(
+                  type === "box" && tab.icon && "text-[.85rem]",
+                  type === "tabs" && "text-sm",
+                )}
               >
                 {tab.label}
               </span>

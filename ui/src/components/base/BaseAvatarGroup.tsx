@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
 import { BaseAvatar } from "./BaseAvatar";
+import { cn } from "../../utils";
 
 type BaseAvatarGroupProps = {
   /** The maximum number of avatars to display. */
@@ -36,7 +37,7 @@ const sizeStyle = {
 export const BaseAvatarGroup = forwardRef<HTMLDivElement, BaseAvatarGroupProps>(
   function BaseAvatarGroup({ limit = 4, avatars, size = "sm" }, ref) {
     return (
-      <div className={`nui-avatar-group ${sizeStyle[size]}`} ref={ref}>
+      <div className={cn("nui-avatar-group", sizeStyle[size])} ref={ref}>
         {avatars.slice(0, limit - 1).map((avatar, index) => (
           <div
             key={`${avatar.src || avatar.srcDark || "avatar"}-${index}`}

@@ -2,6 +2,7 @@ import { HTMLAttributes, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
+import { cn } from "../../utils";
 
 type BaseButtonIconProps = HTMLAttributes<HTMLDivElement> & {
   /**
@@ -120,9 +121,14 @@ export const BaseButtonIcon = forwardRef<
 
   return (
     <Component
-      className={`nui-button-icon  ${loading ? "nui-button-loading" : ""} ${
-        shape ? shapeStyle[shape] : ""
-      } ${sizeStyle[size]} ${colorStyle[color]} ${classes}`}
+      className={cn(
+        "nui-button-icon",
+        loading && "nui-button-loading",
+        shapeStyle[shape],
+        sizeStyle[size],
+        colorStyle[color],
+        classes,
+      )}
       {...attributes}
       ref={ref}
     >

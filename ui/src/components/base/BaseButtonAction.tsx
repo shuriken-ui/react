@@ -1,6 +1,8 @@
 import { ReactNode, forwardRef } from "react";
-import { BasePlaceload, useConfig } from "src";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
+import { useConfig } from "../../Provider";
+import { BasePlaceload } from "./BasePlaceload";
+import { cn } from "../../utils";
 
 type BaseButtonActionProps = {
   /**
@@ -108,9 +110,12 @@ export const BaseButtonAction = forwardRef<
 
   return (
     <Component
-      className={`nui-button-action ${loading ? "nui-button-loading" : ""} ${
-        colorStyle[color]
-      } ${shape ? shapeStyle[shape] : ""}`}
+      className={cn(
+        "nui-button-action",
+        loading && "nui-button-loading",
+        colorStyle[color],
+        shapeStyle[shape],
+      )}
       {...attributes}
       ref={ref}
     >

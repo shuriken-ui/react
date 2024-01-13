@@ -1,5 +1,6 @@
 import { HTMLAttributes, forwardRef } from "react";
 import { useConfig } from "../../Provider";
+import { cn } from "../../utils";
 
 type BaseCardProps = HTMLAttributes<HTMLDivElement> & {
   /**
@@ -60,7 +61,7 @@ export const BaseCard = forwardRef<HTMLDivElement, BaseCardProps>(
       elevated = false,
       elevatedHover = false,
       color = "white",
-      className: classes = "",
+      className: classes,
       children,
       ...props
     },
@@ -72,11 +73,14 @@ export const BaseCard = forwardRef<HTMLDivElement, BaseCardProps>(
 
     return (
       <div
-        className={`nui-card  ${shape && shapeStyle[shape]} ${
-          colorStyle[color]
-        }  ${elevated ? "nui-card-shadow" : ""}  ${
-          elevatedHover ? "nui-card-shadow-hover" : ""
-        } ${classes}`}
+        className={cn(
+          "nui-card",
+          shape && shapeStyle[shape],
+          colorStyle[color],
+          elevated && "nui-card-shadow",
+          elevatedHover && "nui-card-shadow-hover",
+          classes,
+        )}
         {...props}
         ref={ref}
       >

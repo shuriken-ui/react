@@ -1,4 +1,5 @@
 import { HTMLAttributes, forwardRef } from "react";
+import { cn } from "../../utils";
 
 export const BaseButtonGroup = forwardRef<
   HTMLDivElement,
@@ -8,7 +9,7 @@ export const BaseButtonGroup = forwardRef<
   ref,
 ) {
   return (
-    <div className={`nui-button-group ${classes}`} {...props} ref={ref}>
+    <div className={cn("nui-button-group", classes)} {...props} ref={ref}>
       {children}
     </div>
   );
