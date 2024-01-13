@@ -1,28 +1,16 @@
-import { ComponentPropsWithRef, ElementType, ReactNode } from "react";
+import { HTMLAttributes, forwardRef } from "react";
+import Link, { type LinkProps } from "next/link";
+import { cn } from "../../utils";
 
-type AnchorLike = ElementType;
+type BaseLinkProps = LinkProps &
+  Omit<HTMLAttributes<HTMLAnchorElement>, keyof LinkProps>;
 
-// TODO: match AnchorLike to be some a tag props
-
-type BaseLinkProps<T extends AnchorLike = "a"> = Omit<
-  ComponentPropsWithRef<T>,
-  "children" | "as"
-> & {
-  as?: T;
-  children: ReactNode;
-};
-
-export const BaseLink = <T extends AnchorLike = "a">({
-  as: element,
-  children,
-  className: classes = "",
-  ...props
-}: BaseLinkProps<T>) => {
-  const Component = element || "a";
-
-  return (
-    <Component className={`nui-link ${classes}`} {...props}>
-      {children}
-    </Component>
-  );
-};
+export const BaseLink = forwardRef<HTMLAnchorElement, BaseLinkProps>(
+  function BaseLink({ className, children, ...props }, ref) {
+    return (
+      <Link className={cn("nui-link", className)} {...props} ref={ref}>
+        {children}
+      </Link>
+    );
+  },
+);
