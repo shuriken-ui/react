@@ -1,5 +1,5 @@
 import { HTMLAttributes, forwardRef } from "react";
-import { useConfig } from "src";
+import { useConfig } from "../../Provider";
 import { cn } from "../../utils";
 
 type BaseIconBoxProps = HTMLAttributes<HTMLDivElement> & {
