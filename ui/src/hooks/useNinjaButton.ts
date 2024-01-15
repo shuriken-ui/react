@@ -1,11 +1,12 @@
 export interface BaseButtonProperties {
   type?: "button" | "submit" | "reset";
-  to?: string;
   href?: string;
   disabled?: boolean;
   rel?: string;
   target?: string;
 }
+
+export type NinjaButton = "a" | "button";
 
 export const useNinjaButton = (
   properties: BaseButtonProperties,
@@ -15,25 +16,18 @@ export const useNinjaButton = (
     externalDefaultTarget = "_blank",
   } = {},
 ) => {
-  const is: "a" | "button" = properties.href ? "a" : "button";
+  // TODO: add next/link support
+  const is: NinjaButton = properties.href ? "a" : "button";
 
-  // TODO: MAKE IT WORK
-  //   const is =
-  //     properties.to ? NuxtLink : properties.href ? 'a' : 'button'
   const type = is === "button" ? properties.type || "button" : undefined;
 
   function getExternal() {
-    if (typeof properties.to === "string" && properties.to.startsWith("http")) {
+    if (
+      typeof properties.href === "string" &&
+      properties.href.startsWith("http")
+    ) {
       return true;
     }
-
-    // TODO: if (
-    //   typeof properties.to === "object" &&
-    //   "path" in properties.to &&
-    //   properties.to.path.startsWith("http")
-    // ) {
-    //   return true;
-    // }
 
     return false;
   }
@@ -49,7 +43,6 @@ export const useNinjaButton = (
     : properties.target ?? externalDefaultTarget;
 
   const attributes = {
-    to: properties.disabled ? undefined : properties.to,
     href: properties.disabled ? undefined : properties.href,
     disabled: properties.disabled,
     type,
