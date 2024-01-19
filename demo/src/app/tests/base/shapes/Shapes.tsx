@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  BaseAccordion,
   BaseAvatar,
   BaseButton,
   BaseButtonAction,
@@ -54,33 +55,33 @@ const Shapes = () => {
             BaseAccordion
           </BaseHeading>
           <div className="flex gap-4">
-            {/* <BaseAccordion
-        items={[
-          { title: 'default', content: 'default' },
-          { title: 'default1', content: 'default1' },
-        ]}
-      />
-      <BaseAccordion
-        shape="straight"
-        items={[
-          { title: 'straight', content: 'straight' },
-          { title: 'straight1', content: 'straight1' },
-        ]}
-      />
-      <BaseAccordion
-        shape="rounded"
-        items={[
-          { title: 'rounded', content: 'rounded' },
-          { title: 'rounded1', content: 'rounded1' },
-        ]}
-      />
-      <BaseAccordion
-        shape="curved"
-        items={[
-          { title: 'curved', content: 'curved' },
-          { title: 'curved1', content: 'curved1' },
-        ]}
-      /> */}
+            <BaseAccordion
+              items={[
+                { title: "default", content: "default" },
+                { title: "default1", content: "default1" },
+              ]}
+            />
+            <BaseAccordion
+              shape="straight"
+              items={[
+                { title: "straight", content: "straight" },
+                { title: "straight1", content: "straight1" },
+              ]}
+            />
+            <BaseAccordion
+              shape="rounded"
+              items={[
+                { title: "rounded", content: "rounded" },
+                { title: "rounded1", content: "rounded1" },
+              ]}
+            />
+            <BaseAccordion
+              shape="curved"
+              items={[
+                { title: "curved", content: "curved" },
+                { title: "curved1", content: "curved1" },
+              ]}
+            />
             <small>no full</small>
           </div>
         </div>
@@ -96,6 +97,8 @@ const Shapes = () => {
         active
         :value="{ name: 'straight' }"
       />
+
+      
       <BaseAutocompleteItem
         shape="rounded"
         active
