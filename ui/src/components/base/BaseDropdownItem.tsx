@@ -1,9 +1,9 @@
 import { Menu } from "@headlessui/react";
-import { ReactNode, forwardRef } from "react";
+import { PropsWithChildren, ReactNode, forwardRef } from "react";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
 import { cn } from "../../utils";
 
-type BaseDropdownItemProps = {
+type BaseDropdownItemProps = PropsWithChildren<{
   /**
    * The type of button.
    */
@@ -68,7 +68,7 @@ type BaseDropdownItemProps = {
    * end slot
    */
   end?: ReactNode;
-};
+}>;
 
 const shapeStyle = {
   straight: "",
@@ -99,6 +99,7 @@ export const BaseDropdownItem = forwardRef<
         "font-heading text-muted-800 text-xs font-semibold leading-tight dark:text-white",
       text: "text-muted-400 font-sans text-xs",
     },
+    children,
     ...props
   },
   ref,
@@ -124,7 +125,10 @@ export const BaseDropdownItem = forwardRef<
         >
           {start}
           <div className="nui-item-content">
-            <div className={cn(classes?.title)}>{title}</div>
+            <div className={cn(classes?.title)}>
+              {children}
+              {title}
+            </div>
             {text && <p className="text-muted-400 font-sans text-xs">{text}</p>}
           </div>
           {end}
