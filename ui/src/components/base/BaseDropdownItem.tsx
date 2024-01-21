@@ -12,7 +12,7 @@ type BaseDropdownItemProps = {
   /**
    * The route to navigate to when the button is clicked.
    */
-  to?: string;
+  // to?: string;
 
   /** Using href instead of to result in a native anchor with no router functionality. */
   href?: string;
