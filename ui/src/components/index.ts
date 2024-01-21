@@ -35,6 +35,8 @@ export * from "./base/BasePlaceload";
 
 export * from "./base/BaseButton";
 
+export * from "./base/BaseBreadcrumb";
+
 export * from "./base/BaseText";
 
 export * from "./base/BaseTag";
