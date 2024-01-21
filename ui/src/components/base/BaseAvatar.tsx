@@ -3,7 +3,7 @@ import Image, { ImageProps } from "next/image";
 import { useConfig } from "../../Provider";
 import { cn } from "../../utils";
 
-type BaseAvatarProps = Omit<ImageProps, "width" | "height"> & {
+type BaseAvatarProps = Omit<ImageProps, "width" | "height" | "alt"> & {
   /**
    * The URL of the image to display.
    */
@@ -64,6 +64,11 @@ type BaseAvatarProps = Omit<ImageProps, "width" | "height"> & {
     | "danger"
     | "pink"
     | "yellow";
+
+  /**
+   * The alternative text for the image.
+   */
+  alt?: string;
 };
 
 const dotStyle = {
@@ -153,7 +158,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
       size = "sm",
       shape: defaultShape,
       mask,
-      className: classes = "",
+      className: _,
       dot = false,
       ring = false,
       alt = "",
