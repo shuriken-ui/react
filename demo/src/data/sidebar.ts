@@ -5,7 +5,7 @@ export type PageLink = {
   href: string;
 };
 
-export type LinkGroup = { title: string; links: PageLink[] };
+export type LinkGroup = { title: string; links: Record<string, PageLink> };
 
 /** sidebar navigation links */
 export const sidebarlinks = {
@@ -181,3 +181,24 @@ export const sidebarlinks = {
   },
 } as const;
 
+export function getLinks() {
+  return Object.values(sidebarlinks).map((v) => ({
+    ...v,
+    links: Object.values(v.links) as PageLink[],
+  }));
+}
+
+type KeysOfUnion<T> = T extends T ? keyof T : never;
+
+type SidebarLinks = typeof sidebarlinks;
+
+export function getMeta<
+  Section extends keyof SidebarLinks,
+  Comp extends KeysOfUnion<SidebarLinks[Section]["links"]>,
+>(section: Section, component: Comp): { title: string; description: string } {
+  const { title, description } = ((sidebarlinks?.[section]?.links as any)?.[
+    component
+  ] as PageLink) ?? { title: undefined, description: undefined };
+
+  return { title, description };
+}

@@ -6,7 +6,7 @@ import ThemeSwitcher from "./ThemeSwitcher";
 import Link from "next/link";
 import NuiLogoText from "./NuiLogoText";
 import LinkIcon from "./LinkIcon";
-import { links } from "@/data/sidebar";
+import { getLinks } from "@/data/sidebar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,6 +24,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const sidebarLinks = getLinks();
+
   return (
     <ShurikenUIProvider>
       <html lang="en">
@@ -36,7 +38,7 @@ export default function RootLayout({
                 </Link>
 
                 <ul className="flex flex-col gap-10 pt-6">
-                  {links.map((linkGroup, index) => (
+                  {sidebarLinks.map((linkGroup, index) => (
                     <li key={index}>
                       <h3 className="uppercase text-xs tracking-wider text-muted-400 font-semibold mx-4 px-3 pb-2">
                         {linkGroup.title}
