@@ -1,106 +1,363 @@
 import React from "react";
 
-import { BaseHeading } from "@shuriken-ui/react";
 import { Metadata } from "next";
 
+import { getMeta } from "@/data/sidebar";
+import NuiPreview from "../../NuiPreview";
+import NuiPreviewContainer from "../../NuiPreviewContainer";
+
+const meta = getMeta("authority", "colors");
+
 export const metadata: Metadata = {
-  title: "Colors",
-  description: "Basic colors",
+  ...meta,
 };
 
 function Colors() {
   return (
-    <div className="flex flex-col gap-12 [&>*]:p-8 [&>:nth-child(odd)]:bg-muted-100 dark:[&>:nth-child(odd)]:bg-muted-900 pb-32">
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Colors
-        </BaseHeading>
-        <div className="grid grid-cols-6 gap-6">
-          <div className="bg-primary-500 aspect-1 flex items-center justify-center">
-            <span className="text-primary-100">primary</span>
-          </div>
-          <div className="bg-success-500 aspect-1 flex items-center justify-center">
-            <span className="text-success-100">success</span>
-          </div>
-          <div className="bg-warning-500 aspect-1 flex items-center justify-center">
-            <span className="text-warning-100">warning</span>
-          </div>
-          <div className="bg-danger-500 aspect-1 flex items-center justify-center">
-            <span className="text-danger-100">danger</span>
-          </div>
-          <div className="bg-info-500 aspect-1 flex items-center justify-center">
-            <span className="text-info-100">info</span>
-          </div>
-          <div className="bg-muted-500 aspect-1 flex items-center justify-center">
-            <span className="text-muted-100">muted</span>
-          </div>
+    <NuiPreviewContainer title={meta.title}>
+      <NuiPreview title="Primary" description="The primary color">
+        <div className="flex flex-wrap items-end gap-2">
+          <div
+            className="bg-primary-50 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-50"
+          ></div>
+          <div
+            className="bg-primary-100 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-100"
+          ></div>
+          <div
+            className="bg-primary-200 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-200"
+          ></div>
+          <div
+            className="bg-primary-300 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-300"
+          ></div>
+          <div
+            className="bg-primary-400 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-400"
+          ></div>
+          <div
+            className="bg-primary-500 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-500"
+          ></div>
+          <div
+            className="bg-primary-600 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-600"
+          ></div>
+          <div
+            className="bg-primary-700 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-700"
+          ></div>
+          <div
+            className="bg-primary-800 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-800"
+          ></div>
+          <div
+            className="bg-primary-900 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-900"
+          ></div>
+          <div
+            className="bg-primary-950 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-primary-950"
+          ></div>
         </div>
-      </div>
+      </NuiPreview>
 
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          nui helpers
-        </BaseHeading>
-        <div className="grid grid-cols-6 gap-6">
-          <div className="nui-bg-white aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-black">nui-bg-white</span>
-            <small className="nui-text-black">nui-text-black</small>
-          </div>
-          <div className="nui-bg-50 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-950">nui-bg-50</span>
-            <small className="nui-text-950">nui-text-950</small>
-          </div>
-          <div className="nui-bg-50 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-900">nui-bg-50</span>
-            <small className="nui-text-900">nui-text-900</small>
-          </div>
-          <div className="nui-bg-100 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-900">nui-bg-100</span>
-            <small className="nui-text-900">nui-text-900</small>
-          </div>
-          <div className="nui-bg-200 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-800">nui-bg-200</span>
-            <small className="nui-text-800">nui-text-800</small>
-          </div>
-          <div className="nui-bg-300 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-700">nui-bg-300</span>
-            <small className="nui-text-700">nui-text-700</small>
-          </div>
-          <div className="nui-bg-400 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-600">nui-bg-400</span>
-            <small className="nui-text-600">nui-text-600</small>
-          </div>
-          <div className="nui-bg-500 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-500">nui-bg-500</span>
-            <small className="nui-text-500">nui-text-500</small>
-          </div>
-          <div className="nui-bg-600 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-400">nui-bg-600</span>
-            <small className="nui-text-400">nui-text-400</small>
-          </div>
-          <div className="nui-bg-700 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-300">nui-bg-700</span>
-            <small className="nui-text-300">nui-text-300</small>
-          </div>
-          <div className="nui-bg-800 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-200">nui-bg-800</span>
-            <small className="nui-text-200">nui-text-200</small>
-          </div>
-          <div className="nui-bg-900 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-100">nui-bg-900</span>
-            <small className="nui-text-100">nui-text-100</small>
-          </div>
-          <div className="nui-bg-950 aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-50">nui-bg-950</span>
-            <small className="nui-text-50">nui-text-50</small>
-          </div>
-          <div className="nui-bg-black aspect-1 flex flex-col items-center justify-center">
-            <span className="nui-text-white">nui-bg-black</span>
-            <small className="nui-text-white">nui-text-white</small>
-          </div>
+      <NuiPreview title="Info" description="The info color">
+        <div className="flex flex-wrap items-end gap-2">
+          <div
+            className="bg-info-50 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-50"
+          ></div>
+          <div
+            className="bg-info-100 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-100"
+          ></div>
+          <div
+            className="bg-info-200 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-200"
+          ></div>
+          <div
+            className="bg-info-300 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-300"
+          ></div>
+          <div
+            className="bg-info-400 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-400"
+          ></div>
+          <div
+            className="bg-info-500 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-500"
+          ></div>
+          <div
+            className="bg-info-600 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-600"
+          ></div>
+          <div
+            className="bg-info-700 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-700"
+          ></div>
+          <div
+            className="bg-info-800 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-800"
+          ></div>
+          <div
+            className="bg-info-900 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-900"
+          ></div>
+          <div
+            className="bg-info-950 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-info-950"
+          ></div>
         </div>
-      </div>
-    </div>
+      </NuiPreview>
+
+      <NuiPreview title="Success" description="The success color">
+        <div className="flex flex-wrap items-end gap-2">
+          <div
+            className="bg-success-50 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-50"
+          ></div>
+          <div
+            className="bg-success-100 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-100"
+          ></div>
+          <div
+            className="bg-success-200 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-200"
+          ></div>
+          <div
+            className="bg-success-300 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-300"
+          ></div>
+          <div
+            className="bg-success-400 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-400"
+          ></div>
+          <div
+            className="bg-success-500 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-500"
+          ></div>
+          <div
+            className="bg-success-600 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-600"
+          ></div>
+          <div
+            className="bg-success-700 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-700"
+          ></div>
+          <div
+            className="bg-success-800 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-800"
+          ></div>
+          <div
+            className="bg-success-900 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-900"
+          ></div>
+          <div
+            className="bg-success-950 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-success-950"
+          ></div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Warning" description="The warning color">
+        <div className="flex flex-wrap items-end gap-2">
+          <div
+            className="bg-warning-50 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-50"
+          ></div>
+          <div
+            className="bg-warning-100 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-100"
+          ></div>
+          <div
+            className="bg-warning-200 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-200"
+          ></div>
+          <div
+            className="bg-warning-300 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-300"
+          ></div>
+          <div
+            className="bg-warning-400 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-400"
+          ></div>
+          <div
+            className="bg-warning-500 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-500"
+          ></div>
+          <div
+            className="bg-warning-600 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-600"
+          ></div>
+          <div
+            className="bg-warning-700 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-700"
+          ></div>
+          <div
+            className="bg-warning-800 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-800"
+          ></div>
+          <div
+            className="bg-warning-900 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-900"
+          ></div>
+          <div
+            className="bg-warning-950 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-warning-950"
+          ></div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Danger" description="The danger color">
+        <div className="flex flex-wrap items-end gap-2">
+          <div
+            className="bg-danger-50 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-50"
+          ></div>
+          <div
+            className="bg-danger-100 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-100"
+          ></div>
+          <div
+            className="bg-danger-200 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-200"
+          ></div>
+          <div
+            className="bg-danger-300 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-300"
+          ></div>
+          <div
+            className="bg-danger-400 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-400"
+          ></div>
+          <div
+            className="bg-danger-500 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-500"
+          ></div>
+          <div
+            className="bg-danger-600 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-600"
+          ></div>
+          <div
+            className="bg-danger-700 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-700"
+          ></div>
+          <div
+            className="bg-danger-800 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-800"
+          ></div>
+          <div
+            className="bg-danger-900 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-900"
+          ></div>
+          <div
+            className="bg-danger-950 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-danger-950"
+          ></div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Muted" description="The muted color">
+        <div className="flex flex-wrap items-end gap-2">
+          <div
+            className="bg-muted-50 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-50"
+          ></div>
+          <div
+            className="bg-muted-100 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-100"
+          ></div>
+          <div
+            className="bg-muted-200 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-200"
+          ></div>
+          <div
+            className="bg-muted-300 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-300"
+          ></div>
+          <div
+            className="bg-muted-400 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-400"
+          ></div>
+          <div
+            className="bg-muted-500 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-500"
+          ></div>
+          <div
+            className="bg-muted-600 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-600"
+          ></div>
+          <div
+            className="bg-muted-700 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-700"
+          ></div>
+          <div
+            className="bg-muted-800 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-800"
+          ></div>
+          <div
+            className="bg-muted-900 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-900"
+          ></div>
+          <div
+            className="bg-muted-950 h-8 w-8 rounded-lg"
+            data-nui-tooltip="bg-muted-950"
+          ></div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Helpers" description="Nui bg helpers">
+        <div className="flex flex-wrap items-end gap-2">
+          <div
+            className="nui-bg-white h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-white"
+          ></div>
+          <div
+            className="nui-bg-50 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-50"
+          ></div>
+          <div
+            className="nui-bg-200 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-200"
+          ></div>
+          <div
+            className="nui-bg-300 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-300"
+          ></div>
+          <div
+            className="nui-bg-400 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-400"
+          ></div>
+          <div
+            className="nui-bg-500 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-500"
+          ></div>
+          <div
+            className="nui-bg-600 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-600"
+          ></div>
+          <div
+            className="nui-bg-700 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-700"
+          ></div>
+          <div
+            className="nui-bg-800 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-800"
+          ></div>
+          <div
+            className="nui-bg-900 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-900"
+          ></div>
+          <div
+            className="nui-bg-950 h-8 w-8 rounded-lg"
+            data-nui-tooltip="nui-bg-950"
+          ></div>
+        </div>
+      </NuiPreview>
+    </NuiPreviewContainer>
   );
 }
 
