@@ -13,7 +13,6 @@ type Item = {
    * The title of the accordion item.
    */
   title: string;
-
   /**
    * The content of the accordion item.
    */
@@ -28,7 +27,19 @@ type BaseAccordionProps = {
   onOpen?: (item: Item) => void;
 
   /**
-   * The items to display in accordion.
+   * Define the radius of the accordion
+   *
+   */
+  rounded?: "none" | "sm" | "md" | "lg";
+
+  /**
+   * Define the icon used for accordion item toggle action
+   *
+   */
+  action?: "dot" | "chevron" | "plus";
+
+  /**
+   * The items to display in the accordion.
    */
   items: Item[];
 
@@ -41,26 +52,16 @@ type BaseAccordionProps = {
    * Whether if multiple elements in the accordion can be opened at same time or not.
    */
   exclusive?: boolean;
-
-  /**
-   * Define the shape of the accordion
-   */
-  shape?: "straight" | "rounded" | "smooth" | "curved";
-
-  /**
-   * Define the icon used for accordion item toggle action
-   */
-  action?: "dot" | "chevron" | "plus";
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-accordion-rounded",
-  smooth: "nui-accordion-smooth",
-  curved: "nui-accordion-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-accordion-rounded",
+  md: "nui-accordion-smooth",
+  lg: "nui-accordion-curved",
 };
 
-const actionStyle = {
+const actions = {
   dot: "nui-accordion-dot",
   chevron: "nui-accordion-chevron",
   plus: "nui-accordion-plus",
@@ -68,12 +69,14 @@ const actionStyle = {
 
 export const BaseAccordion = forwardRef<HTMLDivElement, BaseAccordionProps>(
   function BaseAccordion(
-    { openItems = [], action = "dot", items, exclusive = false, ...props },
+    { openItems = [], items, exclusive = false, ...props },
     ref,
   ) {
     const config = useConfig();
 
-    const shape = props.shape ?? config.defaultShapes.accordion;
+    const rounded = props.rounded ?? config.BaseAccordion?.rounded;
+
+    const action = props.action ?? config.BaseAccordion?.action;
 
     const internalOpenItems = useRef<number[]>(openItems);
 
@@ -108,8 +111,8 @@ export const BaseAccordion = forwardRef<HTMLDivElement, BaseAccordionProps>(
             key={key}
             className={cn(
               "nui-accordion",
-              actionStyle[action],
-              shapeStyle[shape],
+              action && actions[action],
+              rounded && radiuses[rounded],
             )}
           >
             <details
