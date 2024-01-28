@@ -7,7 +7,7 @@ type BaseAvatarProps = Omit<ImageProps, "width" | "height" | "alt"> & {
   /**
    * The URL of the image to display.
    */
-  //   src?: string;
+  // src?: string;
 
   /**
    * The URL of a dark version of the image to display when the component is in dark mode.
@@ -26,16 +26,18 @@ type BaseAvatarProps = Omit<ImageProps, "width" | "height" | "alt"> & {
 
   /**
    * The size of the image.
+   *
    */
   size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
 
   /**
-   * The shape of the image.
+   * The radius of the image.
+   *
    */
-  shape?: "straight" | "rounded" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
-   * Applies an svg mask from the available presets. (needs shape to be set to `straight`).
+   * Applies an svg mask from the available presets. (needs rounded to be set to `none`).
    */
   mask?: "hex" | "hexed" | "deca" | "blob" | "diamond";
 
@@ -71,7 +73,7 @@ type BaseAvatarProps = Omit<ImageProps, "width" | "height" | "alt"> & {
   alt?: string;
 };
 
-const dotStyle = {
+const dots = {
   success: "nui-dot-success",
   primary: "nui-dot-primary",
   info: "nui-dot-info",
@@ -81,7 +83,7 @@ const dotStyle = {
   yellow: "nui-dot-yellow",
 };
 
-const ringStyle = {
+const rings = {
   success: "nui-ring-success",
   primary: "nui-ring-primary",
   info: "nui-ring-info",
@@ -91,7 +93,7 @@ const ringStyle = {
   yellow: "nui-ring-yellow",
 };
 
-const sizeStyle = {
+const sizes = {
   xxs: "nui-avatar-xxs",
   xs: "nui-avatar-xs",
   sm: "nui-avatar-sm",
@@ -103,10 +105,26 @@ const sizeStyle = {
   "4xl": "nui-avatar-4xl",
 };
 
+const radiuses = {
+  none: "nui-avatar-straight",
+  sm: "nui-avatar-rounded",
+  md: "nui-avatar-smooth",
+  lg: "nui-avatar-curved",
+  full: "nui-avatar-full",
+};
+
+const masks = {
+  hex: "nui-mask-hex",
+  hexed: "nui-mask-hexed",
+  deca: "nui-mask-deca",
+  blob: "nui-mask-blob",
+  diamond: "nui-mask-diamond",
+};
+
 /**
- *  derived from sizeStyle to apply to next/image height and width
+ *  derived from sizes to apply to next/image height and width
  */
-const imageSizes: Record<keyof typeof sizeStyle, number> = {
+const imageSizes: Record<keyof typeof sizes, number> = {
   xxs: 6,
   xs: 8,
   sm: 10,
@@ -119,9 +137,9 @@ const imageSizes: Record<keyof typeof sizeStyle, number> = {
 };
 
 /**
- *  derived from sizeStyle to apply to next/image (badge) height and width
+ *  derived from sizes to apply to next/image (badge) height and width
  */
-const badgeSizes: Record<keyof typeof sizeStyle, number> = {
+const badgeSizes: Record<keyof typeof sizes, number> = {
   xxs: 3,
   xs: 4,
   sm: 5,
@@ -133,21 +151,6 @@ const badgeSizes: Record<keyof typeof sizeStyle, number> = {
   "4xl": 12,
 };
 
-const shapeStyle = {
-  straight: "nui-avatar-straight",
-  rounded: "nui-avatar-rounded",
-  curved: "nui-avatar-curved",
-  full: "nui-avatar-full",
-};
-
-const maskStyle = {
-  hex: "nui-mask-hex",
-  hexed: "nui-mask-hexed",
-  deca: "nui-mask-deca",
-  blob: "nui-mask-blob",
-  diamond: "nui-mask-diamond",
-};
-
 export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
   function BaseAvatar(
     {
@@ -155,8 +158,6 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
       srcDark,
       text = "?",
       badgeSrc,
-      size = "sm",
-      shape: defaultShape,
       mask,
       className: _,
       dot = false,
@@ -168,22 +169,35 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
   ) {
     const config = useConfig();
 
-    const shape = defaultShape ?? config.defaultShapes.avatar;
+    const rounded = props.rounded ?? config.BaseAvatar?.rounded;
 
-    const imageSize = { width: imageSizes[size], height: imageSizes[size] };
+    const size = props.size ?? config.BaseAvatar?.size;
+
+    const imageSize = {
+      width: imageSizes[size ?? "sm"],
+      height: imageSizes[size ?? "sm"],
+    };
+
+    const badgeSize = {
+      width: badgeSizes[size ?? "sm"],
+      height: badgeSizes[size ?? "sm"],
+    };
 
     return (
       <div
         className={cn(
           "nui-avatar",
-          sizeStyle[size],
-          shape && shapeStyle[shape],
-          mask && "nui-avatar-mask",
-          mask && maskStyle[mask],
-          ring === true
-            ? ["nui-avatar-ring", ringStyle.primary]
-            : "nui-avatar-ring",
-          typeof ring === "string" && ringStyle[ring],
+          size && sizes[size],
+          rounded && radiuses[rounded],
+          mask &&
+            (props.rounded === "none" || rounded === "none") && [
+              `nui-avatar-mask`,
+              masks[mask],
+            ],
+          ring &&
+            (ring === true
+              ? ["nui-avatar-ring", rings.primary]
+              : ["nui-avatar-ring", rings[ring]]),
         )}
         ref={ref}
       >
@@ -215,8 +229,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
           <div className="nui-avatar-badge">
             <Image
               src={badgeSrc}
-              width={badgeSizes[size]}
-              height={badgeSizes[size]}
+              {...badgeSize}
               className="nui-badge-img"
               alt=""
             />
@@ -227,7 +240,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
           <span
             className={cn(
               "nui-avatar-dot",
-              dot === true ? dotStyle.primary : dotStyle[dot],
+              dot === true ? dots.primary : dots[dot],
             )}
           />
         )}
