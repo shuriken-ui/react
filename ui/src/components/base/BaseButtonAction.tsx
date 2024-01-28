@@ -1,10 +1,10 @@
-import { ReactNode, forwardRef } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
 import { cn } from "../../utils";
 
-type BaseButtonActionProps = {
+type BaseButtonActionProps = PropsWithChildren<{
   /**
    * The type of button.
    */
@@ -13,7 +13,7 @@ type BaseButtonActionProps = {
   /**
    * The route to navigate to when the button is clicked.
    */
-  to?: string;
+  // to?: string;
 
   /** Using href instead of to result in a native anchor with no router functionality. */
   href?: string;
@@ -34,9 +34,10 @@ type BaseButtonActionProps = {
   target?: string;
 
   /**
-   * The shape of the button.
+   * The radius of the button.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * Whether the button is in a loading state.
@@ -55,22 +56,17 @@ type BaseButtonActionProps = {
     | "warning"
     | "danger"
     | "none";
+}>;
 
-  /**
-   * children
-   */
-  children: ReactNode;
-};
-
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-button-rounded",
-  smooth: "nui-button-smooth",
-  curved: "nui-button-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-button-rounded",
+  md: "nui-button-smooth",
+  lg: "nui-button-curved",
   full: "nui-button-full",
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-button-default",
   muted: "nui-button-muted",
   primary: "nui-button-primary",
@@ -86,10 +82,8 @@ export const BaseButtonAction = forwardRef<
   BaseButtonActionProps
 >(function BaseButtonAction(
   {
-    shape: defaultShape,
     target = "",
     rel = "",
-    color = "default",
     disabled = false,
     loading = false,
     children,
@@ -106,15 +100,17 @@ export const BaseButtonAction = forwardRef<
 
   const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.buttonAction;
+  const rounded = props.rounded ?? config.BaseButtonAction?.rounded;
+
+  const color = props.color ?? config.BaseButtonAction?.color;
 
   return (
     <Component
       className={cn(
         "nui-button-action",
         loading && "nui-button-loading",
-        colorStyle[color],
-        shapeStyle[shape],
+        color && colors[color],
+        rounded && radiuses[rounded],
       )}
       {...attributes}
       ref={ref}
