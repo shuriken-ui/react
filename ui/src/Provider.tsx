@@ -9,115 +9,197 @@ import {
 import { ColorMode, Config } from "./types";
 
 export const defaultConfig: Config = {
+  BaseAccordion: {
+    rounded: "sm",
+    action: "dot",
+  },
+  BaseAutocomplete: {
+    rounded: "sm",
+    size: "md",
+    contrast: "default",
+  },
+  BaseAutocompleteItem: {
+    rounded: "sm",
+  },
+  BaseAvatar: {
+    size: "sm",
+    rounded: "full",
+  },
+  BaseAvatarGroup: {
+    limit: 4,
+    size: "sm",
+  },
+  BaseButton: {
+    variant: "solid",
+    rounded: "sm",
+    color: "default",
+    size: "md",
+  },
+  BaseButtonAction: {
+    rounded: "sm",
+    color: "default",
+  },
+  BaseButtonClose: {
+    size: "sm",
+    rounded: "full",
+    color: "default",
+  },
+  BaseButtonIcon: {
+    rounded: "sm",
+    color: "default",
+    size: "md",
+  },
+  BaseCard: {
+    rounded: "sm",
+    color: "white",
+  },
+  BaseCheckbox: {
+    rounded: "sm",
+    color: "default",
+  },
+  BaseCheckboxAnimated: {
+    color: "primary",
+  },
+  BaseDropdown: {
+    variant: "button",
+    buttonColor: "default",
+    color: "white",
+    rounded: "sm",
+    size: "md",
+    label: "",
+    fixed: false,
+  },
+  BaseDropdownItem: {
+    rounded: "sm",
+    color: "default",
+  },
+  BaseHeading: {
+    as: "p",
+    size: "xl",
+    weight: "semibold",
+    lead: "normal",
+  },
+  BaseIconBox: {
+    variant: "solid",
+    color: "default",
+    size: "xs",
+    rounded: "sm",
+  },
+  BaseInput: {
+    rounded: "sm",
+    size: "md",
+    contrast: "default",
+  },
+  BaseInputFile: {
+    rounded: "sm",
+    size: "md",
+    contrast: "default",
+  },
+  BaseInputNumber: {
+    inputmode: "numeric",
+    rounded: "sm",
+    size: "md",
+    contrast: "default",
+  },
+  BaseKbd: {
+    rounded: "sm",
+    size: "sm",
+    color: "default",
+  },
+  BaseListbox: {
+    rounded: "sm",
+    size: "md",
+    contrast: "default",
+  },
+  BaseMessage: {
+    type: "success",
+    rounded: "sm",
+    closable: false,
+  },
+  BasePagination: {
+    rounded: "sm",
+  },
+  BaseParagraph: {
+    as: "p",
+    size: "md",
+    weight: "normal",
+    lead: "normal",
+  },
+  BasePlaceholderPage: {
+    imageSize: "xs",
+  },
+  BaseProgress: {
+    size: "sm",
+    contrast: "default",
+    color: "primary",
+    rounded: "full",
+  },
+  BaseProse: {
+    rounded: "md",
+  },
+  BaseRadio: {
+    color: "default",
+  },
+  BaseSelect: {
+    rounded: "sm",
+    size: "md",
+    contrast: "default",
+  },
+  BaseSnack: {
+    size: "md",
+    color: "muted",
+  },
+  BaseSwitchBall: {
+    color: "primary",
+  },
+  BaseSwitchThin: {
+    color: "primary",
+  },
+  BaseTabs: {
+    type: "tabs",
+    justify: "start",
+  },
+  BaseTabSlider: {
+    justify: "start",
+    size: "md",
+    rounded: "lg",
+  },
+  BaseTag: {
+    variant: "solid",
+    color: "default",
+    size: "md",
+    rounded: "lg",
+  },
+  BaseText: {
+    size: "md",
+    weight: "normal",
+    lead: "normal",
+  },
+  BaseTextarea: {
+    rounded: "sm",
+    size: "md",
+    contrast: "default",
+  },
+  BaseTreeSelectItem: {
+    rounded: "sm",
+  },
   defaultShapes: {
-    /**
-     * Default shape for the BaseAccordion component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved'}
-     */
     accordion: "rounded",
-    /**
-     * Default shape for the BaseAutocompleteItem component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     autocompleteItem: "rounded",
-    /**
-     * Default shape for the BaseAvatar component
-     *
-     * @type {'straight' | 'rounded' | 'curved' | 'full'}
-     */
     avatar: "full",
-    /**
-     * Default shape for the BaseButton component
-     *
-     * @type {'straight' | 'rounded' | 'curved' | 'smooth' | 'full'}
-     */
     button: "rounded",
-    /**
-     * Default shape for the BaseButtonAction component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     buttonAction: "rounded",
-    /**
-     * Default shape for the BaseButtonIcon component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     buttonIcon: "rounded",
-    /**
-     * Default shape for the BaseButtonClose component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     buttonClose: "full",
-    /**
-     * Default shape for the BaseCard component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved'}
-     */
     card: "rounded",
-    /**
-     * Default shape for the BaseDropdown component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     dropdown: "rounded",
-    /**
-     * Default shape for the BaseIconBox component
-     *
-     * @type {'straight' | 'rounded' | 'curved' | 'full'}
-     */
     iconBox: "rounded",
-    /**
-     * Default shape for all input components component
-     * - BaseAutocomplete
-     * - BaseCheckbox
-     * - BaseInput
-     * - BaseInputFile
-     * - BaseInputListbox
-     * - BaseInputSelect
-     * - BaseInputTextarea
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     input: "rounded",
-    /**
-     * Default shape for the BaseMessage component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     message: "curved",
-    /**
-     * Default shape for the BasePagination component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     pagination: "rounded",
-    /**
-     * Default shape for the BaseProgress component
-     *
-     * @type {'straight' | 'rounded' | 'curved' | 'full'}
-     */
     progress: "full",
-    /**
-     * Default shape for the BaseProse component
-     *
-     * @type {'straight' | 'rounded' | 'curved'}
-     */
     prose: "rounded",
-    /**
-     * Default shape for the BaseTabSlider component
-     *
-     * @type {'straight' | 'rounded' | 'smooth' | 'curved' | 'full'}
-     */
     tabSlider: "rounded",
-    /**
-     * Default shape for the BaseTag component
-     *
-     * @type {'straight' | 'rounded' | 'curved' | 'full'}
-     */
     tag: "rounded",
   },
 };
@@ -129,6 +211,18 @@ export const useConfig = () => {
 
   return config;
 };
+
+// TODO: export const useNuiDefaultProperty = <
+//   Component extends keyof Config,
+//   Property extends keyof Config[Component],
+// >(
+//   component: Component,
+//   property: Property,
+// ) => {
+//   const config = useContext(ConfigContext);
+
+//   return config?.[component]?.[property];
+// };
 
 export const useTheme = () => {
   const [colorMode, setColorMode] = useState<{
