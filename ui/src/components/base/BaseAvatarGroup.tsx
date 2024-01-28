@@ -1,12 +1,15 @@
-import { forwardRef } from "react";
+import { forwardRef, useMemo } from "react";
 import { BaseAvatar } from "./BaseAvatar";
 import { cn } from "../../utils";
+import { useConfig } from "../../Provider";
 
 type BaseAvatarGroupProps = {
   /** The maximum number of avatars to display. */
   limit?: number;
 
-  /** The size of the avatars. */
+  /** The size of the avatars.
+   *
+   */
   size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
 
   /** An array of avatar objects. */
@@ -22,7 +25,7 @@ type BaseAvatarGroupProps = {
   }[];
 };
 
-const sizeStyle = {
+const sizes = {
   xxs: "nui-avatar-group-xxs",
   xs: "nui-avatar-group-xs",
   sm: "nui-avatar-group-sm",
@@ -35,17 +38,34 @@ const sizeStyle = {
 };
 
 export const BaseAvatarGroup = forwardRef<HTMLDivElement, BaseAvatarGroupProps>(
-  function BaseAvatarGroup({ limit = 4, avatars, size = "sm" }, ref) {
+  function BaseAvatarGroup(props, ref) {
+    const config = useConfig();
+
+    const size = props.size ?? config.BaseAvatarGroup?.size;
+
+    const limit = props.limit ?? config.BaseAvatarGroup?.limit;
+
+    const avatarDisplay = useMemo(() => {
+      if (props.avatars && limit && props.avatars.length > limit) {
+        return props.avatars.slice(0, limit - 1);
+      }
+
+      return props.avatars;
+    }, [props.avatars, limit]);
+
     return (
-      <div className={cn("nui-avatar-group", sizeStyle[size])} ref={ref}>
-        {avatars.slice(0, limit - 1).map((avatar, index) => (
+      <div
+        className={cn("nui-avatar-group", props.size && sizes[props.size])}
+        ref={ref}
+      >
+        {avatarDisplay.map((avatar, index) => (
           <div
             key={`${avatar.src || avatar.srcDark || "avatar"}-${index}`}
             className="nui-avatar-outer"
           >
             <BaseAvatar
               size={size}
-              shape="full"
+              rounded="full"
               tabIndex={0}
               className="bg-primary-500/20 text-primary-500 !scale-90"
               {...avatar}
@@ -53,11 +73,11 @@ export const BaseAvatarGroup = forwardRef<HTMLDivElement, BaseAvatarGroupProps>(
             />
           </div>
         ))}
-        {avatars.length > limit && (
+        {limit && props.avatars.length > limit && (
           <div className="nui-avatar-count">
             <div className="nui-avatar-count-inner">
               <span className="nui-avatar-count-text">
-                +{avatars.length - limit + 1}
+                +{props.avatars.length - limit + 1}
               </span>
             </div>
           </div>
