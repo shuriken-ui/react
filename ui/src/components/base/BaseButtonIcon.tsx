@@ -1,10 +1,10 @@
-import { HTMLAttributes, forwardRef } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
 import { cn } from "../../utils";
 
-type BaseButtonIconProps = HTMLAttributes<HTMLDivElement> & {
+type BaseButtonIconProps = PropsWithChildren<{
   /**
    * The type of button.
    * If this is not set and the `to` property is set, the component will be treated as a link.
@@ -15,7 +15,7 @@ type BaseButtonIconProps = HTMLAttributes<HTMLDivElement> & {
    * The route to navigate to when the button or link is clicked.
    * If this is set and the `type` property is not set, the component will be treated as a link.
    */
-  to?: string;
+  // to?: string;
 
   /** Using href instead of to result in a native anchor with no router functionality. */
   href?: string;
@@ -38,9 +38,10 @@ type BaseButtonIconProps = HTMLAttributes<HTMLDivElement> & {
   target?: string;
 
   /**
-   * The shape of the button or link.
+   * The radius of the button or link.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The color of the button.
@@ -64,23 +65,25 @@ type BaseButtonIconProps = HTMLAttributes<HTMLDivElement> & {
    * Whether the button or link is in a loading state.
    */
   loading?: boolean;
-};
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-button-rounded",
-  smooth: "nui-button-smooth",
-  curved: "nui-button-curved",
+  className?: string;
+}>;
+
+const radiuses = {
+  none: "",
+  sm: "nui-button-rounded",
+  md: "nui-button-smooth",
+  lg: "nui-button-curved",
   full: "nui-button-full",
 };
 
-const sizeStyle = {
+const sizes = {
   sm: "nui-button-small",
   md: "nui-button-medium",
   lg: "nui-button-large",
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-button-default",
   muted: "nui-button-muted",
   primary: "nui-button-primary",
@@ -96,14 +99,10 @@ export const BaseButtonIcon = forwardRef<
   BaseButtonIconProps
 >(function BaseButtonIcon(
   {
-    color = "default",
-    shape: defaultShape,
-
     rel = "",
     target = "",
     loading = false,
-    size = "md",
-    className: classes = "",
+    className: classes,
     children,
     ...props
   },
@@ -117,16 +116,20 @@ export const BaseButtonIcon = forwardRef<
 
   const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.buttonIcon;
+  const color = props.color ?? config.BaseButtonIcon?.color;
+
+  const rounded = props.rounded ?? config.BaseButtonIcon?.rounded;
+
+  const size = props.size ?? config.BaseButtonIcon?.size;
 
   return (
     <Component
       className={cn(
         "nui-button-icon",
         loading && "nui-button-loading",
-        shapeStyle[shape],
-        sizeStyle[size],
-        colorStyle[color],
+        rounded && radiuses[rounded],
+        size && sizes[size],
+        color && colors[color],
         classes,
       )}
       {...attributes}
