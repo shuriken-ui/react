@@ -1,10 +1,10 @@
-import { ReactNode, forwardRef } from "react";
+import { PropsWithChildren, forwardRef, useMemo } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
 import { cn } from "../../utils";
 
-type BaseButtonProps = {
+type BaseButtonProps = PropsWithChildren<{
   /** The type of the button. Can be 'button', 'submit', or 'reset'. */
   type?: "button" | "submit" | "reset";
 
@@ -26,8 +26,11 @@ type BaseButtonProps = {
   /** The size of the button */
   size?: "sm" | "md" | "lg" | "xl";
 
-  /** The flavor of the button. Can be 'solid', 'outline', or 'pastel'. */
-  flavor?: "solid" | "outline" | "pastel";
+  /**
+   * The variant of the button..
+   *
+   */
+  variant?: "solid" | "outline" | "pastel";
 
   /** The color of the button. Can be 'default', 'primary', 'info', 'success', 'warning', 'danger', or 'none. */
   color?:
@@ -41,8 +44,11 @@ type BaseButtonProps = {
     | "muted"
     | "none";
 
-  /** The shape of the button. Can be 'straight', 'rounded', 'curved', or 'full'. */
-  shape?: "straight" | "rounded" | "curved" | "smooth" | "full";
+  /**
+   * The radius of the button.
+   *
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /** Whether the button is in a loading state. */
   loading?: boolean;
@@ -59,17 +65,12 @@ type BaseButtonProps = {
   shadow?: "flat" | "hover";
 
   /**
-   * children
-   */
-  children: ReactNode;
-
-  /**
    * css class
    */
   className?: string;
-};
+}>;
 
-const badgeColorStyle = {
+const badgeColors = {
   primary: "nui-badge-primary",
   info: "nui-badge-info",
   success: "nui-badge-success",
@@ -81,28 +82,28 @@ const badgeColorStyle = {
   muted: "",
 };
 
-const sizeStyle = {
+const sizes = {
   sm: "nui-button-small",
   md: "nui-button-medium",
   lg: "nui-button-large",
   xl: "nui-button-big",
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-button-rounded",
-  curved: "nui-button-curved",
-  smooth: "nui-button-smooth",
+const radiuses = {
+  none: "",
+  sm: "nui-button-rounded",
+  md: "nui-button-smooth",
+  lg: "nui-button-curved",
   full: "nui-button-full",
 };
 
-const flavorStyle = {
+const variants = {
   solid: "nui-button-solid",
   pastel: "nui-button-pastel",
   outline: "nui-button-outline",
 };
 
-const colorStyle = {
+const colors = {
   none: "",
   default: "nui-button-default",
   primary: "nui-button-primary",
@@ -114,7 +115,7 @@ const colorStyle = {
   muted: "nui-button-muted",
 };
 
-const shadowStyle = {
+const shadows = {
   flat: "nui-button-shadow",
   hover: "nui-button-shadow-hover",
 };
@@ -124,10 +125,6 @@ export const BaseButton = forwardRef<
   BaseButtonProps
 >(function BaseButton(
   {
-    flavor = "solid",
-    color = "default",
-    size = "md",
-    shape: defaultShape,
     disabled = false,
     badge = false,
     badgePulse = false,
@@ -150,23 +147,36 @@ export const BaseButton = forwardRef<
 
   const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.button;
+  const rounded = props.rounded ?? config.BaseButton?.rounded;
 
-  const badgeStyle =
-    badge && ["default", "light", "muted", "none"].includes(color)
-      ? ""
-      : `nui-button-badge ${badgeColorStyle[color]}`;
+  const variant = props.variant ?? config.BaseButton?.variant;
+
+  const color = props.color ?? config.BaseButton?.color;
+
+  const size = props.size ?? config.BaseButton?.size;
+
+  const badgeStyle = useMemo(() => {
+    if (!color) {
+      return "";
+    }
+
+    if (badge && ["default", "light", "muted", "none"].includes(color)) {
+      return "";
+    }
+
+    return `nui-button-badge ${badgeColors[color]}`;
+  }, [color, badge]);
 
   return (
     <Component
       className={cn(
         "nui-button",
         loading && "nui-button-loading",
-        sizeStyle[size],
-        shapeStyle[shape],
-        flavorStyle[flavor],
-        colorStyle[color],
-        shadow && shadowStyle[shadow],
+        size && sizes[size],
+        rounded && radiuses[rounded],
+        variant && variants[variant],
+        color && colors[color],
+        shadow && shadows[shadow],
         classes,
       )}
       {...attributes}
