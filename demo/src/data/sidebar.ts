@@ -18,6 +18,18 @@ export const sidebarlinks = {
         href: "/tests/authority/colors",
         description: "Color system",
       },
+      icons: {
+        icon: "system-uicons:diamond",
+        title: "Icons",
+        href: "/tests/authority/icons",
+        description: "SVG icon",
+      },
+      prose: {
+        icon: "system-uicons:paragraph-left",
+        title: "BaseProse",
+        href: "/tests/authority/prose",
+        description: "Tailwind typography plugin",
+      },
       typography: {
         icon: "system-uicons:paragraph-left",
         title: "Typography",
@@ -29,6 +41,24 @@ export const sidebarlinks = {
   base: {
     title: "Base",
     links: {
+      accordion: {
+        icon: "system-uicons:flip-view",
+        title: "BaseAccordion",
+        href: "/tests/base/accordion",
+        description: "Accordion component",
+      },
+      avatarGroup: {
+        icon: "system-uicons:users",
+        title: "BaseAvatarGroup",
+        href: "/tests/base/avatar-group",
+        description: "Avatar group component",
+      },
+      avatar: {
+        icon: "system-uicons:user-male",
+        title: "BaseAvatar",
+        href: "/tests/base/avatar",
+        description: "Avatar component",
+      },
       breadcrumb: {
         icon: "system-uicons:chain",
         title: "Breadcrumb",
@@ -162,16 +192,6 @@ export const sidebarlinks = {
   images: {
     title: "Images",
     links: {
-      avatar: {
-        title: "Avatar",
-        href: "/tests/images/avatar",
-        description: "SVG icon",
-      },
-      icons: {
-        title: "Icons",
-        href: "/tests/images/icons",
-        description: "SVG icon",
-      },
       mask: {
         title: "Mask",
         href: "/tests/images/mask",
