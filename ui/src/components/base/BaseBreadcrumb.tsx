@@ -46,7 +46,7 @@ export const BaseBreadcrumb = forwardRef<HTMLElement, BaseBreadcrumbProps>(
       <nav className="nui-breadcrumb" ref={ref}>
         <ul className="nui-breadcrumb-list">
           <li className="nui-breadcrumb-item-mobile">
-            <BaseDropdown flavor="context" size="md">
+            <BaseDropdown variant="context" size="md">
               {props.items
                 ?.slice(0, props.items.length - 1)
                 .map((item, index) => (
