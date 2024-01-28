@@ -1,17 +1,12 @@
-import { ReactNode, forwardRef } from "react";
+import { PropsWithChildren, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { cn } from "../../utils";
 
-interface BaseTagProps {
+type BaseTagProps = PropsWithChildren<{
   /**
-   * children
+   * The variant of the tag.
    */
-  children: ReactNode;
-
-  /**
-   * The flavor of the tag.
-   */
-  flavor?: "solid" | "outline" | "pastel";
+  variant?: "solid" | "outline" | "pastel";
 
   /**
    * The color of the tag.
@@ -26,9 +21,10 @@ interface BaseTagProps {
     | "danger";
 
   /**
-   * The shape of the tag.
+   * The radius of the tag.
+   *
    */
-  shape?: "straight" | "rounded" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The size of the tag.
@@ -39,23 +35,23 @@ interface BaseTagProps {
    * Determines when the tag should have a shadow.
    */
   shadow?: "flat" | "hover";
-}
+}>;
 
-const flavorStyle = {
+const variants = {
   solid: "nui-tag-solid",
   pastel: "nui-tag-pastel",
   outline: "nui-tag-outline",
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-tag-rounded",
-  smooth: "nui-tag-smooth",
-  curved: "nui-tag-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-tag-rounded",
+  md: "nui-tag-smooth",
+  lg: "nui-tag-curved",
   full: "nui-tag-full",
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-tag-default",
   muted: "nui-tag-muted",
   primary: "nui-tag-primary",
@@ -65,41 +61,37 @@ const colorStyle = {
   danger: "nui-tag-danger",
 };
 
-const shadowStyle = {
-  flat: "nui-tag-shadow",
-  hover: "nui-tag-shadow-hover",
-};
-
-const sizeStyle = {
+const sizes = {
   sm: "nui-tag-sm",
   md: "nui-tag-md",
 };
 
+const shadows = {
+  flat: "nui-tag-shadow",
+  hover: "nui-tag-shadow-hover",
+};
+
 export const BaseTag = forwardRef<HTMLSpanElement, BaseTagProps>(
-  function BaseTag(
-    {
-      flavor = "solid",
-      color = "default",
-      shape: defaultShape,
-      shadow,
-      size = "md",
-      children,
-    },
-    ref,
-  ) {
+  function BaseTag({ children, ...props }, ref) {
     const config = useConfig();
 
-    const shape = defaultShape ?? config.defaultShapes.tag;
+    const variant = props.variant ?? config.BaseTag?.variant;
+
+    const rounded = props.rounded ?? config.BaseTag?.rounded;
+
+    const color = props.color ?? config.BaseTag?.color;
+
+    const size = props.size ?? config.BaseTag?.size;
 
     return (
       <span
         className={cn(
           "nui-tag",
-          sizeStyle[size],
-          flavorStyle[flavor],
-          colorStyle[color],
-          shapeStyle[shape],
-          shadow && flavor === "solid" && shadowStyle[shadow],
+          size && sizes[size],
+          rounded && radiuses[rounded],
+          variant && variants[variant],
+          color && colors[color],
+          props.shadow && shadows[props.shadow],
         )}
         ref={ref}
       >
