@@ -5,7 +5,7 @@ const NuiPreview: FC<
 > = ({ title, description, children }) => {
   return (
     <div className="border border-muted-200 dark:border-muted-800 bg-white dark:bg-muted-950 p-6 rounded-sm">
-      <div v-if="props.title" className="mb-6">
+      <div className="mb-6">
         {title && (
           <h3 className="font-sans font-medium text-lg text-muted-800 dark:text-muted-100 mb-2">
             {title}
