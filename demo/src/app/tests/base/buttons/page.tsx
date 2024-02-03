@@ -1,134 +1,200 @@
 import { BaseButton, BaseHeading } from "@shuriken-ui/react";
 import { Metadata } from "next";
 import React from "react";
+import NuiPreviewContainer from "@/components/NuiPreviewContainer";
+import NuiPreview from "@/components/NuiPreview";
+import Iconify from "@/components/Iconify";
+import { getMeta } from "@/data/sidebar";
+
+const meta = getMeta("base", "buttons");
 
 export const metadata: Metadata = {
-  title: "Buttons",
-  description: "Button variations",
+  ...meta,
 };
 
-function ButtonsPage() {
+export default function ButtonsPage() {
   return (
-    <div className="flex flex-col gap-12 [&>*]:p-8 [&>:nth-child(odd)]:bg-muted-100 dark:[&>:nth-child(odd)]:bg-muted-900 pb-32">
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Button sizes
-        </BaseHeading>
-        <div className="flex gap-2">
-          <BaseButton size="sm">Button</BaseButton>
-          <BaseButton color="muted" size="md">
+    <NuiPreviewContainer title={meta.title}>
+      <NuiPreview title="Radius" description="Button component border radiuses">
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton rounded="none">Button</BaseButton>
+          <BaseButton rounded="sm">Button</BaseButton>
+          <BaseButton rounded="md">Button</BaseButton>
+          <BaseButton rounded="lg">Button</BaseButton>
+          <BaseButton rounded="full">Button</BaseButton>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Size" description="Button component sizes">
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton size="sm" rounded="md">
             Button
           </BaseButton>
-          <BaseButton color="primary" size="lg">
+          <BaseButton size="md" rounded="md">
             Button
           </BaseButton>
-          <BaseButton color="success" size="xl">
+          <BaseButton size="lg" rounded="md">
             Button
           </BaseButton>
         </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Button Solid
-        </BaseHeading>
-        <div className="flex gap-2">
-          <BaseButton flavor="solid" shadow="flat">
+      </NuiPreview>
+
+      <NuiPreview title="Badge" description="Button component badges">
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton size="sm" rounded="md" badge badgePulse>
             Button
           </BaseButton>
-          <BaseButton color="muted" flavor="solid" shadow="flat">
+          <BaseButton size="md" rounded="md" badge badgePulse>
             Button
           </BaseButton>
-          <BaseButton color="primary" flavor="solid" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="success" flavor="solid" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="info" flavor="solid" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="warning" flavor="solid" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="danger" flavor="solid" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="light" flavor="solid" shadow="flat">
+          <BaseButton size="lg" rounded="md" badge badgePulse>
             Button
           </BaseButton>
         </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Button Pastel
-        </BaseHeading>
-        <div className="flex gap-2">
-          <BaseButton flavor="pastel" shadow="flat">
+      </NuiPreview>
+
+      <NuiPreview
+        title="Link"
+        description="Button component rendered as a link"
+      >
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton to="#" rounded="none">
             Button
           </BaseButton>
-          <BaseButton color="muted" flavor="pastel" shadow="flat">
+          <BaseButton to="#" rounded="sm">
             Button
           </BaseButton>
-          <BaseButton color="primary" flavor="pastel" shadow="flat">
+          <BaseButton to="#" rounded="md">
             Button
           </BaseButton>
-          <BaseButton color="success" flavor="pastel" shadow="flat">
+          <BaseButton to="#" rounded="lg">
             Button
           </BaseButton>
-          <BaseButton color="info" flavor="pastel" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="warning" flavor="pastel" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="danger" flavor="pastel" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="light" flavor="pastel" shadow="flat">
+          <BaseButton to="#" rounded="full">
             Button
           </BaseButton>
         </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Button Outline
-        </BaseHeading>
-        <div className="flex gap-2">
-          <BaseButton flavor="outline" shadow="flat">
+      </NuiPreview>
+
+      <NuiPreview
+        title="Variant: solid"
+        description="Button component solid variant"
+      >
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton variant="solid">Button</BaseButton>
+          <BaseButton variant="solid" color="muted">
             Button
           </BaseButton>
-          <BaseButton color="muted" flavor="outline" shadow="flat">
+          <BaseButton variant="solid" color="light">
             Button
           </BaseButton>
-          <BaseButton color="primary" flavor="outline" shadow="flat">
+          <BaseButton variant="solid" color="primary">
             Button
           </BaseButton>
-          <BaseButton color="success" flavor="outline" shadow="flat">
+          <BaseButton variant="solid" color="success">
             Button
           </BaseButton>
-          <BaseButton color="info" flavor="outline" shadow="flat">
+          <BaseButton variant="solid" color="info">
             Button
           </BaseButton>
-          <BaseButton color="warning" flavor="outline" shadow="flat">
+          <BaseButton variant="solid" color="warning">
             Button
           </BaseButton>
-          <BaseButton color="danger" flavor="outline" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="light" flavor="outline" shadow="flat">
+          <BaseButton variant="solid" color="danger">
             Button
           </BaseButton>
         </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Button shadow
-        </BaseHeading>
-        <div className="flex gap-2">
+      </NuiPreview>
+
+      <NuiPreview
+        title="Variant: pastel"
+        description="Button component pastel variant"
+      >
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton variant="pastel">Button</BaseButton>
+          <BaseButton variant="pastel" color="muted">
+            Button
+          </BaseButton>
+          <BaseButton variant="pastel" color="primary">
+            Button
+          </BaseButton>
+          <BaseButton variant="pastel" color="success">
+            Button
+          </BaseButton>
+          <BaseButton variant="pastel" color="info">
+            Button
+          </BaseButton>
+          <BaseButton variant="pastel" color="warning">
+            Button
+          </BaseButton>
+          <BaseButton variant="pastel" color="danger">
+            Button
+          </BaseButton>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Variant: outline"
+        description="Button component outline variant"
+      >
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton variant="outline">Button</BaseButton>
+          <BaseButton variant="outline" color="muted">
+            Button
+          </BaseButton>
+          <BaseButton variant="outline" color="primary">
+            Button
+          </BaseButton>
+          <BaseButton variant="outline" color="success">
+            Button
+          </BaseButton>
+          <BaseButton variant="outline" color="info">
+            Button
+          </BaseButton>
+          <BaseButton variant="outline" color="warning">
+            Button
+          </BaseButton>
+          <BaseButton variant="outline" color="danger">
+            Button
+          </BaseButton>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="With icons" description="Button component with icons">
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton color="default">
+            <Iconify icon="lucide:moon" className="-ms-1 h-4 w-4" />
+            <span>Button</span>
+          </BaseButton>
+          <BaseButton color="primary">
+            <span>Button</span>
+            <Iconify icon="lucide:arrow-right" className="me-1 h-4 w-4" />
+          </BaseButton>
+          <BaseButton color="success">
+            <Iconify icon="cib:envato" className="-ms-1 h-4 w-4" />
+            <span>Button</span>
+          </BaseButton>
+          <BaseButton color="info">
+            <Iconify icon="fa:twitter" className="-ms-1 h-4 w-4" />
+            <span>Button</span>
+          </BaseButton>
+          <BaseButton color="warning">
+            <Iconify icon="ion:shapes" className="-ms-1 h-4 w-4" />
+            <span>Button</span>
+          </BaseButton>
+          <BaseButton color="danger">
+            <Iconify icon="ph:heart-duotone" className="-ms-1 h-4 w-4" />
+            <span>Button</span>
+          </BaseButton>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Shadow: flat"
+        description="Button component with a flat shadow"
+      >
+        <div className="flex flex-wrap items-end gap-4">
           <BaseButton shadow="flat">Button</BaseButton>
-          <BaseButton color="muted" shadow="flat">
-            Button
-          </BaseButton>
           <BaseButton color="primary" shadow="flat">
             Button
           </BaseButton>
@@ -145,17 +211,15 @@ function ButtonsPage() {
             Button
           </BaseButton>
         </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Button shadow hover
-        </BaseHeading>
-        <div className="flex gap-2">
+      </NuiPreview>
+
+      <NuiPreview
+        title="Shadow: hover"
+        description="Button component with a hover shadow"
+      >
+        <div className="flex flex-wrap items-end gap-4">
           <BaseButton shadow="hover">Button</BaseButton>
-          <BaseButton color="muted" shadow="hover">
-            Button
-          </BaseButton>
-          <BaseButton color="primary" shadow="hover" badge badge-pulse>
+          <BaseButton color="primary" shadow="hover">
             Button
           </BaseButton>
           <BaseButton color="success" shadow="hover">
@@ -171,9 +235,91 @@ function ButtonsPage() {
             Button
           </BaseButton>
         </div>
-      </div>
-    </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="State: loading"
+        description="Button component in a loading state"
+      >
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton loading>Button</BaseButton>
+          <BaseButton loading color="muted">
+            Button
+          </BaseButton>
+          <BaseButton loading color="light">
+            Button
+          </BaseButton>
+          <BaseButton loading color="primary">
+            Button
+          </BaseButton>
+          <BaseButton loading color="success">
+            Button
+          </BaseButton>
+          <BaseButton loading color="info">
+            Button
+          </BaseButton>
+          <BaseButton loading color="warning">
+            Button
+          </BaseButton>
+          <BaseButton loading color="danger">
+            Button
+          </BaseButton>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="State: disabled"
+        description="Button component in a disabled state"
+      >
+        <div className="flex flex-wrap items-end gap-4">
+          <BaseButton disabled>Button</BaseButton>
+          <BaseButton disabled color="muted">
+            Button
+          </BaseButton>
+          <BaseButton disabled color="light">
+            Button
+          </BaseButton>
+          <BaseButton disabled color="primary">
+            Button
+          </BaseButton>
+          <BaseButton disabled color="success">
+            Button
+          </BaseButton>
+          <BaseButton disabled color="info">
+            Button
+          </BaseButton>
+          <BaseButton disabled color="warning">
+            Button
+          </BaseButton>
+          <BaseButton disabled color="danger">
+            Button
+          </BaseButton>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Group"
+        description="Button component inside a button group"
+      >
+        <BaseButton>
+          <BaseButton color="default">
+            <Iconify icon="lucide:edit-3" className="-ms-1 h-3 w-3" />
+            <span>Edit</span>
+          </BaseButton>
+          <BaseButton color="default">
+            <Iconify icon="lucide:eye" className="-ms-1 h-3 w-3" />
+            <span>View</span>
+          </BaseButton>
+          <BaseButton color="primary">
+            <Iconify icon="lucide:box" className="-ms-1 h-3 w-3" />
+            <span>Stash</span>
+          </BaseButton>
+          <BaseButton color="default">
+            <Iconify icon="lucide:share-2" className="-ms-1 h-3 w-3" />
+            <span>Share</span>
+          </BaseButton>
+        </BaseButton>
+      </NuiPreview>
+    </NuiPreviewContainer>
   );
 }
-
-export default ButtonsPage;
