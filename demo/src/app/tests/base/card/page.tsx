@@ -1,133 +1,397 @@
 import { BaseCard, BaseHeading, BaseParagraph } from "@shuriken-ui/react";
 import { Metadata } from "next";
 import React from "react";
+import NuiPreview from "@/components/NuiPreview";
+import NuiPreviewContainer from "@/components/NuiPreviewContainer";
+
+import { getMeta } from "@/data/sidebar";
+
+const meta = getMeta("base", "card");
 
 export const metadata: Metadata = {
-  title: "Card",
-  description: "SVG icons",
+  ...meta,
 };
-
 function CardPage() {
   return (
-    <div className="flex flex-col gap-12 [&>*]:p-8 [&>:nth-child(odd)]:bg-muted-100 dark:[&>:nth-child(odd)]:bg-muted-900 pb-32">
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Card Shape
-        </BaseHeading>
-        <div className="grid grid-cols-4 gap-2">
-          <BaseCard className="p-6" shape="straight">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
+    <NuiPreviewContainer title={meta.title}>
+      <NuiPreview title="Radius" description="Card component radiuses">
+        <div className="grid gap-4 md:grid-cols-2 max-w-3xl">
+          <BaseCard rounded="none" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </BaseParagraph>
           </BaseCard>
-          <BaseCard className="p-6" shape="rounded">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
+
+          <BaseCard rounded="sm" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </BaseParagraph>
           </BaseCard>
-          <BaseCard className="p-6" shape="smooth">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
+
+          <BaseCard rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </BaseParagraph>
           </BaseCard>
-          <BaseCard className="p-6" shape="curved">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-        </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Card color
-        </BaseHeading>
-        <div className="grid grid-cols-5 gap-2">
-          <BaseCard className="p-6" shape="rounded" color="white">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="white-contrast">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="muted">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="muted-contrast">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="primary">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="info">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="success">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="warning">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="danger">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </BaseParagraph>
-          </BaseCard>
-          <BaseCard className="p-6" shape="rounded" color="none">
-            <BaseHeading>I am a Card</BaseHeading>
-            <BaseParagraph>
+
+          <BaseCard rounded="lg" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </BaseParagraph>
           </BaseCard>
         </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          Card Elevation
-        </BaseHeading>
-        <div className="grid grid-cols-4 gap-2">
-          <BaseCard className="p-6" shape="rounded" elevated>
-            <BaseHeading>I am a Card Elevated</BaseHeading>
-            <BaseParagraph>
+      </NuiPreview>
+
+      <NuiPreview title="Contrast" description="Card component contrasts">
+        <div className="grid gap-4 md:grid-cols-2 max-w-3xl">
+          <BaseCard color="white" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </BaseParagraph>
           </BaseCard>
-          <BaseCard className="p-6" shape="rounded" elevated-hover>
-            <BaseHeading>I am a Card Elevated on hover</BaseHeading>
-            <BaseParagraph>
+
+          <BaseCard color="white-contrast" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="muted" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="muted-contrast" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </BaseParagraph>
           </BaseCard>
         </div>
-      </div>
-    </div>
+      </NuiPreview>
+
+      <NuiPreview title="Color" description="Card component colors">
+        <div className="grid gap-4 md:grid-cols-2 max-w-3xl">
+          <BaseCard color="white" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="primary" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="info" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="success" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="warning" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="danger" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Shadow: flat"
+        description="Card component flat shadows"
+      >
+        <div className="grid gap-4 md:grid-cols-2 max-w-3xl">
+          <BaseCard rounded="none" shadow="flat" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard rounded="sm" shadow="flat" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard rounded="md" shadow="flat" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard rounded="lg" shadow="flat" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Shadow: hover"
+        description="Card component hover shadows"
+      >
+        <div className="grid gap-4 md:grid-cols-2 max-w-3xl">
+          <BaseCard rounded="none" shadow="hover" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard rounded="sm" shadow="hover" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard rounded="md" shadow="hover" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard rounded="lg" shadow="hover" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="text-muted-800 mb-2 dark:text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+        </div>
+      </NuiPreview>
+    </NuiPreviewContainer>
   );
 }
 
