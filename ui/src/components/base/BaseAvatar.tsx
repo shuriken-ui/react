@@ -1,5 +1,6 @@
 import { forwardRef } from "react";
-import Image, { ImageProps } from "next/image";
+
+import NextImage, { type ImageProps } from "next/image";
 import { useConfig } from "../../Provider";
 import { cn } from "../../utils";
 
@@ -183,6 +184,19 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
       height: badgeSizes[size ?? "sm"],
     };
 
+    /**
+     * Temporary fix to ElementType invalid
+     * adapted from https://github.com/prismicio/prismic-next/pull/79/files
+     *
+     *  TODO: remove when https://github.com/vercel/next.js/issues/52216 is resolved
+     *
+     */
+    let Image = NextImage;
+
+    if ("default" in Image) {
+      Image = (Image as unknown as { default: typeof Image }).default;
+    }
+
     return (
       <div
         className={cn(
@@ -228,9 +242,9 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
         {badgeSrc && (
           <div className="nui-avatar-badge">
             <Image
+              className="nui-badge-img"
               src={badgeSrc}
               {...badgeSize}
-              className="nui-badge-img"
               alt=""
             />
           </div>
