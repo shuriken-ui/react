@@ -1,7 +1,7 @@
 import React from "react";
 
-import NuiPreviewContainer from "../../NuiPreviewContainer";
-import NuiPreview from "../../NuiPreview";
+import NuiPreviewContainer from "@/components/NuiPreviewContainer";
+import NuiPreview from "@/components/NuiPreview";
 import { BaseAccordion } from "@shuriken-ui/react";
 import { getMeta } from "@/data/sidebar";
 import { Metadata } from "next";

@@ -3,8 +3,8 @@ import { Metadata } from "next";
 import React from "react";
 
 import { getMeta } from "@/data/sidebar";
-import NuiPreviewContainer from "../../NuiPreviewContainer";
-import NuiPreview from "../../NuiPreview";
+import NuiPreviewContainer from "@/components/NuiPreviewContainer";
+import NuiPreview from "@/components/NuiPreview";
 
 const meta = getMeta("base", "avatar");
 

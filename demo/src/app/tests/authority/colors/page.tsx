@@ -3,8 +3,8 @@ import React from "react";
 import { Metadata } from "next";
 
 import { getMeta } from "@/data/sidebar";
-import NuiPreview from "../../NuiPreview";
-import NuiPreviewContainer from "../../NuiPreviewContainer";
+import NuiPreview from "@/components/NuiPreview";
+import NuiPreviewContainer from "@/components/NuiPreviewContainer";
 
 const meta = getMeta("authority", "colors");
 
