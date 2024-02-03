@@ -4,22 +4,14 @@ import { cn } from "../../utils";
 
 type BaseCardProps = HTMLAttributes<HTMLDivElement> & {
   /**
-   * The shape of the card.
+   * The radius of the card.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved";
-
-  /**
-   * Whether the card is elevated.
-   */
-  elevated?: boolean;
-
-  /**
-   * Whether the card is elevated on hover.
-   */
-  elevatedHover?: boolean;
+  rounded?: "none" | "sm" | "md" | "lg";
 
   /**
    * The color of the card.
+   *
    */
   color?:
     | "white"
@@ -32,16 +24,21 @@ type BaseCardProps = HTMLAttributes<HTMLDivElement> & {
     | "warning"
     | "danger"
     | "none";
+
+  /**
+   * Adds a flat or a on hover shadow to the card.
+   */
+  shadow?: "flat" | "hover";
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-card-rounded",
-  smooth: "nui-card-smooth",
-  curved: "nui-card-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-card-rounded",
+  md: "nui-card-smooth",
+  lg: "nui-card-curved",
 };
 
-const colorStyle = {
+const colors = {
   white: "nui-card-white",
   "white-contrast": "nui-card-white-contrast",
   muted: "nui-card-muted",
@@ -54,13 +51,16 @@ const colorStyle = {
   none: "",
 };
 
+const shadows = {
+  flat: "nui-card-shadow",
+  hover: "nui-card-shadow-hover",
+};
+
 export const BaseCard = forwardRef<HTMLDivElement, BaseCardProps>(
   function BaseCard(
     {
-      shape: defaultShape,
-      elevated = false,
-      elevatedHover = false,
-      color = "white",
+      rounded: roundedProp,
+      color: colorProp,
       className: classes,
       children,
       ...props
@@ -69,16 +69,17 @@ export const BaseCard = forwardRef<HTMLDivElement, BaseCardProps>(
   ) {
     const config = useConfig();
 
-    const shape = defaultShape ?? config.defaultShapes.card;
+    const rounded = roundedProp ?? config.BaseCard?.rounded;
+
+    const color = colorProp ?? config.BaseCard?.color;
 
     return (
       <div
         className={cn(
           "nui-card",
-          shape && shapeStyle[shape],
-          colorStyle[color],
-          elevated && "nui-card-shadow",
-          elevatedHover && "nui-card-shadow-hover",
+          rounded && radiuses[rounded],
+          color && colors[color],
+          props.shadow && shadows[props.shadow],
           classes,
         )}
         {...props}
