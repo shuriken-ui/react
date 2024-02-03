@@ -5,12 +5,23 @@ import { cn } from "../../utils";
 
 type BaseButtonCloseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   /**
-   * The shape of the button.
+   * The size of the button.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  size?: "xs" | "sm" | "md" | "lg";
 
   /**
-   * The color of the button. Can be 'default' or 'muted.
+   * The radius of the button.
+   *
+   * @since 2.0.0
+   * @default 'full'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The color of the button.
+   *
+   * @default 'default'
    */
   color?:
     | "default"
@@ -23,15 +34,22 @@ type BaseButtonCloseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     | "none";
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-button-rounded",
-  smooth: "nui-button-smooth",
-  curved: "nui-button-curved",
+const sizes = {
+  xs: "nui-button-xs",
+  sm: "nui-button-sm",
+  md: "nui-button-md",
+  lg: "nui-button-lg",
+};
+
+const radiuses = {
+  none: "",
+  sm: "nui-button-rounded",
+  md: "nui-button-smooth",
+  lg: "nui-button-curved",
   full: "nui-button-full",
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-button-default",
   muted: "nui-button-muted",
   primary: "nui-button-primary",
@@ -46,21 +64,32 @@ export const BaseButtonClose = forwardRef<
   HTMLButtonElement,
   BaseButtonCloseProps
 >(function BaseButtonClose(
-  { shape: defaultShape, color = "default", className: classes, ...props },
+  {
+    size: sizeProp,
+    rounded: roundedProp,
+    color: colorProp,
+    children,
+    className,
+    ...props
+  },
   ref,
 ) {
   const config = useConfig();
 
-  const shape = defaultShape ?? config.defaultShapes.buttonClose;
+  const size = sizeProp ?? config.BaseButtonClose?.size;
+
+  const rounded = roundedProp ?? config.BaseButtonClose?.rounded;
+
+  const color = colorProp ?? config.BaseButtonClose?.color;
 
   return (
     <button
       type="button"
       className={cn(
         "nui-button-close",
-        shape && shapeStyle[shape],
-        colorStyle[color],
-        classes,
+        size && sizes[size],
+        rounded && radiuses[rounded],
+        color && colors[color],
       )}
       {...props}
       ref={ref}
