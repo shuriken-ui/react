@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import { forwardRef, useRef } from "react";
+import { forwardRef, useState } from "react";
 import { useConfig } from "../../Provider";
 import { IconChevronDown, IconPlus } from "../icons";
 import { cn } from "../../utils";
@@ -78,29 +78,32 @@ export const BaseAccordion = forwardRef<HTMLDivElement, BaseAccordionProps>(
 
     const action = props.action ?? config.BaseAccordion?.action;
 
-    const internalOpenItems = useRef<number[]>(openItems);
+    const [internalOpenItems, setInternalOpenItems] =
+      useState<number[]>(openItems);
 
     function toggle(key: number) {
-      const wasOpen = internalOpenItems.current.includes(key);
+      const wasOpen = internalOpenItems.includes(key);
 
       if (exclusive) {
-        internalOpenItems.current.splice(0, internalOpenItems.current.length);
+        setInternalOpenItems((prevOpenItems) =>
+          prevOpenItems.splice(0, prevOpenItems.length),
+        );
+
         if (!wasOpen) {
           props.onOpen?.(items[key]!);
-          internalOpenItems.current.push(key);
+          setInternalOpenItems((prevOpenItems) => [...prevOpenItems, key]);
         }
 
         return;
       }
 
       if (wasOpen) {
-        internalOpenItems.current.splice(
-          internalOpenItems.current.indexOf(key),
-          1,
+        setInternalOpenItems((prevOpenItems) =>
+          prevOpenItems.splice(prevOpenItems.indexOf(key), 1),
         );
       } else {
         props.onOpen?.(items[key]!);
-        internalOpenItems.current.push(key);
+        setInternalOpenItems((prevOpenItems) => [...prevOpenItems, key]);
       }
     }
 
@@ -116,7 +119,7 @@ export const BaseAccordion = forwardRef<HTMLDivElement, BaseAccordionProps>(
             )}
           >
             <details
-              open={internalOpenItems.current.includes(key)}
+              open={internalOpenItems.includes(key)}
               className="nui-accordion-detail"
             >
               <summary
