@@ -164,7 +164,7 @@ export const BaseButton = forwardRef<
       return "";
     }
 
-    return `nui-button-badge ${badgeColors[color]}`;
+    return badgeColors[color];
   }, [color, badge]);
 
   return (
@@ -185,7 +185,7 @@ export const BaseButton = forwardRef<
       {!loading && children}
       {loading && <BasePlaceload className="h-4 w-12 rounded" />}
       {badge && (
-        <span className={badgeStyle}>
+        <span className={cn("nui-button-badge", badgeStyle)}>
           {badgePulse && <span className="nui-button-badge-pulse" />}
           <span className="nui-button-badge-inner" />
         </span>
