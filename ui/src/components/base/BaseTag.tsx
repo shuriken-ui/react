@@ -5,11 +5,13 @@ import { cn } from "../../utils";
 type BaseTagProps = PropsWithChildren<{
   /**
    * The variant of the tag.
+   *
    */
   variant?: "solid" | "outline" | "pastel";
 
   /**
    * The color of the tag.
+   *
    */
   color?:
     | "default"
@@ -28,6 +30,7 @@ type BaseTagProps = PropsWithChildren<{
 
   /**
    * The size of the tag.
+   *
    */
   size?: "sm" | "md";
 
@@ -72,16 +75,27 @@ const shadows = {
 };
 
 export const BaseTag = forwardRef<HTMLSpanElement, BaseTagProps>(
-  function BaseTag({ children, ...props }, ref) {
+  function BaseTag(
+    {
+      children,
+      variant: variantProp,
+      rounded: roundedProp,
+      color: colorProp,
+      size: sizeProp,
+      shadow: shadowProp,
+      ...props
+    },
+    ref,
+  ) {
     const config = useConfig();
 
-    const variant = props.variant ?? config.BaseTag?.variant;
+    const variant = variantProp ?? config.BaseTag?.variant;
 
-    const rounded = props.rounded ?? config.BaseTag?.rounded;
+    const rounded = roundedProp ?? config.BaseTag?.rounded;
 
-    const color = props.color ?? config.BaseTag?.color;
+    const color = colorProp ?? config.BaseTag?.color;
 
-    const size = props.size ?? config.BaseTag?.size;
+    const size = sizeProp ?? config.BaseTag?.size;
 
     return (
       <span
@@ -91,8 +105,9 @@ export const BaseTag = forwardRef<HTMLSpanElement, BaseTagProps>(
           rounded && radiuses[rounded],
           variant && variants[variant],
           color && colors[color],
-          props.shadow && shadows[props.shadow],
+          shadowProp && shadows[shadowProp],
         )}
+        {...props}
         ref={ref}
       >
         {children}
