@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import { Ref, forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { cn } from "../../utils";
 import { useConfig } from "../../Provider";
 import { useNinjaId } from "../../hooks/useNinjaId";
@@ -27,9 +27,16 @@ type BaseCheckboxProps = {
   falseValue?: string;
 
   /**
-   * The value of the component.
+   *  if the checkbox is checked
    */
-  onChange?: (value: string) => void;
+  checked?: boolean;
+
+  /**
+   * The value of the component.
+   * @param value The value of the checkbox.
+   * @param checked Whether the checkbox is checked.
+   */
+  onChange?: (value: string, checked: boolean) => void;
 
   /**
    * The form input identifier.
@@ -52,9 +59,10 @@ type BaseCheckboxProps = {
   indeterminate?: boolean;
 
   /**
-   * The shape of the checkbox.
+   * The radius of the checkbox.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /** The color of the checkbox. Can be 'default', 'primary', 'info', 'success', 'warning', or 'danger' */
   color?:
@@ -88,15 +96,15 @@ type BaseCheckboxProps = {
   };
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-checkbox-rounded",
-  smooth: "nui-checkbox-smooth",
-  curved: "nui-checkbox-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-checkbox-rounded",
+  md: "nui-checkbox-smooth",
+  lg: "nui-checkbox-curved",
   full: "nui-checkbox-full",
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-checkbox-default",
   light: "nui-checkbox-light",
   muted: "nui-checkbox-muted",
@@ -120,7 +128,9 @@ export const BaseCheckbox = forwardRef<BaseCheckboxRef, BaseCheckboxProps>(
 
     const config = useConfig();
 
-    const shape = props.shape ?? config.defaultShapes?.input;
+    const rounded = props.rounded ?? config.BaseCheckbox?.rounded;
+
+    const color = props.color ?? config.BaseCheckbox?.color;
 
     const id = useNinjaId(() => props.id);
 
@@ -147,8 +157,8 @@ export const BaseCheckbox = forwardRef<BaseCheckboxRef, BaseCheckboxProps>(
         className={cn(
           "nui-checkbox",
           props.disabled && "opacity-50",
-          shape && shapeStyle[shape],
-          props.color && colorStyle[props.color],
+          rounded && radiuses[rounded],
+          color && colors[color],
           props.classes?.wrapper,
         )}
       >
@@ -160,15 +170,18 @@ export const BaseCheckbox = forwardRef<BaseCheckboxRef, BaseCheckboxProps>(
             disabled={props.disabled}
             className={cn("nui-checkbox-input", props.classes?.input)}
             type="checkbox"
-            checked={props.value === trueValue}
+            checked={props.checked}
             onChange={(e) => {
               if (trueValue && falseValue) {
-                onChange(e.target.checked ? trueValue : falseValue);
+                onChange(
+                  e.target.checked ? trueValue : falseValue,
+                  e.target.checked,
+                );
 
                 return;
               }
 
-              onChange(e.target.value);
+              onChange(e.target.value, e.target.checked);
             }}
           />
           <div className="nui-checkbox-inner" />
