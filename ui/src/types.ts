@@ -191,7 +191,6 @@ export type Config = {
       | "success"
       | "warning"
       | "danger"
-      | "light"
       | "muted"
       | "none";
   };
