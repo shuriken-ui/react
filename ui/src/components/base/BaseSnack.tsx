@@ -1,8 +1,9 @@
 import { forwardRef } from "react";
 import { Icon } from "@iconify/react";
-import Image from "next/image";
+import NextImage from "next/image";
 import { BaseButtonClose } from "./BaseButtonClose";
 import { cn } from "../../utils";
+import { useConfig } from "../../Provider";
 
 interface BaseSnackProps {
   /**
@@ -28,7 +29,7 @@ interface BaseSnackProps {
   /**
    * The size of the snack.
    */
-  size?: "sm" | "md";
+  size?: "xs" | "sm" | "md";
 
   /**
    * The color of snack, might be 'default' or 'muted'.
@@ -36,39 +37,55 @@ interface BaseSnackProps {
   color?: "default" | "muted";
 }
 
-const sizeStyle = {
+const sizes = {
+  xs: "nui-snack-xs",
   sm: "nui-snack-sm",
   md: "nui-snack-md",
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-snack-default",
   muted: "nui-snack-muted",
 };
 
-const imageSize: Record<keyof typeof sizeStyle, number> = {
+const imageSize: Record<keyof typeof sizes, number> = {
+  xs: 24,
   sm: 32,
   md: 40,
 };
 
 export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
   function BaseSnack(
-    {
-      icon,
-      image,
-      label = "",
-      size = "md",
-      color = "default",
-      onClick = () => {},
-    },
+    { icon, image, label = "", onClick = () => {}, ...props },
     ref,
   ) {
+    const config = useConfig();
+
+    const size = props.size ?? config.BaseSnack?.size;
+
+    const color = props.color ?? config.BaseSnack?.color;
+
+    const closeSize = size || "md";
+
+    /**
+     * Temporary fix to ElementType invalid
+     * adapted from https://github.com/prismicio/prismic-next/pull/79/files
+     *
+     *  TODO: remove when https://github.com/vercel/next.js/issues/52216 is resolved
+     *
+     */
+    let Image = NextImage;
+
+    if ("default" in Image) {
+      Image = (Image as unknown as { default: typeof Image }).default;
+    }
+
     return (
       <div
         className={cn(
           "nui-snack",
-          sizeStyle[size],
-          colorStyle[color],
+          size && sizes[size],
+          color && colors[color],
           (icon || image) && "nui-has-media",
         )}
         ref={ref}
@@ -82,8 +99,8 @@ export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
           <div className="nui-snack-image">
             <Image
               src={image}
-              height={imageSize[size]}
-              width={imageSize[size]}
+              height={imageSize[size ?? "md"]}
+              width={imageSize[size ?? "md"]}
               className="nui-snack-image-inner"
               alt=""
             />
@@ -92,8 +109,9 @@ export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
         <span className="nui-snack-text">{label}</span>
         <BaseButtonClose
           className="nui-snack-button"
-          shape="full"
+          rounded="full"
           onClick={onClick}
+          size={closeSize}
         />
       </div>
     );
