@@ -4,16 +4,15 @@ import { cn } from "../../utils";
 
 type BaseIconBoxProps = HTMLAttributes<HTMLDivElement> & {
   /**
-   * The shape of the icon.
+   * The variant of the box.
+   *
    */
-  shape?: "straight" | "rounded" | "curved" | "full";
+  variant?: "solid" | "outline" | "pastel";
 
-  /**
-   * The size of the icon.
+  /** The color of the box.
+   *
+   * @default 'default'
    */
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-
-  /** The color of the box. Can be 'default', 'primary', 'info', 'success', 'warning', or 'danger' */
   color?:
     | "default"
     | "invert"
@@ -21,30 +20,41 @@ type BaseIconBoxProps = HTMLAttributes<HTMLDivElement> & {
     | "info"
     | "success"
     | "warning"
-    | "danger";
+    | "danger"
+    | "none";
 
-  /** The flavor of the box. Can be 'solid', 'outline', or 'pastel'. */
-  flavor?: "solid" | "outline" | "pastel";
+  /**
+   * The size of the icon.
+   *
+   */
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+
+  /**
+   * The radius of the icon.
+   *
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * Applies an svg mask from the available presets. (needs rounded to be set to `none`).
+   */
+  mask?: "hex" | "hexed" | "deca" | "blob" | "diamond";
 
   /**
    * Whether the icon is bordered.
    */
   bordered?: boolean;
-
-  /**
-   * Applies an svg mask from the available presets. (needs shape to be set to `straight`).
-   */
-  mask?: "hex" | "hexed" | "deca" | "blob" | "diamond";
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-box-rounded",
-  curved: "nui-box-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-box-rounded",
+  md: "nui-box-smooth",
+  lg: "nui-box-curved",
   full: "nui-box-full",
 };
 
-const sizeStyle = {
+const sizes = {
   xs: "nui-box-xs",
   sm: "nui-box-sm",
   md: "nui-box-md",
@@ -53,13 +63,13 @@ const sizeStyle = {
   "2xl": "nui-box-2xl",
 };
 
-const flavorStyle = {
+const variants = {
   solid: "nui-box-solid",
   pastel: "nui-box-pastel",
   outline: "nui-box-outline",
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-box-default",
   invert: "nui-box-invert",
   primary: "nui-box-primary",
@@ -67,9 +77,10 @@ const colorStyle = {
   success: "nui-box-success",
   warning: "nui-box-warning",
   danger: "nui-box-danger",
+  none: "",
 };
 
-const maskStyle = {
+const masks = {
   hex: "nui-mask nui-mask-hex",
   hexed: "nui-mask nui-mask-hexed",
   deca: "nui-mask nui-mask-deca",
@@ -79,32 +90,31 @@ const maskStyle = {
 
 export const BaseIconBox = forwardRef<HTMLDivElement, BaseIconBoxProps>(
   function BaseIconBox(
-    {
-      shape: defaultShape,
-      size = "xs",
-      color,
-      flavor = "pastel",
-      bordered = false,
-      mask,
-      children,
-      className: classes,
-    },
+    { bordered = false, children, className: classes, ...props },
     ref,
   ) {
     const config = useConfig();
 
-    const shape = defaultShape ?? config.defaultShapes.iconBox;
+    const variant = props.variant ?? config.BaseIconBox?.variant;
+
+    const color = props.color ?? config.BaseIconBox?.color;
+
+    const size = props.size ?? config.BaseIconBox?.size;
+
+    const rounded = props.rounded ?? config.BaseIconBox?.rounded;
 
     return (
       <div
         className={cn(
           "nui-icon-box",
           bordered && "nui-box-bordered",
-          shape && shapeStyle[shape],
-          sizeStyle[size],
-          flavorStyle[flavor],
-          color && colorStyle[color],
-          mask && maskStyle[mask],
+          rounded && radiuses[rounded],
+          size && sizes[size],
+          variant && variants[variant],
+          color && colors[color],
+          (props.rounded === "none" || rounded === "none") &&
+            props.mask &&
+            masks[props.mask],
           classes,
         )}
         ref={ref}
