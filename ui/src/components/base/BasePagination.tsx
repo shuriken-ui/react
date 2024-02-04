@@ -11,6 +11,12 @@ import { BaseFocusLoop } from "./BaseFocusLoop";
 
 type BasePaginationProps = {
   /**
+   * The radius of the pagination.
+   *
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
    * The number of items to display per page.
    */
   itemPerPage: number;
@@ -44,11 +50,6 @@ type BasePaginationProps = {
    * The query key to use for routing.
    */
   routerQueryKey?: string;
-
-  /**
-   * The shape of the pagination.
-   */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
 
   /**
    * The icon to show for the previous button.
@@ -86,11 +87,11 @@ type BasePaginationProps = {
   afterNavigation?: ReactNode;
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-pagination-rounded",
-  smooth: "nui-pagination-smooth",
-  curved: "nui-pagination-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-pagination-rounded",
+  md: "nui-pagination-smooth",
+  lg: "nui-pagination-curved",
   full: "nui-pagination-full",
 };
 
@@ -114,7 +115,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
 
     const pathname = usePathname();
 
-    const shape = props.shape ?? config.defaultShapes?.pagination;
+    const rounded = props.rounded ?? config.BasePagination?.rounded;
 
     const lastPage = Math.ceil(props.totalItems / props.itemPerPage) || 1;
 
@@ -198,12 +199,12 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
 
     return (
       <div
-        className={cn("nui-pagination", shape && shapeStyle[shape])}
+        className={cn("nui-pagination", rounded && radiuses[rounded])}
         ref={ref}
       >
         <BaseFocusLoop
           as="ul"
-          className={cn("nui-pagination-list", shape && shapeStyle[shape])}
+          className={cn("nui-pagination-list", rounded && radiuses[rounded])}
         >
           {props.beforePagination}
           <li>
@@ -213,7 +214,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
               className={cn(
                 "nui-pagination-link",
                 currentPage === 1 && "nui-active",
-                shape && shapeStyle[shape],
+                rounded && radiuses[rounded],
               )}
               onKeyDown={(e) => e.key === " " && e.currentTarget.click()}
               onClick={(e) => handleLinkClick(e, 1)}
@@ -227,7 +228,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
               <span
                 className={cn(
                   "nui-pagination-ellipsis",
-                  shape && shapeStyle[shape],
+                  rounded && radiuses[rounded],
                 )}
               >
                 {ellipsis}
@@ -244,7 +245,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
                 className={cn(
                   "nui-pagination-link",
                   currentPage === page && "nui-active",
-                  shape && shapeStyle[shape],
+                  rounded && radiuses[rounded],
                 )}
                 onKeyDown={(e) => e.key === " " && e.currentTarget.click()}
                 onClick={(e) => handleLinkClick(e, page)}
@@ -259,7 +260,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
               <span
                 className={cn(
                   "nui-pagination-ellipsis",
-                  shape && shapeStyle[shape],
+                  rounded && radiuses[rounded],
                 )}
               >
                 {ellipsis}
@@ -275,7 +276,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
                 className={cn(
                   "nui-pagination-link",
                   currentPage === lastPage && "nui-active",
-                  shape && shapeStyle[shape],
+                  rounded && radiuses[rounded],
                 )}
                 onKeyDown={(e) => e.key === " " && e.currentTarget.click()}
                 onClick={(e) => handleLinkClick(e, lastPage)}
@@ -288,7 +289,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
         </BaseFocusLoop>
 
         <BaseFocusLoop
-          className={cn("nui-pagination-buttons", shape && shapeStyle[shape])}
+          className={cn("nui-pagination-buttons", rounded && radiuses[rounded])}
         >
           {props.beforeNavigation}
 
