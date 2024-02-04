@@ -95,6 +95,8 @@ export * from "./form/BaseRadioHeadless";
 
 export * from "./form/BaseCheckbox";
 
+export * from "./form/BaseCheckboxHeadless";
+
 export * from "./form/BaseCheckboxAnimated";
 
 export * from "./form/BaseFullscreenDropfile";

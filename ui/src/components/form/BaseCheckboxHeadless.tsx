@@ -23,9 +23,16 @@ type BaseCheckboxHeadlessProps = PropsWithChildren<{
   falseValue?: string;
 
   /**
-   * The  value of the checkbox.
+   *  if the checkbox is checked
    */
-  onChange?: (value: string) => void;
+  checked?: boolean;
+
+  /**
+   * The value of the component.
+   * @param value The value of the checkbox.
+   * @param checked Whether the checkbox is checked.
+   */
+  onChange?: (value: string, checked: boolean) => void;
 
   /**
    * The form input identifier.
@@ -59,8 +66,18 @@ export const BaseCheckboxHeadless = forwardRef<
           value={props.value}
           className="peer absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
           type="checkbox"
+          checked={props.checked}
           onChange={(event) => {
-            props.onChange?.(event.target.value);
+            if (trueValue && falseValue) {
+              props.onChange?.(
+                event.target.checked ? trueValue : falseValue,
+                event.target.checked,
+              );
+
+              return;
+            }
+
+            props.onChange?.(event.target.value, event.target.checked);
           }}
         />
 
