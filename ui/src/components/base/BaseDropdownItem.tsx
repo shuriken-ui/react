@@ -23,9 +23,10 @@ type BaseDropdownItemProps = PropsWithChildren<{
   disabled?: boolean;
 
   /**
-   * The shape of the dropdown-item.
+   * The radius of the dropdown-item.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved";
+  rounded?: "none" | "sm" | "md" | "lg";
 
   /**
    * The color of the dropdown-item.
@@ -70,14 +71,14 @@ type BaseDropdownItemProps = PropsWithChildren<{
   end?: ReactNode;
 }>;
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-item-rounded",
-  smooth: "nui-item-smooth",
-  curved: "nui-item-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-item-rounded",
+  md: "nui-item-smooth",
+  lg: "nui-item-curved",
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-item-default",
   contrast: "nui-item-contrast",
 };
@@ -89,7 +90,7 @@ export const BaseDropdownItem = forwardRef<
   {
     title,
     text,
-    shape,
+    rounded,
     color = "default",
     disabled = false,
     start,
@@ -116,8 +117,8 @@ export const BaseDropdownItem = forwardRef<
           className={cn(
             "nui-dropdown-item",
             active && "nui-active",
-            shape && shapeStyle[shape],
-            colorStyle[color],
+            rounded && radiuses[rounded],
+            color && colors[color],
           )}
           onClick={close}
           {...attributes}
