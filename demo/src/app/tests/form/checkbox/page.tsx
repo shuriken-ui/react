@@ -1,13 +1,18 @@
 import { Metadata } from "next";
 import React from "react";
 import Checkboxes from "./Checkboxes";
+import NuiPreviewContainer from "@/components/NuiPreviewContainer";
+import { getMeta } from "@/data/sidebar";
+
+const meta = getMeta("form", "checkbox");
 
 export const metadata: Metadata = {
-  title: "Checkbox",
-  description: "Basic custom checkbox and radio",
+  ...meta,
 };
-function CheckboxPage() {
-  return <Checkboxes />;
+export default function CheckboxPage() {
+  return (
+    <NuiPreviewContainer title={meta.title}>
+      <Checkboxes />
+    </NuiPreviewContainer>
+  );
 }
-
-export default CheckboxPage;
