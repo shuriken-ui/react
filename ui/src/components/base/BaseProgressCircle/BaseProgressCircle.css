@@ -1,9 +1,4 @@
-.block {
-  transform-origin: center;
-  transform: rotate(-90deg);
-}
-
-.circle-value {
+#BaseProgressCircle .circle-value {
   animation-name: circle-chart-fill;
   animation-duration: var(--duration);
   /* transform: rotate(-90deg); */

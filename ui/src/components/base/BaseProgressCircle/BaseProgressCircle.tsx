@@ -66,11 +66,12 @@ export const BaseProgressCircle = forwardRef<
 
   return (
     <svg
+      id="BaseProgressCircle"
       ref={ref}
       role="progressbar"
       aria-valuenow={percent}
       aria-valuemax={max}
-      className={cn("block", classes)}
+      className={cn("block -rotate-90 origin-center", classes)}
       viewBox="0 0 45 45"
       width={size}
       height={size}
@@ -85,7 +86,7 @@ export const BaseProgressCircle = forwardRef<
         r="15.91549431"
       />
       <circle
-        className="stroke-current transition-all duration-500"
+        className="circle-value stroke-current transition-all duration-500"
         strokeWidth={thickness}
         strokeDasharray={`${percent},100`}
         strokeLinecap="round"
