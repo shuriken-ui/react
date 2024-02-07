@@ -101,11 +101,29 @@ export const sidebarlinks = {
         href: "/tests/base/dropdown",
         description: "Dropdown component",
       },
+      focusLoop: {
+        icon: "system-uicons:marquee",
+        title: "BaseFocusLoop",
+        href: "/tests/base/focus-loop",
+        description: "Focus Loop component",
+      },
       iconBox: {
         icon: "system-uicons:nut",
         title: "BaseIconBox",
         href: "/tests/base/icon-box",
         description: "Icon box component",
+      },
+      kbd: {
+        icon: "system-uicons:browser",
+        title: "BaseKbd",
+        href: "/tests/base/kbd",
+        description: "Kbd component",
+      },
+      list: {
+        icon: "system-uicons:list",
+        title: "BaseList",
+        href: "/tests/base/list",
+        description: "List component",
       },
       message: {
         icon: "system-uicons:postcard",
@@ -118,6 +136,24 @@ export const sidebarlinks = {
         title: "BasePagination",
         href: "/tests/base/pagination",
         description: "Pagination component",
+      },
+      placeholder: {
+        title: "BasePlaceholderPage",
+        icon: "system-uicons:component-add",
+        href: "/tests/base/placeholder",
+        description: "Placeholder component",
+      },
+      placeload: {
+        title: "BasePlaceload",
+        icon: "system-uicons:card-timeline",
+        href: "/tests/base/placeload",
+        description: "Placeload component",
+      },
+      progress: {
+        title: "BaseProgress",
+        icon: "system-uicons:reset-temporary",
+        href: "/tests/base/progress",
+        description: "Progress component",
       },
       snack: {
         icon: "system-uicons:gift",
