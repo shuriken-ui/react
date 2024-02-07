@@ -25,10 +25,10 @@ type BaseSelectProps = PropsWithChildren<{
   id?: string;
 
   /**
-   * The shape of the select input.
-   * Can be one of 'straight', 'rounded', 'curved', or 'full'.
+   * The radius of the select input.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The label text for the select input.
@@ -116,21 +116,21 @@ type BaseSelectProps = PropsWithChildren<{
   };
 }>;
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-select-rounded",
-  smooth: "nui-select-smooth",
-  curved: "nui-select-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-select-rounded",
+  md: "nui-select-smooth",
+  lg: "nui-select-curved",
   full: "nui-select-full",
 };
 
-const sizeStyle = {
+const sizes = {
   sm: "nui-select-sm",
   md: "nui-select-md",
   lg: "nui-select-lg",
 };
 
-const contrastStyle = {
+const contrasts = {
   default: "nui-select-default",
   "default-contrast": "nui-select-default-contrast",
   muted: "nui-select-muted",
@@ -142,20 +142,16 @@ export const BaseSelect = forwardRef<
   BaseSelectProps &
     Omit<SelectHTMLAttributes<HTMLSelectElement>, keyof BaseSelectProps>
 >(function BaseSelect(
-  {
-    label = "",
-    size = "md",
-    contrast = "default",
-    onChange = (val) => {},
-    error = false,
-    children,
-    ...props
-  },
+  { label = "", onChange = (val) => {}, error = false, children, ...props },
   ref,
 ) {
   const config = useConfig();
 
-  const shape = props.shape ?? config.defaultShapes?.input;
+  const rounded = props.rounded ?? config.BaseSelect?.rounded;
+
+  const size = props.size ?? config.BaseSelect?.size;
+
+  const contrast = props.contrast ?? config.BaseSelect?.contrast;
 
   const id = useNinjaId(() => props.id);
 
@@ -175,9 +171,9 @@ export const BaseSelect = forwardRef<
     <div
       className={cn(
         "nui-select-wrapper",
-        contrastStyle[contrast],
-        sizeStyle[size],
-        shape && shapeStyle[shape],
+        contrast && contrasts[contrast],
+        size && sizes[size],
+        rounded && radiuses[rounded],
         error && !props.loading && "nui-select-error",
         props.loading && "nui-select-loading",
         props.labelFloat && "nui-select-label-float",
