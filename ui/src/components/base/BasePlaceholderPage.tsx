@@ -1,10 +1,11 @@
-import { ReactNode, forwardRef } from "react";
+import { PropsWithChildren, ReactNode, forwardRef } from "react";
 import { BaseHeading } from "./BaseHeading";
 import { cn } from "../../utils";
+import { useConfig } from "../../Provider";
 
-interface BasePlaceholderPageProps {
-  children: ReactNode;
+type BasePlaceholderPageProps = PropsWithChildren<{
   image?: ReactNode;
+
   /**
    * The title of the placeholder.
    */
@@ -19,9 +20,9 @@ interface BasePlaceholderPageProps {
    * The size of the featured image.
    */
   imageSize?: "xs" | "sm" | "md" | "lg" | "xl";
-}
+}>;
 
-const sizeStyle = {
+const sizes = {
   xs: "nui-placeholder-xs",
   sm: "nui-placeholder-sm",
   md: "nui-placeholder-md",
@@ -32,14 +33,20 @@ const sizeStyle = {
 export const BasePlaceholderPage = forwardRef<
   HTMLDivElement,
   BasePlaceholderPageProps
->(function BasePlaceholderPage(
-  { subtitle, title, imageSize = "xs", image, children },
-  ref,
-) {
+>(function BasePlaceholderPage({ children, ...props }, ref) {
+  const config = useConfig();
+
+  const imageSize = props.imageSize ?? config.BasePlaceholderPage?.imageSize;
+
   return (
-    <div className={cn("nui-placeholder-page", sizeStyle[imageSize])} ref={ref}>
+    <div
+      className={cn("nui-placeholder-page", imageSize && sizes[imageSize])}
+      ref={ref}
+    >
       <div className="nui-placeholder-page-inner">
-        {image && <div className="nui-placeholder-page-img">{image}</div>}
+        {props.image && (
+          <div className="nui-placeholder-page-img">{props.image}</div>
+        )}
         <div className="nui-placeholder-page-content">
           <BaseHeading
             as="h4"
@@ -47,10 +54,10 @@ export const BasePlaceholderPage = forwardRef<
             size="xl"
             className="nui-placeholder-page-title"
           >
-            {title}
+            {props.title}
           </BaseHeading>
-          {subtitle && (
-            <p className="nui-placeholder-page-subtitle">{subtitle}</p>
+          {props.subtitle && (
+            <p className="nui-placeholder-page-subtitle">{props.subtitle}</p>
           )}
           {children}
         </div>
