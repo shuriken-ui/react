@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from "react";
+import { ReactNode, forwardRef, useMemo } from "react";
 import { Icon } from "@iconify/react";
 import { cn } from "../../utils";
 import { useConfig } from "../../Provider";
@@ -40,9 +40,23 @@ type BaseInputProps = {
   type?: string;
 
   /**
-   * The shape of the input.
+   * The radius of the input.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the input.
+   *
+   */
+  size?: "sm" | "md" | "lg";
+
+  /**
+   * The contrast of the input.
+   *
+   * @default 'default'
+   */
+  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
 
   /**
    * The label to display for the input.
@@ -55,14 +69,19 @@ type BaseInputProps = {
   labelFloat?: boolean;
 
   /**
+   * The icon to display for the input.
+   */
+  icon?: string;
+
+  /**
    * The placeholder to display for the input.
    */
   placeholder?: string;
 
   /**
-   * The icon to display for the input.
+   * An error message or boolean value indicating whether the input is in an error state.
    */
-  icon?: string;
+  error?: string | boolean;
 
   /**
    * Whether the color of the input should change when it is focused.
@@ -73,21 +92,6 @@ type BaseInputProps = {
    * Whether the input is in a loading state.
    */
   loading?: boolean;
-
-  /**
-   * An error message or boolean value indicating whether the input is in an error state.
-   */
-  error?: string | boolean;
-
-  /**
-   * The size of the input.
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
-   * The contrast of the input.
-   */
-  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
@@ -128,23 +132,25 @@ type BaseInputProps = {
      */
     icon?: string | string[];
   };
+
+  action?: ReactNode;
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-input-rounded",
-  smooth: "nui-input-smooth",
-  curved: "nui-input-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-input-rounded",
+  md: "nui-input-smooth",
+  lg: "nui-input-curved",
   full: "nui-input-full",
 };
 
-const sizeStyle = {
+const sizes = {
   sm: "nui-input-sm",
   md: "nui-input-md",
   lg: "nui-input-lg",
 };
 
-const contrastStyle = {
+const contrasts = {
   default: "nui-input-default",
   "default-contrast": "nui-input-default-contrast",
   muted: "nui-input-muted",
@@ -153,21 +159,18 @@ const contrastStyle = {
 
 export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
   function BaseInput(
-    {
-      stateModifiers,
-      type = "text",
-      size = "md",
-      contrast = "default",
-      error = false,
-      ...props
-    },
+    { stateModifiers, type = "text", error = false, ...props },
     ref,
   ) {
     const config = useConfig();
 
     const id = useNinjaId(() => props.id);
 
-    const shape = props.shape ?? config.defaultShapes?.input;
+    const rounded = props.rounded ?? config.BaseInput?.rounded;
+
+    const size = props.size ?? config.BaseInput?.size;
+
+    const contrast = props.contrast ?? config.BaseInput?.contrast;
 
     const placeholder = useMemo(() => {
       if (props.loading) {
@@ -201,9 +204,9 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       <div
         className={cn(
           "nui-input-wrapper",
-          contrastStyle[contrast],
-          sizeStyle[size],
-          shape && shapeStyle[shape],
+          contrast && contrasts[contrast],
+          size && sizes[size],
+          rounded && radiuses[rounded],
           error && !props.loading && "nui-input-error",
           props.loading && "nui-input-loading",
           props.labelFloat && "nui-input-label-float",
@@ -261,6 +264,8 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
                 <Icon icon={props.icon} className="nui-input-icon-inner" />
               </div>
             )}
+
+            {props.action && props.action}
           </div>
           {error && typeof error === "string" && (
             <span className={cn("nui-input-error-text", props.classes?.error)}>
