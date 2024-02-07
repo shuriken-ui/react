@@ -1,31 +1,23 @@
 import { InputHTMLAttributes, forwardRef } from "react";
 import { cn } from "../../utils";
 import { useNinjaId } from "../../hooks/useNinjaId";
+import { useConfig } from "../../Provider";
 
-type BaseRadioProps = InputHTMLAttributes<HTMLInputElement> & {
+type BaseRadioProps = Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "onChange" | "className"
+> & {
   /**
-   * The form input identifier.
+   *  Callback function called when the value of the input changes.
    */
-
-  /**
-   * The value of the radio input.
-   */
-
-  /**
-   * The model value of the radio input.
-   */
+  onChange?: (value: string) => void;
 
   /**
    * The label for the radio input.
    */
   label?: string;
 
-  /**
-   * An error message to display below the radio label.
-   */
-  error?: string | boolean;
-
-  /** The color of the radio. Can be 'default', 'primary', 'info', 'success', 'warning', or 'danger' */
+  /** The color of the radio. */
   color?:
     | "default"
     | "light"
@@ -35,6 +27,11 @@ type BaseRadioProps = InputHTMLAttributes<HTMLInputElement> & {
     | "success"
     | "warning"
     | "danger";
+
+  /**
+   * An error message to display below the radio label.
+   */
+  error?: string | boolean;
 
   /**
    * Classes to apply to the various parts of the radio input.
@@ -62,7 +59,7 @@ type BaseRadioProps = InputHTMLAttributes<HTMLInputElement> & {
   };
 };
 
-const colorStyle = {
+const colors = {
   default: "nui-radio-default",
   light: "nui-radio-light",
   muted: "nui-radio-muted",
@@ -76,26 +73,26 @@ const colorStyle = {
 export const BaseRadio = forwardRef<HTMLInputElement, BaseRadioProps>(
   function BaseRadio(
     {
-      color,
+      color: colorProp,
       classes,
       label,
       error,
       id: radioId,
-      className: _,
-      type: __,
+      value,
+      onChange,
       ...props
     },
     ref,
   ) {
+    const config = useConfig();
+
     const id = useNinjaId(() => radioId);
+
+    const color = colorProp ?? config.BaseRadio?.color;
 
     return (
       <div
-        className={cn(
-          "nui-radio",
-          color && colorStyle[color],
-          classes?.wrapper,
-        )}
+        className={cn("nui-radio", color && colors[color], classes?.wrapper)}
       >
         <div className="nui-radio-outer">
           <input
@@ -103,6 +100,8 @@ export const BaseRadio = forwardRef<HTMLInputElement, BaseRadioProps>(
             ref={ref}
             type="radio"
             className="nui-radio-input"
+            value={value}
+            onChange={(e) => onChange?.(e.target.value)}
             {...props}
           />
 
