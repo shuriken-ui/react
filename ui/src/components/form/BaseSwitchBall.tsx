@@ -2,6 +2,7 @@ import { forwardRef } from "react";
 import { useNinjaId } from "../../hooks/useNinjaId";
 import { cn } from "../../utils";
 import { IconCheck } from "../icons/IconCheck";
+import { useConfig } from "../../Provider";
 
 type BaseSwitchBallProps = {
   /**
@@ -35,7 +36,7 @@ type BaseSwitchBallProps = {
   color?: "primary" | "info" | "success" | "warning" | "danger";
 };
 
-const colorStyle = {
+const colors = {
   primary: "nui-switch-ball-primary",
   info: "nui-switch-ball-info",
   success: "nui-switch-ball-success",
@@ -45,20 +46,20 @@ const colorStyle = {
 
 export const BaseSwitchBall = forwardRef<HTMLInputElement, BaseSwitchBallProps>(
   function BaseSitchBall(
-    {
-      color = "primary",
-      label,
-      sublabel,
-      checked,
-      onChange = () => {},
-      ...props
-    },
+    { label, sublabel, checked, onChange = () => {}, ...props },
     ref,
   ) {
     const id = useNinjaId(() => props.id);
 
+    const config = useConfig();
+
+    const color = props.color ?? config.BaseSwitchBall?.color;
+
     return (
-      <label htmlFor={id} className={cn("nui-switch-ball", colorStyle[color])}>
+      <label
+        htmlFor={id}
+        className={cn("nui-switch-ball", color && colors[color])}
+      >
         <span className="nui-switch-ball-outer">
           <input
             id={id}
