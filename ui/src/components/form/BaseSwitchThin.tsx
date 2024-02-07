@@ -1,6 +1,7 @@
 import { forwardRef } from "react";
 import { cn } from "../../utils";
 import { useNinjaId } from "../../hooks/useNinjaId";
+import { useConfig } from "../../Provider";
 
 type BaseSwitchThinProps = {
   /**
@@ -34,7 +35,7 @@ type BaseSwitchThinProps = {
   color?: "primary" | "info" | "success" | "warning" | "danger";
 };
 
-const colorStyle = {
+const colors = {
   primary: "nui-switch-thin-primary",
   info: "nui-switch-thin-info",
   success: "nui-switch-thin-success",
@@ -43,14 +44,18 @@ const colorStyle = {
 };
 
 export const BaseSwitchThin = forwardRef<HTMLInputElement, BaseSwitchThinProps>(
-  function BaseSwitchThin(
-    { color = "primary", checked, onChange = () => {}, ...props },
-    ref,
-  ) {
+  function BaseSwitchThin({ checked, onChange = () => {}, ...props }, ref) {
+    const config = useConfig();
+
     const id = useNinjaId(() => props.id);
 
+    const color = props.color ?? config.BaseSwitchThin?.color;
+
     return (
-      <label htmlFor={id} className={cn("nui-switch-thin", colorStyle[color])}>
+      <label
+        htmlFor={id}
+        className={cn("nui-switch-thin", color && colors[color])}
+      >
         <span className="nui-switch-thin-outer">
           <input
             id={id}
