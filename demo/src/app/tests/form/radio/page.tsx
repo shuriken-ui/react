@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 };
 function RadioPage() {
   return (
-    <NuiPreviewContainer>
+    <NuiPreviewContainer title={meta.title}>
       <Radio />
     </NuiPreviewContainer>
   );
