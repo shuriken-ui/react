@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function KbdPage() {
   return (
-    <NuiPreviewContainer title="BaseKbd">
+    <NuiPreviewContainer title={meta.title}>
       <NuiPreview
         title="Rounded: none: icon"
         description="Kbd component radius with icon"
