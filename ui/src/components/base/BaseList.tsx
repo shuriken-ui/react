@@ -1,7 +1,9 @@
-import { FC, ReactNode } from "react";
+import { Children, FC, PropsWithChildren } from "react";
 import { cn } from "../../utils";
 
-type BaseListProps = {
+type BaseListProps = PropsWithChildren<{
+  className?: string;
+
   /**
    * If the list should be ordered.
    */
@@ -11,26 +13,33 @@ type BaseListProps = {
    * Force the list to be media.
    */
   media?: boolean;
-
-  children?: ReactNode;
-};
+}>;
 
 export const BaseList: FC<BaseListProps> = ({
   ordered = false,
   media,
   children,
+  className: classes,
 }) => {
   const Component = ordered ? "ol" : "ul";
 
-  const hasMedia = media;
+  const hasMedia =
+    media ??
+    Children.toArray(children).some((child) => {
+      if (typeof child === "string") {
+        return false;
+      }
+
+      return typeof (child as { type: unknown }).type !== "string";
+    });
 
   return (
     <Component
       className={cn(
         "nui-list",
-        hasMedia
-          ? "nui-list-media"
-          : ["nui-list-base", ordered ? "nui-list-ol" : "nui-list-ul"],
+        hasMedia && "nui-list-media",
+        !hasMedia && ["nui-list-base", ordered ? "nui-list-ol" : "nui-list-ul"],
+        classes,
       )}
     >
       {children}
