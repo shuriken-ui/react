@@ -1,151 +1,754 @@
 "use client";
 
-import { BaseHeading, BaseInput } from "@shuriken-ui/react";
-import React, { useState } from "react";
+import {
+  BaseInput,
+  BaseButtonGroup,
+  BaseSelect,
+  BaseButton,
+} from "@shuriken-ui/react";
+import React, { Fragment, useState } from "react";
+import NuiPreview from "@/components/NuiPreview";
+import Iconify from "@/components/Iconify";
 
 const Inputs = () => {
-  const [text, setText] = useState<string | number>();
+  const [fields, setFields] = useState({
+    first: "",
+    second: "",
+    third: "",
+    fourth: "",
+    fifth: "",
+    sixth: "",
+  });
+
+  const [amount, setAmount] = useState<number | undefined>();
+  const [taxes, setTaxes] = useState("With taxes");
+
   return (
-    <div className="flex flex-col gap-12 [&>*]:p-8 [&>:nth-child(odd)]:bg-muted-100 dark:[&>:nth-child(odd)]:bg-muted-900 pb-32">
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          BaseInput - Shape && label-float
-        </BaseHeading>
-        <div className="grid grid-cols-5 gap-4">
+    <Fragment>
+      <NuiPreview title="Radius" description="Inputs radiuses">
+        <div className="grid gap-6 md:max-w-4xl md:grid-cols-3">
           <BaseInput
-            labelFloat
-            value={text}
-            onChange={(value) => setText(value)}
-            icon="lucide:search"
-            size="sm"
-            // kind="default"
-            shape="straight"
-            label="Straight Input"
-          ></BaseInput>
+            value={fields.first}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, first: value }))
+            }
+            rounded="none"
+            label="Rounded: none"
+            placeholder="Ex: username"
+          />
           <BaseInput
-            labelFloat
-            value={text}
-            onChange={(value) => setText(value)}
-            icon="lucide:search"
-            size="sm"
-            // kind="default"
-            shape="rounded"
-            label="Rounded Input"
-          ></BaseInput>
+            value={fields.second}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, second: value }))
+            }
+            rounded="sm"
+            label="Rounded: sm"
+            placeholder="Ex: username"
+          />
           <BaseInput
-            labelFloat
-            value={text}
-            onChange={(value) => setText(value)}
-            icon="lucide:search"
-            size="sm"
-            // kind="default"
-            shape="smooth"
-            label="Smooth Input"
-          ></BaseInput>
+            value={fields.third}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, third: value }))
+            }
+            rounded="md"
+            label="Rounded: md"
+            placeholder="Ex: username"
+          />
           <BaseInput
-            labelFloat
-            value={text}
-            onChange={(value) => setText(value)}
-            icon="lucide:search"
-            size="sm"
-            // kind="default"
-            shape="curved"
-            label="Curved Input"
-          ></BaseInput>
+            value={fields.fourth}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, fourth: value }))
+            }
+            rounded="lg"
+            label="Rounded: lg"
+            placeholder="Ex: username"
+          />
           <BaseInput
-            labelFloat
-            value={text}
-            onChange={(value) => setText(value)}
-            icon="lucide:search"
-            size="sm"
-            // kind="default"
-            shape="full"
-            label="Full Input"
-          ></BaseInput>
+            value={fields.fourth}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, fourth: value }))
+            }
+            rounded="full"
+            label="Rounded: full"
+            placeholder="Ex: username"
+          />
         </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          {/* BaseInput - Kind */}
-        </BaseHeading>
-        <div className="grid grid-cols-4 gap-4">
-          <BaseInput
-            value={text}
-            onChange={(value) => setText(value)}
-            placeholder="Placeholder text"
-            icon="lucide:search"
-            size="sm"
-            // kind="default"
-            shape="curved"
-            label="Default Input"
-          ></BaseInput>
-          <BaseInput
-            value={text}
-            onChange={(value) => setText(value)}
-            placeholder="Placeholder text"
-            icon="lucide:search"
-            size="sm"
-            // kind="default-contrast"
-            shape="curved"
-            label="Default contrast Input"
-          ></BaseInput>
-          <BaseInput
-            value={text}
-            onChange={(value) => setText(value)}
-            placeholder="Placeholder text"
-            icon="lucide:search"
-            size="sm"
-            // kind="muted"
-            shape="curved"
-            label="Muted Input"
-          ></BaseInput>
-          <BaseInput
-            value={text}
-            onChange={(value) => setText(value)}
-            placeholder="Placeholder text"
-            icon="lucide:search"
-            size="sm"
-            // kind="muted-contrast"
-            shape="curved"
-            label="Muted contrast Input"
-          ></BaseInput>
+      </NuiPreview>
+
+      <NuiPreview title="Size" description="Input component sizes">
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+            />
+          </div>
         </div>
-      </div>
-      <div>
-        <BaseHeading size="xl" weight="medium" className="mb-10">
-          BaseInput - Sizes
-        </BaseHeading>
-        <div className="grid grid-cols-3 gap-4">
+      </NuiPreview>
+
+      <NuiPreview
+        title="Contrast: default-contrast"
+        description="Input component default contrast"
+      >
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              contrast="default-contrast"
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              contrast="default-contrast"
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              contrast="default-contrast"
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+            />
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Contrast: muted" description="Input component muted">
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              contrast="muted"
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              contrast="muted"
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              contrast="muted"
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+            />
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Contrast: muted-contrast"
+        description="Input component muted contrast"
+      >
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              contrast="muted-contrast"
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              contrast="muted-contrast"
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              contrast="muted-contrast"
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+            />
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Icon" description="Input component icons">
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              icon="lucide:search"
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              icon="lucide:search"
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              icon="lucide:search"
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+            />
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Focus" description="Input component color focus">
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+              colorFocus
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+              colorFocus
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+              colorFocus
+            />
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Error" description="Input component errors">
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+              error="Please enter a valid username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+              error="Please enter a valid username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+              error="Please enter a valid username"
+            />
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Error: icon" description="Input component errors">
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              icon="solar:user-speak-outline"
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+              error="Please enter a valid username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              icon="solar:user-speak-outline"
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+              error="Please enter a valid username"
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              icon="solar:user-speak-outline"
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+              error="Please enter a valid username"
+            />
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Slot: action" description="Input component actions">
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+              action={
+                <button
+                  type="button"
+                  data-nui-tooltip="Save"
+                  className="absolute top-0 end-0 z-[1] flex items-center justify-center h-8 w-8 text-muted-400 hover:text-primary-500 transition-colors duration-300"
+                >
+                  <Iconify icon="lucide:save" className="w-4 h-4" />
+                </button>
+              }
+            ></BaseInput>
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+              action={
+                <button
+                  type="button"
+                  data-nui-tooltip="Save"
+                  className="absolute top-0 end-0 z-[1] flex items-center justify-center h-10 w-10 text-muted-400 hover:text-primary-500 transition-colors duration-300"
+                >
+                  <Iconify icon="lucide:save" className="w-4 h-4" />
+                </button>
+              }
+            ></BaseInput>
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+              action={
+                <button
+                  type="button"
+                  data-nui-tooltip="Save"
+                  className="absolute top-0 end-0 z-[1] flex items-center justify-center h-12 w-12 text-muted-400 hover:text-primary-500 transition-colors duration-300"
+                >
+                  <Iconify icon="lucide:save" className="w-5 h-5" />
+                </button>
+              }
+            ></BaseInput>
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Label: float"
+        description="Autocomplete component label float"
+      >
+        <div className="grid gap-6 md:max-w-lg md:grid-cols-2">
           <BaseInput
-            value={text}
-            onChange={(value) => setText(value)}
-            placeholder="Placeholder text"
+            value={fields.first}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, first: value }))
+            }
+            size="sm"
+            rounded="md"
+            label="Size: sm"
+            placeholder="Ex: username"
+            label-float
+          />
+          <BaseInput
+            value={fields.fourth}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, fourth: value }))
+            }
             icon="lucide:search"
             size="sm"
-            shape="curved"
-            label="SM Input"
-          ></BaseInput>
+            rounded="md"
+            label="Size: sm"
+            placeholder="Ex: username"
+            label-float
+          />
           <BaseInput
-            value={text}
-            onChange={(value) => setText(value)}
-            placeholder="Placeholder text"
+            value={fields.second}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, second: value }))
+            }
+            size="md"
+            rounded="md"
+            label="Size: md"
+            placeholder="Ex: username"
+            label-float
+          />
+          <BaseInput
+            value={fields.fifth}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, fifth: value }))
+            }
             icon="lucide:search"
             size="md"
-            shape="curved"
-            label="MD Input"
-          ></BaseInput>
+            rounded="md"
+            label="Size: md"
+            placeholder="Ex: username"
+            label-float
+          />
           <BaseInput
-            value={text}
-            onChange={(value) => setText(value)}
-            placeholder="Placeholder text"
+            value={fields.third}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, third: value }))
+            }
+            size="lg"
+            rounded="md"
+            label="Size: lg"
+            placeholder="Ex: username"
+            label-float
+          />
+          <BaseInput
+            value={fields.sixth}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, sixth: value }))
+            }
             icon="lucide:search"
             size="lg"
-            shape="curved"
-            label="LG Input"
-          ></BaseInput>
+            rounded="md"
+            label="Size: lg"
+            placeholder="Ex: username"
+            label-float
+          />
         </div>
-      </div>
-    </div>
+      </NuiPreview>
+
+      <NuiPreview title="Disabled" description="Input component disabled state">
+        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+          <div className="flex-1">
+            <BaseInput
+              value={fields.first}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, first: value }))
+              }
+              size="sm"
+              rounded="md"
+              label="Size: sm"
+              placeholder="Ex: username"
+              disabled
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.second}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, second: value }))
+              }
+              size="md"
+              rounded="md"
+              label="Size: md"
+              placeholder="Ex: username"
+              disabled
+            />
+          </div>
+
+          <div className="flex-1">
+            <BaseInput
+              value={fields.third}
+              onChange={(value) =>
+                setFields((oldFields) => ({ ...oldFields, third: value }))
+              }
+              size="lg"
+              rounded="md"
+              label="Size: lg"
+              placeholder="Ex: username"
+              disabled
+            />
+          </div>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Loading"
+        description="Autocomplete component loading state"
+      >
+        <div className="grid gap-6 md:max-w-lg md:grid-cols-2">
+          <BaseInput
+            value={fields.first}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, first: value }))
+            }
+            size="sm"
+            rounded="md"
+            label="Size: sm"
+            placeholder="Ex: username"
+            loading
+          />
+          <BaseInput
+            value={fields.fourth}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, fourth: value }))
+            }
+            icon="lucide:search"
+            size="sm"
+            rounded="md"
+            label="Size: sm"
+            placeholder="Ex: username"
+            loading
+          />
+          <BaseInput
+            value={fields.second}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, second: value }))
+            }
+            size="md"
+            rounded="md"
+            label="Size: md"
+            placeholder="Ex: username"
+            loading
+          />
+          <BaseInput
+            value={fields.fifth}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, fifth: value }))
+            }
+            icon="lucide:search"
+            size="md"
+            rounded="md"
+            label="Size: md"
+            placeholder="Ex: username"
+            loading
+          />
+          <BaseInput
+            value={fields.third}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, third: value }))
+            }
+            size="lg"
+            rounded="md"
+            label="Size: lg"
+            placeholder="Ex: username"
+            loading
+          />
+          <BaseInput
+            value={fields.sixth}
+            onChange={(value) =>
+              setFields((oldFields) => ({ ...oldFields, sixth: value }))
+            }
+            icon="lucide:search"
+            size="lg"
+            rounded="md"
+            label="Size: lg"
+            placeholder="Ex: username"
+            loading
+          />
+        </div>
+      </NuiPreview>
+
+      <NuiPreview title="Group" description="Input component group">
+        <BaseButtonGroup>
+          <BaseButton color="muted">
+            <span>USD</span>
+          </BaseButton>
+
+          <BaseInput
+            value={amount}
+            onChange={setAmount}
+            classes={{
+              wrapper: "w-28",
+            }}
+            type="number"
+            placeholder="0.00"
+          />
+
+          <BaseSelect
+            value={taxes}
+            onChange={setTaxes}
+            classes={{
+              wrapper: "w-36",
+            }}
+          >
+            <option value="With taxes">With taxes</option>
+
+            <option value="Without taxes">Without taxes</option>
+          </BaseSelect>
+        </BaseButtonGroup>
+      </NuiPreview>
+    </Fragment>
   );
 };
 

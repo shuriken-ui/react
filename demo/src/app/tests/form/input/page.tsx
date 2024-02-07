@@ -1,14 +1,19 @@
 import { Metadata } from "next";
 import React from "react";
 import Inputs from "./Inputs";
+import NuiPreviewContainer from "@/components/NuiPreviewContainer";
+
+import { getMeta } from "@/data/sidebar";
+
+const meta = getMeta("form", "input");
 
 export const metadata: Metadata = {
-  title: "Input",
-  description:
-    "Check how different input sizes look like compared to each other.",
+  ...meta,
 };
-function InputPage() {
-  return <Inputs />;
+export default function InputPage() {
+  return (
+    <NuiPreviewContainer title={meta.title}>
+      <Inputs />
+    </NuiPreviewContainer>
+  );
 }
-
-export default InputPage;
