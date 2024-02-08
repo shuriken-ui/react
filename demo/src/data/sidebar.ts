@@ -150,8 +150,8 @@ export const sidebarlinks = {
         description: "Placeload component",
       },
       progress: {
-        title: "BaseProgress",
         icon: "system-uicons:reset-temporary",
+        title: "BaseProgress",
         href: "/tests/base/progress",
         description: "Progress component",
       },
@@ -160,6 +160,12 @@ export const sidebarlinks = {
         title: "BaseSnack",
         href: "/tests/base/snack",
         description: "Snack component",
+      },
+      tabSlider: {
+        icon: "system-uicons:split-three",
+        title: "BaseTabSlider",
+        href: "/tests/base/tab-slider",
+        description: "Tab slider component",
       },
       tag: {
         icon: "system-uicons:tags",
@@ -178,6 +184,12 @@ export const sidebarlinks = {
   form: {
     title: "Form",
     links: {
+      checkboxAnimated: {
+        title: "BaseCheckboxAnimated",
+        icon: "system-uicons:check-circle-outside",
+        href: "/tests/form/checkbox-animated",
+        description: "Animated checkbox component",
+      },
       checkbox: {
         icon: "system-uicons:checkbox-checked",
         title: "BaseCheckbox",
