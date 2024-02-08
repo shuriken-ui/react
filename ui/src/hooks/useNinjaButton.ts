@@ -46,8 +46,8 @@ export const useNinjaButton = (
     href: properties.disabled ? undefined : properties.href,
     disabled: properties.disabled,
     type,
-    rel,
-    target,
+    ...(rel ? { rel } : {}),
+    ...(target ? { target } : {}),
   };
 
   return {
