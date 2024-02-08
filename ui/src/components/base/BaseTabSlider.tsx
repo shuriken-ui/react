@@ -1,4 +1,4 @@
-import { forwardRef, useEffect, useState } from "react";
+import { ReactNode, forwardRef, useEffect, useState } from "react";
 import { useConfig } from "../../Provider";
 import { cn } from "../../utils";
 
@@ -36,46 +36,36 @@ interface BaseTabSliderProps {
   size?: "sm" | "md";
 
   /**
-   * Controls the shape of the tabs. Can be 'rounded' or 'full'.
+   * Controls the radius of the tabs.
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
-  /**
-   * Controls the size of the tabs. Can be condensed or default.
-   */
-  condensed?: boolean;
+  children:
+    | ReactNode
+    | ((activeValue: string, toggle: (value: string) => void) => ReactNode);
 }
-
-const justifyStyle = {
+const justifies = {
   start: "",
   center: "nui-tabs-centered",
   end: "nui-tabs-end",
 };
 
-const sizeStyle = {
+const sizes = {
   sm: "nui-tabs-sm",
   md: "nui-tabs-md",
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-tabs-rounded",
-  smooth: "nui-tabs-smooth",
-  curved: "nui-tabs-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-tabs-rounded",
+  md: "nui-tabs-smooth",
+  lg: "nui-tabs-curved",
   full: "nui-tabs-full",
 };
 
 export const BaseTabSlider = forwardRef<HTMLDivElement, BaseTabSliderProps>(
   function BaseTabSlider(
-    {
-      size = "md",
-      tabs,
-      condensed,
-      justify,
-      shape: defaultShape,
-      defaultValue,
-      onChange = () => {},
-    },
+    { tabs, defaultValue, onChange, children, ...props },
     ref,
   ) {
     const [activeValue, setActiveValue] = useState<string>(
@@ -84,21 +74,25 @@ export const BaseTabSlider = forwardRef<HTMLDivElement, BaseTabSliderProps>(
 
     const config = useConfig();
 
-    const shape = defaultShape ?? config.defaultShapes.tabSlider;
+    const justify = props.justify ?? config.BaseTabSlider?.justify;
+
+    const size = props.size ?? config.BaseTabSlider?.size;
+
+    const rounded = props.rounded ?? config.BaseTabSlider?.rounded;
 
     const tabsLength = Math.min(3, Math.max(2, tabs.length));
 
     useEffect(() => {
-      onChange(activeValue);
+      onChange?.(activeValue);
     }, [activeValue, onChange]);
 
     return (
       <div
         className={cn(
           "nui-tab-slider",
-          justify && justifyStyle[justify],
-          shape && shapeStyle[shape],
-          sizeStyle[size],
+          justify && justifies[justify],
+          rounded && radiuses[rounded],
+          size && sizes[size],
           tabsLength === 2 ? "nui-tabs-two-slots" : "nui-tabs-three-slots",
         )}
         ref={ref}
@@ -126,7 +120,15 @@ export const BaseTabSlider = forwardRef<HTMLDivElement, BaseTabSliderProps>(
             {activeValue && <div className="nui-tab-slider-naver" />}
           </div>
         </div>
-        <div className="nui-tab-content">{activeValue}</div>
+        {!!children && (
+          <div className="nui-tab-content">
+            {typeof children === "function"
+              ? children(activeValue, (toggleValue) =>
+                  setActiveValue(toggleValue),
+                )
+              : children}
+          </div>
+        )}
       </div>
     );
   },
