@@ -27,7 +27,7 @@ type BaseProgressCircleProps = {
    * Enable/disable animation, or set the animation duration (in seconds).
    */
   animation?: boolean | number;
-} & SVGProps<SVGElement>;
+} & Omit<SVGProps<SVGElement>, "ref">;
 
 export const BaseProgressCircle = forwardRef<
   SVGSVGElement,
@@ -40,6 +40,7 @@ export const BaseProgressCircle = forwardRef<
     thickness = 4,
     animation = 2,
     className: classes,
+    ...props
   },
   ref,
 ) {
@@ -76,6 +77,7 @@ export const BaseProgressCircle = forwardRef<
       width={size}
       height={size}
       style={cssVariables}
+      {...props}
     >
       <circle
         className="text-muted-200 dark:text-muted-700 stroke-current"
