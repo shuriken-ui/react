@@ -167,6 +167,12 @@ export const sidebarlinks = {
         href: "/tests/base/tab-slider",
         description: "Tab slider component",
       },
+      tabs: {
+        icon: "system-uicons:browser-alt",
+        title: "BaseTabs",
+        href: "/tests/base/tabs",
+        description: "Tabs component",
+      },
       tag: {
         icon: "system-uicons:tags",
         title: "BaseTag",
