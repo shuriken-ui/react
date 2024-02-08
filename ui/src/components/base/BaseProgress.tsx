@@ -2,26 +2,30 @@ import { forwardRef, useMemo } from "react";
 import { useConfig } from "../../Provider";
 import { cn } from "../../utils";
 
-interface BaseProgressProps {
+type BaseProgressProps = {
   /**
-   * The color of the progress bar.
+   * The size of the progress bar.
+   *
    */
-  color?: "primary" | "info" | "success" | "warning" | "danger";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 
   /**
    * The contrast ot the progress bar.
+   *
    */
   contrast?: "default" | "contrast";
 
   /**
-   * The shape of the progress bar.
+   * The color of the progress bar.
+   *
    */
-  shape?: "straight" | "rounded" | "curved" | "full";
+  color?: "primary" | "info" | "success" | "warning" | "danger";
 
   /**
-   * The size of the progress bar.
+   * The radius of the progress bar.
+   *
    */
-  size?: "xs" | "sm" | "md" | "lg" | "xl";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The current value of the progress bar.
@@ -33,9 +37,9 @@ interface BaseProgressProps {
    * The maximum value of the progress bar.
    */
   max?: number;
-}
+};
 
-const colorStyle = {
+const colors = {
   primary: "nui-progress-primary",
   info: "nui-progress-info",
   success: "nui-progress-success",
@@ -43,19 +47,20 @@ const colorStyle = {
   danger: "nui-progress-danger",
 };
 
-const contrastStyle = {
+const contrasts = {
   default: "nui-progress-default",
   contrast: "nui-progress-contrast",
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-progress-rounded",
-  curved: "nui-progress-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-progress-rounded",
+  md: "nui-progress-smooth",
+  lg: "nui-progress-curved",
   full: "nui-progress-full",
 };
 
-const sizeStyle = {
+const sizes = {
   xs: "nui-progress-xs",
   sm: "nui-progress-sm",
   md: "nui-progress-md",
@@ -64,20 +69,16 @@ const sizeStyle = {
 };
 
 export const BaseProgress = forwardRef<HTMLDivElement, BaseProgressProps>(
-  function BaseProgress(
-    {
-      color = "primary",
-      contrast = "default",
-      shape: defaultShape,
-      size = "sm",
-      value: currentValue,
-      max = 100,
-    },
-    ref,
-  ) {
+  function BaseProgress({ value: currentValue, max = 100, ...props }, ref) {
     const config = useConfig();
 
-    const shape = defaultShape ?? config.defaultShapes.progress;
+    const size = props.size ?? config.BaseProgress?.size;
+
+    const contrast = props.contrast ?? config.BaseProgress?.contrast;
+
+    const color = props.color ?? config.BaseProgress?.color;
+
+    const rounded = props.rounded ?? config.BaseProgress?.rounded;
 
     const value = useMemo(() => {
       if (max === 0) {
@@ -86,31 +87,31 @@ export const BaseProgress = forwardRef<HTMLDivElement, BaseProgressProps>(
 
       return typeof currentValue === "number"
         ? (currentValue / max) * 100
-        : null;
+        : undefined;
     }, [currentValue, max]);
 
     return (
       // eslint-disable-next-line jsx-a11y/control-has-associated-label
       <div
         role="progressbar"
-        aria-valuenow={value || undefined}
+        aria-valuenow={value}
         aria-valuemax={max}
         className={cn(
           "nui-progress",
-          contrastStyle[contrast],
-          colorStyle[color],
-          sizeStyle[size],
-          shape && shapeStyle[shape],
+          size && sizes[size],
+          contrast && contrasts[contrast],
+          color && colors[color],
+          rounded && radiuses[rounded],
         )}
         ref={ref}
       >
         <div
           className={cn(
             "nui-progress-bar",
-            value === null &&
+            value === undefined &&
               "nui-progress-indeterminate animate-nui-progress-indeterminate",
           )}
-          style={{ width: value !== null ? `${value}%` : "100%" }}
+          style={{ width: value !== undefined ? `${value}%` : "100%" }}
         />
       </div>
     );
