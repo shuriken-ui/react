@@ -179,6 +179,12 @@ export const sidebarlinks = {
         href: "/tests/base/tag",
         description: "Tag component",
       },
+      themeToggle: {
+        icon: "system-uicons:toggles",
+        title: "BaseThemeToggle",
+        href: "/tests/base/theme-toggle",
+        description: "Theme toggle component",
+      },
       tooltips: {
         icon: "system-uicons:component-add",
         title: "Nui Tooltip",
