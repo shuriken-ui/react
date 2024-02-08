@@ -1,6 +1,7 @@
-import { forwardRef, useEffect, useState } from "react";
+import { ReactNode, forwardRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { cn } from "../../utils";
+import { useConfig } from "../../Provider";
 
 interface BaseTabsProps {
   /**
@@ -39,69 +40,62 @@ interface BaseTabsProps {
   type?: "tabs" | "box";
 
   /**
-   * The horizontal alignment of the tabs. Can be "start", "center", or "end".
+   * The horizontal alignment of the tabs.
    */
   justify?: "start" | "center" | "end";
-
-  /**
-   * Whether or not to display the tabs as boxes.
-   */
-  boxed?: boolean;
 
   /**
    * Whether or not to hide the label for the tab.
    */
   hideLabel?: boolean;
+
+  children:
+    | ReactNode
+    | ((activeValue: string, toggle: (value: string) => void) => ReactNode);
 }
 
-const justifyStyle = {
+const justifies = {
   start: "",
   center: "nui-tabs-centered",
   end: "nui-tabs-end",
 };
 
-const typeStyle = {
+const types = {
   tabs: "nui-tab-item",
   box: "nui-pill-item",
 };
 
 export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
   function BaseTabs(
-    {
-      justify,
-      type = "box",
-      boxed,
-      hideLabel,
-      defaultValue = "",
-      onChange = () => {},
-      tabs,
-    },
+    { defaultValue = "", onChange = () => {}, tabs, children, ...props },
     ref,
   ) {
     const [activeValue, setActiveValue] = useState<string>(defaultValue);
 
-    useEffect(() => {
-      onChange(activeValue);
-    }, [activeValue, onChange]);
+    const config = useConfig();
+
+    const justify = props.justify ?? config.BaseTabs?.justify;
+
+    const type = props.type ?? config.BaseTabs?.type;
 
     return (
-      <div
-        className={cn("nui-tabs", justify && justifyStyle[justify])}
-        ref={ref}
-      >
+      <div className={cn("nui-tabs", justify && justifies[justify])} ref={ref}>
         <div className="nui-tabs-inner">
           {tabs.map((tab, index) => (
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
-              href="/#"
+              href="#"
               key={index}
               className={cn(
-                typeStyle[type],
+                type && types[type],
                 activeValue === tab.value && "nui-active",
                 tab.icon && "nui-has-icon",
               )}
               tabIndex={0}
-              onClick={() => {
+              onClick={(e) => {
+                e.preventDefault();
                 setActiveValue(tab.value);
+                onChange(activeValue);
               }}
             >
               {tab.icon && (
@@ -110,6 +104,7 @@ export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
               <span
                 className={cn(
                   type === "box" && tab.icon && "text-[.85rem]",
+                  type === "box" && !tab.icon && "text-sm",
                   type === "tabs" && "text-sm",
                 )}
               >
@@ -119,7 +114,15 @@ export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
           ))}
         </div>
 
-        <div className="relative block">{activeValue}</div>
+        {!!children && (
+          <div className="relative block">
+            {typeof children === "function"
+              ? children(activeValue, (toggleValue) =>
+                  setActiveValue(toggleValue),
+                )
+              : children}
+          </div>
+        )}
       </div>
     );
   },
