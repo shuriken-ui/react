@@ -1,4 +1,6 @@
 import React, {
+  ChangeEvent,
+  ReactNode,
   forwardRef,
   useCallback,
   useImperativeHandle,
@@ -20,19 +22,28 @@ type BaseInputFileHeadlessProps = {
   id?: string;
 
   /**
+   * Allows multiple files to be selected.
+   */
+  multiple?: boolean;
+
+  /**
    * Allows to filter files when dropped.
    */
   filterFileDropped?: (file: File) => boolean;
+  children?: (context: BaseInputFileHeadlessProvider) => ReactNode;
 };
 
-export type BaseInputFileHeadlessRef = {
-  input: HTMLInputElement | null;
+type BaseInputFileHeadlessProvider = {
+  el: HTMLInputElement | null;
   drop: (event: DragEvent) => void;
   open: () => void;
   remove: (file?: File) => void;
   id: string;
   files: FileList | null;
+  preview: typeof useNinjaFilePreview;
 };
+
+export type BaseInputFileHeadlessRef = BaseInputFileHeadlessProvider;
 
 export const BaseInputFileHeadless = forwardRef<
   BaseInputFileHeadlessRef,
@@ -100,10 +111,50 @@ export const BaseInputFileHeadless = forwardRef<
     [files],
   );
 
+  function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
+    const newFiles = (event.target as HTMLInputElement).files;
+
+    if (!newFiles) return;
+
+    if (props.multiple && files) {
+      // When multiple is true, append new files to existing ones
+      const existingFiles = [...Array.from(files)];
+
+      const updatedFiles = new DataTransfer();
+
+      // Add all existing files
+      existingFiles.forEach((file) => {
+        updatedFiles.items.add(file);
+      });
+
+      // Add new files, optionally check for duplicates
+
+      Array.from(newFiles).forEach((newFile) => {
+        if (
+          !existingFiles.some(
+            (existingFile) => existingFile.name === newFile.name,
+          )
+        ) {
+          updatedFiles.items.add(newFile);
+        }
+      });
+
+      if (!inputRef.current) return;
+
+      inputRef.current.files = updatedFiles.files;
+      setFiles(updatedFiles.files);
+      props.onChange?.(updatedFiles.files);
+    } else {
+      // When multiple is false, replace current files with new selection
+      setFiles(newFiles);
+      props.onChange?.(newFiles);
+    }
+  }
+
   useImperativeHandle(
     ref,
     () => ({
-      get input() {
+      get el() {
         return inputRef.current;
       },
       id,
@@ -118,15 +169,22 @@ export const BaseInputFileHeadless = forwardRef<
 
   return (
     <div className="group/nui-file-headless relative">
+      {props.children?.({
+        el: inputRef.current,
+        id,
+        files,
+        open,
+        remove,
+        drop,
+        preview: useNinjaFilePreview,
+      })}
       <input
         id={id}
         ref={inputRef}
         type="file"
         className="hidden"
-        onChange={(e) => {
-          setFiles(e.target.files);
-          props.onChange?.(e.target.files);
-        }}
+        multiple={props.multiple}
+        onChange={handleFileChange}
       />
     </div>
   );
