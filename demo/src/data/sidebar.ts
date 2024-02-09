@@ -191,11 +191,23 @@ export const sidebarlinks = {
         href: "/tests/base/tooltips",
         description: "Tooltip component",
       },
+      treeselect: {
+        icon: "system-uicons:hierarchy",
+        title: "BaseTreeSelect",
+        href: "/tests/base/treeselect",
+        description: "Tree select component",
+      },
     },
   },
   form: {
     title: "Form",
     links: {
+      autocomplete: {
+        icon: "system-uicons:zoom-reset",
+        title: "BaseAutocomplete",
+        href: "/tests/form/autocomplete",
+        description: "Autocomplete component",
+      },
       checkboxAnimated: {
         title: "BaseCheckboxAnimated",
         icon: "system-uicons:check-circle-outside",
@@ -207,6 +219,12 @@ export const sidebarlinks = {
         title: "BaseCheckbox",
         href: "/tests/form/checkbox",
         description: "Checkbox component",
+      },
+      fullscreenDropfile: {
+        icon: "system-uicons:cloud-upload",
+        title: "BaseFullscreenDropfile",
+        href: "/tests/form/fullscreen-dropfile",
+        description: "Dropfile component",
       },
       input: {
         icon: "system-uicons:calendar-move",
