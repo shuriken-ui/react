@@ -7,7 +7,12 @@ import { BasePlaceload } from "../base/BasePlaceload";
 
 type BaseInputFileProps = {
   /**
-   * The model value of the file input.
+   * The value of the file input.
+   */
+  value?: FileList | null;
+
+  /**
+   * The value of the file input.
    */
   onChange?: (files: FileList | null) => void;
 
@@ -17,9 +22,10 @@ type BaseInputFileProps = {
   id?: string;
 
   /**
-   * The shape of the file input.
+   * The radius of the file input.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The label to display for the file input.
@@ -53,8 +59,9 @@ type BaseInputFileProps = {
 
   /**
    * The contrast of the input.
+   *
    */
-  contrast?: "white" | "white-contrast";
+  contrast?: "default" | "default-contrast";
 
   /**
    * An error message or boolean value indicating whether the file input is in an error state.
@@ -102,30 +109,28 @@ type BaseInputFileProps = {
   };
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-input-rounded",
-  smooth: "nui-input-smooth",
-  curved: "nui-input-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-input-rounded",
+  md: "nui-input-smooth",
+  lg: "nui-input-curved",
   full: "nui-input-full",
 };
 
-const sizeStyle = {
+const sizes = {
   sm: "nui-input-sm",
   md: "nui-input-md",
   lg: "nui-input-lg",
 };
 
-const contrastStyle = {
-  white: "nui-input-white",
-  "white-contrast": "nui-input-white-contrast",
+const contrasts = {
+  default: "nui-input-white",
+  "default-contrast": "nui-input-white-contrast",
 };
 
 export const BaseInputFile = forwardRef<HTMLInputElement, BaseInputFileProps>(
   function BaseInputFile(
     {
-      size = "md",
-      contrast = "white",
       placeholder = "Choose file",
       error = false,
       textValue = (fileList?: FileList | null) => {
@@ -141,11 +146,15 @@ export const BaseInputFile = forwardRef<HTMLInputElement, BaseInputFileProps>(
     },
     ref,
   ) {
-    const [files, setFiles] = useState<FileList | null>(null);
+    const [files, setFiles] = useState<FileList | null>(props.value || null);
 
     const config = useConfig();
 
-    const shape = props.shape ?? config.defaultShapes?.input;
+    const rounded = props.rounded ?? config.BaseInputFile?.rounded;
+
+    const size = props.size ?? config.BaseInputFile?.size;
+
+    const contrast = props.contrast ?? config.BaseInputFile?.contrast;
 
     const id = useNinjaId(() => props.id);
 
@@ -155,9 +164,9 @@ export const BaseInputFile = forwardRef<HTMLInputElement, BaseInputFileProps>(
       <div
         className={cn(
           "nui-input-file-regular",
-          contrastStyle[contrast],
-          sizeStyle[size],
-          shape && shapeStyle[shape],
+          contrast && contrasts[contrast],
+          size && sizes[size],
+          rounded && radiuses[rounded],
           error && !props.loading && "nui-input-file-error",
           props.loading && "nui-input-file-loading",
           props.icon && "nui-has-icon",
