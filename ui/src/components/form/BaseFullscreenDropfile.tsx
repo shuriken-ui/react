@@ -107,12 +107,13 @@ export const BaseFullscreenDropfile = forwardRef<
       {isDropping && (
         <div className="nui-fullscreen-dropfile-inner">
           <Transition
-            enter-active-class="transition duration-100 ease-out"
-            enter-from-class="transform scale-0 opacity-0"
-            enter-to-class="transform scale-1 opacity-100"
-            leave-active-class="transition duration-75 ease-in"
-            leave-from-class="transform scale-1 opacity-100"
-            leave-to-class="transform scale-0 opacity-0"
+            show={isDropping}
+            enter="transition duration-100 ease-out"
+            enterFrom="transform scale-0 opacity-0"
+            enterTo="transform scale-1 opacity-100"
+            leave="transition duration-75 ease-in"
+            leaveFrom="transform scale-1 opacity-100"
+            leaveTo="transform scale-0 opacity-0"
           >
             <div className="nui-fullscreen-dropfile-container">
               <div className="nui-fullscreen-dropfile-content">
