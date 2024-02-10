@@ -4,70 +4,85 @@ import { BasePlaceload } from "./BasePlaceload";
 import { useNinjaButton } from "../../hooks/useNinjaButton";
 import { cn } from "../../utils";
 
-type BaseButtonIconProps = PropsWithChildren<{
-  /**
-   * The type of button.
-   * If this is not set and the `to` property is set, the component will be treated as a link.
-   */
-  type?: "button" | "submit" | "reset";
-
-  /**
-   * The route to navigate to when the button or link is clicked.
-   * If this is set and the `type` property is not set, the component will be treated as a link.
-   */
-  // to?: string;
-
-  /** Using href instead of to result in a native anchor with no router functionality. */
-  href?: string;
-
-  /**
-   * Whether the button or link is disabled.
-   */
-  disabled?: boolean;
-
-  /**
-   * The value for the `rel` attribute on the button or link.
-   * This property is only relevant for links.
-   */
-  rel?: string;
-
-  /**
-   * The value for the `target` attribute on the button or link.
-   * This property is only relevant for links.
-   */
-  target?: string;
-
-  /**
-   * The radius of the button or link.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /**
-   * The color of the button.
-   */
-  color?:
-    | "default"
-    | "muted"
-    | "primary"
-    | "info"
-    | "success"
-    | "warning"
-    | "danger"
-    | "none";
-
-  /**
-   * The size of the button.
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
-   * Whether the button or link is in a loading state.
-   */
+type AnchorProps = HTMLAnchorElement & {
+  type: never;
+  disabled: never;
+  loading: never;
+};
+type ButtonProps = HTMLButtonElement & {
+  href: never;
+  rel: never;
+  target: never;
   loading?: boolean;
+  disabled?: boolean;
+};
 
-  className?: string;
-}>;
+type Props = AnchorProps | ButtonProps;
+type BaseButtonIconProps = Omit<Props, "children"> &
+  PropsWithChildren<{
+    /**
+     * The type of button.
+     * If this is not set and the `to` property is set, the component will be treated as a link.
+     */
+    // type?: "button" | "submit" | "reset";
+
+    /**
+     * The route to navigate to when the button or link is clicked.
+     * If this is set and the `type` property is not set, the component will be treated as a link.
+     */
+    // to?: string;
+
+    /** Using href instead of to result in a native anchor with no router functionality. */
+    // href?: string;
+
+    /**
+     * Whether the button or link is disabled.
+     */
+    // disabled?: boolean;
+
+    /**
+     * The value for the `rel` attribute on the button or link.
+     * This property is only relevant for links.
+     */
+    // rel?: string;
+
+    /**
+     * The value for the `target` attribute on the button or link.
+     * This property is only relevant for links.
+     */
+    // target?: string;
+
+    /**
+     * The radius of the button or link.
+     *
+     */
+    rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+    /**
+     * The color of the button.
+     */
+    color?:
+      | "default"
+      | "muted"
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "none";
+
+    /**
+     * The size of the button.
+     */
+    size?: "sm" | "md" | "lg";
+
+    /**
+     * Whether the button or link is in a loading state.
+     */
+    // loading?: boolean;
+
+    // className?: string;
+  }>;
 
 const radiuses = {
   none: "",
@@ -99,6 +114,9 @@ export const BaseButtonIcon = forwardRef<
   BaseButtonIconProps
 >(function BaseButtonIcon(
   {
+    type,
+    href,
+    disabled,
     rel = "",
     target = "",
     loading = false,
@@ -109,9 +127,11 @@ export const BaseButtonIcon = forwardRef<
   ref,
 ) {
   const { is: Component, attributes } = useNinjaButton({
-    ...props,
+    href,
+    type,
     rel,
     target,
+    disabled,
   });
 
   const config = useConfig();
@@ -132,6 +152,9 @@ export const BaseButtonIcon = forwardRef<
         color && colors[color],
         classes,
       )}
+      {
+        ...(props as object) /** TODO: add correct type */
+      }
       {...attributes}
       ref={ref}
     >
