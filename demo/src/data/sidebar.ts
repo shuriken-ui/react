@@ -226,6 +226,18 @@ export const sidebarlinks = {
         href: "/tests/form/fullscreen-dropfile",
         description: "Dropfile component",
       },
+      inputFileHeadless: {
+        icon: "system-uicons:cloud-upload",
+        title: "BaseInputFileHeadless",
+        href: "/tests/form/input-file-headless",
+        description: "Headless input file component",
+      },
+      inputFile: {
+        icon: "system-uicons:cloud-upload",
+        title: "BaseInputFile",
+        href: "/tests/form/input-file",
+        description: "Input file component",
+      },
       input: {
         icon: "system-uicons:calendar-move",
         title: "BaseInput",
