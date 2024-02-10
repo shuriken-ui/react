@@ -14,6 +14,11 @@ type BaseInputFileHeadlessProps = {
   /**
    * The value of the file input.
    */
+  value?: FileList | null;
+
+  /**
+   * The value of the file input.
+   */
   onChange?: (files: FileList | null) => void;
 
   /**
@@ -27,9 +32,15 @@ type BaseInputFileHeadlessProps = {
   multiple?: boolean;
 
   /**
+   * The accepted file types.
+   */
+  accept?: string;
+
+  /**
    * Allows to filter files when dropped.
    */
   filterFileDropped?: (file: File) => boolean;
+
   children?: (context: BaseInputFileHeadlessProvider) => ReactNode;
 };
 
@@ -52,7 +63,7 @@ export const BaseInputFileHeadless = forwardRef<
   { filterFileDropped = () => true, ...props },
   ref,
 ) {
-  const [files, setFiles] = useState<FileList | null>(null);
+  const [files, setFiles] = useState<FileList | null>(props.value || null);
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -185,6 +196,7 @@ export const BaseInputFileHeadless = forwardRef<
         className="hidden"
         multiple={props.multiple}
         onChange={handleFileChange}
+        accept={props.accept}
       />
     </div>
   );
