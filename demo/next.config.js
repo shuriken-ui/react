@@ -4,6 +4,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
+        hostname: "tairo.cssninja.io",
+      },
+      {
+        protocol: "https",
         hostname: "picsum.photos",
       },
       {
