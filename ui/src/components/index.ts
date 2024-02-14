@@ -74,6 +74,7 @@ export * from "./base/BaseFocusLoop";
 export * from "./base/BasePagination";
 
 /** Form Components */
+export * from "./form/BaseListbox";
 
 export * from "./form/BaseSelect";
 
