@@ -1,7 +1,9 @@
 import React, {
+  ReactNode,
   forwardRef,
   useCallback,
   useEffect,
+  useImperativeHandle,
   useRef,
   useState,
 } from "react";
@@ -38,9 +40,15 @@ type TextareaProps = {
   name?: string;
 
   /**
-   * The shape of the textarea.
+   * The value of the textarea.
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  value?: string;
+
+  /**
+   * The radius of the textarea.
+   *
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The label for the textarea.
@@ -97,6 +105,8 @@ type TextareaProps = {
    */
   addon?: boolean;
 
+  addonElement?: ReactNode;
+
   /**
    * The number of rows to display in the textarea.
    */
@@ -111,6 +121,11 @@ type TextareaProps = {
    * Whether to automatically grow the textarea as text is entered.
    */
   autogrow?: boolean;
+
+  /**
+   * The maximum height of the textarea when autogrow is enabled.
+   */
+  maxHeight?: number;
 
   /**
    * A set of classes to apply to the various elements of the textarea.
@@ -139,35 +154,49 @@ type TextareaProps = {
   };
 };
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-textarea-rounded",
-  smooth: "nui-textarea-smooth",
-  curved: "nui-textarea-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-textarea-rounded",
+  md: "nui-textarea-smooth",
+  lg: "nui-textarea-curved",
   full: "nui-textarea-full",
 };
 
-const sizeStyle = {
+const sizes = {
   sm: "nui-textarea-sm",
   md: "nui-textarea-md",
   lg: "nui-textarea-lg",
 };
 
-const contrastStyle = {
+const contrasts = {
   default: "nui-textarea-default",
   "default-contrast": "nui-textarea-default-contrast",
   muted: "nui-textarea-muted",
   "muted-contrast": "nui-textarea-muted-contrast",
 };
 
-export const BaseTextarea = forwardRef<HTMLDivElement, TextareaProps>(
+export type BaseTextareaRef = {
+  /**
+   * The underlying HTMLTextAreaElement element.
+   */
+  el: HTMLTextAreaElement | null;
+
+  /**
+   * The internal id of the radio input.
+   */
+  id: string;
+  /**
+   * A method to resize the textarea to fit its content.
+   */
+  fitSize: () => void;
+};
+
+export const BaseTextarea = forwardRef<BaseTextareaRef, TextareaProps>(
   function BaseTextarea(
     {
       onChange = (val) => {},
       stateModifiers,
       placeholder = "",
-      size = "md",
-      contrast = "default",
       rows = 4,
       error = false,
       ...props
@@ -180,7 +209,11 @@ export const BaseTextarea = forwardRef<HTMLDivElement, TextareaProps>(
 
     const id = useNinjaId(() => props.id);
 
-    const shape = props.shape ?? config.defaultShapes?.input;
+    const rounded = props.rounded ?? config.BaseTextarea?.rounded;
+
+    const size = props.size ?? config.BaseTextarea?.size;
+
+    const contrast = props.contrast ?? config.BaseTextarea?.contrast;
 
     const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -195,24 +228,45 @@ export const BaseTextarea = forwardRef<HTMLDivElement, TextareaProps>(
       }
     }, [props.autogrow]);
 
-    function handleUpdate(value: string) {
-      const content = stateModifiers?.trim ? value.trim() : value;
+    const handleUpdate = useCallback(
+      (value: string) => {
+        const content = stateModifiers?.trim ? value.trim() : value;
 
-      setTextareaValue(content);
-      onChange(content);
-    }
+        setTextareaValue(content);
+        onChange(content);
+      },
+      [onChange, stateModifiers?.trim],
+    );
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        get el() {
+          return textareaRef.current;
+        },
+        id,
+        fitSize,
+      }),
+      [fitSize, id],
+    );
 
     useEffect(() => {
       fitSize();
-    }, [fitSize, textareaValue]);
+    }, [fitSize, textareaValue, props.autogrow, props.maxHeight]);
+
+    useEffect(() => {
+      if (props.value && props.value !== textareaValue) {
+        handleUpdate(props.value);
+      }
+    }, [props.value, textareaValue, handleUpdate]);
 
     return (
       <div
         className={cn(
           "nui-textarea-wrapper",
-          contrastStyle[contrast],
-          sizeStyle[size],
-          shape && shapeStyle[shape],
+          contrast && contrasts[contrast],
+          size && sizes[size],
+          rounded && radiuses[rounded],
           error && !props.loading && "nui-textarea-error",
           props.loading && "nui-textarea-loading",
           props.labelFloat && "nui-textarea-label-float",
@@ -220,7 +274,6 @@ export const BaseTextarea = forwardRef<HTMLDivElement, TextareaProps>(
           props.addon && "nui-has-addon",
           props.classes?.wrapper,
         )}
-        ref={ref}
       >
         {props.label && !props.labelFloat && (
           <label
@@ -288,9 +341,9 @@ export const BaseTextarea = forwardRef<HTMLDivElement, TextareaProps>(
             </div>
           )}
 
-          {props.addon && (
+          {props.addon && props.addonElement && (
             <div className={cn("nui-textarea-addon", props.classes?.addon)}>
-              {props.addon}
+              {props.addonElement}
             </div>
           )}
 
