@@ -256,11 +256,23 @@ export const sidebarlinks = {
         href: "/tests/form/radio",
         description: "Radio component",
       },
+      select: {
+        icon: "system-uicons:document-list",
+        title: "BaseSelect",
+        href: "/tests/form/select",
+        description: "Select component",
+      },
       switch: {
         icon: "system-uicons:toggle",
         title: "BaseSwitch",
         href: "/tests/form/switch",
         description: "Select component",
+      },
+      textarea: {
+        title: "BaseTextarea",
+        icon: "system-uicons:document-justified",
+        href: "/tests/form/textarea",
+        description: "Textarea component",
       },
     },
   },
