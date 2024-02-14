@@ -160,7 +160,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
       text = "?",
       badgeSrc,
       mask,
-      className: _,
+      className: classes,
       dot = false,
       ring = false,
       alt = "",
@@ -201,6 +201,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
       <div
         className={cn(
           "nui-avatar",
+
           size && sizes[size],
           rounded && radiuses[rounded],
           mask &&
@@ -212,6 +213,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
             (ring === true
               ? ["nui-avatar-ring", rings.primary]
               : ["nui-avatar-ring", rings[ring]]),
+          classes,
         )}
         ref={ref}
       >
