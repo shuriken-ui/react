@@ -230,7 +230,12 @@ export const BaseSelect = forwardRef<
           </div>
         )}
 
-        <div className={cn("nui-select-chevron", props.classes?.chevron)}>
+        <div
+          className={cn(
+            "nui-select-chevron  nui-chevron",
+            props.classes?.chevron,
+          )}
+        >
           <IconChevronDown className="nui-select-chevron-inner" />
         </div>
 
