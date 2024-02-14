@@ -244,6 +244,12 @@ export const sidebarlinks = {
         href: "/tests/form/input",
         description: "Input component",
       },
+      listbox: {
+        title: "BaseListbox",
+        icon: "system-uicons:list",
+        href: "/tests/form/listbox",
+        description: "Listbox component",
+      },
       radio: {
         icon: "system-uicons:record",
         title: "BaseRadio",
