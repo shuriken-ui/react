@@ -1,4 +1,4 @@
-import { PropsWithChildren, forwardRef, useMemo } from "react";
+import { PropsWithChildren, ReactNode, forwardRef, useMemo } from "react";
 import { Menu } from "@headlessui/react";
 import { Icon } from "@iconify/react";
 import { Float } from "@headlessui-float/react";
@@ -82,6 +82,11 @@ type BaseDropdownProps = PropsWithChildren<{
    * Used a fixed strategy to float the component
    */
   fixed?: boolean;
+
+  /**
+   *  The render function for custom button
+   */
+  renderButton?: (open: boolean, close: () => void) => ReactNode;
 }>;
 
 const sizes = {
@@ -124,7 +129,7 @@ const colors = {
 
 export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
   function BaseDropdown(
-    { children, label = "", fixed = false, ...props },
+    { children, label = "", fixed = false, renderButton, ...props },
     ref,
   ) {
     const config = useConfig();
@@ -156,7 +161,7 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
     return (
       <div className={cn("nui-dropdown")} ref={ref}>
         <Menu as="div" className="nui-menu">
-          {({ open }) => (
+          {({ open, close }) => (
             <Float
               enter="transition duration-100 ease-out"
               enterFrom="transform scale-95 opacity-0"
@@ -172,41 +177,51 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
               zIndex={20}
             >
               <Menu.Button as="div">
-                {variant === "button" && (
-                  <BaseButton
-                    color={buttonColor}
-                    rounded={rounded}
-                    className="!pe-3 !ps-4"
-                  >
-                    <span>{label}</span>
-                    <Icon
-                      icon="lucide:chevron-down"
-                      className={cn("nui-chevron", open && "rotate-180")}
-                    />
-                  </BaseButton>
-                )}
-                {variant === "context" && (
-                  // eslint-disable-next-line jsx-a11y/control-has-associated-label
-                  <button
-                    type="button"
-                    className="nui-context-button nui-focus"
-                  >
-                    <span className="nui-context-button-inner">
-                      <Icon
-                        icon="lucide:more-horizontal"
-                        className={cn("nui-context-icon", open && "rotate-90")}
-                      />
-                    </span>
-                  </button>
-                )}
-                {variant === "text" && (
-                  <button type="button" className="nui-text-button nui-focus">
-                    <span className="nui-text-button-inner">{label}</span>
-                    <Icon
-                      icon="lucide:chevron-down"
-                      className={cn("nui-chevron", open && "rotate-180")}
-                    />
-                  </button>
+                {renderButton?.(open, close) || (
+                  <>
+                    {variant === "button" && (
+                      <BaseButton
+                        color={buttonColor}
+                        rounded={rounded}
+                        className="!pe-3 !ps-4"
+                      >
+                        <span>{label}</span>
+                        <Icon
+                          icon="lucide:chevron-down"
+                          className={cn("nui-chevron", open && "rotate-180")}
+                        />
+                      </BaseButton>
+                    )}
+                    {variant === "context" && (
+                      // eslint-disable-next-line jsx-a11y/control-has-associated-label
+                      <button
+                        type="button"
+                        className="nui-context-button nui-focus"
+                      >
+                        <span className="nui-context-button-inner">
+                          <Icon
+                            icon="lucide:more-horizontal"
+                            className={cn(
+                              "nui-context-icon",
+                              open && "rotate-90",
+                            )}
+                          />
+                        </span>
+                      </button>
+                    )}
+                    {variant === "text" && (
+                      <button
+                        type="button"
+                        className="nui-text-button nui-focus"
+                      >
+                        <span className="nui-text-button-inner">{label}</span>
+                        <Icon
+                          icon="lucide:chevron-down"
+                          className={cn("nui-chevron", open && "rotate-180")}
+                        />
+                      </button>
+                    )}
+                  </>
                 )}
               </Menu.Button>
 
