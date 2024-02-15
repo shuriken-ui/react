@@ -26,19 +26,16 @@ export const BaseListItem = forwardRef<HTMLLIElement, BaseListItemProps>(
         {children}
 
         <div>
-          {title && (
-            <BaseHeading as="h6" weight="medium" size="md" lead="tight">
-              {title}
-            </BaseHeading>
-          )}
-          {subtitle && (
-            <BaseParagraph
-              size="xs"
-              className="text-muted-500 dark:text-muted-400"
-            >
-              {subtitle}
-            </BaseParagraph>
-          )}
+          <BaseHeading as="h6" weight="medium" size="md" lead="tight">
+            {title}
+          </BaseHeading>
+
+          <BaseParagraph
+            size="xs"
+            className="text-muted-500 dark:text-muted-400"
+          >
+            {subtitle}
+          </BaseParagraph>
         </div>
 
         <div className="ms-auto">{end}</div>

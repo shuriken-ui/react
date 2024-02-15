@@ -5,7 +5,7 @@ import { BaseButtonClose } from "./BaseButtonClose";
 import { cn } from "../../utils";
 import { useConfig } from "../../Provider";
 
-interface BaseSnackProps {
+type BaseSnackProps = {
   /**
    * The text to display in the snackbar.
    */
@@ -35,7 +35,7 @@ interface BaseSnackProps {
    * The color of snack, might be 'default' or 'muted'.
    */
   color?: "default" | "muted";
-}
+};
 
 const sizes = {
   xs: "nui-snack-xs",
