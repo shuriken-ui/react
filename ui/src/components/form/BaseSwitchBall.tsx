@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import { useNinjaId } from "../../hooks/useNinjaId";
 import { cn } from "../../utils";
 import { IconCheck } from "../icons/IconCheck";
@@ -44,46 +44,72 @@ const colors = {
   danger: "nui-switch-ball-danger",
 };
 
-export const BaseSwitchBall = forwardRef<HTMLInputElement, BaseSwitchBallProps>(
-  function BaseSitchBall(
-    { label, sublabel, checked, onChange = () => {}, ...props },
+export type BaseSwitchBallRef = {
+  /**
+   * The underlying HTMLInputElement element.
+   */
+  el: HTMLInputElement | null;
+
+  /**
+   * The internal id of the input.
+   */
+  id: string;
+};
+
+export const BaseSwitchBall = forwardRef<
+  BaseSwitchBallRef,
+  BaseSwitchBallProps
+>(function BaseSitchBall(
+  { label, sublabel, checked, onChange = () => {}, ...props },
+  ref,
+) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const id = useNinjaId(() => props.id);
+
+  const config = useConfig();
+
+  const color = props.color ?? config.BaseSwitchBall?.color;
+
+  useImperativeHandle(
     ref,
-  ) {
-    const id = useNinjaId(() => props.id);
+    () => ({
+      get el() {
+        return inputRef.current;
+      },
+      id,
+    }),
+    [id],
+  );
 
-    const config = useConfig();
-
-    const color = props.color ?? config.BaseSwitchBall?.color;
-
-    return (
-      <label
-        htmlFor={id}
-        className={cn("nui-switch-ball", color && colors[color])}
-      >
-        <span className="nui-switch-ball-outer">
-          <input
-            id={id}
-            ref={ref}
-            type="checkbox"
-            className="nui-switch-ball-input peer"
-            checked={checked}
-            onChange={(e) => {
-              onChange(e.target.checked);
-            }}
-          />
-          <span className="nui-switch-ball-handle" />
-          <span className="nui-switch-ball-track" />
-          <IconCheck className="nui-switch-ball-icon" />
+  return (
+    <label
+      htmlFor={id}
+      className={cn("nui-switch-ball", color && colors[color])}
+    >
+      <span className="nui-switch-ball-outer">
+        <input
+          id={id}
+          ref={inputRef}
+          type="checkbox"
+          className="nui-switch-ball-input peer"
+          checked={checked}
+          onChange={(e) => {
+            onChange(e.target.checked);
+          }}
+        />
+        <span className="nui-switch-ball-handle" />
+        <span className="nui-switch-ball-track" />
+        <IconCheck className="nui-switch-ball-icon" />
+      </span>
+      {!sublabel ? (
+        <span className="nui-switch-ball-single-label">{label}</span>
+      ) : (
+        <span className="nui-switch-ball-dual-label">
+          <span className="nui-switch-ball-label">{label}</span>
+          <span className="nui-switch-ball-sublabel">{sublabel}</span>
         </span>
-        {!sublabel ? (
-          <span className="nui-switch-ball-single-label">{label}</span>
-        ) : (
-          <span className="nui-switch-ball-dual-label">
-            <span className="nui-switch-ball-label">{label}</span>
-            <span className="nui-switch-ball-sublabel">{sublabel}</span>
-          </span>
-        )}
-      </label>
-    );
-  },
-);
+      )}
+    </label>
+  );
+});

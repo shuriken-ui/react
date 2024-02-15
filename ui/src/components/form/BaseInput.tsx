@@ -1,4 +1,10 @@
-import { ReactNode, forwardRef, useMemo } from "react";
+import {
+  ReactNode,
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+} from "react";
 import { Icon } from "@iconify/react";
 import { cn } from "../../utils";
 import { useConfig } from "../../Provider";
@@ -157,11 +163,25 @@ const contrasts = {
   "muted-contrast": "nui-input-muted-contrast",
 };
 
-export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
+export type BaseInputRef = {
+  /**
+   * The underlying HTMLInputElement element.
+   */
+  el: HTMLInputElement | null;
+
+  /**
+   * The internal id of the input.
+   */
+  id: string;
+};
+
+export const BaseInput = forwardRef<BaseInputRef, BaseInputProps>(
   function BaseInput(
     { stateModifiers, type = "text", error = false, ...props },
     ref,
   ) {
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const config = useConfig();
 
     const id = useNinjaId(() => props.id);
@@ -200,6 +220,17 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
       }
     }
 
+    useImperativeHandle(
+      ref,
+      () => ({
+        get el() {
+          return inputRef.current;
+        },
+        id,
+      }),
+      [id],
+    );
+
     return (
       <div
         className={cn(
@@ -228,7 +259,7 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
             {stateModifiers?.lazy ? (
               <input
                 id={id}
-                ref={ref}
+                ref={inputRef}
                 type={type}
                 className={cn("nui-input", props.classes?.input)}
                 placeholder={placeholder}
@@ -238,7 +269,7 @@ export const BaseInput = forwardRef<HTMLInputElement, BaseInputProps>(
             ) : (
               <input
                 id={id}
-                ref={ref}
+                ref={inputRef}
                 type={type}
                 className={cn("nui-input", props.classes?.input)}
                 placeholder={placeholder}

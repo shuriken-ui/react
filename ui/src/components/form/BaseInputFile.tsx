@@ -1,4 +1,4 @@
-import { forwardRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 import { Icon } from "@iconify/react";
 import { useConfig } from "../../Provider";
 import { useNinjaId } from "../../hooks/useNinjaId";
@@ -128,7 +128,19 @@ const contrasts = {
   "default-contrast": "nui-input-white-contrast",
 };
 
-export const BaseInputFile = forwardRef<HTMLInputElement, BaseInputFileProps>(
+export type BaseInputFileRef = {
+  /**
+   * The underlying HTMLInputElement element.
+   */
+  el: HTMLInputElement | null;
+
+  /**
+   * The internal id of the file input.
+   */
+  id: string;
+};
+
+export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
   function BaseInputFile(
     {
       placeholder = "Choose file",
@@ -146,6 +158,8 @@ export const BaseInputFile = forwardRef<HTMLInputElement, BaseInputFileProps>(
     },
     ref,
   ) {
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const [files, setFiles] = useState<FileList | null>(props.value || null);
 
     const config = useConfig();
@@ -159,6 +173,17 @@ export const BaseInputFile = forwardRef<HTMLInputElement, BaseInputFileProps>(
     const id = useNinjaId(() => props.id);
 
     const text = textValue(files);
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        get el() {
+          return inputRef.current;
+        },
+        id,
+      }),
+      [id],
+    );
 
     return (
       <div
@@ -202,7 +227,7 @@ export const BaseInputFile = forwardRef<HTMLInputElement, BaseInputFileProps>(
 
             <input
               id={id}
-              ref={ref}
+              ref={inputRef}
               type="file"
               className="hidden"
               onChange={(e) => {

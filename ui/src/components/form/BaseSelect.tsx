@@ -2,7 +2,9 @@ import {
   PropsWithChildren,
   SelectHTMLAttributes,
   forwardRef,
+  useImperativeHandle,
   useMemo,
+  useRef,
 } from "react";
 import { Icon } from "@iconify/react";
 import { useNinjaId } from "../../hooks/useNinjaId";
@@ -137,14 +139,28 @@ const contrasts = {
   "muted-contrast": "nui-select-muted-contrast",
 };
 
+export type BaseSelectRef = {
+  /**
+   * The underlying HTMLInputElement element.
+   */
+  el: HTMLSelectElement | null;
+
+  /**
+   * The internal id of the select input.
+   */
+  id: string;
+};
+
 export const BaseSelect = forwardRef<
-  HTMLSelectElement,
+  BaseSelectRef,
   BaseSelectProps &
     Omit<SelectHTMLAttributes<HTMLSelectElement>, keyof BaseSelectProps>
 >(function BaseSelect(
   { label = "", onChange = (val) => {}, error = false, children, ...props },
   ref,
 ) {
+  const selectRef = useRef<HTMLSelectElement>(null);
+
   const config = useConfig();
 
   const rounded = props.rounded ?? config.BaseSelect?.rounded;
@@ -166,6 +182,17 @@ export const BaseSelect = forwardRef<
 
     return props.placeholder ?? "";
   }, [label, props.labelFloat, props.loading, props.placeholder]);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      get el() {
+        return selectRef.current;
+      },
+      id,
+    }),
+    [id],
+  );
 
   return (
     <div
@@ -192,7 +219,7 @@ export const BaseSelect = forwardRef<
       <div className="nui-select-outer">
         <select
           id={id}
-          ref={ref}
+          ref={selectRef}
           disabled={props.disabled}
           className={cn("nui-select", props.classes?.select)}
           onChange={(e) => {

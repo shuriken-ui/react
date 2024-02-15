@@ -1,4 +1,9 @@
-import { InputHTMLAttributes, forwardRef } from "react";
+import {
+  InputHTMLAttributes,
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import { cn } from "../../utils";
 import { useNinjaId } from "../../hooks/useNinjaId";
 import { useConfig } from "../../Provider";
@@ -70,7 +75,19 @@ const colors = {
   danger: "nui-radio-danger",
 };
 
-export const BaseRadio = forwardRef<HTMLInputElement, BaseRadioProps>(
+export type BaseRadioRef = {
+  /**
+   * The underlying HTMLInputElement element.
+   */
+  el: HTMLInputElement | null;
+
+  /**
+   * The internal id of the radio input.
+   */
+  id: string;
+};
+
+export const BaseRadio = forwardRef<BaseRadioRef, BaseRadioProps>(
   function BaseRadio(
     {
       color: colorProp,
@@ -84,11 +101,24 @@ export const BaseRadio = forwardRef<HTMLInputElement, BaseRadioProps>(
     },
     ref,
   ) {
+    const inputRef = useRef<HTMLInputElement>(null);
+
     const config = useConfig();
 
     const id = useNinjaId(() => radioId);
 
     const color = colorProp ?? config.BaseRadio?.color;
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        get el() {
+          return inputRef.current;
+        },
+        id,
+      }),
+      [id],
+    );
 
     return (
       <div
@@ -97,7 +127,7 @@ export const BaseRadio = forwardRef<HTMLInputElement, BaseRadioProps>(
         <div className="nui-radio-outer">
           <input
             id={id}
-            ref={ref}
+            ref={inputRef}
             type="radio"
             className="nui-radio-input"
             value={value}

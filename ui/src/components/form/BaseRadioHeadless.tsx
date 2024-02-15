@@ -2,6 +2,8 @@ import React, {
   InputHTMLAttributes,
   PropsWithChildren,
   forwardRef,
+  useImperativeHandle,
+  useRef,
 } from "react";
 import { useNinjaId } from "../../hooks/useNinjaId";
 
@@ -32,15 +34,40 @@ type BaseRadioHeadlessProps = PropsWithChildren<{
   label?: string;
 }>;
 
+export type BaseRadioHeadlessRef = {
+  /**
+   * The underlying HTMLInputElement element.
+   */
+  el: HTMLInputElement | null;
+
+  /**
+   * The internal id of the radio input.
+   */
+  id: string;
+};
+
 export const BaseRadioHeadless = forwardRef<
-  HTMLInputElement,
+  BaseRadioRef,
   BaseRadioHeadlessProps &
     Omit<InputHTMLAttributes<HTMLInputElement>, keyof BaseRadioHeadlessProps>
 >(function BaseRadioHeadless(
   { id: Id, label, className, type, children, onChange = () => {}, ...props },
   ref,
 ) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const id = useNinjaId(() => Id);
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      get el() {
+        return inputRef.current;
+      },
+      id,
+    }),
+    [id],
+  );
 
   return (
     <div className="group/nui-radio-headless relative">
@@ -54,7 +81,7 @@ export const BaseRadioHeadless = forwardRef<
       )}
       <div className="relative">
         <input
-          ref={ref}
+          ref={inputRef}
           type="radio"
           className="peer absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
           {...props}

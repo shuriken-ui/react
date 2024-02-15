@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import { cn } from "../../utils";
 import { useNinjaId } from "../../hooks/useNinjaId";
 import { useConfig } from "../../Provider";
@@ -43,42 +43,68 @@ const colors = {
   danger: "nui-switch-thin-danger",
 };
 
-export const BaseSwitchThin = forwardRef<HTMLInputElement, BaseSwitchThinProps>(
-  function BaseSwitchThin({ checked, onChange = () => {}, ...props }, ref) {
-    const config = useConfig();
+export type BaseSwitchThinRef = {
+  /**
+   * The underlying HTMLInputElement element.
+   */
+  el: HTMLInputElement | null;
 
-    const id = useNinjaId(() => props.id);
+  /**
+   * The internal id of the input.
+   */
+  id: string;
+};
 
-    const color = props.color ?? config.BaseSwitchThin?.color;
+export const BaseSwitchThin = forwardRef<
+  BaseSwitchThinRef,
+  BaseSwitchThinProps
+>(function BaseSwitchThin({ checked, onChange = () => {}, ...props }, ref) {
+  const inputRef = useRef<HTMLInputElement>(null);
 
-    return (
-      <label
-        htmlFor={id}
-        className={cn("nui-switch-thin", color && colors[color])}
-      >
-        <span className="nui-switch-thin-outer">
-          <input
-            id={id}
-            ref={ref}
-            type="checkbox"
-            className="nui-switch-thin-input peer"
-            checked={checked}
-            onChange={(e) => {
-              onChange(e.target.checked);
-            }}
-          />
-          <span className="nui-switch-thin-handle" />
-          <span className="nui-switch-thin-track" />
+  const config = useConfig();
+
+  const id = useNinjaId(() => props.id);
+
+  const color = props.color ?? config.BaseSwitchThin?.color;
+
+  useImperativeHandle(
+    ref,
+    () => ({
+      get el() {
+        return inputRef.current;
+      },
+      id,
+    }),
+    [id],
+  );
+
+  return (
+    <label
+      htmlFor={id}
+      className={cn("nui-switch-thin", color && colors[color])}
+    >
+      <span className="nui-switch-thin-outer">
+        <input
+          id={id}
+          ref={inputRef}
+          type="checkbox"
+          className="nui-switch-thin-input peer"
+          checked={checked}
+          onChange={(e) => {
+            onChange(e.target.checked);
+          }}
+        />
+        <span className="nui-switch-thin-handle" />
+        <span className="nui-switch-thin-track" />
+      </span>
+      {!props.sublabel ? (
+        <span className="nui-switch-thin-single-label">{props.label}</span>
+      ) : (
+        <span className="nui-switch-thin-dual-label">
+          <span className="nui-switch-thin-label">{props.label}</span>
+          <span className="nui-switch-thin-sublabel">{props.sublabel}</span>
         </span>
-        {!props.sublabel ? (
-          <span className="nui-switch-thin-single-label">{props.label}</span>
-        ) : (
-          <span className="nui-switch-thin-dual-label">
-            <span className="nui-switch-thin-label">{props.label}</span>
-            <span className="nui-switch-thin-sublabel">{props.sublabel}</span>
-          </span>
-        )}
-      </label>
-    );
-  },
-);
+      )}
+    </label>
+  );
+});
