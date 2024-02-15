@@ -1,23 +1,10 @@
 import { PropsWithChildren, forwardRef } from "react";
-import { useNinjaButton } from "../../hooks/useNinjaButton";
+import { useNinjaButton, NinjaButtonProps } from "../../hooks/useNinjaButton";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
 import { cn } from "../../utils";
 
-type AnchorProps = HTMLAnchorElement & {
-  type: never;
-  disabled: never;
-  loading: never;
-};
-type ButtonProps = HTMLButtonElement & {
-  href: never;
-  rel: never;
-  target: never;
-  loading?: boolean;
-};
-
-type Props = AnchorProps | ButtonProps;
-type BaseButtonActionProps = Omit<Props, "children"> &
+type BaseButtonActionProps = Omit<NinjaButtonProps, "children"> &
   PropsWithChildren<{
     /**
      * The type of button.

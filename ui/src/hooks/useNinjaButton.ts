@@ -1,3 +1,5 @@
+import { AnchorHTMLAttributes, ButtonHTMLAttributes } from "react";
+
 export interface BaseButtonProperties {
   type?: "button" | "submit" | "reset";
   href?: string;
@@ -7,6 +9,20 @@ export interface BaseButtonProperties {
 }
 
 export type NinjaButton = "a" | "button";
+
+type AnchorProps = AnchorHTMLAttributes<HTMLAnchorElement> & {
+  type: never;
+  disabled: never;
+  loading: never;
+};
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  href: never;
+  rel: never;
+  target: never;
+  loading?: boolean;
+};
+
+export type NinjaButtonProps = AnchorProps | ButtonProps;
 
 export const useNinjaButton = (
   properties: BaseButtonProperties,
@@ -21,18 +37,8 @@ export const useNinjaButton = (
 
   const type = is === "button" ? properties.type || "button" : undefined;
 
-  function getExternal() {
-    if (
-      typeof properties.href === "string" &&
-      properties.href.startsWith("http")
-    ) {
-      return true;
-    }
-
-    return false;
-  }
-
-  const external = getExternal();
+  const external =
+    typeof properties.href === "string" && properties.href.startsWith("http");
 
   const rel = !external
     ? properties.rel

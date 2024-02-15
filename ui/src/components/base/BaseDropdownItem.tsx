@@ -1,75 +1,71 @@
 import { Menu } from "@headlessui/react";
 import { PropsWithChildren, ReactNode, forwardRef } from "react";
-import { useNinjaButton } from "../../hooks/useNinjaButton";
+import { NinjaButtonProps, useNinjaButton } from "../../hooks/useNinjaButton";
 import { cn } from "../../utils";
 
-type BaseDropdownItemProps = PropsWithChildren<{
-  /**
-   * The type of button.
-   */
-  type?: "button" | "submit" | "reset";
+type BaseDropdownItemProps = Omit<NinjaButtonProps, "children"> &
+  PropsWithChildren<{
+    /**
+     * The type of button.
+     */
+    // type?: "button" | "submit" | "reset";
 
-  /**
-   * The route to navigate to when the button is clicked.
-   */
-  // to?: string;
+    /** Using href instead of to result in a native anchor with no router functionality. */
+    // href?: string;
 
-  /** Using href instead of to result in a native anchor with no router functionality. */
-  href?: string;
+    /**
+     * Whether the button is disabled.
+     */
+    // disabled?: boolean;
 
-  /**
-   * Whether the button is disabled.
-   */
-  disabled?: boolean;
+    /**
+     * The radius of the dropdown-item.
+     *
+     */
+    rounded?: "none" | "sm" | "md" | "lg";
 
-  /**
-   * The radius of the dropdown-item.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg";
+    /**
+     * The color of the dropdown-item.
+     */
+    color?: "default" | "contrast";
 
-  /**
-   * The color of the dropdown-item.
-   */
-  color?: "default" | "contrast";
+    /**
+     * The value for the `rel` attribute on the button.
+     */
+    // rel?: string;
 
-  /**
-   * The value for the `rel` attribute on the button.
-   */
-  rel?: string;
+    /**
+     * The value for the `target` attribute on the button.
+     */
+    // target?: string;
 
-  /**
-   * The value for the `target` attribute on the button.
-   */
-  target?: string;
+    /**
+     * The title to display for the dropdown item.
+     */
+    title?: string;
 
-  /**
-   * The title to display for the dropdown item.
-   */
-  title?: string;
+    /**
+     * The text to display for the dropdown item.
+     */
+    text?: string;
+    /**
+     * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
+     */
+    classes?: {
+      title?: string | string[];
+      text?: string | string[];
+    };
 
-  /**
-   * The text to display for the dropdown item.
-   */
-  text?: string;
-  /**
-   * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
-   */
-  classes?: {
-    title?: string | string[];
-    text?: string | string[];
-  };
+    /**
+     * start slot
+     */
+    start?: ReactNode;
 
-  /**
-   * start slot
-   */
-  start?: ReactNode;
-
-  /**
-   * end slot
-   */
-  end?: ReactNode;
-}>;
+    /**
+     * end slot
+     */
+    end?: ReactNode;
+  }>;
 
 const radiuses = {
   none: "",
@@ -100,13 +96,21 @@ export const BaseDropdownItem = forwardRef<
         "font-heading text-muted-800 text-xs font-semibold leading-tight dark:text-white",
       text: "text-muted-400 font-sans text-xs",
     },
+    rel,
+    target,
+    href,
+    type,
     children,
+    className,
     ...props
   },
   ref,
 ) {
   const { is: Component, attributes } = useNinjaButton({
-    ...props,
+    href,
+    type,
+    target,
+    rel,
     disabled,
   });
 
@@ -119,7 +123,11 @@ export const BaseDropdownItem = forwardRef<
             active && "nui-active",
             rounded && radiuses[rounded],
             color && colors[color],
+            className,
           )}
+          {
+            ...(props as object) /** TODO: add correct type */
+          }
           onClick={close}
           {...attributes}
           ref={ref}

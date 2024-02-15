@@ -1,24 +1,10 @@
 import { PropsWithChildren, forwardRef } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
-import { useNinjaButton } from "../../hooks/useNinjaButton";
+import { useNinjaButton, NinjaButtonProps } from "../../hooks/useNinjaButton";
 import { cn } from "../../utils";
 
-type AnchorProps = HTMLAnchorElement & {
-  type: never;
-  disabled: never;
-  loading: never;
-};
-type ButtonProps = HTMLButtonElement & {
-  href: never;
-  rel: never;
-  target: never;
-  loading?: boolean;
-  disabled?: boolean;
-};
-
-type Props = AnchorProps | ButtonProps;
-type BaseButtonIconProps = Omit<Props, "children"> &
+type BaseButtonIconProps = Omit<NinjaButtonProps, "children"> &
   PropsWithChildren<{
     /**
      * The type of button.
@@ -80,8 +66,6 @@ type BaseButtonIconProps = Omit<Props, "children"> &
      * Whether the button or link is in a loading state.
      */
     // loading?: boolean;
-
-    // className?: string;
   }>;
 
 const radiuses = {
