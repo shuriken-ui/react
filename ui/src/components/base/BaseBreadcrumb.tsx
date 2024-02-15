@@ -5,6 +5,33 @@ import { BaseDropdown } from "./BaseDropdown";
 import { BaseDropdownItem } from "./BaseDropdownItem";
 import { cn } from "../../utils";
 
+type Item = {
+  /**
+   * The route to navigate to when the item is clicked.
+   */
+  href?: string;
+
+  /**
+   * The label to display for the item.
+   */
+  label?: string;
+
+  /**
+   * Whether to hide the label for the item.
+   */
+  hideLabel?: boolean;
+
+  /**
+   * An icon to display for the item.
+   */
+  icon?: string;
+
+  /**
+   * CSS classes to apply to the icon.
+   */
+  iconClasses?: string | string[];
+};
+
 type BaseBreadcrumbProps = PropsWithChildren<{
   /**
    * The items to display in the breadcrumb.
@@ -12,32 +39,13 @@ type BaseBreadcrumbProps = PropsWithChildren<{
    * If not provided, the breadcrumb will be generated
    * from the current route using page meta under `breadcrumb` key.
    */
-  items?: {
-    /**
-     * The route to navigate to when the item is clicked.
-     */
-    href?: string;
+  items?: Item[];
 
-    /**
-     * The label to display for the item.
-     */
-    label?: string;
-
-    /**
-     * Whether to hide the label for the item.
-     */
-    hideLabel?: boolean;
-
-    /**
-     * An icon to display for the item.
-     */
-    icon?: string;
-
-    /**
-     * CSS classes to apply to the icon.
-     */
-    iconClasses?: string | string[];
-  }[];
+  /**
+   * Render custom link
+   *
+   */
+  renderLink?: (item: Item, index: number) => React.ReactNode;
 }>;
 
 export const BaseBreadcrumb = forwardRef<HTMLElement, BaseBreadcrumbProps>(
@@ -53,7 +61,7 @@ export const BaseBreadcrumb = forwardRef<HTMLElement, BaseBreadcrumbProps>(
                   <BaseDropdownItem
                     key={index}
                     href={item.href}
-                    // className="flex items-center gap-x-1"
+                    className="flex items-center gap-x-1"
                   >
                     {item.label}
                   </BaseDropdownItem>
@@ -71,26 +79,28 @@ export const BaseBreadcrumb = forwardRef<HTMLElement, BaseBreadcrumbProps>(
                       : "flex",
                   )}
                 >
-                  <Link
-                    href={item.href || "#"}
-                    className={cn(
-                      "nui-item-inner",
-                      item.href && "nui-has-link",
-                    )}
-                  >
-                    {item.icon && (
-                      <Icon
-                        icon={item.icon}
-                        className={cn("nui-item-icon", item.iconClasses)}
-                      />
-                    )}
+                  {props.renderLink?.(item, index) || (
+                    <Link
+                      href={item.href || "#"}
+                      className={cn(
+                        "nui-item-inner",
+                        item.href && "nui-has-link",
+                      )}
+                    >
+                      {item.icon && (
+                        <Icon
+                          icon={item.icon}
+                          className={cn("nui-item-icon", item.iconClasses)}
+                        />
+                      )}
 
-                    {item.label && (
-                      <span className={cn(item.hideLabel && "sr-only")}>
-                        {item.label}
-                      </span>
-                    )}
-                  </Link>
+                      {item.label && (
+                        <span className={cn(item.hideLabel && "sr-only")}>
+                          {item.label}
+                        </span>
+                      )}
+                    </Link>
+                  )}
                 </li>
                 <li className="nui-breadcrumb-item">
                   {props.items && index < props.items.length - 1 && (
