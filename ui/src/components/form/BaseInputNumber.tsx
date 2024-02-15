@@ -1,4 +1,11 @@
-import React, { forwardRef, useEffect, useMemo, useRef, useState } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Icon } from "@iconify/react";
 import { useConfig } from "../../Provider";
 import { cn } from "../../utils";
@@ -47,9 +54,10 @@ type BaseInputNumberProps = {
   type?: string;
 
   /**
-   * The shape of the input.
+   * The radius of the input.
+   *
    */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The label to display for the input.
@@ -161,38 +169,47 @@ type BaseInputNumberProps = {
     buttons?: string | string[];
   };
 };
-
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-input-number-rounded",
-  smooth: "nui-input-number-smooth",
-  curved: "nui-input-number-curved",
+const radiuses = {
+  none: "",
+  sm: "nui-input-number-rounded",
+  md: "nui-input-number-smooth",
+  lg: "nui-input-number-curved",
   full: "nui-input-number-full",
 };
 
-const sizeStyle = {
+const sizes = {
   sm: "nui-input-number-sm",
   md: "nui-input-number-md",
   lg: "nui-input-number-lg",
 };
 
-const contrastStyle = {
+const contrasts = {
   default: "nui-input-number-default",
   "default-contrast": "nui-input-number-default-contrast",
   muted: "nui-input-number-muted",
   "muted-contrast": "nui-input-number-muted-contrast",
 };
 
+export type BaseInputNumberRef = {
+  /**
+   * The underlying HTMLInputElement element.
+   */
+  el: HTMLInputElement | null;
+
+  /**
+   * The internal id of the radio input.
+   */
+  id: string;
+};
+
 export const BaseInputNumber = forwardRef<
-  HTMLInputElement,
+  BaseInputNumberRef,
   BaseInputNumberProps
 >(function BaseInputNumber(
   {
     onChange = (value) => {},
     step = 1,
     type = "text",
-    size = "md",
-    contrast = "default",
     inputmode = "numeric",
     iconDecrement = "lucide=minus",
     iconIncrement = "lucide=plus",
@@ -202,6 +219,8 @@ export const BaseInputNumber = forwardRef<
   },
   ref,
 ) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [value, setValue] = useState<number | string>();
 
   const incrementInterval = useRef<ReturnType<typeof setInterval>>();
@@ -210,7 +229,11 @@ export const BaseInputNumber = forwardRef<
 
   const config = useConfig();
 
-  const shape = props.shape ?? config.defaultShapes?.input;
+  const rounded = props.rounded ?? config.BaseInputNumber?.rounded;
+
+  const size = props.size ?? config.BaseInputNumber?.size;
+
+  const contrast = props.contrast ?? config.BaseInputNumber?.contrast;
 
   const id = useNinjaId(() => props.id);
 
@@ -255,10 +278,11 @@ export const BaseInputNumber = forwardRef<
   const stepAbs = useMemo(() => Math.abs(step), [step]);
 
   function clamp(val: number) {
-    const rounded = Math.round(val * floatPrecisionExp) / floatPrecisionExp;
+    const roundedValue =
+      Math.round(val * floatPrecisionExp) / floatPrecisionExp;
 
     return Math.max(
-      Math.min(rounded, props.max ?? Number.POSITIVE_INFINITY),
+      Math.min(roundedValue, props.max ?? Number.POSITIVE_INFINITY),
       props.min ?? Number.NEGATIVE_INFINITY,
     );
   }
@@ -351,6 +375,17 @@ export const BaseInputNumber = forwardRef<
     }
   }, [onChange, value]);
 
+  useImperativeHandle(
+    ref,
+    () => ({
+      get el() {
+        return inputRef.current;
+      },
+      id,
+    }),
+    [id],
+  );
+
   useEffect(() => {
     return () => {
       if (incrementInterval.current) {
@@ -367,9 +402,9 @@ export const BaseInputNumber = forwardRef<
     <div
       className={cn(
         "nui-input-number-wrapper",
-        contrastStyle[contrast],
-        sizeStyle[size],
-        shape && shapeStyle[shape],
+        contrast && contrasts[contrast],
+        size && sizes[size],
+        rounded && radiuses[rounded],
         error && !props.loading && "nui-input-number-error",
         props.loading && "nui-input-number-loading",
         props.labelFloat && "nui-input-number-label-float",
@@ -391,7 +426,7 @@ export const BaseInputNumber = forwardRef<
           {stateModifiers?.lazy ? (
             <input
               id={id}
-              ref={ref}
+              ref={inputRef}
               type={type}
               className={cn("nui-input-number", props.classes?.input)}
               placeholder={placeholder}
@@ -402,7 +437,7 @@ export const BaseInputNumber = forwardRef<
           ) : (
             <input
               id={id}
-              ref={ref}
+              ref={inputRef}
               type={type}
               className={cn("nui-input-number", props.classes?.input)}
               placeholder={placeholder}
