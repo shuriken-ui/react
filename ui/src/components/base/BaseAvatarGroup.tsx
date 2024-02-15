@@ -54,10 +54,7 @@ export const BaseAvatarGroup = forwardRef<HTMLDivElement, BaseAvatarGroupProps>(
     }, [props.avatars, limit]);
 
     return (
-      <div
-        className={cn("nui-avatar-group", props.size && sizes[props.size])}
-        ref={ref}
-      >
+      <div className={cn("nui-avatar-group", size && sizes[size])} ref={ref}>
         {avatarDisplay.map((avatar, index) => (
           <div
             key={`${avatar.src || avatar.srcDark || "avatar"}-${index}`}
