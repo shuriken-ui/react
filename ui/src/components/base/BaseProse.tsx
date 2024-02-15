@@ -5,29 +5,31 @@ import { cn } from "../../utils";
 type BaseProseProps = HTMLAttributes<HTMLDivElement> & {
   /**
    * Inner elements shapes.
+   *
    */
-  shape?: "straight" | "rounded" | "curved";
+  rounded?: "none" | "sm" | "md" | "lg";
 };
 
-const shapeStyle = {
-  straight: "nui-prose-straight",
-  rounded: "nui-prose-rounded",
-  curved: "nui-prose-curved",
-  full: "",
+const radiuses = {
+  none: "nui-prose-straight",
+  sm: "nui-prose-rounded",
+  md: "nui-prose-smooth",
+  lg: "nui-prose-curved",
 };
 
 export const BaseProse = forwardRef<HTMLDivElement, BaseProseProps>(
-  function BaseProse(
-    { shape: defaultShape, children, className: classes },
-    ref,
-  ) {
+  function BaseProse({ children, ...props }, ref) {
     const config = useConfig();
 
-    const shape = defaultShape ?? config.defaultShapes.progress;
+    const rounded = props.rounded ?? config.BaseProse?.rounded;
 
     return (
       <div
-        className={cn("nui-prose", shape && shapeStyle[shape], classes)}
+        className={cn(
+          "nui-prose",
+          rounded && radiuses[rounded],
+          props.className,
+        )}
         ref={ref}
       >
         {children}
