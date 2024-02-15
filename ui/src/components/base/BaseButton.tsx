@@ -1,74 +1,70 @@
 import { PropsWithChildren, forwardRef, useMemo } from "react";
 import { useConfig } from "../../Provider";
 import { BasePlaceload } from "./BasePlaceload";
-import { useNinjaButton } from "../../hooks/useNinjaButton";
+import { useNinjaButton, NinjaButtonProps } from "../../hooks/useNinjaButton";
 import { cn } from "../../utils";
 
-type BaseButtonProps = PropsWithChildren<{
-  /** The type of the button. Can be 'button', 'submit', or 'reset'. */
-  type?: "button" | "submit" | "reset";
+type BaseButtonProps = Omit<NinjaButtonProps, "children"> &
+  PropsWithChildren<{
+    /** The type of the button. Can be 'button', 'submit', or 'reset'. */
+    // type?: "button" | "submit" | "reset";
 
-  /** The location to which the button should navigate when clicked. This is only applicable if the button is a link. */
-  to?: string;
+    /** The location to which the button should navigate when clicked. This is only applicable if the button is a link. */
+    // to?: string;
 
-  /** Using href instead of to result in a native anchor with no router functionality. */
-  href?: string;
+    /** Using href instead of to result in a native anchor with no router functionality. */
+    // href?: string;
 
-  /** Whether the button should be disabled. */
-  disabled?: boolean;
+    /** Whether the button should be disabled. */
+    // disabled?: boolean;
 
-  /** The value of the 'rel' attribute of the button. This attribute is used to specify the relationship of the linked document with the current document. */
-  rel?: string;
+    /** The value of the 'rel' attribute of the button. This attribute is used to specify the relationship of the linked document with the current document. */
+    // rel?: string;
 
-  /** The value of the 'target' attribute of the button. This attribute is used to specify where to open the linked document. */
-  target?: string;
+    /** The value of the 'target' attribute of the button. This attribute is used to specify where to open the linked document. */
+    // target?: string;
 
-  /** The size of the button */
-  size?: "sm" | "md" | "lg" | "xl";
+    /** The size of the button */
+    size?: "sm" | "md" | "lg" | "xl";
 
-  /**
-   * The variant of the button..
-   *
-   */
-  variant?: "solid" | "outline" | "pastel";
+    /**
+     * The variant of the button..
+     *
+     */
+    variant?: "solid" | "outline" | "pastel";
 
-  /** The color of the button. Can be 'default', 'primary', 'info', 'success', 'warning', 'danger', or 'none. */
-  color?:
-    | "default"
-    | "primary"
-    | "info"
-    | "success"
-    | "warning"
-    | "danger"
-    | "light"
-    | "muted"
-    | "none";
+    /** The color of the button. Can be 'default', 'primary', 'info', 'success', 'warning', 'danger', or 'none. */
+    color?:
+      | "default"
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "light"
+      | "muted"
+      | "none";
 
-  /**
-   * The radius of the button.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The radius of the button.
+     *
+     */
+    rounded?: "none" | "sm" | "md" | "lg" | "full";
 
-  /** Whether the button is in a loading state. */
-  loading?: boolean;
+    /** Whether the button is in a loading state. */
+    loading?: boolean;
 
-  /** The badge indicator */
-  badge?: boolean;
+    /** The badge indicator */
+    badge?: boolean;
 
-  /** Add a pulse animation on the badge */
-  badgePulse?: boolean;
+    /** Add a pulse animation on the badge */
+    badgePulse?: boolean;
 
-  /**
-   * Adds a flat or a on hover shadow to the button.
-   */
-  shadow?: "flat" | "hover";
-
-  /**
-   * css class
-   */
-  className?: string;
-}>;
+    /**
+     * Adds a flat or a on hover shadow to the button.
+     */
+    shadow?: "flat" | "hover";
+  }>;
 
 const badgeColors = {
   primary: "nui-badge-primary",
@@ -129,6 +125,8 @@ export const BaseButton = forwardRef<
     badge = false,
     badgePulse = false,
     shadow,
+    href,
+    type,
     rel = "",
     target = "",
     className: classes,
@@ -139,9 +137,10 @@ export const BaseButton = forwardRef<
   ref,
 ) {
   const { is: Component, attributes } = useNinjaButton({
-    ...props,
-    rel,
+    href,
+    type,
     target,
+    rel,
     disabled,
   });
 
@@ -179,6 +178,9 @@ export const BaseButton = forwardRef<
         shadow && shadows[shadow],
         classes,
       )}
+      {
+        ...(props as object) /** TODO: add correct type */
+      }
       {...attributes}
       ref={ref}
     >
