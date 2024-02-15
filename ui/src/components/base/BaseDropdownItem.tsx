@@ -134,10 +134,7 @@ export const BaseDropdownItem = forwardRef<
         >
           {start}
           <div className="nui-item-content">
-            <div className={cn(classes?.title)}>
-              {children}
-              {title}
-            </div>
+            <div className={cn(classes?.title)}>{children || title}</div>
             {text && <p className="text-muted-400 font-sans text-xs">{text}</p>}
           </div>
           {end}
