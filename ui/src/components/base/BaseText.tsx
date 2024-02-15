@@ -1,5 +1,6 @@
 import { HTMLAttributes, PropsWithChildren, forwardRef } from "react";
 import { cn } from "../../utils";
+import { useConfig } from "../../Provider";
 
 type BaseTextProps = HTMLAttributes<HTMLParagraphElement> &
   PropsWithChildren<{
@@ -32,7 +33,7 @@ type BaseTextProps = HTMLAttributes<HTMLParagraphElement> &
     lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
   }>;
 
-const sizeStyle = {
+const sizes = {
   xs: "nui-content-xs",
   sm: "nui-content-sm",
   md: "nui-content-md",
@@ -48,7 +49,7 @@ const sizeStyle = {
   "9xl": "nui-content-9xl",
 };
 
-const weightStyle = {
+const weights = {
   light: "nui-weight-light",
   normal: "nui-weight-normal",
   medium: "nui-weight-medium",
@@ -57,7 +58,7 @@ const weightStyle = {
   extrabold: "nui-weight-extrabold",
 };
 
-const leadStyle = {
+const leads = {
   none: "nui-lead-none",
   tight: "nui-lead-tight",
   snug: "nui-lead-snug",
@@ -67,17 +68,22 @@ const leadStyle = {
 };
 
 export const BaseText = forwardRef<HTMLParagraphElement, BaseTextProps>(
-  function BaseText(
-    { size = "md", weight = "normal", lead = "normal", children },
-    ref,
-  ) {
+  function BaseText({ children, ...props }, ref) {
+    const config = useConfig();
+
+    const size = props.size ?? config.BaseText?.size;
+
+    const weight = props.weight ?? config.BaseText?.weight;
+
+    const lead = props.lead ?? config.BaseText?.lead;
+
     return (
       <p
         className={cn(
           "nui-text",
-          sizeStyle[size],
-          weightStyle[weight],
-          leadStyle[lead],
+          size && sizes[size],
+          weight && weights[weight],
+          lead && leads[lead],
         )}
         ref={ref}
       >
