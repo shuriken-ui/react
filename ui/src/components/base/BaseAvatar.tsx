@@ -201,12 +201,11 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
       <div
         className={cn(
           "nui-avatar",
-
           size && sizes[size],
           rounded && radiuses[rounded],
           mask &&
             (props.rounded === "none" || rounded === "none") && [
-              `nui-avatar-mask`,
+              "nui-avatar-mask",
               masks[mask],
             ],
           ring &&
