@@ -1,33 +1,50 @@
 "use client";
 
-import { Fragment, useState } from "react";
+import { ComponentProps, Fragment, useState } from "react";
 
 import {
   BaseFullscreenDropfile,
   BaseInputFileHeadless,
   BaseProgress,
+  useNinjaFilePreview,
 } from "@shuriken-ui/react";
 
 import NuiPreview from "@/components/NuiPreview";
 import Iconify from "@/components/Iconify";
 import Image from "next/image";
 
+export const FilePreview: FC<
+  Omit<ComponentProps<typeof Image>, "src"> & { file: File | null | undefined }
+> = ({ file, ...props }) => {
+  const preview = useNinjaFilePreview(file);
+
+  return <Image {...props} src={preview} />;
+};
 const FullScreenDropFile = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[] | null>(null);
+
+  console.log({ uploadedFiles });
+
   return (
     <NuiPreview title="Dropfile" description="Dropfile component variation">
       <div className="max-w-xl">
         <BaseFullscreenDropfile
           icon="ph:image-duotone"
           filterFileDropped={(file) => file.type.startsWith("image")}
-          onFilesDropped={(files) => setUploadedFiles(files)}
+          onFilesDropped={(files) =>
+            setUploadedFiles((oldFiles) => [
+              ...(oldFiles || []),
+              ...Array.from(files),
+            ])
+          }
         />
 
         <BaseInputFileHeadless
           multiple
+          value={uploadedFiles}
           onChange={(value) => setUploadedFiles(value ? Array.from(value) : [])}
         >
-          {({ open, remove, preview, drop, files }) => (
+          {({ open, remove, drop, files }) => (
             <Fragment>
               <div className="mb-4 flex items-center gap-2">
                 <button
@@ -113,11 +130,11 @@ const FullScreenDropFile = () => {
                           <div className="flex items-center gap-2">
                             <div className="shrink-0">
                               {file.type.startsWith("image") ? (
-                                <Image
+                                <FilePreview
                                   height={56}
                                   width={56}
                                   className="h-14 w-14 rounded-xl object-cover object-center"
-                                  src={preview(file)}
+                                  file={file}
                                   alt="Image preview"
                                 />
                               ) : (
