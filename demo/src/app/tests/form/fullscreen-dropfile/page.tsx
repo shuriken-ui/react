@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 };
 export default function FullScreenDropFilePage() {
   return (
-    <NuiPreviewContainer
-    >
+    <NuiPreviewContainer title={meta.title}>
       <FullScreenDropFile />
     </NuiPreviewContainer>
   );
