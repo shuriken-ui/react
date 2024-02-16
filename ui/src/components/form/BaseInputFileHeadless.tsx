@@ -3,12 +3,12 @@ import React, {
   ReactNode,
   forwardRef,
   useCallback,
+  useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from "react";
 import { useNinjaId } from "../../hooks/useNinjaId";
-import useNinjaFilePreview from "../../hooks/useNinjaFilePreview";
 
 type BaseInputFileHeadlessProps = {
   /**
@@ -51,7 +51,6 @@ type BaseInputFileHeadlessProvider = {
   remove: (file?: File) => void;
   id: string;
   files: FileList | null;
-  preview: typeof useNinjaFilePreview;
 };
 
 export type BaseInputFileHeadlessRef = BaseInputFileHeadlessProvider;
@@ -60,7 +59,7 @@ export const BaseInputFileHeadless = forwardRef<
   BaseInputFileHeadlessRef,
   BaseInputFileHeadlessProps
 >(function BaseInputFileHeadless(
-  { filterFileDropped = () => true, ...props },
+  { filterFileDropped = () => true, onChange = () => {}, ...props },
   ref,
 ) {
   const [files, setFiles] = useState<FileList | null>(props.value || null);
@@ -117,9 +116,10 @@ export const BaseInputFileHeadless = forwardRef<
       });
 
       inputRef.current.files = filtered.files;
+      onChange(inputRef.current.files);
       setFiles(inputRef.current.files);
     },
-    [files],
+    [files, onChange],
   );
 
   function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
@@ -154,11 +154,11 @@ export const BaseInputFileHeadless = forwardRef<
 
       inputRef.current.files = updatedFiles.files;
       setFiles(updatedFiles.files);
-      props.onChange?.(updatedFiles.files);
+      onChange(updatedFiles.files);
     } else {
       // When multiple is false, replace current files with new selection
       setFiles(newFiles);
-      props.onChange?.(newFiles);
+      onChange(newFiles);
     }
   }
 
@@ -172,11 +172,16 @@ export const BaseInputFileHeadless = forwardRef<
       files,
       open,
       remove,
-      preview: useNinjaFilePreview,
       drop,
     }),
     [drop, files, id, remove],
   );
+
+  useEffect(() => {
+    if (props.value) {
+      setFiles(props.value);
+    }
+  }, [props.value]);
 
   return (
     <div className="group/nui-file-headless relative">
@@ -187,7 +192,6 @@ export const BaseInputFileHeadless = forwardRef<
         open,
         remove,
         drop,
-        preview: useNinjaFilePreview,
       })}
       <input
         id={id}
