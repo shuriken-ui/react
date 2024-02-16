@@ -1,23 +1,12 @@
-import { useMemo } from "react";
+import { useId } from "react";
 
-let lastId = 0;
+type IdGetter<T> = () => T | T;
 
-type StateOrGetter<T> = () => T | T;
+export function useNinjaId(idOrGetter: IdGetter<string | undefined>) {
+  const uniqueId = useId();
 
-export function useNinjaId(id: StateOrGetter<string | undefined>) {
-  return useMemo<string>(() => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
-    let _id: string | undefined;
+  const resolvedId =
+    typeof idOrGetter === "function" ? idOrGetter() : idOrGetter;
 
-    if (typeof id === "function") {
-      _id = id();
-    } else if (id && typeof id !== "undefined") {
-      _id = id;
-    } else {
-      _id = id;
-    }
-
-    // eslint-disable-next-line no-plusplus
-    return _id ?? `ninja-input-${++lastId}`;
-  }, [id]);
+  return resolvedId ?? `ninja-input-${uniqueId}`;
 }
