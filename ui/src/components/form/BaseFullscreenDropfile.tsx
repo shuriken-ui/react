@@ -1,6 +1,13 @@
 import { Transition } from "@headlessui/react";
 import { Icon } from "@iconify/react";
-import { forwardRef, useCallback, useEffect, useRef, useState } from "react";
+import {
+  Fragment,
+  forwardRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type BaseFullscreenDropfileProps = {
   /**
@@ -114,6 +121,7 @@ export const BaseFullscreenDropfile = forwardRef<
             leave="transition duration-75 ease-in"
             leaveFrom="transform scale-1 opacity-100"
             leaveTo="transform scale-0 opacity-0"
+            as={Fragment}
           >
             <div className="nui-fullscreen-dropfile-container">
               <div className="nui-fullscreen-dropfile-content">
