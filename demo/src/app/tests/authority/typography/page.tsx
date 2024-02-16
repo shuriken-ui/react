@@ -58,7 +58,7 @@ function Typography() {
         <NuiPreview title="BaseParagraph" description="Paragraph component">
           <div className="grid gap-6 md:grid-cols-2">
             <div className="flex flex-col">
-              <BaseParagraph class="text-muted-400 dark:text-muted-400">
+              <BaseParagraph className="text-muted-400 dark:text-muted-400">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
                 enim Polemonis. Duo Reges: constructio interrete. Philosophi
                 autem in suis lectulis plerumque moriuntur.
@@ -68,7 +68,7 @@ function Typography() {
             <div className="flex flex-col space-y-2">
               <BaseParagraph
                 size="sm"
-                class="text-muted-400 dark:text-muted-400"
+                className="text-muted-400 dark:text-muted-400"
               >
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Erat
                 enim Polemonis. Duo Reges: constructio interrete. Philosophi
@@ -78,7 +78,7 @@ function Typography() {
               <BaseParagraph
                 size="xs"
                 weight="semibold"
-                class="text-success-500"
+                className="text-success-500"
               >
                 Any text can have a different color
               </BaseParagraph>

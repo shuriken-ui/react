@@ -569,55 +569,55 @@ export default function AvatarPage() {
             text="H"
             size="xxs"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           ></BaseAvatar>
           <BaseAvatar
             text="H"
             size="xs"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           ></BaseAvatar>
           <BaseAvatar
             text="H"
             size="sm"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="md"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="lg"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="xl"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="2xl"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="3xl"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="4xl"
             rounded="lg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
         </div>
       </NuiPreview>
@@ -694,42 +694,42 @@ export default function AvatarPage() {
             size="xxs"
             rounded="lg"
             badgeSrc="https://tairo.cssninja.io/img/icons/flags/united-states-of-america.svg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           ></BaseAvatar>
           <BaseAvatar
             text="H"
             size="xs"
             rounded="lg"
             badgeSrc="https://tairo.cssninja.io/img/icons/flags/united-states-of-america.svg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           ></BaseAvatar>
           <BaseAvatar
             text="H"
             size="sm"
             rounded="lg"
             badgeSrc="https://tairo.cssninja.io/img/icons/flags/united-states-of-america.svg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="md"
             rounded="lg"
             badgeSrc="https://tairo.cssninja.io/img/icons/flags/united-states-of-america.svg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="lg"
             rounded="lg"
             badgeSrc="https://tairo.cssninja.io/img/icons/flags/united-states-of-america.svg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="xl"
             rounded="lg"
             badgeSrc="https://tairo.cssninja.io/img/icons/flags/united-states-of-america.svg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
@@ -742,14 +742,14 @@ export default function AvatarPage() {
             size="3xl"
             rounded="lg"
             badgeSrc="https://tairo.cssninja.io/img/icons/flags/united-states-of-america.svg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
           <BaseAvatar
             text="H"
             size="4xl"
             rounded="lg"
             badgeSrc="https://tairo.cssninja.io/img/icons/flags/united-states-of-america.svg"
-            class="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
+            className="bg-muted-200 text-muted-800 dark:bg-muted-600 dark:text-muted-300"
           />
         </div>
       </NuiPreview>

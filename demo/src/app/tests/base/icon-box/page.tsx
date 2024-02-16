@@ -22,42 +22,42 @@ function IconBoxPage() {
           <BaseIconBox
             size="xs"
             rounded="full"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-3 w-3" />
           </BaseIconBox>
           <BaseIconBox
             size="sm"
             rounded="full"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-4 w-4" />
           </BaseIconBox>
           <BaseIconBox
             size="md"
             rounded="full"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-5 w-5" />
           </BaseIconBox>
           <BaseIconBox
             size="lg"
             rounded="full"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-6 w-6" />
           </BaseIconBox>
           <BaseIconBox
             size="xl"
             rounded="full"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-7 w-7" />
           </BaseIconBox>
           <BaseIconBox
             size="2xl"
             rounded="full"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-8 w-8" />
           </BaseIconBox>
@@ -72,42 +72,42 @@ function IconBoxPage() {
           <BaseIconBox
             size="xs"
             rounded="lg"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-3 w-3" />
           </BaseIconBox>
           <BaseIconBox
             size="sm"
             rounded="lg"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-4 w-4" />
           </BaseIconBox>
           <BaseIconBox
             size="md"
             rounded="lg"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-5 w-5" />
           </BaseIconBox>
           <BaseIconBox
             size="lg"
             rounded="lg"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-6 w-6" />
           </BaseIconBox>
           <BaseIconBox
             size="xl"
             rounded="lg"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-7 w-7" />
           </BaseIconBox>
           <BaseIconBox
             size="2xl"
             rounded="lg"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-8 w-8" />
           </BaseIconBox>
@@ -122,42 +122,42 @@ function IconBoxPage() {
           <BaseIconBox
             size="xs"
             rounded="md"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-3 w-3" />
           </BaseIconBox>
           <BaseIconBox
             size="sm"
             rounded="md"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-4 w-4" />
           </BaseIconBox>
           <BaseIconBox
             size="md"
             rounded="md"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-5 w-5" />
           </BaseIconBox>
           <BaseIconBox
             size="lg"
             rounded="md"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-6 w-6" />
           </BaseIconBox>
           <BaseIconBox
             size="xl"
             rounded="md"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-7 w-7" />
           </BaseIconBox>
           <BaseIconBox
             size="2xl"
             rounded="md"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-8 w-8" />
           </BaseIconBox>
@@ -172,42 +172,42 @@ function IconBoxPage() {
           <BaseIconBox
             size="xs"
             rounded="sm"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-3 w-3" />
           </BaseIconBox>
           <BaseIconBox
             size="sm"
             rounded="sm"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-4 w-4" />
           </BaseIconBox>
           <BaseIconBox
             size="md"
             rounded="sm"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-5 w-5" />
           </BaseIconBox>
           <BaseIconBox
             size="lg"
             rounded="sm"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-6 w-6" />
           </BaseIconBox>
           <BaseIconBox
             size="xl"
             rounded="sm"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-7 w-7" />
           </BaseIconBox>
           <BaseIconBox
             size="2xl"
             rounded="sm"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-8 w-8" />
           </BaseIconBox>
@@ -222,42 +222,42 @@ function IconBoxPage() {
           <BaseIconBox
             size="xs"
             rounded="none"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-3 w-3" />
           </BaseIconBox>
           <BaseIconBox
             size="sm"
             rounded="none"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-4 w-4" />
           </BaseIconBox>
           <BaseIconBox
             size="md"
             rounded="none"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-5 w-5" />
           </BaseIconBox>
           <BaseIconBox
             size="lg"
             rounded="none"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-6 w-6" />
           </BaseIconBox>
           <BaseIconBox
             size="xl"
             rounded="none"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-7 w-7" />
           </BaseIconBox>
           <BaseIconBox
             size="2xl"
             rounded="none"
-            class="bg-muted-200 text-muted-500 dark:bg-muted-800"
+            className="bg-muted-200 text-muted-500 dark:bg-muted-800"
           >
             <Iconify icon="ph:nut-duotone" className="h-8 w-8" />
           </BaseIconBox>
