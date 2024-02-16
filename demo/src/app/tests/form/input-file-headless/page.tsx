@@ -12,8 +12,7 @@ export const metadata: Metadata = {
 };
 export default function InputFileHeadlessPage() {
   return (
-    <NuiPreviewContainer
-    >
+    <NuiPreviewContainer title={meta.title}>
       <InputFileHeadless />
     </NuiPreviewContainer>
   );

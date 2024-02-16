@@ -1,16 +1,26 @@
 "use client";
-import React, { Fragment, useState } from "react";
+import React, { ComponentProps, FC, Fragment, useState } from "react";
 import NuiPreview from "@/components/NuiPreview";
 import {
   BaseInputFileHeadless,
   BaseButtonIcon,
   BaseProgress,
+  useNinjaFilePreview,
 } from "@shuriken-ui/react";
 
 import Iconify from "@/components/Iconify";
 import Image from "next/image";
 
 const currentAvatar = "https://tairo.cssninja.io/img/avatars/10.svg";
+
+export const FilePreview: FC<
+  Omit<ComponentProps<typeof Image>, "src"> & { file: File | null | undefined }
+> = ({ file, ...props }) => {
+  const preview = useNinjaFilePreview(file);
+
+  return <Image {...props} src={preview} />;
+};
+
 const InputFileHeadless = () => {
   const [inputFile, setInputFile] = useState<FileList | null>(null);
 
@@ -25,14 +35,14 @@ const InputFileHeadless = () => {
               value={inputFile}
               onChange={setInputFile}
             >
-              {({ open, remove, preview, files }) => (
+              {({ open, remove, files }) => (
                 <div className="relative h-20 w-20">
                   {files?.length && files.item(0) ? (
                     <Fragment>
-                      <Image
+                      <FilePreview
                         height={80}
                         width={80}
-                        src={preview(files.item(0)!)}
+                        file={files.item(0)}
                         alt="Upload preview"
                         className="bg-muted-200 dark:bg-muted-700/60 h-20 w-20 rounded-full object-cover object-center"
                       />
@@ -89,7 +99,7 @@ const InputFileHeadless = () => {
             value={uploadedFiles}
             onChange={setUploadedFiles}
           >
-            {({ open, remove, preview, drop, files }) => (
+            {({ open, remove, drop, files }) => (
               <Fragment>
                 <div className="mb-4 flex items-center gap-2">
                   <button
@@ -166,11 +176,11 @@ const InputFileHeadless = () => {
                             <div className="flex items-center gap-2">
                               <div className="shrink-0">
                                 {file.type.startsWith("image") ? (
-                                  <Image
+                                  <FilePreview
                                     height={56}
                                     width={56}
                                     className="h-14 w-14 rounded-xl object-cover object-center"
-                                    src={preview(file)}
+                                    file={file}
                                     alt="Image preview"
                                   />
                                 ) : (
