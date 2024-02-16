@@ -55,7 +55,7 @@ const Checkboxes = () => {
         title="Rounded: none"
         description="Checkbox component none radius"
       >
-        <BaseFocusLoop class="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
+        <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
             value={options.first}
             label="Default"
@@ -132,7 +132,7 @@ const Checkboxes = () => {
         title="Rounded: sm"
         description="Checkbox component sm radius"
       >
-        <BaseFocusLoop class="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
+        <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
             value={options.first}
             label="Default"
@@ -209,7 +209,7 @@ const Checkboxes = () => {
         title="Rounded: md"
         description="Checkbox component md radius"
       >
-        <BaseFocusLoop class="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
+        <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
             value={options.first}
             label="Default"
@@ -286,7 +286,7 @@ const Checkboxes = () => {
         title="Rounded: lg"
         description="Checkbox component lg radius"
       >
-        <BaseFocusLoop class="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
+        <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
             value={options.first}
             label="Default"
@@ -363,7 +363,7 @@ const Checkboxes = () => {
         title="Rounded: full"
         description="Checkbox component full radius"
       >
-        <BaseFocusLoop class="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
+        <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
             value={options.first}
             label="Default"
@@ -465,7 +465,7 @@ const Checkboxes = () => {
         title="Value: multiple"
         description="Checkbox component multiple values"
       >
-        <BaseFocusLoop class="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
+        <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
             name="multiple-demo-1"
             label="Option 1"
@@ -522,7 +522,7 @@ const Checkboxes = () => {
         title="Color: custom"
         description="Checkbox component custom colors"
       >
-        <BaseFocusLoop class="grid grid-cols-2 gap-6 md:max-w-2xl md:grid-cols-4">
+        <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-2xl md:grid-cols-4">
           <BaseCheckbox
             value={options.first}
             label="Rounded: none"
