@@ -62,7 +62,7 @@ export const BaseListboxItem: FC<BaseListboxItemProps> = ({
         <BaseAvatar src={props.value.media} size="xs" alt="" />
       )}
       {props.value?.icon && !props.value?.media && (
-        <BaseIconBox size="sm" shape="rounded">
+        <BaseIconBox size="sm" rounded="sm">
           <Icon
             icon={props.value.icon}
             className="text-muted-400 group-hover/nui-listbox-option:text-primary-500 h-5 w-5 transition-colors duration-200"
