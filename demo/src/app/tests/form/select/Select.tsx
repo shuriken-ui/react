@@ -13,7 +13,7 @@ const Select = () => {
   return (
     <Fragment>
       <NuiPreview title="Radius" description="Select component radiuses">
-        <BaseFocusLoop class="grid gap-6 md:max-w-4xl md:grid-cols-3">
+        <BaseFocusLoop className="grid gap-6 md:max-w-4xl md:grid-cols-3">
           <BaseSelect
             value={options.first}
             onChange={(value) =>

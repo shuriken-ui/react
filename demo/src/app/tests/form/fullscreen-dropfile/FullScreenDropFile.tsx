@@ -23,8 +23,6 @@ export const FilePreview: FC<
 const FullScreenDropFile = () => {
   const [uploadedFiles, setUploadedFiles] = useState<File[] | null>(null);
 
-  console.log({ uploadedFiles });
-
   return (
     <NuiPreview title="Dropfile" description="Dropfile component variation">
       <div className="max-w-xl">

@@ -285,7 +285,7 @@ const Textarea = () => {
                 <div className="flex items-center gap-2">
                   <BaseAvatar
                     src="https://tairo.cssninja.io/img/avatars/2.svg"
-                    class="me-1"
+                    className="me-1"
                     size="xs"
                   />
 
@@ -318,7 +318,7 @@ const Textarea = () => {
                 <div className="flex items-center gap-2">
                   <BaseAvatar
                     src="https://tairo.cssninja.io/img/avatars/2.svg"
-                    class="me-1"
+                    className="me-1"
                     size="xs"
                   />
 
