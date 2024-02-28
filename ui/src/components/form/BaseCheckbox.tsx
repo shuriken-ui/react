@@ -1,4 +1,10 @@
-import { Ref, forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import {
+  MouseEventHandler,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import { cn } from "../../utils";
 import { useConfig } from "../../Provider";
 import { useNinjaId } from "../../hooks/useNinjaId";
@@ -37,6 +43,11 @@ type BaseCheckboxProps = {
    * @param checked Whether the checkbox is checked.
    */
   onChange?: (value: string, checked: boolean) => void;
+
+  /**
+   * The function to call when the checkbox is clicked.
+   */
+  onClick?: MouseEventHandler<HTMLInputElement>;
 
   /**
    * The form input identifier.
@@ -171,6 +182,7 @@ export const BaseCheckbox = forwardRef<BaseCheckboxRef, BaseCheckboxProps>(
             className={cn("nui-checkbox-input", props.classes?.input)}
             type="checkbox"
             checked={props.checked}
+            onClick={props.onClick}
             onChange={(e) => {
               if (trueValue && falseValue) {
                 onChange(
