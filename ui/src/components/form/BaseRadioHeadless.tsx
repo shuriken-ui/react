@@ -47,7 +47,7 @@ export type BaseRadioHeadlessRef = {
 };
 
 export const BaseRadioHeadless = forwardRef<
-  BaseRadioRef,
+  BaseRadioHeadlessRef,
   BaseRadioHeadlessProps &
     Omit<InputHTMLAttributes<HTMLInputElement>, keyof BaseRadioHeadlessProps>
 >(function BaseRadioHeadless(
