@@ -1,21 +1,26 @@
-import { PropsWithChildren, forwardRef } from "react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import { type HTMLAttributes, forwardRef } from "react";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 
-type BaseTagProps = PropsWithChildren<{
+type BaseTagProps = HTMLAttributes<HTMLElement> & {
   /**
-   * The variant of the tag.
-   *
+   * Determines when the tag should have a shadow.
    */
-  variant?: "solid" | "outline" | "pastel";
+  shadow?: "flat" | "hover";
 
   /**
    * The color of the tag.
    *
+   * @default 'default'
    */
   color?:
     | "default"
+    | "default-contrast"
     | "muted"
+    | "muted-contrast"
+    | "light"
+    | "dark"
+    | "black"
     | "primary"
     | "info"
     | "success"
@@ -25,20 +30,26 @@ type BaseTagProps = PropsWithChildren<{
   /**
    * The radius of the tag.
    *
+   * @since 2.0.0
+   * @default 'lg'
    */
   rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The size of the tag.
    *
+   * @default 'md'
    */
   size?: "sm" | "md";
 
   /**
-   * Determines when the tag should have a shadow.
+   * The variant of the tag.
+   *
+   * @since 2.0.0
+   * @default 'solid'
    */
-  shadow?: "flat" | "hover";
-}>;
+  variant?: "solid" | "outline" | "pastel";
+};
 
 const variants = {
   solid: "nui-tag-solid",
@@ -48,15 +59,20 @@ const variants = {
 
 const radiuses = {
   none: "",
-  sm: "nui-tag-rounded",
-  md: "nui-tag-smooth",
-  lg: "nui-tag-curved",
-  full: "nui-tag-full",
+  sm: "nui-tag-rounded-sm",
+  md: "nui-tag-rounded-md",
+  lg: "nui-tag-rounded-lg",
+  full: "nui-tag-rounded-full",
 };
 
 const colors = {
   default: "nui-tag-default",
+  "default-contrast": "nui-tag-default-contrast",
   muted: "nui-tag-muted",
+  "muted-contrast": "nui-tag-muted-contrast",
+  light: "nui-tag-light",
+  dark: "nui-tag-dark",
+  black: "nui-tag-black",
   primary: "nui-tag-primary",
   info: "nui-tag-info",
   success: "nui-tag-success",
@@ -75,27 +91,19 @@ const shadows = {
 };
 
 export const BaseTag = forwardRef<HTMLSpanElement, BaseTagProps>(
-  function BaseTag(
-    {
-      children,
-      variant: variantProp,
-      rounded: roundedProp,
-      color: colorProp,
-      size: sizeProp,
-      shadow: shadowProp,
-      ...props
-    },
-    ref,
-  ) {
-    const config = useConfig();
+  function BaseTag({ children, shadow, ...props }, ref) {
+    const color = useNuiDefaultProperty(props, "BaseTag", "color");
+    const rounded = useNuiDefaultProperty(props, "BaseTag", "rounded");
+    const size = useNuiDefaultProperty(props, "BaseTag", "size");
+    const variant = useNuiDefaultProperty(props, "BaseTag", "variant");
 
-    const variant = variantProp ?? config.BaseTag?.variant;
-
-    const rounded = roundedProp ?? config.BaseTag?.rounded;
-
-    const color = colorProp ?? config.BaseTag?.color;
-
-    const size = sizeProp ?? config.BaseTag?.size;
+    const attrs = {
+      ...props,
+      color: undefined,
+      rounded: undefined,
+      size: undefined,
+      variant: undefined,
+    };
 
     return (
       <span
@@ -105,9 +113,9 @@ export const BaseTag = forwardRef<HTMLSpanElement, BaseTagProps>(
           rounded && radiuses[rounded],
           variant && variants[variant],
           color && colors[color],
-          shadowProp && shadows[shadowProp],
+          shadow && shadows[shadow],
         )}
-        {...props}
+        {...attrs}
         ref={ref}
       >
         {children}

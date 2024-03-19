@@ -1,10 +1,10 @@
-import { PropsWithChildren, forwardRef } from "react";
+import { type PropsWithChildren, forwardRef } from "react";
 import { Icon } from "@iconify/react";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
-import { BaseAvatar } from "../base/BaseAvatar";
-import { BaseIconBox } from "../base/BaseIconBox";
-import { BaseText } from "../base/BaseText";
+import { cn } from "~/utils";
+import { useConfig } from "~/Provider";
+import { BaseAvatar } from "~/components/base/BaseAvatar";
+import { BaseIconBox } from "~/components/base/BaseIconBox";
+import { BaseText } from "~/components/base/BaseText";
 
 type BaseTreeSelectItemProps = PropsWithChildren<{
   /**
@@ -52,12 +52,11 @@ export const BaseTreeSelectItem = forwardRef<
   HTMLDivElement,
   BaseTreeSelectItemProps
 >(function BaseTreeSelectItem(
-  { level = 1, shape: defaultShape, value, toggle, children },
+  { shape: defaultShape, value, toggle, children },
   ref,
 ) {
-  const config = useConfig();
-
-  const shape = defaultShape ?? config.defaultShapes?.autocompleteItem;
+  // const shape = defaultShape  ?? config.defaultShapes?.autocompleteItem;
+  const shape = defaultShape;
 
   const Component = toggle ? "button" : "div";
 
@@ -86,7 +85,7 @@ export const BaseTreeSelectItem = forwardRef<
         )}
 
         {value && !value.media && value.icon && (
-          <BaseIconBox size="xs" shape="full">
+          <BaseIconBox size="xs" rounded="full">
             <Icon icon={value.icon} className="h-4 w-4" />
           </BaseIconBox>
         )}

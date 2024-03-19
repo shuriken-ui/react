@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import { ShurikenUIProvider } from "@shuriken-ui/react";
 import ThemeSwitcher from "./ThemeSwitcher";
@@ -7,8 +6,6 @@ import Link from "next/link";
 import NuiLogoText from "./NuiLogoText";
 import LinkIcon from "./LinkIcon";
 import { getLinks } from "@/data/sidebar";
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
@@ -29,7 +26,7 @@ export default function RootLayout({
   return (
     <ShurikenUIProvider>
       <html lang="en">
-        <body className={inter.className}>
+        <body className={`bg-white dark:bg-muted-950`}>
           <div className="flex min-h-screen">
             <div className="w-2/12">
               <nav className="fixed w-2/12 max-h-screen overflow-y-scroll nui-slimscroll">
@@ -54,16 +51,16 @@ export default function RootLayout({
                             >
                               <div className="flex gap-4 items-center">
                                 <LinkIcon icon={link.icon} />
-                                <div>
-                                  <p className="text-sm font-sans text-muted-800 dark:text-muted-100">
+                                <span className="block">
+                                  <span className="block text-sm font-sans text-muted-800 dark:text-muted-100">
                                     {link.title}
-                                  </p>
+                                  </span>
                                   {link.description && (
-                                    <p className="text-xs text-muted-500">
+                                    <span className="block text-xs text-muted-500">
                                       {link.description}
-                                    </p>
+                                    </span>
                                   )}
-                                </div>
+                                </span>
                               </div>
                             </Link>
                           </li>

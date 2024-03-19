@@ -2,7 +2,7 @@
  * Adapted from https://usehooks-ts.com/react-hook/use-event-listener
  */
 
-import { RefObject, useEffect, useRef } from "react";
+import { type RefObject, useEffect, useRef } from "react";
 
 // MediaQueryList Event based useEventListener interface
 export function useEventListener<K extends keyof MediaQueryListEventMap>(

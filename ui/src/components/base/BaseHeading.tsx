@@ -1,6 +1,7 @@
-import { Ref, forwardRef } from "react";
-import { PolymorphicComponentProps } from "../../types";
-import { cn } from "../../utils";
+import { type Ref, forwardRef } from "react";
+import { type PolymorphicComponentProps } from "~/types";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
 
 type Headings = "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "p";
 
@@ -12,6 +13,8 @@ type HeadingProps<E extends Headings> = {
 
   /**
    * The size of the heading.
+   *
+   * @default 'xl'
    */
   size?:
     | "xs"
@@ -29,17 +32,21 @@ type HeadingProps<E extends Headings> = {
     | "9xl";
 
   /**
-   * The weight of the heading.
-   */
-  weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
-
-  /**
    * The spacing below the heading.
+   *
+   * @default 'normal'
    */
   lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
+
+  /**
+   * The weight of the heading.
+   *
+   * @default 'semibold'
+   */
+  weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
 };
 
-const sizeStyle = {
+const sizes = {
   xs: "nui-heading-xs",
   sm: "nui-heading-sm",
   md: "nui-heading-md",
@@ -55,7 +62,7 @@ const sizeStyle = {
   "9xl": "nui-heading-9xl",
 };
 
-const weightStyle = {
+const weights = {
   light: "nui-weight-light",
   normal: "nui-weight-normal",
   medium: "nui-weight-medium",
@@ -64,7 +71,7 @@ const weightStyle = {
   extrabold: "nui-weight-extrabold",
 };
 
-const leadStyle = {
+const leads = {
   none: "nui-lead-none",
   tight: "nui-lead-tight",
   snug: "nui-lead-snug",
@@ -78,9 +85,6 @@ export const BaseHeading = forwardRef(function BaseHeading<
 >(
   {
     as: element,
-    size = "xl",
-    weight = "semibold",
-    lead = "normal",
     className: classes,
     children,
     ...props
@@ -88,18 +92,30 @@ export const BaseHeading = forwardRef(function BaseHeading<
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ref: Ref<any>,
 ) {
+  // const element = useNuiDefaultProperty(props, "BaseHeading", "as"); // @todo
+  const lead = useNuiDefaultProperty(props, "BaseHeading", "lead");
+  const size = useNuiDefaultProperty(props, "BaseHeading", "size");
+  const weight = useNuiDefaultProperty(props, "BaseHeading", "weight");
+
   const Component = element || "p";
+
+  const attrs = {
+    ...props,
+    lead: undefined,
+    size: undefined,
+    weight: undefined,
+  };
 
   return (
     <Component
       className={cn(
         "nui-heading",
-        sizeStyle[size],
-        weightStyle[weight],
-        leadStyle[lead],
+        size && sizes[size],
+        weight && weights[weight],
+        lead && leads[lead],
         classes,
       )}
-      {...props}
+      {...attrs}
       ref={ref}
     >
       {children}

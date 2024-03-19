@@ -1,17 +1,9 @@
 import { forwardRef, useMemo } from "react";
 import { BaseAvatar } from "./BaseAvatar";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
 
 type BaseAvatarGroupProps = {
-  /** The maximum number of avatars to display. */
-  limit?: number;
-
-  /** The size of the avatars.
-   *
-   */
-  size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
-
   /** An array of avatar objects. */
   avatars: {
     /** The source URL for the avatar image. */
@@ -23,6 +15,40 @@ type BaseAvatarGroupProps = {
     /** The text to display as the avatar. */
     text?: string;
   }[];
+
+  /**
+   * The maximum number of avatars to display.
+   *
+   * @default 4
+   */
+  limit?: number;
+
+  /**
+   * The size of the avatars.
+   *
+   * @default 'sm'
+   */
+  size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the outer element.
+     */
+    outer?: string | string[];
+
+    /**
+     * CSS classes to apply to the count element.
+     */
+    count?: string | string[];
+  };
 };
 
 const sizes = {
@@ -39,11 +65,8 @@ const sizes = {
 
 export const BaseAvatarGroup = forwardRef<HTMLDivElement, BaseAvatarGroupProps>(
   function BaseAvatarGroup(props, ref) {
-    const config = useConfig();
-
-    const size = props.size ?? config.BaseAvatarGroup?.size;
-
-    const limit = props.limit ?? config.BaseAvatarGroup?.limit;
+    const size = useNuiDefaultProperty(props, "BaseAvatarGroup", "size");
+    const limit = useNuiDefaultProperty(props, "BaseAvatarGroup", "limit");
 
     const avatarDisplay = useMemo(() => {
       if (props.avatars && limit && props.avatars.length > limit) {
@@ -54,11 +77,18 @@ export const BaseAvatarGroup = forwardRef<HTMLDivElement, BaseAvatarGroupProps>(
     }, [props.avatars, limit]);
 
     return (
-      <div className={cn("nui-avatar-group", size && sizes[size])} ref={ref}>
+      <div
+        className={cn(
+          "nui-avatar-group",
+          size && sizes[size],
+          props.classes?.wrapper,
+        )}
+        ref={ref}
+      >
         {avatarDisplay.map((avatar, index) => (
           <div
             key={`${avatar.src || avatar.srcDark || "avatar"}-${index}`}
-            className="nui-avatar-outer"
+            className={cn("nui-avatar-outer", props.classes?.outer)}
           >
             <BaseAvatar
               size={size}
@@ -71,7 +101,7 @@ export const BaseAvatarGroup = forwardRef<HTMLDivElement, BaseAvatarGroupProps>(
           </div>
         ))}
         {limit && props.avatars.length > limit && (
-          <div className="nui-avatar-count">
+          <div className={cn("nui-avatar-count", props.classes?.count)}>
             <div className="nui-avatar-count-inner">
               <span className="nui-avatar-count-text">
                 +{props.avatars.length - limit + 1}

@@ -1,5 +1,5 @@
-import { PropsWithChildren, forwardRef } from "react";
-import { useNinjaId } from "../../hooks/useNinjaId";
+import { type PropsWithChildren, forwardRef } from "react";
+import { useNinjaId } from "~/hooks/useNinjaId";
 
 type BaseCheckboxHeadlessProps = PropsWithChildren<{
   /**

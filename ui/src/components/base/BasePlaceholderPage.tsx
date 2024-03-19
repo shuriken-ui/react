@@ -1,7 +1,7 @@
-import { PropsWithChildren, ReactNode, forwardRef } from "react";
+import { type PropsWithChildren, type ReactNode, forwardRef } from "react";
 import { BaseHeading } from "./BaseHeading";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
+import { cn } from "~/utils";
+import { useConfig } from "~/Provider";
 
 type BasePlaceholderPageProps = PropsWithChildren<{
   image?: ReactNode;
@@ -18,6 +18,8 @@ type BasePlaceholderPageProps = PropsWithChildren<{
 
   /**
    * The size of the featured image.
+   *
+   * @default 'xs'
    */
   imageSize?: "xs" | "sm" | "md" | "lg" | "xl";
 }>;

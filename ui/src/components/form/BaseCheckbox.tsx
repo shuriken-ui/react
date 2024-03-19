@@ -1,17 +1,18 @@
 import {
-  MouseEventHandler,
+  type HTMLAttributes,
+  type MouseEventHandler,
   forwardRef,
   useEffect,
   useImperativeHandle,
   useRef,
 } from "react";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
-import { useNinjaId } from "../../hooks/useNinjaId";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
+import { useNinjaId } from "~/hooks/useNinjaId";
 import { IconCheck } from "../icons/IconCheck";
 import { IconIndeterminate } from "../icons/IconIndeterminate";
 
-type BaseCheckboxProps = {
+type BaseCheckboxProps = HTMLAttributes<HTMLInputElement> & {
   /**
    * The label to display for the checkbox.
    */
@@ -69,22 +70,28 @@ type BaseCheckboxProps = {
    */
   indeterminate?: boolean;
 
-  /**
-   * The radius of the checkbox.
+  /** The color of the checkbox.
    *
+   * @default 'default'
    */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /** The color of the checkbox. Can be 'default', 'primary', 'info', 'success', 'warning', or 'danger' */
   color?:
     | "default"
-    | "light"
     | "muted"
+    | "light"
+    | "dark"
+    | "black"
     | "primary"
     | "info"
     | "success"
     | "warning"
     | "danger";
+
+  /**
+   * The radius of the checkbox.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, and input elements.
@@ -109,16 +116,18 @@ type BaseCheckboxProps = {
 
 const radiuses = {
   none: "",
-  sm: "nui-checkbox-rounded",
-  md: "nui-checkbox-smooth",
-  lg: "nui-checkbox-curved",
-  full: "nui-checkbox-full",
+  sm: "nui-checkbox-rounded-sm",
+  md: "nui-checkbox-rounded-md",
+  lg: "nui-checkbox-rounded-lg",
+  full: "nui-checkbox-rounded-full",
 };
 
 const colors = {
   default: "nui-checkbox-default",
-  light: "nui-checkbox-light",
   muted: "nui-checkbox-muted",
+  light: "nui-checkbox-light",
+  dark: "nui-checkbox-dark",
+  black: "nui-checkbox-black",
   primary: "nui-checkbox-primary",
   info: "nui-checkbox-info",
   success: "nui-checkbox-success",
@@ -137,11 +146,8 @@ export const BaseCheckbox = forwardRef<BaseCheckboxRef, BaseCheckboxProps>(
   ) {
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const config = useConfig();
-
-    const rounded = props.rounded ?? config.BaseCheckbox?.rounded;
-
-    const color = props.color ?? config.BaseCheckbox?.color;
+    const color = useNuiDefaultProperty(props, "BaseCheckbox", "color");
+    const rounded = useNuiDefaultProperty(props, "BaseCheckbox", "rounded");
 
     const id = useNinjaId(() => props.id);
 

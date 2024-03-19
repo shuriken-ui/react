@@ -1,4 +1,5 @@
 import {
+  type HTMLAttributes,
   forwardRef,
   useEffect,
   useImperativeHandle,
@@ -7,12 +8,12 @@ import {
   useState,
 } from "react";
 import { Icon } from "@iconify/react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
-import { useNinjaId } from "../../hooks/useNinjaId";
-import { BasePlaceload } from "../base/BasePlaceload";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
+import { useNinjaId } from "~/hooks/useNinjaId";
+import { BasePlaceload } from "~/components/base/BasePlaceload";
 
-type BaseInputNumberProps = {
+type BaseInputNumberProps = HTMLAttributes<HTMLInputElement> & {
   /**
    * Callback function called when the value of the input changes.
    *
@@ -52,12 +53,6 @@ type BaseInputNumberProps = {
    * The type of input.
    */
   type?: string;
-
-  /**
-   * The radius of the input.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The label to display for the input.
@@ -115,14 +110,26 @@ type BaseInputNumberProps = {
   error?: string | boolean;
 
   /**
-   * The size of the input.
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
    * The contrast of the input.
+   *
+   * @default 'default'
    */
   contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
+
+  /**
+   * The radius of the input.
+   *
+   * @since 2.0.0
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the input.
+   *
+   * @default 'md'
+   */
+  size?: "sm" | "md" | "lg";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
@@ -169,12 +176,13 @@ type BaseInputNumberProps = {
     buttons?: string | string[];
   };
 };
+
 const radiuses = {
   none: "",
-  sm: "nui-input-number-rounded",
-  md: "nui-input-number-smooth",
-  lg: "nui-input-number-curved",
-  full: "nui-input-number-full",
+  sm: "nui-input-number-rounded-sm",
+  md: "nui-input-number-rounded-md",
+  lg: "nui-input-number-rounded-lg",
+  full: "nui-input-number-rounded-full",
 };
 
 const sizes = {
@@ -207,12 +215,12 @@ export const BaseInputNumber = forwardRef<
   BaseInputNumberProps
 >(function BaseInputNumber(
   {
-    onChange = (value) => {},
+    onChange = () => {},
     step = 1,
     type = "text",
     inputmode = "numeric",
-    iconDecrement = "lucide=minus",
-    iconIncrement = "lucide=plus",
+    iconDecrement = "lucide:minus",
+    iconIncrement = "lucide:plus",
     error = false,
     stateModifiers,
     ...props
@@ -227,13 +235,9 @@ export const BaseInputNumber = forwardRef<
 
   const decrementInterval = useRef<ReturnType<typeof setInterval>>();
 
-  const config = useConfig();
-
-  const rounded = props.rounded ?? config.BaseInputNumber?.rounded;
-
-  const size = props.size ?? config.BaseInputNumber?.size;
-
-  const contrast = props.contrast ?? config.BaseInputNumber?.contrast;
+  const contrast = useNuiDefaultProperty(props, "BaseInputNumber", "contrast");
+  const rounded = useNuiDefaultProperty(props, "BaseInputNumber", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseInputNumber", "size");
 
   const id = useNinjaId(() => props.id);
 

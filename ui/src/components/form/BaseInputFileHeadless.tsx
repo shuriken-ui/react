@@ -1,6 +1,7 @@
-import React, {
-  ChangeEvent,
-  ReactNode,
+import {
+  type ChangeEvent,
+  type ReactNode,
+  type HTMLAttributes,
   forwardRef,
   useCallback,
   useEffect,
@@ -8,9 +9,9 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { useNinjaId } from "../../hooks/useNinjaId";
+import { useNinjaId } from "~/hooks/useNinjaId";
 
-type BaseInputFileHeadlessProps = {
+type BaseInputFileHeadlessProps = HTMLAttributes<HTMLInputElement> & {
   /**
    * The value of the file input.
    */

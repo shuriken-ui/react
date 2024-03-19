@@ -1,12 +1,10 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { forwardRef, useState } from "react";
-import { useConfig } from "../../Provider";
-import { IconChevronDown, IconPlus } from "../icons";
-import { cn } from "../../utils";
-import { BaseFocusLoop } from "./BaseFocusLoop";
-import { BaseHeading } from "./BaseHeading";
-import { BaseParagraph } from "./BaseParagraph";
+import { useNuiDefaultProperty } from "~/Provider";
+import { IconChevronDown, IconPlus } from "~/components/icons";
+import { cn } from "~/utils";
+import { BaseFocusLoop } from "~/components/base/BaseFocusLoop";
+import { BaseHeading } from "~/components/base/BaseHeading";
+import { BaseParagraph } from "~/components/base/BaseParagraph";
 
 type Item = {
   /**
@@ -27,18 +25,6 @@ type BaseAccordionProps = {
   onOpen?: (item: Item) => void;
 
   /**
-   * Define the radius of the accordion
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg";
-
-  /**
-   * Define the icon used for accordion item toggle action
-   *
-   */
-  action?: "dot" | "chevron" | "plus";
-
-  /**
    * The items to display in the accordion.
    */
   items: Item[];
@@ -52,13 +38,97 @@ type BaseAccordionProps = {
    * Whether if multiple elements in the accordion can be opened at same time or not.
    */
   exclusive?: boolean;
+
+  /**
+   * Defines the icon used for accordion item toggle action
+   *
+   * @default 'dot'
+   */
+  action?: "dot" | "chevron" | "plus";
+
+  /**
+   * Defines the color of the accordion
+   *
+   * @default 'default'
+   */
+  color?: "default" | "default-contrast" | "muted" | "muted-contrast";
+
+  /**
+   * Defines the color of the accordion dot
+   *
+   * @default 'primary'
+   */
+  dotColor?:
+    | "default"
+    | "primary"
+    | "info"
+    | "success"
+    | "warning"
+    | "danger"
+    | "dark"
+    | "black";
+
+  /**
+   * Defines the radius of the accordion
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg";
+
+  /**
+   * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the details element.
+     */
+    details?: string | string[];
+
+    /**
+     * CSS classes to apply to the summary element.
+     */
+    summary?: string | string[];
+
+    /**
+     * CSS classes to apply to the header element.
+     */
+    header?: string | string[];
+
+    /**
+     * CSS classes to apply to the content element.
+     */
+    content?: string | string[];
+  };
+};
+
+const colors = {
+  default: "nui-accordion-default",
+  "default-contrast": "nui-accordion-default-contrast",
+  muted: "nui-accordion-muted",
+  "muted-contrast": "nui-accordion-muted-contrast",
+};
+
+const dotColors = {
+  default: "nui-dot-default",
+  primary: "nui-dot-primary",
+  info: "nui-dot-info",
+  success: "nui-dot-success",
+  warning: "nui-dot-warning",
+  danger: "nui-dot-danger",
+  dark: "nui-dot-dark",
+  black: "nui-dot-black",
 };
 
 const radiuses = {
   none: "",
-  sm: "nui-accordion-rounded",
-  md: "nui-accordion-smooth",
-  lg: "nui-accordion-curved",
+  sm: "nui-accordion-rounded-sm",
+  md: "nui-accordion-rounded-md",
+  lg: "nui-accordion-rounded-lg",
 };
 
 const actions = {
@@ -72,11 +142,10 @@ export const BaseAccordion = forwardRef<HTMLDivElement, BaseAccordionProps>(
     { openItems = [], items, exclusive = false, ...props },
     ref,
   ) {
-    const config = useConfig();
-
-    const rounded = props.rounded ?? config.BaseAccordion?.rounded;
-
-    const action = props.action ?? config.BaseAccordion?.action;
+    const action = useNuiDefaultProperty(props, "BaseAccordion", "action");
+    const color = useNuiDefaultProperty(props, "BaseAccordion", "color");
+    const dotColor = useNuiDefaultProperty(props, "BaseAccordion", "dotColor");
+    const rounded = useNuiDefaultProperty(props, "BaseAccordion", "rounded");
 
     const [internalOpenItems, setInternalOpenItems] =
       useState<number[]>(openItems);
@@ -115,23 +184,27 @@ export const BaseAccordion = forwardRef<HTMLDivElement, BaseAccordionProps>(
             className={cn(
               "nui-accordion",
               action && actions[action],
+              color && colors[color],
+              dotColor && dotColors[dotColor],
               rounded && radiuses[rounded],
+              props.classes?.wrapper,
             )}
           >
             <details
               open={internalOpenItems.includes(key)}
-              className="nui-accordion-detail"
+              className={cn("nui-accordion-detail", props.classes?.details)}
             >
               <summary
-                className="nui-accordion-summary"
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                className={cn("nui-accordion-summary", props.classes?.summary)}
                 tabIndex={0}
                 onClick={(e) => {
                   e.preventDefault();
                   toggle(key);
                 }}
               >
-                <div className="nui-accordion-header">
+                <div
+                  className={cn("nui-accordion-header", props.classes?.header)}
+                >
                   <BaseHeading
                     as="h4"
                     size="sm"
@@ -155,7 +228,9 @@ export const BaseAccordion = forwardRef<HTMLDivElement, BaseAccordionProps>(
                   )}
                 </div>
               </summary>
-              <div className="nui-accordion-content">
+              <div
+                className={cn("nui-accordion-content", props.classes?.content)}
+              >
                 <BaseParagraph size="md" lead="tight">
                   {item.content}
                 </BaseParagraph>

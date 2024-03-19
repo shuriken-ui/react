@@ -1,21 +1,13 @@
-import { ReactNode, forwardRef, useMemo, MouseEvent } from "react";
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { type ReactNode, type MouseEvent, forwardRef, useMemo } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-// eslint-disable-next-line import/no-extraneous-dependencies
-import Link from "next/link";
+import Link from "next/link"; // @todo: remove this import
 import { Icon } from "@iconify/react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 
 import { BaseFocusLoop } from "./BaseFocusLoop";
 
 type BasePaginationProps = {
-  /**
-   * The radius of the pagination.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
   /**
    * The number of items to display per page.
    */
@@ -67,6 +59,55 @@ type BasePaginationProps = {
   ellipsis?: string;
 
   /**
+   * The color of the pagination active button.
+   *
+   * @default 'primary'
+   */
+  color?: "primary" | "dark" | "black";
+
+  /**
+   * The radius of the pagination.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the list element.
+     */
+    list?: string | string[];
+
+    /**
+     * CSS classes to apply to the link element.
+     */
+    link?: string | string[];
+
+    /**
+     * CSS classes to apply to the ellipsis element.
+     */
+    ellipsis?: string | string[];
+
+    /**
+     * CSS classes to apply to the buttons element.
+     */
+    buttons?: string | string[];
+
+    /**
+     * CSS classes to apply to the button element.
+     */
+    button?: string | string[];
+  };
+
+  /**
    * The content to show before the pagination.
    */
   beforePagination?: ReactNode;
@@ -89,10 +130,16 @@ type BasePaginationProps = {
 
 const radiuses = {
   none: "",
-  sm: "nui-pagination-rounded",
-  md: "nui-pagination-smooth",
-  lg: "nui-pagination-curved",
-  full: "nui-pagination-full",
+  sm: "nui-pagination-rounded-sm",
+  md: "nui-pagination-rounded-md",
+  lg: "nui-pagination-rounded-lg",
+  full: "nui-pagination-rounded-full",
+};
+
+const colors = {
+  primary: "nui-pagination-primary",
+  dark: "nui-pagination-dark",
+  black: "nui-pagination-black",
 };
 
 export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
@@ -109,13 +156,13 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
     },
     ref,
   ) {
-    const config = useConfig();
+    // const config = useConfig();
+    const color = useNuiDefaultProperty(props, "BasePagination", "color");
+    const rounded = useNuiDefaultProperty(props, "BasePagination", "rounded");
 
     const searchParams = useSearchParams();
 
     const pathname = usePathname();
-
-    const rounded = props.rounded ?? config.BasePagination?.rounded;
 
     const lastPage = Math.ceil(props.totalItems / props.itemPerPage) || 1;
 
@@ -199,12 +246,21 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
 
     return (
       <div
-        className={cn("nui-pagination", rounded && radiuses[rounded])}
+        className={cn(
+          "nui-pagination",
+          rounded && radiuses[rounded],
+          color && colors[color],
+          props.classes?.wrapper,
+        )}
         ref={ref}
       >
         <BaseFocusLoop
           as="ul"
-          className={cn("nui-pagination-list", rounded && radiuses[rounded])}
+          className={cn(
+            "nui-pagination-list",
+            rounded && radiuses[rounded],
+            props.classes?.list,
+          )}
         >
           {props.beforePagination}
           <li>
@@ -215,6 +271,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
                 "nui-pagination-link",
                 currentPage === 1 && "nui-active",
                 rounded && radiuses[rounded],
+                props.classes?.link,
               )}
               onKeyDown={(e) => e.key === " " && e.currentTarget.click()}
               onClick={(e) => handleLinkClick(e, 1)}
@@ -229,6 +286,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
                 className={cn(
                   "nui-pagination-ellipsis",
                   rounded && radiuses[rounded],
+                  props.classes?.ellipsis,
                 )}
               >
                 {ellipsis}
@@ -246,6 +304,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
                   "nui-pagination-link",
                   currentPage === page && "nui-active",
                   rounded && radiuses[rounded],
+                  props.classes?.link,
                 )}
                 onKeyDown={(e) => e.key === " " && e.currentTarget.click()}
                 onClick={(e) => handleLinkClick(e, page)}
@@ -261,6 +320,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
                 className={cn(
                   "nui-pagination-ellipsis",
                   rounded && radiuses[rounded],
+                  props.classes?.ellipsis,
                 )}
               >
                 {ellipsis}
@@ -277,6 +337,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
                   "nui-pagination-link",
                   currentPage === lastPage && "nui-active",
                   rounded && radiuses[rounded],
+                  props.classes?.link,
                 )}
                 onKeyDown={(e) => e.key === " " && e.currentTarget.click()}
                 onClick={(e) => handleLinkClick(e, lastPage)}
@@ -289,7 +350,11 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
         </BaseFocusLoop>
 
         <BaseFocusLoop
-          className={cn("nui-pagination-buttons", rounded && radiuses[rounded])}
+          className={cn(
+            "nui-pagination-buttons",
+            rounded && radiuses[rounded],
+            props.classes?.buttons,
+          )}
         >
           {props.beforeNavigation}
 
@@ -297,7 +362,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
           <Link
             href={paginatedLink(currentPage - 1)}
             tabIndex={0}
-            className="nui-pagination-button"
+            className={cn("nui-pagination-button", props.classes?.button)}
             onKeyDown={(e) => e.key === " " && e.currentTarget.click()}
             onClick={(e) => handleLinkClick(e, currentPage - 1)}
           >
@@ -308,7 +373,7 @@ export const BasePagination = forwardRef<HTMLDivElement, BasePaginationProps>(
           <Link
             href={paginatedLink(currentPage + 1)}
             tabIndex={0}
-            className="nui-pagination-button"
+            className={cn("nui-pagination-button", props.classes?.button)}
             onKeyDown={(e) => e.key === " " && e.currentTarget.click()}
             onClick={(e) => handleLinkClick(e, currentPage + 1)}
           >

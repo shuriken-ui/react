@@ -1,13 +1,13 @@
 import { forwardRef, useImperativeHandle, useRef } from "react";
-import { cn } from "../../utils";
-import { useNinjaId } from "../../hooks/useNinjaId";
-import { useConfig } from "../../Provider";
+import { cn } from "~/utils";
+import { useNinjaId } from "~/hooks/useNinjaId";
+import { useNuiDefaultProperty } from "~/Provider";
 
 type BaseSwitchThinProps = {
   /**
-   * The form input identifier.
+   *  The checked state of the switch.
    */
-  id?: string;
+  checked?: boolean;
 
   /**
    * The value of the switch.
@@ -15,9 +15,9 @@ type BaseSwitchThinProps = {
   onChange?: (value: boolean) => void;
 
   /**
-   *  The checked state of the switch.
+   * The form input identifier.
    */
-  checked?: boolean;
+  id?: string;
 
   /**
    * Accessible label of the switch.
@@ -31,8 +31,47 @@ type BaseSwitchThinProps = {
 
   /**
    * Main color of the switch.
+   *
+   * @default 'primary'
    */
-  color?: "primary" | "info" | "success" | "warning" | "danger";
+  color?:
+    | "primary"
+    | "info"
+    | "success"
+    | "warning"
+    | "danger"
+    | "dark"
+    | "black";
+
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the outer element.
+     */
+    outer?: string | string[];
+
+    /**
+     * CSS classes to apply to the input element.
+     */
+    input?: string | string[];
+
+    /**
+     * CSS classes to apply to the handle element.
+     */
+    handle?: string | string[];
+
+    /**
+     * CSS classes to apply to the track element.
+     */
+    track?: string | string[];
+  };
 };
 
 const colors = {
@@ -41,6 +80,8 @@ const colors = {
   success: "nui-switch-thin-success",
   warning: "nui-switch-thin-warning",
   danger: "nui-switch-thin-danger",
+  dark: "nui-switch-thin-dark",
+  black: "nui-switch-thin-black",
 };
 
 export type BaseSwitchThinRef = {
@@ -61,11 +102,9 @@ export const BaseSwitchThin = forwardRef<
 >(function BaseSwitchThin({ checked, onChange = () => {}, ...props }, ref) {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const config = useConfig();
-
   const id = useNinjaId(() => props.id);
 
-  const color = props.color ?? config.BaseSwitchThin?.color;
+  const color = useNuiDefaultProperty(props, "BaseSwitchThin", "color");
 
   useImperativeHandle(
     ref,
@@ -81,21 +120,25 @@ export const BaseSwitchThin = forwardRef<
   return (
     <label
       htmlFor={id}
-      className={cn("nui-switch-thin", color && colors[color])}
+      className={cn(
+        "nui-switch-thin",
+        color && colors[color],
+        props.classes?.wrapper,
+      )}
     >
-      <span className="nui-switch-thin-outer">
+      <span className={cn("nui-switch-thin-outer", props.classes?.outer)}>
         <input
           id={id}
           ref={inputRef}
           type="checkbox"
-          className="nui-switch-thin-input peer"
+          className={cn("nui-switch-thin-input peer", props.classes?.input)}
           checked={checked}
           onChange={(e) => {
             onChange(e.target.checked);
           }}
         />
-        <span className="nui-switch-thin-handle" />
-        <span className="nui-switch-thin-track" />
+        <span className={cn("nui-switch-thin-handle", props.classes?.handle)} />
+        <span className={cn("nui-switch-thin-track", props.classes?.track)} />
       </span>
       {!props.sublabel ? (
         <span className="nui-switch-thin-single-label">{props.label}</span>

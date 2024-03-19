@@ -1,17 +1,24 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    // "baseUrl": "./",
+    // "outDir": "./dist",
+    // "incremental": true,
+    "noEmit": true,
     "lib": ["DOM", "ES2022", "DOM.Iterable"],
     "esModuleInterop": true,
     "jsx": "react-jsx",
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "skipLibCheck": true,
-      "strict": true,
-      "noUncheckedIndexedAccess": true,
-    "noEmit": true,
-    "moduleDetection": "force"
+    "strict": true,
+    "isolatedModules": true,
+    "noUncheckedIndexedAccess": true,
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "~": ["./src"],
+      "~/*": ["./src/*"],
+    }
   },
-  "include": [".eslintrc.cjs", "./src/**/*.ts", "./src/**/*.tsx","./tsup.config.ts"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["./src/**/*", "./tsup.config.ts"],
+  "exclude": ["./dist", "./node_modules"]
 }

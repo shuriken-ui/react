@@ -1,9 +1,9 @@
-import { FC } from "react";
+import { type FC } from "react";
 import { Icon } from "@iconify/react";
-import { BaseAvatar } from "../base/BaseAvatar";
-import { BaseIconBox } from "../base/BaseIconBox";
-import { BaseHeading } from "../base/BaseHeading";
-import { BaseText } from "../base/BaseText";
+import { BaseAvatar } from "~/components/base/BaseAvatar";
+import { BaseIconBox } from "~/components/base/BaseIconBox";
+import { BaseHeading } from "~/components/base/BaseHeading";
+import { BaseText } from "~/components/base/BaseText";
 
 type BaseListboxItemProps = {
   /**

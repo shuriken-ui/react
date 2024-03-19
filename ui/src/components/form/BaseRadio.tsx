@@ -1,12 +1,12 @@
 import {
-  InputHTMLAttributes,
+  type InputHTMLAttributes,
   forwardRef,
   useImperativeHandle,
   useRef,
 } from "react";
-import { cn } from "../../utils";
-import { useNinjaId } from "../../hooks/useNinjaId";
-import { useConfig } from "../../Provider";
+import { cn } from "~/utils";
+import { useNinjaId } from "~/hooks/useNinjaId";
+import { useNuiDefaultProperty } from "~/Provider";
 
 type BaseRadioProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -22,21 +22,27 @@ type BaseRadioProps = Omit<
    */
   label?: string;
 
-  /** The color of the radio. */
+  /**
+   * An error message to display below the radio label.
+   */
+  error?: string | boolean;
+
+  /**
+   * The color of the radio.
+   *
+   * @default 'default'
+   */
   color?:
     | "default"
-    | "light"
     | "muted"
+    | "light"
+    | "dark"
+    | "black"
     | "primary"
     | "info"
     | "success"
     | "warning"
     | "danger";
-
-  /**
-   * An error message to display below the radio label.
-   */
-  error?: string | boolean;
 
   /**
    * Classes to apply to the various parts of the radio input.
@@ -66,8 +72,10 @@ type BaseRadioProps = Omit<
 
 const colors = {
   default: "nui-radio-default",
-  light: "nui-radio-light",
   muted: "nui-radio-muted",
+  light: "nui-radio-light",
+  dark: "nui-radio-dark",
+  black: "nui-radio-black",
   primary: "nui-radio-primary",
   info: "nui-radio-info",
   success: "nui-radio-success",
@@ -89,25 +97,19 @@ export type BaseRadioRef = {
 
 export const BaseRadio = forwardRef<BaseRadioRef, BaseRadioProps>(
   function BaseRadio(
-    {
-      color: colorProp,
-      classes,
-      label,
-      error,
-      id: radioId,
-      value,
-      onChange,
-      ...props
-    },
+    { classes, label, error, id: radioId, value, onChange, ...props },
     ref,
   ) {
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const config = useConfig();
-
     const id = useNinjaId(() => radioId);
 
-    const color = colorProp ?? config.BaseRadio?.color;
+    const color = useNuiDefaultProperty(props, "BaseRadio", "color");
+
+    const attrs = {
+      ...props,
+      color: undefined,
+    };
 
     useImperativeHandle(
       ref,
@@ -132,7 +134,7 @@ export const BaseRadio = forwardRef<BaseRadioRef, BaseRadioProps>(
             className="nui-radio-input"
             value={value}
             onChange={(e) => onChange?.(e.target.value)}
-            {...props}
+            {...attrs}
           />
 
           <div className={cn("nui-radio-inner", classes?.inputBg)} />

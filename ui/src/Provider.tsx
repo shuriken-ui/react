@@ -1,13 +1,13 @@
 import {
-  FC,
-  ReactNode,
+  type FC,
+  type ReactNode,
   createContext,
   useContext,
   useMemo,
   useState,
 } from "react";
 import { defu } from "defu";
-import { ColorMode, Config, DeepPartial } from "./types";
+import type { ColorMode, Config, DeepPartial } from "./types";
 
 export const defaultConfig: Config = {
   // #region base
@@ -245,6 +245,13 @@ export const useNuiDefaultProperty = <
 ): NonNullable<T[K]> => {
   const config = useContext(ConfigContext);
 
+  if (config?.[component]?.[property] === undefined) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[@shuriken-ui/react] Default configuration for ${component}.${String(property)} not found, did you forget to use <ShurikenUIProvider>?`,
+    );
+  }
+
   return (properties?.[property] ??
     config?.[component]?.[property]) as NonNullable<T[K]>;
 };
@@ -267,7 +274,7 @@ export const useThemeContext = () => {
 
   if (!ctx) {
     throw new Error(
-      "Ensure useThemeContext is used within <ShurikenUIProvider>",
+      "[@shuriken-ui/react] useThemeContext() has no contex, did you forget to use <ShurikenUIProvider>?",
     );
   }
 

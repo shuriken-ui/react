@@ -1,4 +1,8 @@
-import { ComponentPropsWithRef, ElementType, PropsWithChildren } from "react";
+import type {
+  ComponentPropsWithRef,
+  ElementType,
+  PropsWithChildren,
+} from "react";
 
 /** Polymotphic Component Utils */
 

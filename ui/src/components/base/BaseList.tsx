@@ -1,5 +1,5 @@
-import { Children, FC, PropsWithChildren } from "react";
-import { cn } from "../../utils";
+import { type FC, type PropsWithChildren, Children } from "react";
+import { cn } from "~/utils";
 
 type BaseListProps = PropsWithChildren<{
   className?: string;

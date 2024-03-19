@@ -1,4 +1,4 @@
-#BaseProgressCircle .circle-value {
+.nui-base-progress-circle .circle-value {
   animation-name: circle-chart-fill;
   animation-duration: var(--duration);
   /* transform: rotate(-90deg); */

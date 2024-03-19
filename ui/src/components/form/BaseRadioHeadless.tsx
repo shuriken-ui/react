@@ -1,13 +1,12 @@
-import React, {
-  InputHTMLAttributes,
-  PropsWithChildren,
+import {
+  type InputHTMLAttributes,
   forwardRef,
   useImperativeHandle,
   useRef,
 } from "react";
-import { useNinjaId } from "../../hooks/useNinjaId";
+import { useNinjaId } from "~/hooks/useNinjaId";
 
-type BaseRadioHeadlessProps = PropsWithChildren<{
+type BaseRadioHeadlessProps = {
   /**
    * The form input identifier.
    */
@@ -32,7 +31,7 @@ type BaseRadioHeadlessProps = PropsWithChildren<{
    * The label for the radio input.
    */
   label?: string;
-}>;
+};
 
 export type BaseRadioHeadlessRef = {
   /**
@@ -51,7 +50,7 @@ export const BaseRadioHeadless = forwardRef<
   BaseRadioHeadlessProps &
     Omit<InputHTMLAttributes<HTMLInputElement>, keyof BaseRadioHeadlessProps>
 >(function BaseRadioHeadless(
-  { id: Id, label, className, type, children, onChange = () => {}, ...props },
+  { id: Id, label, children, onChange = () => {}, ...props },
   ref,
 ) {
   const inputRef = useRef<HTMLInputElement>(null);

@@ -1,42 +1,35 @@
-import { PropsWithChildren, forwardRef } from "react";
+import { type HTMLAttributes, forwardRef } from "react";
 import { Icon } from "@iconify/react";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
 
-type BaseKbdProps = PropsWithChildren<{
-  /**
-   * The radius of the kbd.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /**
-   * The radius of the kbd.
-   *
-   */
-  size?: "xs" | "sm" | "md" | "lg";
-
-  /**
-   * The color of the kbd.
-   *
-   */
-  color?: "default" | "muted" | "none";
-
+type BaseKbdProps = HTMLAttributes<HTMLElement> & {
   /**
    * The icon to display for the kbd.
    */
   icon?: string;
 
   /**
-   * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
+   * The color of the kbd.
+   *
+   * @default 'default'
    */
-  classes?: {
-    /**
-     * CSS classes to apply to the wrapper element.
-     */
-    wrapper?: string | string[];
-  };
-}>;
+  color?: "default" | "default-contrast" | "muted" | "muted-contrast" | "none";
+
+  /**
+   * The radius of the kbd.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The radius of the kbd.
+   *
+   * @default 'sm'
+   */
+  size?: "xs" | "sm" | "md" | "lg";
+};
 
 const radiuses = {
   none: "",
@@ -54,40 +47,39 @@ const sizes = {
 };
 
 const colors = {
-  default: "nui-kbd-default",
-  muted: "nui-kbd-muted",
   none: "",
+  default: "nui-kbd-default",
+  "default-contrast": "nui-kbd-default-contrast",
+  muted: "nui-kbd-muted",
+  "muted-contrast": "nui-kbd-muted-contrast",
 };
 
-export const BaseKbd = forwardRef<HTMLElement, BaseKbdProps>(
-  function BaseKbd(props, ref) {
-    const config = useConfig();
+export const BaseKbd = forwardRef<HTMLElement, BaseKbdProps>(function BaseKbd(
+  { className: classes, ...props },
+  ref,
+) {
+  const color = useNuiDefaultProperty(props, "BaseKbd", "color");
+  const rounded = useNuiDefaultProperty(props, "BaseKbd", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseKbd", "size");
 
-    const rounded = props.rounded ?? config.BaseKbd?.rounded;
-
-    const size = props.size ?? config.BaseKbd?.size;
-
-    const color = props.color ?? config.BaseKbd?.color;
-
-    return (
-      <kbd
-        className={cn(
-          "nui-kbd",
-          color && colors[color],
-          size && sizes[size],
-          rounded && radiuses[rounded],
-          props.classes?.wrapper,
-        )}
-        ref={ref}
-      >
-        {props.children
-          ? props.children
-          : props.icon && (
-              <span className="nui-kbd-icon-outer">
-                <Icon icon={props.icon} className="nui-kbd-icon-inner" />
-              </span>
-            )}
-      </kbd>
-    );
-  },
-);
+  return (
+    <kbd
+      className={cn(
+        "nui-kbd",
+        color && colors[color],
+        size && sizes[size],
+        rounded && radiuses[rounded],
+        classes,
+      )}
+      ref={ref}
+    >
+      {props.children
+        ? props.children
+        : props.icon && (
+            <span className="nui-kbd-icon-outer">
+              <Icon icon={props.icon} className="nui-kbd-icon-inner" />
+            </span>
+          )}
+    </kbd>
+  );
+});

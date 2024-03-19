@@ -1,8 +1,8 @@
-import { PropsWithChildren, forwardRef, useMemo } from "react";
-import { useConfig } from "../../Provider";
+import { type PropsWithChildren, forwardRef } from "react";
+import { useNuiDefaultProperty } from "~/Provider";
 import { BasePlaceload } from "./BasePlaceload";
-import { useNinjaButton, NinjaButtonProps } from "../../hooks/useNinjaButton";
-import { cn } from "../../utils";
+import { type NinjaButtonProps, useNinjaButton } from "~/hooks/useNinjaButton";
+import { cn } from "~/utils";
 
 type BaseButtonProps = Omit<NinjaButtonProps, "children"> &
   PropsWithChildren<{
@@ -24,46 +24,63 @@ type BaseButtonProps = Omit<NinjaButtonProps, "children"> &
     /** The value of the 'target' attribute of the button. This attribute is used to specify where to open the linked document. */
     // target?: string;
 
-    /** The size of the button */
-    size?: "sm" | "md" | "lg" | "xl";
-
     /**
-     * The variant of the button..
-     *
+     * Adds a flat or a on hover shadow to the button.
      */
-    variant?: "solid" | "outline" | "pastel";
+    shadow?: "flat" | "hover";
 
-    /** The color of the button. Can be 'default', 'primary', 'info', 'success', 'warning', 'danger', or 'none. */
-    color?:
-      | "default"
-      | "primary"
-      | "info"
-      | "success"
-      | "warning"
-      | "danger"
-      | "light"
-      | "muted"
-      | "none";
-
-    /**
-     * The radius of the button.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-    /** Whether the button is in a loading state. */
-    loading?: boolean;
-
-    /** The badge indicator */
+    /** The button badge indicator */
     badge?: boolean;
 
     /** Add a pulse animation on the badge */
     badgePulse?: boolean;
 
+    /** Whether the button is in a loading state. */
+    loading?: boolean;
+
+    /** Whether the button should be disabled. */
+    disabled?: boolean;
+
     /**
-     * Adds a flat or a on hover shadow to the button.
+     * The color of the button.
+     *
+     * @default 'default'
      */
-    shadow?: "flat" | "hover";
+    color?:
+      | "default"
+      | "default-contrast"
+      | "muted"
+      | "muted-contrast"
+      | "light"
+      | "dark"
+      | "black"
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "none";
+
+    /**
+     * The radius of the button.
+     *
+     * @default 'sm'
+     */
+    rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+    /**
+     * The size of the button
+     *
+     * @default 'md'
+     */
+    size?: "sm" | "md" | "lg" | "xl";
+
+    /**
+     * The variant of the button..
+     *
+     * @default 'solid'
+     */
+    variant?: "solid" | "outline" | "pastel";
   }>;
 
 const badgeColors = {
@@ -74,8 +91,12 @@ const badgeColors = {
   danger: "nui-badge-danger",
   none: "",
   default: "",
+  "default-contrast": "",
   light: "",
+  dark: "",
+  black: "",
   muted: "",
+  "muted-contrast": "",
 };
 
 const sizes = {
@@ -87,10 +108,10 @@ const sizes = {
 
 const radiuses = {
   none: "",
-  sm: "nui-button-rounded",
-  md: "nui-button-smooth",
-  lg: "nui-button-curved",
-  full: "nui-button-full",
+  sm: "nui-button-rounded-sm",
+  md: "nui-button-rounded-md",
+  lg: "nui-button-rounded-lg",
+  full: "nui-button-rounded-full",
 };
 
 const variants = {
@@ -102,13 +123,17 @@ const variants = {
 const colors = {
   none: "",
   default: "nui-button-default",
+  "default-contrast": "nui-button-default-contrast",
   primary: "nui-button-primary",
   info: "nui-button-info",
   success: "nui-button-success",
   warning: "nui-button-warning",
   danger: "nui-button-danger",
-  light: "nui-button-light",
   muted: "nui-button-muted",
+  "muted-contrast": "nui-button-muted-contrast",
+  light: "nui-button-light",
+  dark: "nui-button-dark",
+  black: "nui-button-black",
 };
 
 const shadows = {
@@ -144,27 +169,19 @@ export const BaseButton = forwardRef<
     disabled,
   });
 
-  const config = useConfig();
+  const color = useNuiDefaultProperty(props, "BaseButton", "color");
+  const rounded = useNuiDefaultProperty(props, "BaseButton", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseButton", "size");
+  const variant = useNuiDefaultProperty(props, "BaseButton", "variant");
 
-  const rounded = props.rounded ?? config.BaseButton?.rounded;
-
-  const variant = props.variant ?? config.BaseButton?.variant;
-
-  const color = props.color ?? config.BaseButton?.color;
-
-  const size = props.size ?? config.BaseButton?.size;
-
-  const badgeStyle = useMemo(() => {
-    if (!color) {
-      return "";
-    }
-
-    if (badge && ["default", "light", "muted", "none"].includes(color)) {
-      return "";
-    }
-
-    return badgeColors[color];
-  }, [color, badge]);
+  const attrs: Record<string, unknown> = {
+    ...attributes,
+    ...props,
+    color: undefined,
+    rounded: undefined,
+    size: undefined,
+    variant: undefined,
+  };
 
   return (
     <Component
@@ -178,16 +195,13 @@ export const BaseButton = forwardRef<
         shadow && shadows[shadow],
         classes,
       )}
-      {
-        ...(props as object) /** TODO: add correct type */
-      }
-      {...attributes}
+      {...attrs}
       ref={ref}
     >
       {!loading && children}
       {loading && <BasePlaceload className="h-4 w-12 rounded" />}
       {badge && (
-        <span className={cn("nui-button-badge", badgeStyle)}>
+        <span className={cn("nui-button-badge", badgeColors[color])}>
           {badgePulse && <span className="nui-button-badge-pulse" />}
           <span className="nui-button-badge-inner" />
         </span>

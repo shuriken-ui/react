@@ -1,9 +1,10 @@
-import { PropsWithChildren, forwardRef } from "react";
-import Link from "next/link";
+import { type PropsWithChildren, forwardRef } from "react";
+import Link from "next/link"; // @todo - remove this import
 import { Icon } from "@iconify/react";
+import { useNuiDefaultProperty } from "~/Provider";
 import { BaseDropdown } from "./BaseDropdown";
 import { BaseDropdownItem } from "./BaseDropdownItem";
-import { cn } from "../../utils";
+import { cn } from "~/utils";
 
 type Item = {
   /**
@@ -46,15 +47,68 @@ type BaseBreadcrumbProps = PropsWithChildren<{
    *
    */
   renderLink?: (item: Item, index: number) => React.ReactNode;
+
+  /**
+   * Defines the hover color of the breadcrumb links
+   *
+   * @default 'primary'
+   */
+  color?: "primary" | "dark" | "black";
+
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the list element.
+     */
+    list?: string | string[];
+
+    /**
+     * CSS classes to apply to the dropdown element.
+     */
+    dropdown?: string | string[];
+
+    /**
+     * CSS classes to apply to the item element.
+     */
+    item?: string | string[];
+  };
 }>;
 
+const colors = {
+  primary: "nui-breadcrumb-primary",
+  dark: "nui-breadcrumb-dark",
+  black: "nui-breadcrumb-black",
+};
+
 export const BaseBreadcrumb = forwardRef<HTMLElement, BaseBreadcrumbProps>(
-  function BaseBreadcrumb(props, ref) {
+  function BaseBreadcrumb({ ...props }, ref) {
+    const color = useNuiDefaultProperty(props, "BaseBreadcrumb", "color");
+
     return (
-      <nav className="nui-breadcrumb" ref={ref}>
-        <ul className="nui-breadcrumb-list">
+      <nav
+        ref={ref}
+        className={cn(
+          "nui-breadcrumb",
+          color && colors[color],
+          props.classes?.wrapper,
+        )}
+      >
+        <ul className={cn("nui-breadcrumb-list", props.classes?.list)}>
           <li className="nui-breadcrumb-item-mobile">
-            <BaseDropdown variant="context" size="md">
+            <BaseDropdown
+              variant="context"
+              size="md"
+              classes={{
+                wrapper: props.classes?.dropdown,
+              }}
+            >
               {props.items
                 ?.slice(0, props.items.length - 1)
                 .map((item, index) => (

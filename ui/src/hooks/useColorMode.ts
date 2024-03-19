@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useMediaQuery } from "./useMediaQuery";
-import { ColorMode } from "../types";
+import type { ColorMode } from "../types";
 import { useThemeContext } from "../Provider";
 
 const COLOR_SCHEME_QUERY = "(prefers-color-scheme: dark)";

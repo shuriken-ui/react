@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import { Icon } from "@iconify/react";
 import {
-  ReactNode,
+  type ReactNode,
   forwardRef,
   useCallback,
   useEffect,
@@ -9,7 +9,7 @@ import {
   useMemo,
   useState,
 } from "react";
-import { cn } from "../../utils";
+import { cn } from "~/utils";
 import { BaseCheckbox } from "./BaseCheckbox";
 
 type TreeViewItemTreeLeaf = {

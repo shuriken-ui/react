@@ -1,5 +1,5 @@
 import {
-  ElementType,
+  type ElementType,
   forwardRef,
   useCallback,
   useEffect,
@@ -7,8 +7,8 @@ import {
   useRef,
   useState,
 } from "react";
-import { PolymorphicComponentProps, PolymorphicRef } from "../../types";
-import { useEventListener } from "../../hooks/useEventListener";
+import { type PolymorphicComponentProps, type PolymorphicRef } from "~/types";
+import { useEventListener } from "~/hooks/useEventListener";
 
 type BaseFocusLoopProps<E extends ElementType = "div"> = {
   /**
