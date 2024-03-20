@@ -1,7 +1,7 @@
 import { type PropsWithChildren, forwardRef } from "react";
 import { Icon } from "@iconify/react";
 import { cn } from "~/utils";
-import { useConfig } from "~/Provider";
+import { useNuiDefaultProperty } from "~/Provider";
 import { BaseAvatar } from "~/components/base/BaseAvatar";
 import { BaseIconBox } from "~/components/base/BaseIconBox";
 import { BaseText } from "~/components/base/BaseText";
@@ -43,20 +43,18 @@ type BaseTreeSelectItemProps = PropsWithChildren<{
   toggle?: () => void;
 
   /**
-   * The shape of the component.
+   * The radius of the component.
+   *
+   * @default 'sm'
    */
-  shape?: "straight" | "rounded" | "curved" | "full";
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 }>;
 
 export const BaseTreeSelectItem = forwardRef<
   HTMLDivElement,
   BaseTreeSelectItemProps
->(function BaseTreeSelectItem(
-  { shape: defaultShape, value, toggle, children },
-  ref,
-) {
-  // const shape = defaultShape  ?? config.defaultShapes?.autocompleteItem;
-  const shape = defaultShape;
+>(function BaseTreeSelectItem({ value, toggle, children, ...props }, ref) {
+  const rounded = useNuiDefaultProperty(props, "BaseTreeSelectItem", "rounded");
 
   const Component = toggle ? "button" : "div";
 
@@ -71,9 +69,11 @@ export const BaseTreeSelectItem = forwardRef<
     <div
       className={cn(
         "flex items-center p-2 ps-0",
-        shape === "rounded" && "rounded-md",
-        shape === "curved" && "rounded-lg",
-        shape === "full" && "rounded-xl",
+        rounded === "none" && "rounded-none",
+        rounded === "sm" && "rounded",
+        rounded === "md" && "rounded-md",
+        rounded === "lg" && "rounded-lg",
+        rounded === "full" && "rounded-xl",
       )}
       ref={ref}
     >
