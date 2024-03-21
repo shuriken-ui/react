@@ -211,12 +211,12 @@ export const BaseAutocompleteItem = forwardRef(function BaseAutocompleteItem<
             icon && "h-8 w-8",
           )}
         >
-          <slot name="selected-icon">
+          {props.renderSelectedIcon?.() || (
             <Icon
               icon={selectedIcon}
               className="text-success-500 block h-4 w-4"
             />
-          </slot>
+          )}
         </div>
       )}
     </div>
