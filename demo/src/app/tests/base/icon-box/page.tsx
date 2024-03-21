@@ -287,6 +287,15 @@ function IconBoxPage() {
           <BaseIconBox size="lg" rounded="full" variant="solid" color="danger">
             <Iconify icon="ph:cookie-duotone" className="h-6 w-6" />
           </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="solid" color="light">
+            <Iconify icon="ph:cactus-duotone" className="h-6 w-6" />
+          </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="solid" color="dark">
+            <Iconify icon="ph:shield-duotone" className="h-6 w-6" />
+          </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="solid" color="black">
+            <Iconify icon="ph:robot-duotone" className="h-6 w-6" />
+          </BaseIconBox>
         </div>
       </NuiPreview>
 
@@ -332,6 +341,15 @@ function IconBoxPage() {
           </BaseIconBox>
           <BaseIconBox size="lg" rounded="full" variant="pastel" color="danger">
             <Iconify icon="ph:cookie-duotone" className="h-6 w-6" />
+          </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="pastel" color="light">
+            <Iconify icon="ph:cactus-duotone" className="h-6 w-6" />
+          </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="pastel" color="dark">
+            <Iconify icon="ph:shield-duotone" className="h-6 w-6" />
+          </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="pastel" color="black">
+            <Iconify icon="ph:robot-duotone" className="h-6 w-6" />
           </BaseIconBox>
         </div>
       </NuiPreview>
@@ -383,6 +401,15 @@ function IconBoxPage() {
             color="danger"
           >
             <Iconify icon="ph:cookie-duotone" className="h-6 w-6" />
+          </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="outline" color="light">
+            <Iconify icon="ph:cactus-duotone" className="h-6 w-6" />
+          </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="outline" color="dark">
+            <Iconify icon="ph:shield-duotone" className="h-6 w-6" />
+          </BaseIconBox>
+          <BaseIconBox size="lg" rounded="full" variant="outline" color="black">
+            <Iconify icon="ph:robot-duotone" className="h-6 w-6" />
           </BaseIconBox>
         </div>
       </NuiPreview>

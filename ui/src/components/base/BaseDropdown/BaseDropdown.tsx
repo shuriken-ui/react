@@ -118,7 +118,7 @@ type BaseDropdownProps = PropsWithChildren<{
   /**
    *  The render function for custom button
    */
-  renderButton?: (open: boolean, close: () => void) => ReactNode;
+  renderButton?: ReactNode | ((open: boolean, close: () => void) => ReactNode);
 }>;
 
 const sizes = {
@@ -182,7 +182,11 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
               zIndex={20}
             >
               <Menu.Button as="div">
-                {renderButton?.(open, close) || (
+                {typeof renderButton === "function" ? (
+                  renderButton?.(open, close)
+                ) : renderButton ? (
+                  renderButton
+                ) : (
                   <>
                     {variant === "button" && (
                       <BaseButton

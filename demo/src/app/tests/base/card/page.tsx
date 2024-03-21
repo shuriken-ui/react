@@ -84,7 +84,7 @@ function CardPage() {
 
       <NuiPreview title="Contrast" description="Card component contrasts">
         <div className="grid gap-4 md:grid-cols-2 max-w-3xl">
-          <BaseCard color="white" rounded="md" className="p-6">
+          <BaseCard rounded="md" className="p-6">
             <BaseHeading
               as="h4"
               size="sm"
@@ -100,7 +100,7 @@ function CardPage() {
             </BaseParagraph>
           </BaseCard>
 
-          <BaseCard color="white-contrast" rounded="md" className="p-6">
+          <BaseCard color="default-contrast" rounded="md" className="p-6">
             <BaseHeading
               as="h4"
               size="sm"
@@ -152,7 +152,7 @@ function CardPage() {
 
       <NuiPreview title="Color" description="Card component colors">
         <div className="grid gap-4 md:grid-cols-2 max-w-3xl">
-          <BaseCard color="white" rounded="md" className="p-6">
+          <BaseCard rounded="md" className="p-6">
             <BaseHeading
               as="h4"
               size="sm"
@@ -244,6 +244,38 @@ function CardPage() {
             </BaseHeading>
 
             <BaseParagraph size="sm" lead="tight" className="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="dark" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="dark:text-muted-800 mb-2 text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" class="text-muted-400">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </BaseParagraph>
+          </BaseCard>
+
+          <BaseCard color="black" rounded="md" className="p-6">
+            <BaseHeading
+              as="h4"
+              size="sm"
+              weight="semibold"
+              lead="tight"
+              className="dark:text-muted-800 mb-2 text-white"
+            >
+              Iam a card
+            </BaseHeading>
+
+            <BaseParagraph size="sm" lead="tight" class="text-muted-400">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </BaseParagraph>
           </BaseCard>

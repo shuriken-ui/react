@@ -1,24 +1,24 @@
 import { forwardRef } from "react";
 
-import NextImage, { type ImageProps } from "next/image";
+import NextImage, { type ImageProps } from "next/image"; // @todo: remove this import
 import { useNuiDefaultProperty } from "~/Provider";
 import { cn } from "~/utils";
 
-type BaseAvatarProps = Omit<ImageProps, "width" | "height" | "alt"> & {
+type BaseAvatarProps = Omit<ImageProps, "src" | "width" | "height" | "alt"> & {
   /**
    * The URL of the image to display.
    */
-  // src?: string;
+  src?: ImageProps["src"];
 
   /**
    * The URL of a dark version of the image to display when the component is in dark mode.
    */
-  srcDark?: string;
+  srcDark?: ImageProps["src"];
 
   /**
    * The URL of a badge to display on top of the image.
    */
-  badgeSrc?: string;
+  badgeSrc?: ImageProps["src"];
 
   /**
    * The text to display below the image.

@@ -16,7 +16,7 @@ type BaseListItemProps = PropsWithChildren<{
   /**
    * end
    */
-  end: ReactNode;
+  end?: ReactNode;
 }>;
 
 export const BaseListItem = forwardRef<HTMLLIElement, BaseListItemProps>(

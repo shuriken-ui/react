@@ -58,19 +58,19 @@ export default function ButtonsPage() {
         description="Button component rendered as a link"
       >
         <div className="flex flex-wrap items-end gap-4">
-          <BaseButton to="#" rounded="none">
+          <BaseButton href="#" rounded="none">
             Button
           </BaseButton>
-          <BaseButton to="#" rounded="sm">
+          <BaseButton href="#" rounded="sm">
             Button
           </BaseButton>
-          <BaseButton to="#" rounded="md">
+          <BaseButton href="#" rounded="md">
             Button
           </BaseButton>
-          <BaseButton to="#" rounded="lg">
+          <BaseButton href="#" rounded="lg">
             Button
           </BaseButton>
-          <BaseButton to="#" rounded="full">
+          <BaseButton href="#" rounded="full">
             Button
           </BaseButton>
         </div>
@@ -82,27 +82,15 @@ export default function ButtonsPage() {
       >
         <div className="flex flex-wrap items-end gap-4">
           <BaseButton variant="solid">Button</BaseButton>
-          <BaseButton variant="solid" color="muted">
-            Button
-          </BaseButton>
-          <BaseButton variant="solid" color="light">
-            Button
-          </BaseButton>
-          <BaseButton variant="solid" color="primary">
-            Button
-          </BaseButton>
-          <BaseButton variant="solid" color="success">
-            Button
-          </BaseButton>
-          <BaseButton variant="solid" color="info">
-            Button
-          </BaseButton>
-          <BaseButton variant="solid" color="warning">
-            Button
-          </BaseButton>
-          <BaseButton variant="solid" color="danger">
-            Button
-          </BaseButton>
+          <BaseButton variant="solid" color="muted">Button</BaseButton>
+          <BaseButton variant="solid" color="primary">Button</BaseButton>
+          <BaseButton variant="solid" color="success">Button</BaseButton>
+          <BaseButton variant="solid" color="info">Button</BaseButton>
+          <BaseButton variant="solid" color="warning">Button</BaseButton>
+          <BaseButton variant="solid" color="danger">Button</BaseButton>
+          <BaseButton variant="solid" color="light">Button</BaseButton>
+          <BaseButton variant="solid" color="dark">Button</BaseButton>
+          <BaseButton variant="solid" color="black">Button</BaseButton>
         </div>
       </NuiPreview>
 
@@ -112,24 +100,15 @@ export default function ButtonsPage() {
       >
         <div className="flex flex-wrap items-end gap-4">
           <BaseButton variant="pastel">Button</BaseButton>
-          <BaseButton variant="pastel" color="muted">
-            Button
-          </BaseButton>
-          <BaseButton variant="pastel" color="primary">
-            Button
-          </BaseButton>
-          <BaseButton variant="pastel" color="success">
-            Button
-          </BaseButton>
-          <BaseButton variant="pastel" color="info">
-            Button
-          </BaseButton>
-          <BaseButton variant="pastel" color="warning">
-            Button
-          </BaseButton>
-          <BaseButton variant="pastel" color="danger">
-            Button
-          </BaseButton>
+          <BaseButton variant="pastel" color="muted">Button</BaseButton>
+          <BaseButton variant="pastel" color="primary">Button</BaseButton>
+          <BaseButton variant="pastel" color="success">Button</BaseButton>
+          <BaseButton variant="pastel" color="info">Button</BaseButton>
+          <BaseButton variant="pastel" color="warning">Button</BaseButton>
+          <BaseButton variant="pastel" color="danger">Button</BaseButton>
+          <BaseButton variant="pastel" color="light">Button</BaseButton>
+          <BaseButton variant="pastel" color="dark">Button</BaseButton>
+          <BaseButton variant="pastel" color="black">Button</BaseButton>
         </div>
       </NuiPreview>
 
@@ -139,24 +118,15 @@ export default function ButtonsPage() {
       >
         <div className="flex flex-wrap items-end gap-4">
           <BaseButton variant="outline">Button</BaseButton>
-          <BaseButton variant="outline" color="muted">
-            Button
-          </BaseButton>
-          <BaseButton variant="outline" color="primary">
-            Button
-          </BaseButton>
-          <BaseButton variant="outline" color="success">
-            Button
-          </BaseButton>
-          <BaseButton variant="outline" color="info">
-            Button
-          </BaseButton>
-          <BaseButton variant="outline" color="warning">
-            Button
-          </BaseButton>
-          <BaseButton variant="outline" color="danger">
-            Button
-          </BaseButton>
+          <BaseButton variant="outline" color="muted">Button</BaseButton>
+          <BaseButton variant="outline" color="primary">Button</BaseButton>
+          <BaseButton variant="outline" color="success">Button</BaseButton>
+          <BaseButton variant="outline" color="info">Button</BaseButton>
+          <BaseButton variant="outline" color="warning">Button</BaseButton>
+          <BaseButton variant="outline" color="danger">Button</BaseButton>
+          <BaseButton variant="outline" color="light">Button</BaseButton>
+          <BaseButton variant="outline" color="dark">Button</BaseButton>
+          <BaseButton variant="outline" color="black">Button</BaseButton>
         </div>
       </NuiPreview>
 
@@ -195,21 +165,15 @@ export default function ButtonsPage() {
       >
         <div className="flex flex-wrap items-end gap-4">
           <BaseButton shadow="flat">Button</BaseButton>
-          <BaseButton color="primary" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="success" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="info" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="warning" shadow="flat">
-            Button
-          </BaseButton>
-          <BaseButton color="danger" shadow="flat">
-            Button
-          </BaseButton>
+          <BaseButton shadow="flat" color="muted">Button</BaseButton>
+          <BaseButton shadow="flat" color="primary">Button</BaseButton>
+          <BaseButton shadow="flat" color="success">Button</BaseButton>
+          <BaseButton shadow="flat" color="info">Button</BaseButton>
+          <BaseButton shadow="flat" color="warning">Button</BaseButton>
+          <BaseButton shadow="flat" color="danger">Button</BaseButton>
+          <BaseButton shadow="flat" color="light">Button</BaseButton>
+          <BaseButton shadow="flat" color="dark">Button</BaseButton>
+          <BaseButton shadow="flat" color="black">Button</BaseButton>
         </div>
       </NuiPreview>
 
@@ -219,21 +183,15 @@ export default function ButtonsPage() {
       >
         <div className="flex flex-wrap items-end gap-4">
           <BaseButton shadow="hover">Button</BaseButton>
-          <BaseButton color="primary" shadow="hover">
-            Button
-          </BaseButton>
-          <BaseButton color="success" shadow="hover">
-            Button
-          </BaseButton>
-          <BaseButton color="info" shadow="hover">
-            Button
-          </BaseButton>
-          <BaseButton color="warning" shadow="hover">
-            Button
-          </BaseButton>
-          <BaseButton color="danger" shadow="hover">
-            Button
-          </BaseButton>
+          <BaseButton shadow="hover" color="muted">Button</BaseButton>
+          <BaseButton shadow="hover" color="primary">Button</BaseButton>
+          <BaseButton shadow="hover" color="success">Button</BaseButton>
+          <BaseButton shadow="hover" color="info">Button</BaseButton>
+          <BaseButton shadow="hover" color="warning">Button</BaseButton>
+          <BaseButton shadow="hover" color="danger">Button</BaseButton>
+          <BaseButton shadow="hover" color="light">Button</BaseButton>
+          <BaseButton shadow="hover" color="dark">Button</BaseButton>
+          <BaseButton shadow="hover" color="black">Button</BaseButton>
         </div>
       </NuiPreview>
 
@@ -243,27 +201,15 @@ export default function ButtonsPage() {
       >
         <div className="flex flex-wrap items-end gap-4">
           <BaseButton loading>Button</BaseButton>
-          <BaseButton loading color="muted">
-            Button
-          </BaseButton>
-          <BaseButton loading color="light">
-            Button
-          </BaseButton>
-          <BaseButton loading color="primary">
-            Button
-          </BaseButton>
-          <BaseButton loading color="success">
-            Button
-          </BaseButton>
-          <BaseButton loading color="info">
-            Button
-          </BaseButton>
-          <BaseButton loading color="warning">
-            Button
-          </BaseButton>
-          <BaseButton loading color="danger">
-            Button
-          </BaseButton>
+          <BaseButton loading color="muted">Button</BaseButton>
+          <BaseButton loading color="primary">Button</BaseButton>
+          <BaseButton loading color="success">Button</BaseButton>
+          <BaseButton loading color="info">Button</BaseButton>
+          <BaseButton loading color="warning">Button</BaseButton>
+          <BaseButton loading color="danger">Button</BaseButton>
+          <BaseButton loading color="light">Button</BaseButton>
+          <BaseButton loading color="dark">Button</BaseButton>
+          <BaseButton loading color="black">Button</BaseButton>
         </div>
       </NuiPreview>
 
@@ -273,27 +219,15 @@ export default function ButtonsPage() {
       >
         <div className="flex flex-wrap items-end gap-4">
           <BaseButton disabled>Button</BaseButton>
-          <BaseButton disabled color="muted">
-            Button
-          </BaseButton>
-          <BaseButton disabled color="light">
-            Button
-          </BaseButton>
-          <BaseButton disabled color="primary">
-            Button
-          </BaseButton>
-          <BaseButton disabled color="success">
-            Button
-          </BaseButton>
-          <BaseButton disabled color="info">
-            Button
-          </BaseButton>
-          <BaseButton disabled color="warning">
-            Button
-          </BaseButton>
-          <BaseButton disabled color="danger">
-            Button
-          </BaseButton>
+          <BaseButton disabled color="muted">Button</BaseButton>
+          <BaseButton disabled color="primary">Button</BaseButton>
+          <BaseButton disabled color="success">Button</BaseButton>
+          <BaseButton disabled color="info">Button</BaseButton>
+          <BaseButton disabled color="warning">Button</BaseButton>
+          <BaseButton disabled color="danger">Button</BaseButton>
+          <BaseButton disabled color="light">Button</BaseButton>
+          <BaseButton disabled color="dark">Button</BaseButton>
+          <BaseButton disabled color="black">Button</BaseButton>
         </div>
       </NuiPreview>
 

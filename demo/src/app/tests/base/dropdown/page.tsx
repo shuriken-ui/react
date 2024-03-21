@@ -566,7 +566,7 @@ function DropdownPage() {
             variant="button"
             label="Dropdown"
            
-            header-label="My Team"
+            headerLabel="My Team"
           >
             <BaseDropdownItem
               href="#"
