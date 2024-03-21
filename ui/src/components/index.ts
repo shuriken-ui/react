@@ -74,6 +74,8 @@ export * from "./base/BasePagination";
 /** Form Components */
 export * from "./form/BaseListbox";
 
+export * from "./form/BaseAutocompleteItem";
+
 export * from "./form/BaseSelect";
 
 export * from "./form/BaseTextarea";
