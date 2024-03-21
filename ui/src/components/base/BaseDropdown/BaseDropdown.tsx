@@ -1,73 +1,13 @@
-import { PropsWithChildren, ReactNode, forwardRef, useMemo } from "react";
+import { type PropsWithChildren, type ReactNode, forwardRef } from "react";
 import { Menu } from "@headlessui/react";
 import { Icon } from "@iconify/react";
 import { Float } from "@headlessui-float/react";
-import { cn } from "../../../utils";
-import { BaseButton } from "../BaseButton";
-import { useConfig } from "../../../Provider";
+import { cn } from "~/utils";
+import { BaseButton } from "~/components/base/BaseButton";
+import { useNuiDefaultProperty } from "~/Provider";
 import "./BaseDropdown.css";
 
 type BaseDropdownProps = PropsWithChildren<{
-  /**
-   * The variant of the dropdown.
-   *
-   */
-  variant?: "button" | "context" | "text";
-
-  /**
-   * The color of the button.
-   */
-  buttonColor?:
-    | "default"
-    | "primary"
-    | "info"
-    | "success"
-    | "warning"
-    | "danger"
-    | "light"
-    | "muted"
-    | "none";
-
-  /**
-   * The color of the dropdown.
-   */
-  color?: "white" | "white-contrast" | "muted" | "muted-contrast" | "none";
-
-  /**
-   * The radius of the dropdown button.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /**
-   * The orientation of the dropdown.
-   *
-   * @deprecated use placement instead
-   */
-  orientation?: "start" | "end";
-
-  /**
-   * The placement of the dropdown via floating-ui.
-   */
-  placement?:
-    | "top"
-    | "top-start"
-    | "top-end"
-    | "right"
-    | "right-start"
-    | "right-end"
-    | "bottom"
-    | "bottom-start"
-    | "bottom-end"
-    | "left"
-    | "left-start"
-    | "left-end";
-
-  /**
-   * The size of the dropdown.
-   */
-  size?: "md" | "lg";
-
   /**
    * The label to display for the dropdown.
    */
@@ -84,9 +24,101 @@ type BaseDropdownProps = PropsWithChildren<{
   fixed?: boolean;
 
   /**
+   * The color of the button.
+   *
+   * @default 'default'
+   */
+  buttonColor?:
+    | "default"
+    | "default-contrast"
+    | "muted"
+    | "muted-contrast"
+    | "light"
+    | "dark"
+    | "black"
+    | "primary"
+    | "info"
+    | "success"
+    | "warning"
+    | "danger"
+    | "none";
+
+  /**
+   * The color of the dropdown.
+   *
+   * @default 'default'
+   */
+  color?: "default" | "default-contrast" | "muted" | "muted-contrast" | "none";
+
+  /**
+   * The placement of the dropdown via floating-ui.
+   *
+   * @default 'bottom-start'
+   */
+  placement?:
+    | "top"
+    | "top-start"
+    | "top-end"
+    | "right"
+    | "right-start"
+    | "right-end"
+    | "bottom"
+    | "bottom-start"
+    | "bottom-end"
+    | "left"
+    | "left-start"
+    | "left-end";
+
+  /**
+   * The radius of the dropdown button.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the dropdown.
+   *
+   * @default 'md'
+   */
+  size?: "md" | "lg";
+
+  /**
+   * The variant of the dropdown.
+   *
+   * @default 'button'
+   */
+  variant?: "button" | "context" | "text";
+
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the menu element.
+     */
+    menu?: string | string[];
+
+    /**
+     * CSS classes to apply to the header element.
+     */
+    header?: string | string[];
+
+    /**
+     * CSS classes to apply to the content element.
+     */
+    content?: string | string[];
+  };
+
+  /**
    *  The render function for custom button
    */
-  renderButton?: (open: boolean, close: () => void) => ReactNode;
+  renderButton?: ReactNode | ((open: boolean, close: () => void) => ReactNode);
 }>;
 
 const sizes = {
@@ -96,27 +128,15 @@ const sizes = {
 
 const radiuses = {
   none: "",
-  sm: "nui-menu-rounded",
-  md: "nui-menu-smooth",
-  lg: "nui-menu-curved",
-  full: "nui-menu-curved",
-};
-
-const buttonColors = {
-  none: "",
-  default: "nui-button-default",
-  primary: "nui-button-primary",
-  info: "nui-button-info",
-  success: "nui-button-success",
-  warning: "nui-button-warning",
-  danger: "nui-button-danger",
-  light: "nui-button-light",
-  muted: "nui-button-muted",
+  sm: "nui-menu-rounded-sm",
+  md: "nui-menu-rounded-md",
+  lg: "nui-menu-rounded-lg",
+  full: "nui-menu-rounded-lg",
 };
 
 const colors = {
-  white: "nui-menu-white",
-  "white-contrast": "nui-menu-white-contrast",
+  default: "nui-menu-default",
+  "default-contrast": "nui-menu-default-contrast",
   muted: "nui-menu-muted",
   "muted-contrast": "nui-menu-muted-contrast",
   primary: "nui-menu-primary",
@@ -132,34 +152,19 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
     { children, label = "", fixed = false, renderButton, ...props },
     ref,
   ) {
-    const config = useConfig();
-
-    const variant = props.variant ?? config.BaseDropdown?.variant;
-
-    const buttonColor = props.buttonColor ?? config.BaseDropdown?.buttonColor;
-
-    const color = props.color ?? config.BaseDropdown?.color;
-
-    const rounded = props.rounded ?? config.BaseDropdown?.rounded;
-
-    const size = props.size ?? config.BaseDropdown?.size;
-
-    const orientation = props.orientation ?? config.BaseDropdown?.orientation;
-
-    /**
-     * fallback placement with old orientation value
-     * @todo remove this on next major version
-     */
-    const placementValue = useMemo(() => {
-      if (props.placement) {
-        return props.placement;
-      }
-
-      return props.orientation === "end" ? "bottom-end" : "bottom-start";
-    }, [props.orientation, props.placement]);
+    const buttonColor = useNuiDefaultProperty(
+      props,
+      "BaseDropdown",
+      "buttonColor",
+    );
+    const color = useNuiDefaultProperty(props, "BaseDropdown", "color");
+    const placement = useNuiDefaultProperty(props, "BaseDropdown", "placement");
+    const rounded = useNuiDefaultProperty(props, "BaseDropdown", "rounded");
+    const size = useNuiDefaultProperty(props, "BaseDropdown", "size");
+    const variant = useNuiDefaultProperty(props, "BaseDropdown", "variant");
 
     return (
-      <div className={cn("nui-dropdown")} ref={ref}>
+      <div className={cn("nui-dropdown", props.classes?.wrapper)} ref={ref}>
         <Menu as="div" className="nui-menu">
           {({ open, close }) => (
             <Float
@@ -172,12 +177,16 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
               flip
               offset={props.variant === "context" ? 6 : 4}
               strategy={fixed ? "fixed" : "absolute"}
-              placement={placementValue}
+              placement={placement}
               adaptiveWidth={fixed}
               zIndex={20}
             >
               <Menu.Button as="div">
-                {renderButton?.(open, close) || (
+                {typeof renderButton === "function" ? (
+                  renderButton?.(open, close)
+                ) : renderButton ? (
+                  renderButton
+                ) : (
                   <>
                     {variant === "button" && (
                       <BaseButton
@@ -193,7 +202,6 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
                       </BaseButton>
                     )}
                     {variant === "context" && (
-                      // eslint-disable-next-line jsx-a11y/control-has-associated-label
                       <button
                         type="button"
                         className="nui-context-button nui-focus"
@@ -231,10 +239,11 @@ export const BaseDropdown = forwardRef<HTMLDivElement, BaseDropdownProps>(
                   size && sizes[size],
                   rounded && radiuses[rounded],
                   color && colors[color],
+                  props.classes?.menu,
                 )}
               >
                 {props.headerLabel && (
-                  <div className="nui-menu-header">
+                  <div className={cn("nui-menu-header", props.classes?.header)}>
                     <div className="nui-menu-header-inner">
                       <h4 className="nui-menu-header-title">
                         {props.headerLabel}

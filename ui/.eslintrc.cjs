@@ -5,9 +5,9 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    "airbnb",
-    "airbnb-typescript",
-    "airbnb/hooks",
+    // "airbnb",
+    // "airbnb-typescript",
+    // "airbnb/hooks",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
@@ -17,8 +17,9 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
     project: "./tsconfig.json",
-    tsconfigRootDir: __dirname,
+    tsconfigRootDir: __dirname + "/..",
   },
+  ignorePatterns: ["dist", "node_modules", ".eslintrc.cjs"],
   plugins: ["@typescript-eslint", "react", "prettier"],
   settings: {
     react: {
@@ -51,19 +52,19 @@ module.exports = {
         argsIgnorePattern: "^_.*?$",
       },
     ],
-    "padding-line-between-statements": [
-      "warn",
-      { blankLine: "always", prev: "*", next: "return" },
-      {
-        blankLine: "always",
-        prev: ["const", "let", "var", "block-like", "export"],
-        next: "*",
-      },
-      {
-        blankLine: "always",
-        prev: ["const", "let", "var", "block-like", "export"],
-        next: ["const", "let", "var", "block-like", "export"],
-      },
-    ],
+    // "padding-line-between-statements": [
+    //   "warn",
+    //   { blankLine: "always", prev: "*", next: "return" },
+    //   {
+    //     blankLine: "always",
+    //     prev: ["const", "let", "var", "block-like", "export"],
+    //     next: "*",
+    //   },
+    //   {
+    //     blankLine: "always",
+    //     prev: ["const", "let", "var", "block-like", "export"],
+    //     next: ["const", "let", "var", "block-like", "export"],
+    //   },
+    // ],
   },
 };

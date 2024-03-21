@@ -1,11 +1,17 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import {
+  type HTMLAttributes,
+  forwardRef,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import { Icon } from "@iconify/react";
-import { useConfig } from "../../Provider";
-import { useNinjaId } from "../../hooks/useNinjaId";
-import { cn } from "../../utils";
-import { BasePlaceload } from "../base/BasePlaceload";
+import { useNuiDefaultProperty } from "~/Provider";
+import { useNinjaId } from "~/hooks/useNinjaId";
+import { cn } from "~/utils";
+import { BasePlaceload } from "~/components/base/BasePlaceload";
 
-type BaseInputFileProps = {
+type BaseInputFileProps = HTMLAttributes<HTMLInputElement> & {
   /**
    * The value of the file input.
    */
@@ -20,12 +26,6 @@ type BaseInputFileProps = {
    * The form input identifier.
    */
   id?: string;
-
-  /**
-   * The radius of the file input.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * The label to display for the file input.
@@ -53,17 +53,6 @@ type BaseInputFileProps = {
   loading?: boolean;
 
   /**
-   * The size of the input.
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
-   * The contrast of the input.
-   *
-   */
-  contrast?: "default" | "default-contrast";
-
-  /**
    * An error message or boolean value indicating whether the file input is in an error state.
    */
   error?: string | boolean;
@@ -72,6 +61,28 @@ type BaseInputFileProps = {
    * Method to return the text value of the file input.
    */
   textValue?: (fileList?: FileList | null) => string;
+
+  /**
+   * The contrast of the input.
+   *
+   * @default 'default'
+   */
+  contrast?: "default" | "default-contrast";
+
+  /**
+   * The radius of the file input.
+   *
+   * @since 2.0.0
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the input.
+   *
+   * @default 'md'
+   */
+  size?: "sm" | "md" | "lg";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, input, text, error, and icon elements.
@@ -111,10 +122,10 @@ type BaseInputFileProps = {
 
 const radiuses = {
   none: "",
-  sm: "nui-input-rounded",
-  md: "nui-input-smooth",
-  lg: "nui-input-curved",
-  full: "nui-input-full",
+  sm: "nui-input-rounded-sm",
+  md: "nui-input-rounded-md",
+  lg: "nui-input-rounded-lg",
+  full: "nui-input-rounded-full",
 };
 
 const sizes = {
@@ -124,8 +135,8 @@ const sizes = {
 };
 
 const contrasts = {
-  default: "nui-input-white",
-  "default-contrast": "nui-input-white-contrast",
+  default: "nui-input-default",
+  "default-contrast": "nui-input-default-contrast",
 };
 
 export type BaseInputFileRef = {
@@ -145,6 +156,14 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
     {
       placeholder = "Choose file",
       error = false,
+      id,
+      loading = false,
+      icon,
+      classes,
+      label,
+      colorFocus,
+      value,
+      onChange,
       textValue = (fileList?: FileList | null) => {
         if (!fileList?.item?.length) {
           return "No file chosen";
@@ -160,17 +179,20 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
   ) {
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const [files, setFiles] = useState<FileList | null>(props.value || null);
+    const [files, setFiles] = useState<FileList | null>(value || null);
 
-    const config = useConfig();
+    const contrast = useNuiDefaultProperty(props, "BaseInputFile", "contrast");
+    const rounded = useNuiDefaultProperty(props, "BaseInputFile", "rounded");
+    const size = useNuiDefaultProperty(props, "BaseInputFile", "size");
 
-    const rounded = props.rounded ?? config.BaseInputFile?.rounded;
+    const attrs = {
+      ...props,
+      contrast: undefined,
+      rounded: undefined,
+      size: undefined,
+    };
 
-    const size = props.size ?? config.BaseInputFile?.size;
-
-    const contrast = props.contrast ?? config.BaseInputFile?.contrast;
-
-    const id = useNinjaId(() => props.id);
+    const _id = useNinjaId(() => id);
 
     const text = textValue(files);
 
@@ -180,7 +202,7 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
         get el() {
           return inputRef.current;
         },
-        id,
+        id: _id,
       }),
       [id],
     );
@@ -192,18 +214,18 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
           contrast && contrasts[contrast],
           size && sizes[size],
           rounded && radiuses[rounded],
-          error && !props.loading && "nui-input-file-error",
-          props.loading && "nui-input-file-loading",
-          props.icon && "nui-has-icon",
-          props.classes?.wrapper,
+          error && !loading && "nui-input-file-error",
+          loading && "nui-input-file-loading",
+          icon && "nui-has-icon",
+          classes?.wrapper,
         )}
       >
-        {props.label && (
+        {label && (
           <label
             htmlFor={id}
-            className={cn("nui-input-file-label", props.classes?.label)}
+            className={cn("nui-input-file-label", classes?.label)}
           >
-            {props.label}
+            {label}
           </label>
         )}
         <div className="nui-input-file-outer">
@@ -211,42 +233,39 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
             htmlFor={id}
             className={cn(
               "nui-input-file-inner",
-              props.colorFocus && "nui-color-focus",
-              props.classes?.input,
+              colorFocus && "nui-color-focus",
+              classes?.input,
             )}
           >
-            <div className={cn("nui-input-file-addon", props.classes?.text)}>
+            <div className={cn("nui-input-file-addon", classes?.text)}>
               <span className="text-xs">{placeholder}</span>
 
-              {props.icon && (
-                <Icon icon={props.icon} className={cn(props.classes?.icon)} />
-              )}
+              {icon && <Icon icon={icon} className={cn(classes?.icon)} />}
             </div>
 
             <div className="nui-input-file-text">{text}</div>
 
             <input
-              id={id}
+              id={_id}
               ref={inputRef}
               type="file"
               className="hidden"
               onChange={(e) => {
                 setFiles(e.target.files);
-                props.onChange?.(e.target.files);
+                onChange?.(e.target.files);
               }}
+              {...attrs}
             />
           </label>
 
-          {props.loading && (
+          {loading && (
             <div className="nui-input-file-placeload">
               <BasePlaceload className="nui-placeload" />
             </div>
           )}
 
           {error && typeof error === "string" && (
-            <span
-              className={cn("nui-input-file-error-text", props.classes?.error)}
-            >
+            <span className={cn("nui-input-file-error-text", classes?.error)}>
               {error}
             </span>
           )}

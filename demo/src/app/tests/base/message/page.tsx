@@ -1,4 +1,4 @@
-import { BaseHeading, BaseMessage } from "@shuriken-ui/react";
+import { BaseMessage } from "@shuriken-ui/react";
 import { Metadata } from "next";
 import React from "react";
 
@@ -14,42 +14,42 @@ export const metadata: Metadata = {
 function MessagePage() {
   return (
     <NuiPreviewContainer title={meta.title}>
-      <NuiPreview title="Type" description="Message component types">
+      <NuiPreview title="Color" description="Message component colors">
         <div className="grid grid-cols-1 md:grid-cols-2 max-w-2xl gap-4">
-          <BaseMessage>A successful message.</BaseMessage>
-          <BaseMessage type="info">An information message.</BaseMessage>
-          <BaseMessage type="warning">A warning message.</BaseMessage>
-          <BaseMessage type="danger">A destructive message.</BaseMessage>
+          <BaseMessage color="success">A successful message.</BaseMessage>
+          <BaseMessage color="info">An information message.</BaseMessage>
+          <BaseMessage color="warning">A warning message.</BaseMessage>
+          <BaseMessage color="danger">A destructive message.</BaseMessage>
+          <BaseMessage color="default">A default message.</BaseMessage>
+          <BaseMessage color="muted">A muted message.</BaseMessage>
         </div>
       </NuiPreview>
 
       <NuiPreview title="Icon" description="Message component icons">
         <div className="grid grid-cols-1 md:grid-cols-2 max-w-2xl gap-4">
-          <BaseMessage icon>A successful message.</BaseMessage>
-          <BaseMessage type="info" icon>
-            An information message.
+          <BaseMessage color="success" icon>A successful message.</BaseMessage>
+          <BaseMessage color="info" icon>An information message.</BaseMessage>
+          <BaseMessage color="warning" icon>A warning message.</BaseMessage>
+          <BaseMessage color="danger" icon>A destructive message.</BaseMessage>
+          <BaseMessage color="default" icon="mingcute:avalanche-avax-fill">
+            A default message.
           </BaseMessage>
-          <BaseMessage type="warning" icon>
-            A warning message.
-          </BaseMessage>
-          <BaseMessage type="danger" icon>
-            A destructive message.
+          <BaseMessage color="muted" icon="mingcute:desk-lamp-fill">
+            A muted message.
           </BaseMessage>
         </div>
       </NuiPreview>
 
       <NuiPreview title="Radius" description="Message component radiuses">
         <div className="grid grid-cols-1 md:grid-cols-2 max-w-2xl gap-4">
-          <BaseMessage icon rounded="sm">
-            A successful message.
-          </BaseMessage>
-          <BaseMessage type="info" icon rounded="md">
+          <BaseMessage color="success" icon rounded="sm">A successful message.</BaseMessage>
+          <BaseMessage color="info" icon rounded="md">
             An information message.
           </BaseMessage>
-          <BaseMessage type="warning" icon rounded="lg">
+          <BaseMessage color="warning" icon rounded="lg">
             A warning message.
           </BaseMessage>
-          <BaseMessage type="danger" icon rounded="full">
+          <BaseMessage color="danger" icon rounded="full">
             A destructive message.
           </BaseMessage>
         </div>

@@ -8,6 +8,8 @@ import {
   useRef,
   useState,
 } from "react";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
 
 type BaseFullscreenDropfileProps = {
   /**
@@ -21,6 +23,13 @@ type BaseFullscreenDropfileProps = {
   icon?: string;
 
   /**
+   * Defines the color of the icon
+   *
+   * @default 'default'
+   */
+  color?: "primary" | "dark" | "black";
+
+  /**
    * Allows to filter files when dropped.
    */
   filterFileDropped?: (file: File) => boolean;
@@ -29,6 +38,12 @@ type BaseFullscreenDropfileProps = {
    * Callback when files are dropped.
    */
   onFilesDropped?: (files: File[]) => void;
+};
+
+const colors = {
+  primary: "nui-dropfile-primary",
+  dark: "nui-dropfile-dark",
+  black: "nui-dropfile-black",
 };
 
 export const BaseFullscreenDropfile = forwardRef<
@@ -40,10 +55,13 @@ export const BaseFullscreenDropfile = forwardRef<
     label = "Drop your files",
     filterFileDropped = () => true,
     onFilesDropped = () => {},
+    ...props
   },
   ref,
 ) {
   const [isDropping, setIsDropping] = useState(false);
+
+  const color = useNuiDefaultProperty(props, "BaseFullscreenDropfile", "color");
 
   const dragCount = useRef(0);
 
@@ -109,7 +127,10 @@ export const BaseFullscreenDropfile = forwardRef<
   }, [onDrop]);
 
   return (
-    <div className="nui-fullscreen-dropfile" ref={ref}>
+    <div
+      className={cn("nui-fullscreen-dropfile", color && colors[color])}
+      ref={ref}
+    >
       {isDropping && <div className="nui-fullscreen-dropfile-outer" />}
       {isDropping && (
         <div className="nui-fullscreen-dropfile-inner">

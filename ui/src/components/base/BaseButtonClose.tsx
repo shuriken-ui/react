@@ -1,23 +1,9 @@
-import { ButtonHTMLAttributes, forwardRef } from "react";
-import { useConfig } from "../../Provider";
-import { IconClose } from "../icons/IconClose";
-import { cn } from "../../utils";
+import { type ButtonHTMLAttributes, forwardRef } from "react";
+import { useNuiDefaultProperty } from "~/Provider";
+import { IconClose } from "~/components/icons";
+import { cn } from "~/utils";
 
 type BaseButtonCloseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  /**
-   * The size of the button.
-   *
-   */
-  size?: "xs" | "sm" | "md" | "lg";
-
-  /**
-   * The radius of the button.
-   *
-   * @since 2.0.0
-   * @default 'full'
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
   /**
    * The color of the button.
    *
@@ -25,13 +11,29 @@ type BaseButtonCloseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
    */
   color?:
     | "default"
+    | "default-contrast"
     | "muted"
+    | "muted-contrast"
     | "primary"
     | "info"
     | "success"
     | "warning"
     | "danger"
     | "none";
+
+  /**
+   * The radius of the button.
+   *
+   * @default 'full'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the button.
+   *
+   * @default 'sm'
+   */
+  size?: "xs" | "sm" | "md" | "lg";
 };
 
 const sizes = {
@@ -43,15 +45,17 @@ const sizes = {
 
 const radiuses = {
   none: "",
-  sm: "nui-button-rounded",
-  md: "nui-button-smooth",
-  lg: "nui-button-curved",
-  full: "nui-button-full",
+  sm: "nui-button-rounded-sm",
+  md: "nui-button-rounded-md",
+  lg: "nui-button-rounded-lg",
+  full: "nui-button-rounded-full",
 };
 
 const colors = {
   default: "nui-button-default",
+  "default-contrast": "nui-button-default-contrast",
   muted: "nui-button-muted",
+  "muted-contrast": "nui-button-muted-contrast",
   primary: "nui-button-primary",
   info: "nui-button-info",
   success: "nui-button-success",
@@ -63,24 +67,17 @@ const colors = {
 export const BaseButtonClose = forwardRef<
   HTMLButtonElement,
   BaseButtonCloseProps
->(function BaseButtonClose(
-  {
-    size: sizeProp,
-    rounded: roundedProp,
-    color: colorProp,
-    children,
-    className,
-    ...props
-  },
-  ref,
-) {
-  const config = useConfig();
+>(function BaseButtonClose({ children, className, ...props }, ref) {
+  const color = useNuiDefaultProperty(props, "BaseButtonClose", "color");
+  const rounded = useNuiDefaultProperty(props, "BaseButtonClose", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseButtonClose", "size");
 
-  const size = sizeProp ?? config.BaseButtonClose?.size;
-
-  const rounded = roundedProp ?? config.BaseButtonClose?.rounded;
-
-  const color = colorProp ?? config.BaseButtonClose?.color;
+  const attrs = {
+    ...props,
+    color: undefined,
+    rounded: undefined,
+    size: undefined,
+  };
 
   return (
     <button
@@ -90,11 +87,12 @@ export const BaseButtonClose = forwardRef<
         size && sizes[size],
         rounded && radiuses[rounded],
         color && colors[color],
+        className,
       )}
-      {...props}
+      {...attrs}
       ref={ref}
     >
-      <IconClose className="nui-button-icon" />
+      {children || <IconClose className="nui-button-icon" />}
     </button>
   );
 });

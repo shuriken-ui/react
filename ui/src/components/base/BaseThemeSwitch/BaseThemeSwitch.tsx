@@ -1,21 +1,30 @@
 import { forwardRef, useEffect, useRef } from "react";
-import { IconMoon, IconSun } from "../../icons";
-import { useColorMode } from "../../../hooks/useColorMode";
+import { IconMoon, IconSun } from "~/components/icons";
+import { useColorMode } from "~/hooks/useColorMode";
+import { useNuiDefaultProperty } from "~/Provider";
 import "./BaseThemeSwitch.css";
 
 type BaseThemeSwitchProps = {
   /**
    * Disables transitions when toggling between light and dark mode.
+   *
+   * @default false
    */
   disableTransitions?: boolean;
 };
 export const BaseThemeSwitch = forwardRef<
   HTMLLabelElement,
   BaseThemeSwitchProps
->(function BaseThemeSwitch({ disableTransitions = false }, ref) {
+>(function BaseThemeSwitch({ ...props }, ref) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const { colorMode, setColorMode } = useColorMode();
+
+  const disableTransitions = useNuiDefaultProperty(
+    props,
+    "BaseThemeSwitch",
+    "disableTransitions",
+  );
 
   function handleChange(isChecked: boolean) {
     // disable transitions
@@ -42,7 +51,6 @@ export const BaseThemeSwitch = forwardRef<
   });
 
   return (
-    // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label className="nui-theme-switch" ref={ref}>
       <input
         className="nui-theme-switch-input"

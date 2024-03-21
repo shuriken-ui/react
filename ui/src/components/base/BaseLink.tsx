@@ -1,6 +1,6 @@
-import { HTMLAttributes, forwardRef } from "react";
+import { type HTMLAttributes, forwardRef } from "react";
 import Link, { type LinkProps } from "next/link";
-import { cn } from "../../utils";
+import { cn } from "~/utils";
 
 type BaseLinkProps = LinkProps &
   Omit<HTMLAttributes<HTMLAnchorElement>, keyof LinkProps>;

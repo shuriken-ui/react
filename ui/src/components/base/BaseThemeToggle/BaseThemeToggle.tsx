@@ -1,9 +1,10 @@
 import { forwardRef, useEffect, useRef } from "react";
-import { useColorMode } from "../../../hooks/useColorMode";
-import { IconMoon, IconSun } from "../../icons";
+import { useColorMode } from "~/hooks/useColorMode";
+import { IconMoon, IconSun } from "~/components/icons";
+import { useNuiDefaultProperty } from "~/Provider";
 
 import "./BaseThemeToggle.css";
-import { cn } from "../../../utils";
+import { cn } from "~/utils";
 
 type BaseThemeToggleProps = {
   /**
@@ -20,13 +21,16 @@ type BaseThemeToggleProps = {
 export const BaseThemeToggle = forwardRef<
   HTMLLabelElement,
   BaseThemeToggleProps
->(function BaseThemeToggle(
-  { disableTransitions = false, inverted = false },
-  ref,
-) {
+>(function BaseThemeToggle({ inverted = false, ...props }, ref) {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const { colorMode, setColorMode } = useColorMode();
+
+  const disableTransitions = useNuiDefaultProperty(
+    props,
+    "BaseThemeSwitch",
+    "disableTransitions",
+  );
 
   function handleChange(isChecked: boolean) {
     // disable transitions
@@ -53,7 +57,6 @@ export const BaseThemeToggle = forwardRef<
   });
 
   return (
-    // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label
       className={cn(
         "nui-theme-toggle",

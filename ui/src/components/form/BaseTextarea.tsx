@@ -1,18 +1,24 @@
-import React, {
-  ReactNode,
+import {
+  type ReactNode,
   forwardRef,
   useCallback,
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
+  type InputHTMLAttributes,
 } from "react";
-import { useConfig } from "../../Provider";
-import { useNinjaId } from "../../hooks/useNinjaId";
-import { cn } from "../../utils";
-import { BasePlaceload } from "../base/BasePlaceload";
+import { useNuiDefaultProperty } from "~/Provider";
+import { useNinjaId } from "~/hooks/useNinjaId";
+import { cn } from "~/utils";
+import { BasePlaceload } from "~/components/base/BasePlaceload";
 
-type TextareaProps = {
+type BaseTextareaProps = {
+  /**
+   * The value of the textarea.
+   */
+  value?: string;
+
   /**
    * A function that is called when the value of the textarea changes.
    *
@@ -38,18 +44,6 @@ type TextareaProps = {
    * The name of the textarea.
    */
   name?: string;
-
-  /**
-   * The value of the textarea.
-   */
-  value?: string;
-
-  /**
-   * The radius of the textarea.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
   /**
    * The label for the textarea.
    */
@@ -79,16 +73,6 @@ type TextareaProps = {
    * Whether the textarea is disabled.
    */
   disabled?: boolean;
-
-  /**
-   * The size of the textarea.
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
-   * The contrast of the textarea.
-   */
-  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
 
   /**
    * Whether the textarea is read-only.
@@ -128,6 +112,28 @@ type TextareaProps = {
   maxHeight?: number;
 
   /**
+   * The contrast of the textarea.
+   *
+   * @default 'default'
+   */
+  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
+
+  /**
+   * The radius of the textarea.
+   *
+   * @since 2.0.0
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the textarea.
+   *
+   * @default 'md'
+   */
+  size?: "sm" | "md" | "lg";
+
+  /**
    * A set of classes to apply to the various elements of the textarea.
    */
   classes?: {
@@ -156,10 +162,10 @@ type TextareaProps = {
 
 const radiuses = {
   none: "",
-  sm: "nui-textarea-rounded",
-  md: "nui-textarea-smooth",
-  lg: "nui-textarea-curved",
-  full: "nui-textarea-full",
+  sm: "nui-textarea-rounded-sm",
+  md: "nui-textarea-rounded-md",
+  lg: "nui-textarea-rounded-lg",
+  full: "nui-textarea-rounded-lg",
 };
 
 const sizes = {
@@ -191,171 +197,167 @@ export type BaseTextareaRef = {
   fitSize: () => void;
 };
 
-export const BaseTextarea = forwardRef<BaseTextareaRef, TextareaProps>(
-  function BaseTextarea(
-    {
-      onChange = (val) => {},
-      stateModifiers,
-      placeholder = "",
-      rows = 4,
-      error = false,
-      ...props
+export const BaseTextarea = forwardRef<
+  BaseTextareaRef,
+  BaseTextareaProps &
+    Omit<InputHTMLAttributes<HTMLTextAreaElement>, keyof BaseTextareaProps>
+>(function BaseTextarea(
+  {
+    onChange = () => {},
+    stateModifiers,
+    placeholder = "",
+    rows = 4,
+    error = false,
+    ...props
+  },
+  ref,
+) {
+  const [textareaValue, setTextareaValue] = useState("");
+
+  const id = useNinjaId(() => props.id);
+
+  const contrast = useNuiDefaultProperty(props, "BaseTextarea", "contrast");
+  const rounded = useNuiDefaultProperty(props, "BaseTextarea", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseTextarea", "size");
+
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const fitSize = useCallback(() => {
+    if (!textareaRef.current) {
+      return;
+    }
+
+    if (props.autogrow) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [props.autogrow]);
+
+  const handleUpdate = useCallback(
+    (value: string) => {
+      const content = stateModifiers?.trim ? value.trim() : value;
+
+      setTextareaValue(content);
+      onChange(content);
     },
+    [onChange, stateModifiers?.trim],
+  );
+
+  useImperativeHandle(
     ref,
-  ) {
-    const [textareaValue, setTextareaValue] = useState("");
-
-    const config = useConfig();
-
-    const id = useNinjaId(() => props.id);
-
-    const rounded = props.rounded ?? config.BaseTextarea?.rounded;
-
-    const size = props.size ?? config.BaseTextarea?.size;
-
-    const contrast = props.contrast ?? config.BaseTextarea?.contrast;
-
-    const textareaRef = useRef<HTMLTextAreaElement>(null);
-
-    const fitSize = useCallback(() => {
-      if (!textareaRef.current) {
-        return;
-      }
-
-      if (props.autogrow) {
-        textareaRef.current.style.height = "auto";
-        textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-      }
-    }, [props.autogrow]);
-
-    const handleUpdate = useCallback(
-      (value: string) => {
-        const content = stateModifiers?.trim ? value.trim() : value;
-
-        setTextareaValue(content);
-        onChange(content);
+    () => ({
+      get el() {
+        return textareaRef.current;
       },
-      [onChange, stateModifiers?.trim],
-    );
+      id,
+      fitSize,
+    }),
+    [fitSize, id],
+  );
 
-    useImperativeHandle(
-      ref,
-      () => ({
-        get el() {
-          return textareaRef.current;
-        },
-        id,
-        fitSize,
-      }),
-      [fitSize, id],
-    );
+  useEffect(() => {
+    fitSize();
+  }, [fitSize, textareaValue, props.autogrow, props.maxHeight]);
 
-    useEffect(() => {
-      fitSize();
-    }, [fitSize, textareaValue, props.autogrow, props.maxHeight]);
+  useEffect(() => {
+    if (props.value && props.value !== textareaValue) {
+      handleUpdate(props.value);
+    }
+  }, [props.value, textareaValue, handleUpdate]);
 
-    useEffect(() => {
-      if (props.value && props.value !== textareaValue) {
-        handleUpdate(props.value);
-      }
-    }, [props.value, textareaValue, handleUpdate]);
-
-    return (
-      <div
-        className={cn(
-          "nui-textarea-wrapper",
-          contrast && contrasts[contrast],
-          size && sizes[size],
-          rounded && radiuses[rounded],
-          error && !props.loading && "nui-textarea-error",
-          props.loading && "nui-textarea-loading",
-          props.labelFloat && "nui-textarea-label-float",
-          !props.resize && "nui-textarea-not-resize",
-          props.addon && "nui-has-addon",
-          props.classes?.wrapper,
+  return (
+    <div
+      className={cn(
+        "nui-textarea-wrapper",
+        contrast && contrasts[contrast],
+        size && sizes[size],
+        rounded && radiuses[rounded],
+        error && !props.loading && "nui-textarea-error",
+        props.loading && "nui-textarea-loading",
+        props.labelFloat && "nui-textarea-label-float",
+        !props.resize && "nui-textarea-not-resize",
+        props.addon && "nui-has-addon",
+        props.classes?.wrapper,
+      )}
+    >
+      {props.label && !props.labelFloat && (
+        <label
+          htmlFor={id}
+          className={cn("nui-textarea-label", props.classes?.label)}
+        >
+          {props.label}
+        </label>
+      )}
+      <div className="nui-textarea-outer">
+        {stateModifiers?.lazy ? (
+          <textarea
+            id={id}
+            ref={textareaRef}
+            className={cn(
+              "nui-textarea",
+              props.colorFocus && "nui-textarea-focus",
+              props.classes?.textarea,
+            )}
+            name={props.name}
+            placeholder={placeholder}
+            readOnly={props.readonly}
+            disabled={props.disabled}
+            rows={rows}
+            value={textareaValue}
+            onChange={(e) => {
+              handleUpdate(e.target.value);
+            }}
+          />
+        ) : (
+          <textarea
+            id={id}
+            ref={textareaRef}
+            className={cn(
+              "nui-textarea",
+              props.colorFocus && "nui-textarea-focus",
+              props.classes?.textarea,
+            )}
+            name={props.name}
+            placeholder={placeholder}
+            readOnly={props.readonly}
+            disabled={props.disabled}
+            rows={rows}
+            value={textareaValue}
+            onInput={(e) => {
+              handleUpdate(e.currentTarget.value);
+            }}
+          />
         )}
-      >
-        {props.label && !props.labelFloat && (
+
+        {props.label && props.labelFloat && (
           <label
+            className={cn("nui-label-float", props.classes?.label)}
             htmlFor={id}
-            className={cn("nui-textarea-label", props.classes?.label)}
           >
             {props.label}
           </label>
         )}
-        <div className="nui-textarea-outer">
-          {stateModifiers?.lazy ? (
-            <textarea
-              id={id}
-              ref={textareaRef}
-              className={cn(
-                "nui-textarea",
-                props.colorFocus && "nui-textarea-focus",
-                props.classes?.textarea,
-              )}
-              name={props.name}
-              placeholder={placeholder}
-              readOnly={props.readonly}
-              disabled={props.disabled}
-              rows={rows}
-              value={textareaValue}
-              onChange={(e) => {
-                handleUpdate(e.target.value);
-              }}
-            />
-          ) : (
-            <textarea
-              id={id}
-              ref={textareaRef}
-              className={cn(
-                "nui-textarea",
-                props.colorFocus && "nui-textarea-focus",
-                props.classes?.textarea,
-              )}
-              name={props.name}
-              placeholder={placeholder}
-              readOnly={props.readonly}
-              disabled={props.disabled}
-              rows={rows}
-              value={textareaValue}
-              onInput={(e) => {
-                handleUpdate(e.currentTarget.value);
-              }}
-            />
-          )}
 
-          {props.label && props.labelFloat && (
-            <label
-              className={cn("nui-label-float", props.classes?.label)}
-              htmlFor={id}
-            >
-              {props.label}
-            </label>
-          )}
+        {props.loading && (
+          <div className="nui-textarea-placeload">
+            <BasePlaceload className="nui-placeload" />
+            <BasePlaceload className="nui-placeload" />
+            <BasePlaceload className="nui-placeload" />
+          </div>
+        )}
 
-          {props.loading && (
-            <div className="nui-textarea-placeload">
-              <BasePlaceload className="nui-placeload" />
-              <BasePlaceload className="nui-placeload" />
-              <BasePlaceload className="nui-placeload" />
-            </div>
-          )}
+        {props.addon && props.addonElement && (
+          <div className={cn("nui-textarea-addon", props.classes?.addon)}>
+            {props.addonElement}
+          </div>
+        )}
 
-          {props.addon && props.addonElement && (
-            <div className={cn("nui-textarea-addon", props.classes?.addon)}>
-              {props.addonElement}
-            </div>
-          )}
-
-          {error && typeof error === "string" && (
-            <span
-              className={cn("nui-textarea-error-text", props.classes?.error)}
-            >
-              {error}
-            </span>
-          )}
-        </div>
+        {error && typeof error === "string" && (
+          <span className={cn("nui-textarea-error-text", props.classes?.error)}>
+            {error}
+          </span>
+        )}
       </div>
-    );
-  },
-);
+    </div>
+  );
+});

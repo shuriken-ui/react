@@ -26,70 +26,60 @@ function DropdownPage() {
           <BaseDropdown
             variant="button"
             label="Dropdown"
-            orientation="start"
             size="md"
           >
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
           <BaseDropdown
             variant="button"
             label="Dropdown"
-            orientation="start"
             size="lg"
           >
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -101,70 +91,60 @@ function DropdownPage() {
           <BaseDropdown
             variant="button"
             label="Dropdown"
-            orientation="start"
-            color="white"
+            color="default"
           >
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
           <BaseDropdown
             variant="button"
             label="Dropdown"
-            orientation="start"
-            color="white-contrast"
+            color="default-contrast"
           >
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -176,35 +156,30 @@ function DropdownPage() {
           <BaseDropdown
             variant="button"
             label="Dropdown"
-            orientation="start"
             buttonColor="default"
           >
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -212,35 +187,30 @@ function DropdownPage() {
           <BaseDropdown
             variant="button"
             label="Dropdown"
-            orientation="start"
             buttonColor="muted"
           >
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -248,35 +218,30 @@ function DropdownPage() {
           <BaseDropdown
             variant="button"
             label="Dropdown"
-            orientation="start"
             buttonColor="primary"
           >
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -288,33 +253,29 @@ function DropdownPage() {
         description="Dropdown button start position"
       >
         <div className="flex justify-start w-full">
-          <BaseDropdown variant="button" label="Dropdown" orientation="start">
+          <BaseDropdown variant="button" label="Dropdown">
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -326,33 +287,29 @@ function DropdownPage() {
         description="Dropdown button end position"
       >
         <div className="flex justify-end w-full">
-          <BaseDropdown variant="button" label="Dropdown" orientation="end">
+          <BaseDropdown variant="button" label="Dropdown" placement="bottom-end">
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -364,33 +321,29 @@ function DropdownPage() {
         description="Dropdown context start position"
       >
         <div className="flex justify-start w-full">
-          <BaseDropdown variant="context" label="Dropdown" orientation="start">
+          <BaseDropdown variant="context" label="Dropdown">
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -402,33 +355,29 @@ function DropdownPage() {
         description="Dropdown context end position"
       >
         <div className="flex justify-end w-full">
-          <BaseDropdown variant="context" label="Dropdown" orientation="end">
+          <BaseDropdown variant="context" label="Dropdown" placement="bottom-end">
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -440,19 +389,17 @@ function DropdownPage() {
         description="Dropdown text start position"
       >
         <div className="flex justify-start w-full">
-          <BaseDropdown variant="text" label="Dropdown" orientation="start">
+          <BaseDropdown variant="text" label="Dropdown">
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem href="#" title="Team" text="Manage your team" />
@@ -460,7 +407,6 @@ function DropdownPage() {
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -469,33 +415,29 @@ function DropdownPage() {
 
       <NuiPreview title="Text: end" description="Dropdown text end position">
         <div className="flex justify-end w-full">
-          <BaseDropdown variant="text" label="Dropdown" orientation="end">
+          <BaseDropdown variant="text" label="Dropdown" placement="bottom-end">
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
             />
             <BaseDropdownItem
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
             />
           </BaseDropdown>
@@ -504,12 +446,11 @@ function DropdownPage() {
 
       <NuiPreview title="Slot: icon" description="Dropdown icon slot">
         <div className="flex justify-start w-full">
-          <BaseDropdown variant="button" label="Dropdown" orientation="start">
+          <BaseDropdown variant="button" label="Dropdown">
             <BaseDropdownItem
               href="#"
               title="Profile"
               text="View your profile"
-              color="default"
               rounded="sm"
               start={
                 <Iconify
@@ -522,7 +463,6 @@ function DropdownPage() {
               href="#"
               title="Projects"
               text="View your projects"
-              color="default"
               rounded="sm"
               start={
                 <Iconify
@@ -535,7 +475,6 @@ function DropdownPage() {
               href="#"
               title="Team"
               text="Manage your team"
-              color="default"
               rounded="sm"
               start={
                 <Iconify
@@ -549,7 +488,6 @@ function DropdownPage() {
               href="#"
               title="Settings"
               text="Set your preferences"
-              color="default"
               rounded="sm"
               start={
                 <Iconify
@@ -564,12 +502,11 @@ function DropdownPage() {
 
       <NuiPreview title="Slot: avatar" description="Dropdown avatar slot">
         <div className="flex justify-start w-full">
-          <BaseDropdown variant="button" label="Dropdown" orientation="start">
+          <BaseDropdown variant="button" label="Dropdown">
             <BaseDropdownItem
               href="#"
               title="Lana Jensen"
               text="Software Engineer"
-              color="default"
               rounded="sm"
               start={
                 <BaseAvatar
@@ -583,7 +520,6 @@ function DropdownPage() {
               href="#"
               title="Shawn Miller"
               text="Product Manager"
-              color="default"
               rounded="sm"
               start={
                 <BaseAvatar
@@ -597,7 +533,6 @@ function DropdownPage() {
               href="#"
               title="John Marynski"
               text="Sales Manager"
-              color="default"
               rounded="sm"
               start={
                 <BaseAvatar
@@ -613,7 +548,6 @@ function DropdownPage() {
               href="#"
               title="Garry Porter"
               text="CEO - Founder"
-              color="default"
               rounded="sm"
               start={
                 <BaseAvatar
@@ -631,14 +565,13 @@ function DropdownPage() {
           <BaseDropdown
             variant="button"
             label="Dropdown"
-            orientation="start"
-            header-label="My Team"
+           
+            headerLabel="My Team"
           >
             <BaseDropdownItem
               href="#"
               title="Lana Jensen"
               text="Software Engineer"
-              color="default"
               rounded="sm"
               start={
                 <BaseAvatar
@@ -652,7 +585,6 @@ function DropdownPage() {
               href="#"
               title="Shawn Miller"
               text="Product Manager"
-              color="default"
               rounded="sm"
               start={
                 <BaseAvatar
@@ -666,7 +598,6 @@ function DropdownPage() {
               href="#"
               title="John Marynski"
               text="Sales Manager"
-              color="default"
               rounded="sm"
               start={
                 <BaseAvatar
@@ -682,7 +613,6 @@ function DropdownPage() {
               href="#"
               title="Garry Porter"
               text="CEO - Founder"
-              color="default"
               rounded="sm"
               start={
                 <BaseAvatar

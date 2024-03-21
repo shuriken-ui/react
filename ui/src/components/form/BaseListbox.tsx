@@ -1,16 +1,16 @@
 /* eslint-disable no-nested-ternary */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Ref, forwardRef, useCallback, useEffect, useState } from "react";
+import { type Ref, forwardRef, useCallback, useEffect, useState } from "react";
 import { Listbox } from "@headlessui/react";
 import { Float } from "@headlessui-float/react";
 import { Icon } from "@iconify/react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 import { BaseListboxItem } from "./BaseListboxItem";
-import { BaseIconBox } from "../base/BaseIconBox";
+import { BaseIconBox } from "~/components/base/BaseIconBox";
 
-import { BasePlaceload } from "../base/BasePlaceload";
-import { BaseAvatar } from "../base/BaseAvatar";
+import { BasePlaceload } from "~/components/base/BasePlaceload";
+import { BaseAvatar } from "~/components/base/BaseAvatar";
 
 type BaseListboxProps<T = string> = {
   value?: T;
@@ -30,12 +30,6 @@ type BaseListboxProps<T = string> = {
   };
 
   /**
-   * The radius of the multiselect.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /**
    * The label to display for the multiselect.
    */
   label?: string;
@@ -44,21 +38,6 @@ type BaseListboxProps<T = string> = {
    * If the label should be floating.
    */
   labelFloat?: boolean;
-
-  /**
-   * Whether the multiselect is in a loading state.
-   */
-  loading?: boolean;
-
-  /**
-   * An error message or boolean value indicating whether the input is in an error state.
-   */
-  error?: string | boolean;
-
-  /**
-   * Whether the multiselect is disabled.
-   */
-  disabled?: boolean;
 
   /**
    * The icon to display for the multiselect.
@@ -71,6 +50,31 @@ type BaseListboxProps<T = string> = {
   selectedIcon?: string;
 
   /**
+   * The placeholder text to display when no selection has been made.
+   */
+  placeholder?: string;
+
+  /**
+   * An error message or boolean value indicating whether the input is in an error state.
+   */
+  error?: string | boolean;
+
+  /**
+   * Whether the multiselect is in a loading state.
+   */
+  loading?: boolean;
+
+  /**
+   * Whether the multiselect is disabled.
+   */
+  disabled?: boolean;
+
+  /**
+   * Wether the border should change color when focused
+   */
+  colorFocus?: boolean;
+
+  /**
    * Whether the multiselect allows multiple selections.
    */
   multiple?: boolean;
@@ -81,41 +85,9 @@ type BaseListboxProps<T = string> = {
   multipleLabel?: string | ((value: T[], labelProperty?: string) => string);
 
   /**
-   * The placeholder text to display when no selection has been made.
-   */
-  placeholder?: string;
-
-  /**
-   * The size of the listbox.
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
-   * The contrast of the listbox.
-   */
-  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
-
-  /**
    * Used a fixed strategy to float the component
    */
   fixed?: boolean;
-
-  /**
-   * The placement of the component via floating-ui.
-   */
-  placement?:
-    | "top"
-    | "top-start"
-    | "top-end"
-    | "right"
-    | "right-start"
-    | "right-end"
-    | "bottom"
-    | "bottom-start"
-    | "bottom-end"
-    | "left"
-    | "left-start"
-    | "left-end";
 
   /**
    * The properties to use for the value, label, sublabel, media, and icon of the options items.
@@ -146,14 +118,89 @@ type BaseListboxProps<T = string> = {
      */
     icon?: T extends object ? keyof T : string;
   };
+
+  /**
+   * The contrast of the listbox.
+   *
+   * @default 'default'
+   */
+  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
+
+  /**
+   * The placement of the component via floating-ui.
+   *
+   * @default 'bottom-start'
+   */
+  placement?:
+    | "top"
+    | "top-start"
+    | "top-end"
+    | "right"
+    | "right-start"
+    | "right-end"
+    | "bottom"
+    | "bottom-start"
+    | "bottom-end"
+    | "left"
+    | "left-start"
+    | "left-end";
+
+  /**
+   * The radius of the multiselect.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the listbox.
+   *
+   * @default 'md'
+   */
+  size?: "sm" | "md" | "lg";
+
+  /**
+   * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the outer element.
+     */
+    outer?: string | string[];
+
+    /**
+     * CSS classes to apply to the label element.
+     */
+    label?: string | string[];
+
+    /**
+     * CSS classes to apply to the button element.
+     */
+    button?: string | string[];
+
+    /**
+     * CSS classes to apply to the icon element.
+     */
+    icon?: string | string[];
+
+    /**
+     * CSS classes to apply to the error element.
+     */
+    error?: string | string[];
+  };
 };
 
 const radiuses = {
   none: "",
-  sm: "nui-listbox-rounded",
-  md: "nui-listbox-smooth",
-  lg: "nui-listbox-curved",
-  full: "nui-listbox-full",
+  sm: "nui-listbox-rounded-sm",
+  md: "nui-listbox-rounded-md",
+  lg: "nui-listbox-rounded-lg",
+  full: "nui-listbox-rounded-full",
 };
 
 const sizes = {
@@ -193,20 +240,16 @@ export const BaseListbox = forwardRef(function BaseListbox<T = string>(
     loading = false,
     disabled = false,
     fixed = false,
-    placement = "bottom-start",
     ...props
   }: BaseListboxProps<T>,
   ref: Ref<HTMLDivElement>,
 ) {
-  const config = useConfig();
-
   const [value, setValue] = useState(props.value);
 
-  const rounded = props.rounded ?? config.BaseListbox?.rounded;
-
-  const size = props.size ?? config.BaseListbox?.size;
-
-  const contrast = props.contrast ?? config.BaseListbox?.contrast;
+  const contrast = useNuiDefaultProperty(props, "BaseListbox", "contrast");
+  const placement = useNuiDefaultProperty(props, "BaseListbox", "placement");
+  const rounded = useNuiDefaultProperty(props, "BaseListbox", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseListbox", "size");
 
   const handleSetValue = useCallback(
     (_value: T) => {
@@ -250,6 +293,8 @@ export const BaseListbox = forwardRef(function BaseListbox<T = string>(
         loading && "nui-listbox-loading",
         props.labelFloat && "nui-listbox-label-float",
         icon && "nui-has-icon",
+        props.colorFocus && "nui-listbox-focus",
+        props.classes?.wrapper,
       )}
       ref={ref}
     >
@@ -274,14 +319,16 @@ export const BaseListbox = forwardRef(function BaseListbox<T = string>(
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
             flip
-            offset="5"
+            offset={5}
             strategy={fixed ? "fixed" : "absolute"}
             placement={placement}
             adaptiveWidth={fixed}
             zIndex="20"
           >
             {label && !props.labelFloat ? (
-              <Listbox.Label className="nui-listbox-label">
+              <Listbox.Label
+                className={cn("nui-listbox-label", props.classes?.label)}
+              >
                 {label}
               </Listbox.Label>
             ) : (
@@ -289,12 +336,12 @@ export const BaseListbox = forwardRef(function BaseListbox<T = string>(
               <></>
             )}
 
-            <div className="nui-listbox-outer">
+            <div className={cn("nui-listbox-outer", props.classes?.outer)}>
               <Float.Reference>
                 <div>
                   <Listbox.Button
                     // disabled={disabled}
-                    className="nui-listbox-button"
+                    className={cn("nui-listbox-button", props.classes?.button)}
                   >
                     <div className="nui-listbox-button-inner">
                       {icon && (
@@ -302,7 +349,7 @@ export const BaseListbox = forwardRef(function BaseListbox<T = string>(
                           size="xs"
                           rounded="sm"
                           color="none"
-                          className="nui-icon-box"
+                          className={cn("nui-icon-box", props.classes?.icon)}
                         >
                           <Icon icon={icon} className="nui-icon-box-inner" />
                         </BaseIconBox>
@@ -492,7 +539,12 @@ export const BaseListbox = forwardRef(function BaseListbox<T = string>(
               </Float.Content>
 
               {error && typeof error === "string" && (
-                <span className="text-danger-600 mt-1 block font-sans text-[0.65rem] font-medium leading-none">
+                <span
+                  className={cn(
+                    "text-danger-600 mt-1 block font-sans text-[0.65rem] font-medium leading-none",
+                    props.classes?.error,
+                  )}
+                >
                   {error}
                 </span>
               )}

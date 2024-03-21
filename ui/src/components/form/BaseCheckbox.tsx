@@ -1,17 +1,20 @@
 import {
-  MouseEventHandler,
+  type HTMLAttributes,
+  type MouseEventHandler,
   forwardRef,
   useEffect,
   useImperativeHandle,
   useRef,
+  type ForwardedRef,
+  type InputHTMLAttributes,
 } from "react";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
-import { useNinjaId } from "../../hooks/useNinjaId";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
+import { useNinjaId } from "~/hooks/useNinjaId";
 import { IconCheck } from "../icons/IconCheck";
 import { IconIndeterminate } from "../icons/IconIndeterminate";
 
-type BaseCheckboxProps = {
+interface BaseCheckboxProps<T> {
   /**
    * The label to display for the checkbox.
    */
@@ -20,17 +23,17 @@ type BaseCheckboxProps = {
   /**
    * Defines the value of the checkbox when it's checked.
    */
-  value?: string;
+  value?: T;
 
   /**
    * The value to set when the checkbox is checked.
    */
-  trueValue?: string;
+  trueValue?: T;
 
   /**
    * The value to set when the checkbox is unchecked.
    */
-  falseValue?: string;
+  falseValue?: T;
 
   /**
    *  if the checkbox is checked
@@ -39,10 +42,10 @@ type BaseCheckboxProps = {
 
   /**
    * The value of the component.
-   * @param value The value of the checkbox.
    * @param checked Whether the checkbox is checked.
+   * @param value The value associated with the checkbox.
    */
-  onChange?: (value: string, checked: boolean) => void;
+  onChange?: (checked: boolean, value: NonNullable<T>) => void;
 
   /**
    * The function to call when the checkbox is clicked.
@@ -69,22 +72,28 @@ type BaseCheckboxProps = {
    */
   indeterminate?: boolean;
 
-  /**
-   * The radius of the checkbox.
+  /** The color of the checkbox.
    *
+   * @default 'default'
    */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /** The color of the checkbox. Can be 'default', 'primary', 'info', 'success', 'warning', or 'danger' */
   color?:
     | "default"
-    | "light"
     | "muted"
+    | "light"
+    | "dark"
+    | "black"
     | "primary"
     | "info"
     | "success"
     | "warning"
     | "danger";
+
+  /**
+   * The radius of the checkbox.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, and input elements.
@@ -105,20 +114,22 @@ type BaseCheckboxProps = {
      */
     input?: string | string[];
   };
-};
+}
 
 const radiuses = {
   none: "",
-  sm: "nui-checkbox-rounded",
-  md: "nui-checkbox-smooth",
-  lg: "nui-checkbox-curved",
-  full: "nui-checkbox-full",
+  sm: "nui-checkbox-rounded-sm",
+  md: "nui-checkbox-rounded-md",
+  lg: "nui-checkbox-rounded-lg",
+  full: "nui-checkbox-rounded-full",
 };
 
 const colors = {
   default: "nui-checkbox-default",
-  light: "nui-checkbox-light",
   muted: "nui-checkbox-muted",
+  light: "nui-checkbox-light",
+  dark: "nui-checkbox-dark",
+  black: "nui-checkbox-black",
   primary: "nui-checkbox-primary",
   info: "nui-checkbox-info",
   success: "nui-checkbox-success",
@@ -130,90 +141,94 @@ export type BaseCheckboxRef = {
   el: HTMLInputElement | null;
 };
 
-export const BaseCheckbox = forwardRef<BaseCheckboxRef, BaseCheckboxProps>(
-  function BaseCheckbox(
-    { error = "", trueValue, falseValue, onChange = () => {}, ...props },
+function BaseCheckboxInner<T = boolean>(
+  {
+    error = "",
+    trueValue,
+    falseValue,
+    onChange = () => {},
+    ...props
+  }: BaseCheckboxProps<T>,
+  ref: ForwardedRef<{
+    el: HTMLInputElement | null;
+  }>,
+) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const color = useNuiDefaultProperty(props, "BaseCheckbox", "color");
+  const rounded = useNuiDefaultProperty(props, "BaseCheckbox", "rounded");
+
+  const id = useNinjaId(() => props.id);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.indeterminate = props.indeterminate || false;
+    }
+  }, [props.indeterminate]);
+
+  useImperativeHandle(
     ref,
-  ) {
-    const inputRef = useRef<HTMLInputElement>(null);
+    () => {
+      return {
+        get el() {
+          return inputRef.current;
+        },
+      };
+    },
+    [],
+  );
 
-    const config = useConfig();
-
-    const rounded = props.rounded ?? config.BaseCheckbox?.rounded;
-
-    const color = props.color ?? config.BaseCheckbox?.color;
-
-    const id = useNinjaId(() => props.id);
-
-    useEffect(() => {
-      if (inputRef.current) {
-        inputRef.current.indeterminate = props.indeterminate || false;
-      }
-    }, [props.indeterminate]);
-
-    useImperativeHandle(
-      ref,
-      () => {
-        return {
-          get el() {
-            return inputRef.current;
-          },
-        };
-      },
-      [],
-    );
-
-    return (
-      <div
-        className={cn(
-          "nui-checkbox",
-          props.disabled && "opacity-50",
-          rounded && radiuses[rounded],
-          color && colors[color],
-          props.classes?.wrapper,
-        )}
-      >
-        <div className="nui-checkbox-outer">
-          <input
-            id={id}
-            ref={inputRef}
-            value={props.value}
-            disabled={props.disabled}
-            className={cn("nui-checkbox-input", props.classes?.input)}
-            type="checkbox"
-            checked={props.checked}
-            onClick={props.onClick}
-            onChange={(e) => {
-              if (trueValue && falseValue) {
-                onChange(
-                  e.target.checked ? trueValue : falseValue,
-                  e.target.checked,
-                );
-
-                return;
-              }
-
-              onChange(e.target.value, e.target.checked);
-            }}
-          />
-          <div className="nui-checkbox-inner" />
-          <IconCheck className="nui-icon-check" />
-          <IconIndeterminate className="nui-icon-indeterminate" />
-        </div>
-        <div className="nui-checkbox-label-wrapper">
-          {props.label && (
-            <label
-              htmlFor={id}
-              className={cn("nui-checkbox-label-text", props.classes?.label)}
-            >
-              {props.label}
-            </label>
-          )}
-          {error && typeof error === "string" && (
-            <div className="nui-checkbox-error">{error}</div>
-          )}
-        </div>
+  return (
+    <div
+      className={cn(
+        "nui-checkbox",
+        props.disabled && "opacity-50",
+        rounded && radiuses[rounded],
+        color && colors[color],
+        props.classes?.wrapper,
+      )}
+    >
+      <div className="nui-checkbox-outer">
+        <input
+          id={id}
+          ref={inputRef}
+          disabled={props.disabled}
+          className={cn("nui-checkbox-input", props.classes?.input)}
+          type="checkbox"
+          checked={props.checked}
+          onClick={props.onClick}
+          onChange={(e) => {
+            onChange(
+              e.target.checked,
+              ((e.target.checked ? trueValue : falseValue) ??
+                e.target.checked) as NonNullable<T>,
+            );
+          }}
+        />
+        <div className="nui-checkbox-inner" />
+        <IconCheck className="nui-icon-check" />
+        <IconIndeterminate className="nui-icon-indeterminate" />
       </div>
-    );
-  },
-);
+      <div className="nui-checkbox-label-wrapper">
+        {props.label && (
+          <label
+            htmlFor={id}
+            className={cn("nui-checkbox-label-text", props.classes?.label)}
+          >
+            {props.label}
+          </label>
+        )}
+        {error && typeof error === "string" && (
+          <div className="nui-checkbox-error">{error}</div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+export const BaseCheckbox = forwardRef(BaseCheckboxInner) as <T>(
+  props: BaseCheckboxProps<T> &
+    Omit<InputHTMLAttributes<HTMLInputElement>, keyof BaseCheckboxProps<T>> & {
+      ref?: ForwardedRef<HTMLInputElement>;
+    },
+) => ReturnType<typeof BaseCheckboxInner>;

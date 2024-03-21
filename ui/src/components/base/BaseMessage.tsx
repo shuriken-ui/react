@@ -1,26 +1,9 @@
-import { PropsWithChildren, forwardRef } from "react";
+import { type PropsWithChildren, forwardRef } from "react";
 import { Icon } from "@iconify/react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 
 type BaseMessageProps = PropsWithChildren<{
-  /**
-   * The type of the message.
-   */
-  type?:
-    | "default"
-    | "muted"
-    | "primary"
-    | "info"
-    | "success"
-    | "warning"
-    | "danger";
-
-  /**
-   * The shape of the message.
-   */
-  shape?: "straight" | "rounded" | "smooth" | "curved" | "full";
-
   /**
    * The message to display.
    */
@@ -32,14 +15,57 @@ type BaseMessageProps = PropsWithChildren<{
   icon?: boolean | string;
 
   /**
+   * The icon to show in the close button
+   */
+  closeIcon?: string;
+
+  /**
    * Whether to show a close button.
    */
   closable?: boolean;
 
   /**
-   * The icon to show in the close button
+   * The color of the message.
+   *
+   * @default 'default'
    */
-  closeIcon?: string;
+  color?:
+    | "default"
+    | "default-contrast"
+    | "muted"
+    | "muted-contrast"
+    | "primary"
+    | "info"
+    | "success"
+    | "warning"
+    | "danger";
+
+  /**
+   * The radius of the message.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the icon element.
+     */
+    icon?: string | string[];
+
+    /**
+     * CSS classes to apply to the text element.
+     */
+    text?: string | string[];
+  };
 
   /**
    * close handler
@@ -47,17 +73,19 @@ type BaseMessageProps = PropsWithChildren<{
   onClose?: () => void;
 }>;
 
-const shapeStyle = {
-  straight: "",
-  rounded: "nui-message-rounded",
-  smooth: "nui-message-smooth",
-  curved: "nui-message-curved",
-  full: "nui-message-full",
+const radiuses = {
+  none: "",
+  sm: "nui-message-rounded-sm",
+  md: "nui-message-rounded-md",
+  lg: "nui-message-rounded-lg",
+  full: "nui-message-rounded-full",
 };
 
-const typeStyle = {
+const colors = {
   default: "nui-message-default",
+  "default-contrast": "nui-message-default-contrast",
   muted: "nui-message-muted",
+  "muted-contrast": "nui-message-muted-contrast",
   primary: "nui-message-primary",
   info: "nui-message-info",
   success: "nui-message-success",
@@ -65,47 +93,48 @@ const typeStyle = {
   danger: "nui-message-danger",
 };
 
-const iconTypeStyle = {
+const iconTypes = {
   info: "akar-icons:info-fill",
   warning: "ci:warning",
   danger: "ph:warning-octagon-fill",
   success: "carbon:checkmark-filled",
   primary: "",
   muted: "",
+  "muted-contrast": "",
   default: "",
-};
+  "default-contrast": "",
+} as const;
 
 export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
   function BaseMessage(
     {
-      type = "success",
-      shape: defaultShape,
       message = "",
       icon: defaultIcon = false,
       closable = false,
       closeIcon = "lucide:x",
       onClose = () => {},
       children,
+      ...props
     },
     ref,
   ) {
-    const config = useConfig();
-
-    const shape = defaultShape ?? config.defaultShapes.message;
+    const color = useNuiDefaultProperty(props, "BaseMessage", "color");
+    const rounded = useNuiDefaultProperty(props, "BaseMessage", "rounded");
 
     const icon =
-      typeof defaultIcon === "string" ? defaultIcon : iconTypeStyle[type];
+      typeof defaultIcon === "string" ? defaultIcon : iconTypes[color];
 
     return (
       <div
         className={cn(
           "nui-message",
-          shape && shapeStyle[shape],
-          typeStyle[type],
+          rounded && radiuses[rounded],
+          color && colors[color],
+          props?.classes?.wrapper,
         )}
         ref={ref}
       >
-        {icon && (
+        {defaultIcon && icon && (
           <div className="nui-message-icon-outer">
             <Icon icon={icon} name="icon" className="nui-message-icon" />
           </div>
@@ -115,11 +144,10 @@ export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
           {children}
         </span>
         {closable && (
-          // eslint-disable-next-line jsx-a11y/control-has-associated-label
           <button
             type="button"
             tabIndex={0}
-            className={cn("nui-message-close", shape && shapeStyle[shape])}
+            className={cn("nui-message-close", rounded && radiuses[rounded])}
             onClick={onClose}
           >
             <Icon

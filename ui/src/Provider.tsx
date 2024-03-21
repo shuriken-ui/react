@@ -1,153 +1,212 @@
 import {
-  FC,
-  ReactNode,
+  type FC,
+  type ReactNode,
   createContext,
   useContext,
   useMemo,
   useState,
 } from "react";
-import { ColorMode, Config } from "./types";
+import { defu } from "defu";
+import type { ColorMode, Config, DeepPartial } from "./types";
 
 export const defaultConfig: Config = {
+  // #region base
   BaseAccordion: {
-    rounded: "sm",
     action: "dot",
-  },
-  BaseAutocomplete: {
-    rounded: "sm",
-    size: "md",
-    contrast: "default",
-  },
-  BaseAutocompleteItem: {
+    color: "default",
+    dotColor: "primary",
     rounded: "sm",
   },
   BaseAvatar: {
-    size: "sm",
+    color: "muted",
     rounded: "full",
+    size: "sm",
   },
   BaseAvatarGroup: {
     limit: 4,
     size: "sm",
   },
+  BaseBreadcrumb: {
+    color: "primary",
+  },
   BaseButton: {
-    variant: "solid",
-    rounded: "sm",
     color: "default",
+    rounded: "sm",
     size: "md",
+    variant: "solid",
   },
   BaseButtonAction: {
-    rounded: "sm",
     color: "default",
+    rounded: "sm",
   },
   BaseButtonClose: {
-    size: "sm",
+    color: "default",
     rounded: "full",
-    color: "default",
+    size: "sm",
   },
+  BaseButtonGroup: {},
   BaseButtonIcon: {
-    rounded: "sm",
     color: "default",
+    rounded: "sm",
     size: "md",
   },
   BaseCard: {
-    rounded: "sm",
-    color: "white",
-  },
-  BaseCheckbox: {
-    rounded: "sm",
     color: "default",
-  },
-  BaseCheckboxAnimated: {
-    color: "primary",
+    rounded: "sm",
   },
   BaseDropdown: {
-    variant: "button",
     buttonColor: "default",
-    color: "white",
+    color: "default",
+    placement: "bottom-start",
     rounded: "sm",
     size: "md",
-    label: "",
-    fixed: false,
+    variant: "button",
   },
+  BaseDropdownDivider: {},
   BaseDropdownItem: {
+    color: "primary",
+    contrast: "default",
     rounded: "sm",
-    color: "default",
   },
   BaseHeading: {
     as: "p",
+    lead: "normal",
     size: "xl",
     weight: "semibold",
-    lead: "normal",
   },
   BaseIconBox: {
-    variant: "solid",
     color: "default",
+    rounded: "sm",
     size: "xs",
-    rounded: "sm",
-  },
-  BaseInput: {
-    rounded: "sm",
-    size: "md",
-    contrast: "default",
-  },
-  BaseInputFile: {
-    rounded: "sm",
-    size: "md",
-    contrast: "default",
-  },
-  BaseInputNumber: {
-    inputmode: "numeric",
-    rounded: "sm",
-    size: "md",
-    contrast: "default",
+    variant: "solid",
   },
   BaseKbd: {
+    color: "default",
     rounded: "sm",
     size: "sm",
-    color: "default",
   },
-  BaseListbox: {
-    rounded: "sm",
-    size: "md",
-    contrast: "default",
-  },
+  BaseLink: {},
+  BaseList: {},
+  BaseListItem: {},
   BaseMessage: {
-    type: "success",
+    color: "default",
     rounded: "sm",
-    closable: false,
   },
   BasePagination: {
+    color: "primary",
     rounded: "sm",
   },
   BaseParagraph: {
     as: "p",
+    lead: "normal",
     size: "md",
     weight: "normal",
-    lead: "normal",
   },
   BasePlaceholderPage: {
     imageSize: "xs",
   },
+  BasePlaceload: {},
   BaseProgress: {
-    size: "sm",
-    contrast: "default",
     color: "primary",
+    contrast: "default",
     rounded: "full",
+    size: "sm",
+  },
+  BaseProgressCircle: {
+    color: "primary",
   },
   BaseProse: {
-    rounded: "md",
+    rounded: "none",
   },
+  BaseSnack: {
+    color: "default",
+    size: "md",
+  },
+  BaseTabs: {
+    color: "primary",
+    justify: "start",
+    type: "tabs",
+  },
+  BaseTabSlider: {
+    color: "default",
+    justify: "start",
+    rounded: "lg",
+    size: "md",
+  },
+  BaseTag: {
+    color: "default",
+    rounded: "lg",
+    size: "md",
+    variant: "solid",
+  },
+  BaseText: {
+    lead: "normal",
+    size: "md",
+    weight: "normal",
+  },
+  BaseThemeSwitch: {
+    disableTransitions: false,
+  },
+  BaseThemeToggle: {
+    disableTransitions: false,
+  },
+  // #endregion
+
+  // #region form
+  BaseAutocomplete: {
+    contrast: "default",
+    i18n: {
+      empty: "Nothing found.",
+      pending: "Loading ...",
+    },
+    rounded: "sm",
+    size: "md",
+  },
+  BaseAutocompleteItem: {
+    rounded: "sm",
+  },
+  BaseCheckbox: {
+    color: "default",
+    rounded: "sm",
+  },
+  BaseCheckboxAnimated: {
+    color: "primary",
+  },
+  BaseCheckboxHeadless: {},
+  BaseFullscreenDropfile: {
+    color: "primary",
+  },
+  BaseInput: {
+    contrast: "default",
+    rounded: "sm",
+    size: "md",
+  },
+  BaseInputFile: {
+    contrast: "default",
+    rounded: "sm",
+    size: "md",
+  },
+  BaseInputFileHeadless: {},
+  BaseInputNumber: {
+    contrast: "default",
+    rounded: "sm",
+    size: "md",
+  },
+  BaseListbox: {
+    contrast: "default",
+    placement: "bottom-start",
+    rounded: "sm",
+    size: "md",
+  },
+  BaseListboxItem: {},
   BaseRadio: {
     color: "default",
   },
+  BaseRadioHeadless: {},
   BaseSelect: {
+    contrast: "default",
     rounded: "sm",
     size: "md",
-    contrast: "default",
-  },
-  BaseSnack: {
-    size: "md",
-    color: "muted",
   },
   BaseSwitchBall: {
     color: "primary",
@@ -155,53 +214,16 @@ export const defaultConfig: Config = {
   BaseSwitchThin: {
     color: "primary",
   },
-  BaseTabs: {
-    type: "tabs",
-    justify: "start",
-  },
-  BaseTabSlider: {
-    justify: "start",
-    size: "md",
-    rounded: "lg",
-  },
-  BaseTag: {
-    variant: "solid",
-    color: "default",
-    size: "md",
-    rounded: "lg",
-  },
-  BaseText: {
-    size: "md",
-    weight: "normal",
-    lead: "normal",
-  },
   BaseTextarea: {
+    contrast: "default",
     rounded: "sm",
     size: "md",
-    contrast: "default",
   },
+  BaseTreeSelect: {},
   BaseTreeSelectItem: {
     rounded: "sm",
   },
-  defaultShapes: {
-    accordion: "rounded",
-    autocompleteItem: "rounded",
-    avatar: "full",
-    button: "rounded",
-    buttonAction: "rounded",
-    buttonIcon: "rounded",
-    buttonClose: "full",
-    card: "rounded",
-    dropdown: "rounded",
-    iconBox: "rounded",
-    input: "rounded",
-    message: "curved",
-    pagination: "rounded",
-    progress: "full",
-    prose: "rounded",
-    tabSlider: "rounded",
-    tag: "rounded",
-  },
+  // #endregion
 };
 
 const ConfigContext = createContext<Config>(defaultConfig);
@@ -212,17 +234,27 @@ export const useConfig = () => {
   return config;
 };
 
-// TODO: export const useNuiDefaultProperty = <
-//   Component extends keyof Config,
-//   Property extends keyof Config[Component],
-// >(
-//   component: Component,
-//   property: Property,
-// ) => {
-//   const config = useContext(ConfigContext);
+export const useNuiDefaultProperty = <
+  T extends Record<string, unknown>,
+  C extends keyof Config,
+  K extends keyof T & keyof Config[C],
+>(
+  properties: T,
+  component: C,
+  property: K,
+): NonNullable<T[K]> => {
+  const config = useContext(ConfigContext);
 
-//   return config?.[component]?.[property];
-// };
+  if (config?.[component]?.[property] === undefined) {
+    // eslint-disable-next-line no-console
+    console.warn(
+      `[@shuriken-ui/react] Default configuration for ${component}.${String(property)} not found, did you forget to use <ShurikenUIProvider>?`,
+    );
+  }
+
+  return (properties?.[property] ??
+    config?.[component]?.[property]) as NonNullable<T[K]>;
+};
 
 export const useTheme = () => {
   const [colorMode, setColorMode] = useState<{
@@ -242,7 +274,7 @@ export const useThemeContext = () => {
 
   if (!ctx) {
     throw new Error(
-      "Ensure useThemeContext is used within <ShurikenUIProvider>",
+      "[@shuriken-ui/react] useThemeContext() has no contex, did you forget to use <ShurikenUIProvider>?",
     );
   }
 
@@ -251,10 +283,10 @@ export const useThemeContext = () => {
 
 export const ShurikenUIProvider: FC<{
   children: ReactNode;
-  options?: Partial<Config>;
+  options?: DeepPartial<Config>;
 }> = ({ children, options = {} }) => {
   const config = useMemo<Config>(
-    () => ({ ...defaultConfig, ...options }),
+    () => defu({}, defaultConfig, options),
     [options],
   );
 

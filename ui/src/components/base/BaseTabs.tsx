@@ -1,7 +1,7 @@
-import { ReactNode, forwardRef, useState } from "react";
+import { type ReactNode, forwardRef, useState } from "react";
 import { Icon } from "@iconify/react";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
 
 interface BaseTabsProps {
   /**
@@ -35,16 +35,6 @@ interface BaseTabsProps {
   onChange?: (value: string) => void;
 
   /**
-   * The type of tabs to display. Can be either "tabs" or "box".
-   */
-  type?: "tabs" | "box";
-
-  /**
-   * The horizontal alignment of the tabs.
-   */
-  justify?: "start" | "center" | "end";
-
-  /**
    * Whether or not to hide the label for the tab.
    */
   hideLabel?: boolean;
@@ -52,6 +42,51 @@ interface BaseTabsProps {
   children:
     | ReactNode
     | ((activeValue: string, toggle: (value: string) => void) => ReactNode);
+
+  /**
+   * Defines the hover color of the active tab
+   *
+   * @default 'default'
+   */
+  color?: "default" | "primary" | "light" | "dark" | "black";
+
+  /**
+   * The horizontal alignment of the tabs.
+   *
+   * @default 'start'
+   */
+  justify?: "start" | "center" | "end";
+
+  /**
+   * The type of tabs to display..
+   *
+   * @default 'tabs'
+   */
+  type?: "tabs" | "box";
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the inner element.
+     */
+    inner?: string | string[];
+
+    /**
+     * CSS classes to apply to the item element.
+     */
+    item?: string | string[];
+
+    /**
+     * CSS classes to apply to the content element.
+     */
+    content?: string | string[];
+  };
 }
 
 const justifies = {
@@ -65,6 +100,14 @@ const types = {
   box: "nui-pill-item",
 };
 
+const colors = {
+  default: "nui-tabs-default",
+  primary: "nui-tabs-primary",
+  light: "nui-tabs-light",
+  dark: "nui-tabs-dark",
+  black: "nui-tabs-black",
+};
+
 export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
   function BaseTabs(
     { defaultValue = "", onChange = () => {}, tabs, children, ...props },
@@ -72,17 +115,23 @@ export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
   ) {
     const [activeValue, setActiveValue] = useState<string>(defaultValue);
 
-    const config = useConfig();
-
-    const justify = props.justify ?? config.BaseTabs?.justify;
-
-    const type = props.type ?? config.BaseTabs?.type;
+    const color = useNuiDefaultProperty(props, "BaseTabs", "color");
+    const justify = useNuiDefaultProperty(props, "BaseTabs", "justify");
+    const type = useNuiDefaultProperty(props, "BaseTabs", "type");
 
     return (
-      <div className={cn("nui-tabs", justify && justifies[justify])} ref={ref}>
-        <div className="nui-tabs-inner">
+      <div
+        className={cn(
+          "nui-tabs",
+          justify && justifies[justify],
+          colors && colors[color],
+          props.type === "tabs" && "nui-tabs-bordered",
+          props.classes?.wrapper,
+        )}
+        ref={ref}
+      >
+        <div className={cn("nui-tabs-inner", props.classes?.inner)}>
           {tabs.map((tab, index) => (
-            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
               href="#"
               key={index}
@@ -90,6 +139,7 @@ export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
                 type && types[type],
                 activeValue === tab.value && "nui-active",
                 tab.icon && "nui-has-icon",
+                props.classes?.item,
               )}
               tabIndex={0}
               onClick={(e) => {
@@ -115,7 +165,7 @@ export const BaseTabs = forwardRef<HTMLDivElement, BaseTabsProps>(
         </div>
 
         {!!children && (
-          <div className="relative block">
+          <div className={cn("relative block", props.classes?.content)}>
             {typeof children === "function"
               ? children(activeValue, (toggleValue) =>
                   setActiveValue(toggleValue),

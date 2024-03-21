@@ -1,9 +1,9 @@
 import { forwardRef } from "react";
 import { Icon } from "@iconify/react";
-import NextImage from "next/image";
+import NextImage from "next/image"; // @todo: remove this imporrt
 import { BaseButtonClose } from "./BaseButtonClose";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
 
 type BaseSnackProps = {
   /**
@@ -17,24 +17,28 @@ type BaseSnackProps = {
   icon?: string;
 
   /**
-   * Click handler
-   */
-
-  onClick?: () => void;
-  /**
    * An optional image to display in the snackbar.
    */
   image?: string;
 
   /**
+   * The color of snack.
+   *
+   * @default 'default'
+   */
+  color?: "default" | "muted";
+
+  /**
    * The size of the snack.
+   *
+   * @default 'md'
    */
   size?: "xs" | "sm" | "md";
 
   /**
-   * The color of snack, might be 'default' or 'muted'.
+   * Click handler
    */
-  color?: "default" | "muted";
+  onClick?: () => void;
 };
 
 const sizes = {
@@ -59,13 +63,8 @@ export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
     { icon, image, label = "", onClick = () => {}, ...props },
     ref,
   ) {
-    const config = useConfig();
-
-    const size = props.size ?? config.BaseSnack?.size;
-
-    const color = props.color ?? config.BaseSnack?.color;
-
-    const closeSize = size || "md";
+    const color = useNuiDefaultProperty(props, "BaseSnack", "color");
+    const size = useNuiDefaultProperty(props, "BaseSnack", "size");
 
     /**
      * Temporary fix to ElementType invalid
@@ -111,7 +110,7 @@ export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
           className="nui-snack-button"
           rounded="full"
           onClick={onClick}
-          size={closeSize}
+          size={size}
         />
       </div>
     );

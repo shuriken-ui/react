@@ -1,5 +1,5 @@
-import { HTMLAttributes, forwardRef } from "react";
-import { cn } from "../../utils";
+import { type HTMLAttributes, forwardRef } from "react";
+import { cn } from "~/utils";
 
 type BasePlaceloadProps = HTMLAttributes<HTMLDivElement>;
 

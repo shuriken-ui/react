@@ -1,6 +1,7 @@
-import { ElementType, forwardRef } from "react";
-import { PolymorphicComponentProps, PolymorphicRef } from "../../types";
-import { cn } from "../../utils";
+import { type ElementType, forwardRef } from "react";
+import { type PolymorphicComponentProps, type PolymorphicRef } from "~/types";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 
 type BaseParagraphProps<E extends ElementType = "p"> = {
   /**
@@ -9,7 +10,16 @@ type BaseParagraphProps<E extends ElementType = "p"> = {
   as?: E;
 
   /**
+   * The lead of the paragraph.
+   *
+   * @default 'normal'
+   */
+  lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
+
+  /**
    * The size of the paragraph.
+   *
+   * @default 'md'
    */
   size?:
     | "xs"
@@ -28,16 +38,13 @@ type BaseParagraphProps<E extends ElementType = "p"> = {
 
   /**
    * The weight of the paragraph.
+   *
+   * @default 'normal'
    */
   weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
-
-  /**
-   * The lead of the paragraph.
-   */
-  lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
 };
 
-const sizeStyle = {
+const sizes = {
   xs: "nui-paragraph-xs",
   sm: "nui-paragraph-sm",
   md: "nui-paragraph-md",
@@ -53,7 +60,7 @@ const sizeStyle = {
   "9xl": "nui-paragraph-9xl",
 };
 
-const weightStyle = {
+const weights = {
   light: "nui-weight-light",
   normal: "nui-weight-normal",
   medium: "nui-weight-medium",
@@ -62,7 +69,7 @@ const weightStyle = {
   extrabold: "nui-weight-extrabold",
 };
 
-const leadStyle = {
+const leads = {
   none: "nui-lead-none",
   tight: "nui-lead-tight",
   snug: "nui-lead-snug",
@@ -76,27 +83,36 @@ export const BaseParagraph = forwardRef(function BaseParagraph<
 >(
   {
     as: element,
-    size = "md",
-    weight = "normal",
-    lead = "normal",
     className: classes,
     children,
     ...props
   }: PolymorphicComponentProps<E, BaseParagraphProps<E>>,
   ref: PolymorphicRef<E>,
 ) {
+  // const element = useNuiDefaultProperty(props, 'BaseParagraph', 'as') // @todo
+  const lead = useNuiDefaultProperty(props, "BaseParagraph", "lead");
+  const size = useNuiDefaultProperty(props, "BaseParagraph", "size");
+  const weight = useNuiDefaultProperty(props, "BaseParagraph", "weight");
+
   const Component = element || "p";
+
+  const attrs = {
+    ...props,
+    lead: undefined,
+    size: undefined,
+    weight: undefined,
+  };
 
   return (
     <Component
       className={cn(
         "nui-paragraph",
-        sizeStyle[size],
-        weightStyle[weight],
-        leadStyle[lead],
+        size && sizes[size],
+        weight && weights[weight],
+        lead && leads[lead],
         classes,
       )}
-      {...props}
+      {...attrs}
       ref={ref}
     >
       {children}

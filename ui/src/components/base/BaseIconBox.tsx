@@ -1,40 +1,8 @@
-import { HTMLAttributes, forwardRef } from "react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import { type HTMLAttributes, forwardRef } from "react";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 
 type BaseIconBoxProps = HTMLAttributes<HTMLDivElement> & {
-  /**
-   * The variant of the box.
-   *
-   */
-  variant?: "solid" | "outline" | "pastel";
-
-  /** The color of the box.
-   *
-   * @default 'default'
-   */
-  color?:
-    | "default"
-    | "invert"
-    | "primary"
-    | "info"
-    | "success"
-    | "warning"
-    | "danger"
-    | "none";
-
-  /**
-   * The size of the icon.
-   *
-   */
-  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-
-  /**
-   * The radius of the icon.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
   /**
    * Applies an svg mask from the available presets. (needs rounded to be set to `none`).
    */
@@ -44,14 +12,51 @@ type BaseIconBoxProps = HTMLAttributes<HTMLDivElement> & {
    * Whether the icon is bordered.
    */
   bordered?: boolean;
+
+  /** The color of the box.
+   *
+   * @default 'default'
+   */
+  color?:
+    | "default"
+    | "default-contrast"
+    | "dark"
+    | "black"
+    | "light"
+    | "primary"
+    | "info"
+    | "success"
+    | "warning"
+    | "danger"
+    | "none";
+
+  /**
+   * The radius of the icon.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the icon.
+   *
+   * @default 'xs'
+   */
+  size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+
+  /** The variant of the box.
+   *
+   * @default 'solid'
+   */
+  variant?: "solid" | "outline" | "pastel";
 };
 
 const radiuses = {
   none: "",
-  sm: "nui-box-rounded",
-  md: "nui-box-smooth",
-  lg: "nui-box-curved",
-  full: "nui-box-full",
+  sm: "nui-box-rounded-sm",
+  md: "nui-box-rounded-md",
+  lg: "nui-box-rounded-lg",
+  full: "nui-box-rounded-full",
 };
 
 const sizes = {
@@ -70,14 +75,17 @@ const variants = {
 };
 
 const colors = {
+  none: "",
   default: "nui-box-default",
-  invert: "nui-box-invert",
+  "default-contrast": "nui-box-default-contrast",
+  light: "nui-box-light",
+  dark: "nui-box-dark",
+  black: "nui-box-black",
   primary: "nui-box-primary",
   info: "nui-box-info",
   success: "nui-box-success",
   warning: "nui-box-warning",
   danger: "nui-box-danger",
-  none: "",
 };
 
 const masks = {
@@ -93,15 +101,10 @@ export const BaseIconBox = forwardRef<HTMLDivElement, BaseIconBoxProps>(
     { bordered = false, children, className: classes, ...props },
     ref,
   ) {
-    const config = useConfig();
-
-    const variant = props.variant ?? config.BaseIconBox?.variant;
-
-    const color = props.color ?? config.BaseIconBox?.color;
-
-    const size = props.size ?? config.BaseIconBox?.size;
-
-    const rounded = props.rounded ?? config.BaseIconBox?.rounded;
+    const color = useNuiDefaultProperty(props, "BaseIconBox", "color");
+    const rounded = useNuiDefaultProperty(props, "BaseIconBox", "rounded");
+    const size = useNuiDefaultProperty(props, "BaseIconBox", "size");
+    const variant = useNuiDefaultProperty(props, "BaseIconBox", "variant");
 
     return (
       <div
@@ -112,9 +115,7 @@ export const BaseIconBox = forwardRef<HTMLDivElement, BaseIconBoxProps>(
           size && sizes[size],
           variant && variants[variant],
           color && colors[color],
-          (props.rounded === "none" || rounded === "none") &&
-            props.mask &&
-            masks[props.mask],
+          rounded === "none" && props.mask && masks[props.mask],
           classes,
         )}
         ref={ref}

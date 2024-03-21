@@ -30,7 +30,6 @@ const Textarea = () => {
             label="Rounded: none"
             rounded="none"
             placeholder="Write a message..."
-            rows="1"
             autogrow
           />
           <BaseTextarea
@@ -41,7 +40,6 @@ const Textarea = () => {
             label="Rounded: sm"
             rounded="sm"
             placeholder="Write a message..."
-            rows="1"
             autogrow
           />
           <BaseTextarea
@@ -52,7 +50,6 @@ const Textarea = () => {
             label="Rounded: md"
             rounded="md"
             placeholder="Write a message..."
-            rows="1"
             autogrow
           />
           <BaseTextarea
@@ -63,7 +60,6 @@ const Textarea = () => {
             label="Rounded: lg"
             rounded="lg"
             placeholder="Write a message..."
-            rows="1"
             autogrow
           />
         </div>

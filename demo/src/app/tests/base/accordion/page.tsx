@@ -54,6 +54,15 @@ export default function AccordionPage() {
         </div>
       </NuiPreview>
 
+      <NuiPreview title="Dot color" description="Accordion dot color options">
+        <div className="grid gap-4 md:grid-cols-2 max-w-4xl">
+          <BaseAccordion items={accordion} exclusive dotColor="primary" />
+          <BaseAccordion items={accordion} exclusive dotColor="success" />
+          <BaseAccordion items={accordion} exclusive dotColor="info" />
+          <BaseAccordion items={accordion} exclusive dotColor="dark" />
+        </div>
+      </NuiPreview>
+
       <NuiPreview title="Chevron" description="Chevron accordion style">
         <div className="md:max-w-lg">
           <BaseAccordion items={accordion} exclusive action="chevron" />

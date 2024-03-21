@@ -209,7 +209,75 @@ export default function ButtonIconPage() {
           </BaseButtonIcon>
         </div>
       </NuiPreview>
+      
+      <NuiPreview
+        title="Color: light"
+        description="Button icon component light color"
+      >
+        <div className="flex flex-wrap items-end gap-2">
+          <BaseButtonIcon rounded="none" color="light">
+            <Iconify icon="ph:moon-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="sm" color="light">
+            <Iconify icon="ph:github-logo-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="md" color="light">
+            <Iconify icon="ph:game-controller-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="lg" color="light">
+            <Iconify icon="ph:alien-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="full" color="light">
+            <Iconify icon="ph:heart-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+        </div>
+      </NuiPreview>
 
+      <NuiPreview
+        title="Color: dark"
+        description="Button icon component dark color"
+      >
+        <div className="flex flex-wrap items-end gap-2">
+          <BaseButtonIcon rounded="none" color="dark">
+            <Iconify icon="ph:moon-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="sm" color="dark">
+            <Iconify icon="ph:github-logo-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="md" color="dark">
+            <Iconify icon="ph:game-controller-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="lg" color="dark">
+            <Iconify icon="ph:alien-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="full" color="dark">
+            <Iconify icon="ph:heart-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+        </div>
+      </NuiPreview>
+
+      <NuiPreview
+        title="Color: black"
+        description="Button icon component black color"
+      >
+        <div className="flex flex-wrap items-end gap-2">
+          <BaseButtonIcon rounded="none" color="black">
+            <Iconify icon="ph:moon-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="sm" color="black">
+            <Iconify icon="ph:github-logo-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="md" color="black">
+            <Iconify icon="ph:game-controller-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="lg" color="black">
+            <Iconify icon="ph:alien-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+          <BaseButtonIcon rounded="full" color="black">
+            <Iconify icon="ph:heart-duotone" className="h-5 w-5" />
+          </BaseButtonIcon>
+        </div>
+      </NuiPreview>
       <NuiPreview
         title="State: loading"
         description="Button icon component in loading state"

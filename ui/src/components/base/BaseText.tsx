@@ -1,37 +1,42 @@
-import { HTMLAttributes, PropsWithChildren, forwardRef } from "react";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
+import { type HTMLAttributes, forwardRef } from "react";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
 
-type BaseTextProps = HTMLAttributes<HTMLParagraphElement> &
-  PropsWithChildren<{
-    /**
-     * The size of the text.
-     */
-    size?:
-      | "xs"
-      | "sm"
-      | "md"
-      | "lg"
-      | "xl"
-      | "2xl"
-      | "3xl"
-      | "4xl"
-      | "5xl"
-      | "6xl"
-      | "7xl"
-      | "8xl"
-      | "9xl";
+type BaseTextProps = HTMLAttributes<HTMLParagraphElement> & {
+  /**
+   * The lead of the text.
+   *
+   * @default 'normal'
+   */
+  lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
 
-    /**
-     * The weight of the text.
-     */
-    weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
+  /**
+   * The size of the text.
+   *
+   * @default 'md'
+   */
+  size?:
+    | "xs"
+    | "sm"
+    | "md"
+    | "lg"
+    | "xl"
+    | "2xl"
+    | "3xl"
+    | "4xl"
+    | "5xl"
+    | "6xl"
+    | "7xl"
+    | "8xl"
+    | "9xl";
 
-    /**
-     * The lead of the text.
-     */
-    lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
-  }>;
+  /**
+   * The weight of the text.
+   *
+   * @default 'normal'
+   */
+  weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
+};
 
 const sizes = {
   xs: "nui-content-xs",
@@ -69,13 +74,9 @@ const leads = {
 
 export const BaseText = forwardRef<HTMLParagraphElement, BaseTextProps>(
   function BaseText({ children, ...props }, ref) {
-    const config = useConfig();
-
-    const size = props.size ?? config.BaseText?.size;
-
-    const weight = props.weight ?? config.BaseText?.weight;
-
-    const lead = props.lead ?? config.BaseText?.lead;
+    const lead = useNuiDefaultProperty(props, "BaseText", "lead");
+    const size = useNuiDefaultProperty(props, "BaseText", "size");
+    const weight = useNuiDefaultProperty(props, "BaseText", "weight");
 
     return (
       <p

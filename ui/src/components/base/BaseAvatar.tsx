@@ -1,41 +1,29 @@
 import { forwardRef } from "react";
 
-import NextImage, { type ImageProps } from "next/image";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import NextImage, { type ImageProps } from "next/image"; // @todo: remove this import
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 
-type BaseAvatarProps = Omit<ImageProps, "width" | "height" | "alt"> & {
+type BaseAvatarProps = Omit<ImageProps, "src" | "width" | "height" | "alt"> & {
   /**
    * The URL of the image to display.
    */
-  // src?: string;
+  src?: ImageProps["src"];
 
   /**
    * The URL of a dark version of the image to display when the component is in dark mode.
    */
-  srcDark?: string;
+  srcDark?: ImageProps["src"];
 
   /**
    * The URL of a badge to display on top of the image.
    */
-  badgeSrc?: string;
+  badgeSrc?: ImageProps["src"];
 
   /**
    * The text to display below the image.
    */
   text?: string;
-
-  /**
-   * The size of the image.
-   *
-   */
-  size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
-
-  /**
-   * The radius of the image.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
 
   /**
    * Applies an svg mask from the available presets. (needs rounded to be set to `none`).
@@ -72,6 +60,82 @@ type BaseAvatarProps = Omit<ImageProps, "width" | "height" | "alt"> & {
    * The alternative text for the image.
    */
   alt?: string;
+
+  /**
+   * Defines the color of the avatar
+   *
+   * @default 'default'
+   */
+  color?:
+    | "white"
+    | "muted"
+    | "primary"
+    | "success"
+    | "info"
+    | "warning"
+    | "danger"
+    | "pink"
+    | "yellow"
+    | "indigo"
+    | "violet";
+
+  /**
+   * The radius of the image.
+   *
+   * @default 'full'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the image.
+   *
+   * @default 'sm'
+   */
+  size?: "xxs" | "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the inner element.
+     */
+    inner?: string | string[];
+
+    /**
+     * CSS classes to apply to the img element.
+     */
+    img?: string | string[];
+
+    /**
+     * CSS classes to apply to the badge element.
+     */
+    badge?: string | string[];
+
+    /**
+     * CSS classes to apply to the dot element.
+     */
+    dot?: string | string[];
+  };
+};
+
+const colors = {
+  white: "bg-white dark:bg-muted-800 text-muted-600 dark:text-muted-200",
+  muted: "bg-muted-100 dark:bg-muted-800 text-muted-600 dark:text-muted-200",
+  primary: "bg-primary-500/20 text-primary-500",
+  info: "bg-info-500/20 text-info-500",
+  success: "bg-success-500/20 text-success-500",
+  warning: "bg-warning-500/20 text-warning-500",
+  danger: "bg-danger-500/20 text-danger-500",
+  yellow: "bg-yellow-500/20 text-yellow-400",
+  pink: "bg-pink-500/20 text-pink-400",
+  indigo: "bg-indigo-500/20 text-indigo-500",
+  violet: "bg-violet-500/20 text-violet-500",
 };
 
 const dots = {
@@ -107,11 +171,11 @@ const sizes = {
 };
 
 const radiuses = {
-  none: "nui-avatar-straight",
-  sm: "nui-avatar-rounded",
-  md: "nui-avatar-smooth",
-  lg: "nui-avatar-curved",
-  full: "nui-avatar-full",
+  none: "nui-avatar-rounded-none",
+  sm: "nui-avatar-rounded-sm",
+  md: "nui-avatar-rounded-md",
+  lg: "nui-avatar-rounded-lg",
+  full: "nui-avatar-rounded-full",
 };
 
 const masks = {
@@ -160,7 +224,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
       text = "?",
       badgeSrc,
       mask,
-      className: classes,
+      // className: classes,
       dot = false,
       ring = false,
       alt = "",
@@ -168,11 +232,16 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
     },
     ref,
   ) {
-    const config = useConfig();
+    const color = useNuiDefaultProperty(props, "BaseAvatar", "color");
+    const rounded = useNuiDefaultProperty(props, "BaseAvatar", "rounded");
+    const size = useNuiDefaultProperty(props, "BaseAvatar", "size");
 
-    const rounded = props.rounded ?? config.BaseAvatar?.rounded;
-
-    const size = props.size ?? config.BaseAvatar?.size;
+    const attrs = {
+      ...props,
+      color: undefined,
+      rounded: undefined,
+      size: undefined,
+    };
 
     const imageSize = {
       width: imageSizes[size ?? "sm"],
@@ -203,6 +272,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
           "nui-avatar",
           size && sizes[size],
           rounded && radiuses[rounded],
+          !src && color && colors[color],
           mask &&
             (props.rounded === "none" || rounded === "none") && [
               "nui-avatar-mask",
@@ -212,17 +282,22 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
             (ring === true
               ? ["nui-avatar-ring", rings.primary]
               : ["nui-avatar-ring", rings[ring]]),
-          classes,
+          props.classes?.wrapper,
         )}
         ref={ref}
       >
-        <div className="nui-avatar-inner">
+        <div className={cn("nui-avatar-inner", props.classes?.inner)}>
           {src && (
             <Image
               src={src}
-              {...props}
+              {...attrs}
               {...imageSize}
-              className={cn("nui-avatar-img", srcDark && "dark:hidden")}
+              className={cn(
+                "nui-avatar-img",
+                rounded && radiuses[rounded],
+                srcDark && "dark:hidden",
+                props.classes?.img,
+              )}
               alt={alt}
             />
           )}
@@ -230,9 +305,13 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
           {src && srcDark && (
             <Image
               src={srcDark}
-              {...props}
+              {...attrs}
               {...imageSize}
-              className="nui-avatar-img hidden"
+              className={cn(
+                "nui-avatar-img hidden dark:block",
+                rounded && radiuses[rounded],
+                props.classes?.img,
+              )}
               alt={alt}
             />
           )}
@@ -241,7 +320,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
         </div>
 
         {badgeSrc && (
-          <div className="nui-avatar-badge">
+          <div className={cn("nui-avatar-badge", props.classes?.badge)}>
             <Image
               className="nui-badge-img"
               src={badgeSrc}
@@ -256,6 +335,7 @@ export const BaseAvatar = forwardRef<HTMLDivElement, BaseAvatarProps>(
             className={cn(
               "nui-avatar-dot",
               dot === true ? dots.primary : dots[dot],
+              props.classes?.dot,
             )}
           />
         )}

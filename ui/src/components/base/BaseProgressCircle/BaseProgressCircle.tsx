@@ -1,5 +1,5 @@
-import { CSSProperties, SVGProps, forwardRef, useMemo } from "react";
-import { cn } from "../../../utils";
+import { type CSSProperties, type SVGProps, forwardRef, useMemo } from "react";
+import { cn } from "~/utils";
 import "./BaseProgressCircle.css";
 
 type BaseProgressCircleProps = {
@@ -40,7 +40,7 @@ export const BaseProgressCircle = forwardRef<
     thickness = 4,
     animation = 2,
     className: classes,
-    ...props
+    ...attrs
   },
   ref,
 ) {
@@ -67,17 +67,19 @@ export const BaseProgressCircle = forwardRef<
 
   return (
     <svg
-      id="BaseProgressCircle"
       ref={ref}
       role="progressbar"
       aria-valuenow={percent}
       aria-valuemax={max}
-      className={cn("block -rotate-90 origin-center", classes)}
+      className={cn(
+        "nui-base-progress-circle block -rotate-90 origin-center",
+        classes,
+      )}
       viewBox="0 0 45 45"
       width={size}
       height={size}
       style={cssVariables}
-      {...props}
+      {...attrs}
     >
       <circle
         className="text-muted-200 dark:text-muted-700 stroke-current"

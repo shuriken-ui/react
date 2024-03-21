@@ -5,11 +5,9 @@ import {
   useRef,
   useState,
 } from "react";
-import { useNinjaId } from "../../../hooks/useNinjaId";
-import { IconCheckCircle } from "../../icons/IconCheckCircle";
-import { cn } from "../../../utils";
-
-import "./BaseCheckboxAnimated.css";
+import { useNinjaId } from "~/hooks/useNinjaId";
+import { IconCheckCircle } from "~/components/icons";
+import { cn } from "~/utils";
 
 type BaseCheckboxAnimatedProps = {
   /**
@@ -37,7 +35,10 @@ type BaseCheckboxAnimatedProps = {
    */
   falseValue?: string;
 
-  /** The color of the checkbox. Can be 'default', 'primary', 'info', 'success', 'warning', or 'danger' */
+  /** The color of the checkbox.
+   *
+   * @default 'primary'
+   */
   color?:
     | "primary"
     | "info"
@@ -45,7 +46,9 @@ type BaseCheckboxAnimatedProps = {
     | "warning"
     | "danger"
     | "muted"
-    | "light";
+    | "light"
+    | "dark"
+    | "black";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, and input elements.
@@ -68,7 +71,7 @@ type BaseCheckboxAnimatedProps = {
   };
 };
 
-const colorStyle = {
+const colors = {
   primary: "text-primary-500",
   info: "text-info-500",
   success: "text-success-500",
@@ -76,6 +79,8 @@ const colorStyle = {
   danger: "text-danger-500",
   light: "text-light-100",
   muted: "text-muted-400",
+  dark: "text-muted-900 dark:text-muted-100",
+  black: "text-black dark:text-white",
 };
 
 export type BaseCheckboxAnimatedRef = {
@@ -167,7 +172,7 @@ export const BaseCheckboxAnimated = forwardRef<
     <div
       ref={containerRef}
       className={cn(
-        "nui-focus block focus-within:outline-current",
+        "nui-focus nui-animated-checkbox block focus-within:outline-current",
         classes?.wrapper,
       )}
     >
@@ -184,12 +189,11 @@ export const BaseCheckboxAnimated = forwardRef<
         onChange={(e) => handleChange(e.target.value)}
       />
 
-      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label
         htmlFor={id}
         className={cn(
           "peer-disabled:opacity-75",
-          props.color && colorStyle[props.color],
+          props.color && colors[props.color],
           classes?.label,
         )}
       >

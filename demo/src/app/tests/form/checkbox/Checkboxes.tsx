@@ -26,9 +26,9 @@ const Checkboxes = () => {
     eighth: true,
   });
 
-  const [disabledValue, setDisabledValue] = useState(true);
+  const [disabledValue] = useState(true);
   const [customValue, setCustomValue] = useState("not-checked");
-  const [multipleValue, setMultipleValue] = useState(["Option 1", "Option 2"]);
+  // const [multipleValue, setMultipleValue] = useState(["Option 1", "Option 2"]);
 
   const [selectedPeople, setSelectedPeople] = useState<string[]>([]);
 
@@ -57,71 +57,65 @@ const Checkboxes = () => {
       >
         <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
-            value={options.first}
             label="Default"
             rounded="none"
+            aria-invalid="true"
             checked={options.first}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
           />
           <BaseCheckbox
-            value={options.second}
             label="Muted"
             rounded="none"
             color="muted"
             checked={options.second}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }))
             }
           />
           <BaseCheckbox
-            value={options.third}
             label="Primary"
             rounded="none"
             color="primary"
             checked={options.third}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }))
             }
           />
           <BaseCheckbox
-            value={options.fourth}
             label="Info"
             rounded="none"
             color="info"
             checked={options.fourth}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }))
             }
           />
           <BaseCheckbox
-            value={options.fifth}
             label="Success"
             rounded="none"
             color="success"
             checked={options.fifth}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }))
             }
           />
           <BaseCheckbox
-            value={options.sixth}
             label="Warning"
             rounded="none"
             color="warning"
             checked={options.sixth}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }))
             }
           />
           <BaseCheckbox
-            value={options.seventh}
             label="Danger"
             rounded="none"
             color="danger"
             checked={options.seventh}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }))
             }
           />
@@ -134,71 +128,64 @@ const Checkboxes = () => {
       >
         <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
-            value={options.first}
             label="Default"
             rounded="sm"
             checked={options.first}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
           />
           <BaseCheckbox
-            value={options.second}
             label="Muted"
             rounded="sm"
             color="muted"
             checked={options.second}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }))
             }
           />
           <BaseCheckbox
-            value={options.third}
             label="Primary"
             rounded="sm"
             color="primary"
             checked={options.third}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }))
             }
           />
           <BaseCheckbox
-            value={options.fourth}
             label="Info"
             rounded="sm"
             color="info"
             checked={options.fourth}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }))
             }
           />
           <BaseCheckbox
-            value={options.fifth}
             label="Success"
             rounded="sm"
             color="success"
             checked={options.fifth}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }))
             }
           />
           <BaseCheckbox
-            value={options.sixth}
             label="Warning"
             rounded="sm"
             color="warning"
             checked={options.sixth}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }))
             }
           />
           <BaseCheckbox
-            value={options.seventh}
             label="Danger"
             rounded="sm"
             color="danger"
             checked={options.seventh}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }))
             }
           />
@@ -211,71 +198,64 @@ const Checkboxes = () => {
       >
         <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
-            value={options.first}
             label="Default"
             rounded="md"
             checked={options.first}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
           />
           <BaseCheckbox
-            value={options.second}
             label="Muted"
             rounded="md"
             color="muted"
             checked={options.second}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }));
             }}
           />
           <BaseCheckbox
-            value={options.third}
             label="Primary"
             rounded="md"
             color="primary"
             checked={options.third}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }))
             }
           />
           <BaseCheckbox
-            value={options.fourth}
             label="Info"
             rounded="md"
             color="info"
             checked={options.fourth}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }))
             }
           />
           <BaseCheckbox
-            value={options.fifth}
             label="Success"
             rounded="md"
             color="success"
             checked={options.fifth}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }));
             }}
           />
           <BaseCheckbox
-            value={options.sixth}
             label="Warning"
             rounded="md"
             color="warning"
             checked={options.sixth}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }));
             }}
           />
           <BaseCheckbox
-            value={options.seventh}
             label="Danger"
             rounded="md"
             color="danger"
             checked={options.seventh}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }));
             }}
           />
@@ -288,71 +268,64 @@ const Checkboxes = () => {
       >
         <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
-            value={options.first}
             label="Default"
             rounded="lg"
             checked={options.first}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
           />
           <BaseCheckbox
-            value={options.second}
             label="Muted"
             rounded="lg"
             color="muted"
             checked={options.second}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }));
             }}
           />
           <BaseCheckbox
-            value={options.third}
             label="Primary"
             rounded="lg"
             color="primary"
             checked={options.third}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }));
             }}
           />
           <BaseCheckbox
-            value={options.fourth}
             label="Info"
             rounded="lg"
             color="info"
             checked={options.fourth}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }));
             }}
           />
           <BaseCheckbox
-            value={options.fifth}
             label="Success"
             rounded="lg"
             color="success"
             checked={options.fifth}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }));
             }}
           />
           <BaseCheckbox
-            value={options.sixth}
             label="Warning"
             rounded="lg"
             color="warning"
             checked={options.sixth}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }));
             }}
           />
           <BaseCheckbox
-            value={options.seventh}
             label="Danger"
             rounded="lg"
             color="danger"
             checked={options.seventh}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }));
             }}
           />
@@ -369,7 +342,7 @@ const Checkboxes = () => {
             label="Default"
             rounded="full"
             checked={options.first}
-            onChange={(_, checked) =>
+            onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
           />
@@ -379,7 +352,7 @@ const Checkboxes = () => {
             rounded="full"
             color="muted"
             checked={options.second}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }));
             }}
           />
@@ -389,7 +362,7 @@ const Checkboxes = () => {
             rounded="full"
             color="primary"
             checked={options.third}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }));
             }}
           />
@@ -399,7 +372,7 @@ const Checkboxes = () => {
             rounded="full"
             color="info"
             checked={options.fourth}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }));
             }}
           />
@@ -409,7 +382,7 @@ const Checkboxes = () => {
             rounded="full"
             color="success"
             checked={options.fifth}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }));
             }}
           />
@@ -419,7 +392,7 @@ const Checkboxes = () => {
             rounded="full"
             color="warning"
             checked={options.sixth}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }));
             }}
           />
@@ -429,7 +402,7 @@ const Checkboxes = () => {
             rounded="full"
             color="danger"
             checked={options.seventh}
-            onChange={(_, checked) => {
+            onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }));
             }}
           />
@@ -455,12 +428,13 @@ const Checkboxes = () => {
           trueValue={"checked"}
           falseValue={"not-checked"}
           color="muted"
-          onChange={(value) => {
-            setCustomValue(value);
+          onChange={(_, value) => {
+            setCustomValue(value!);
           }}
         />
       </NuiPreview>
 
+      {/* <pre>{JSON.stringify(multipleValue, null, 2)}</pre>
       <NuiPreview
         title="Value: multiple"
         description="Checkbox component multiple values"
@@ -473,7 +447,7 @@ const Checkboxes = () => {
             rounded="lg"
             color="muted"
             checked={multipleValue.includes("Option 1")}
-            onChange={toggleOption}
+            onChange={(checked) => toggleOption(checked)}
           />
 
           <BaseCheckbox
@@ -516,7 +490,7 @@ const Checkboxes = () => {
             onChange={toggleOption}
           />
         </BaseFocusLoop>
-      </NuiPreview>
+      </NuiPreview> */}
 
       <NuiPreview
         title="Color: custom"
@@ -524,56 +498,56 @@ const Checkboxes = () => {
       >
         <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-2xl md:grid-cols-4">
           <BaseCheckbox
-            value={options.first}
+            checked={options.first}
             label="Rounded: none"
             rounded="none"
             classes={{ wrapper: "!text-gray-500" }}
           />
 
           <BaseCheckbox
-            value={options.second}
+            checked={options.second}
             label="Rounded: none"
             rounded="none"
             classes={{ wrapper: "!text-emerald-500" }}
           />
 
           <BaseCheckbox
-            value={options.third}
+            checked={options.third}
             label="Rounded: sm"
             rounded="sm"
             classes={{ wrapper: "!text-yellow-500" }}
           />
 
           <BaseCheckbox
-            value={options.fourth}
+            checked={options.fourth}
             label="Rounded: sm"
             rounded="sm"
             classes={{ wrapper: "!text-pink-500" }}
           />
 
           <BaseCheckbox
-            value={options.fifth}
+            checked={options.fifth}
             label="Rounded: lg"
             rounded="lg"
             classes={{ wrapper: "!text-indigo-500" }}
           />
 
           <BaseCheckbox
-            value={options.sixth}
+            checked={options.sixth}
             label="Rounded: lg"
             rounded="lg"
             classes={{ wrapper: "!text-primary-500" }}
           />
 
           <BaseCheckbox
-            value={options.seventh}
+            checked={options.seventh}
             label="Rounded: full"
             rounded="full"
             classes={{ wrapper: "!text-amber-500" }}
           />
 
           <BaseCheckbox
-            value={options.eighth}
+            checked={options.eighth}
             label="Rounded: full"
             rounded="full"
             classes={{ wrapper: "!text-rose-500" }}

@@ -1,4 +1,4 @@
-import { PropsWithChildren, ReactNode, forwardRef } from "react";
+import { type PropsWithChildren, type ReactNode, forwardRef } from "react";
 import { BaseParagraph } from "./BaseParagraph";
 import { BaseHeading } from "./BaseHeading";
 
@@ -16,7 +16,7 @@ type BaseListItemProps = PropsWithChildren<{
   /**
    * end
    */
-  end: ReactNode;
+  end?: ReactNode;
 }>;
 
 export const BaseListItem = forwardRef<HTMLLIElement, BaseListItemProps>(

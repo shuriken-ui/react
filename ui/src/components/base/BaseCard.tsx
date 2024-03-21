@@ -1,23 +1,25 @@
-import { HTMLAttributes, forwardRef } from "react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import { type HTMLAttributes, forwardRef } from "react";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 
 type BaseCardProps = HTMLAttributes<HTMLDivElement> & {
   /**
-   * The radius of the card.
-   *
+   * Adds a flat or a on hover shadow to the card.
    */
-  rounded?: "none" | "sm" | "md" | "lg";
+  shadow?: "flat" | "hover";
 
   /**
    * The color of the card.
    *
+   * @default 'default'
    */
   color?:
-    | "white"
-    | "white-contrast"
+    | "default"
+    | "default-contrast"
     | "muted"
     | "muted-contrast"
+    | "dark"
+    | "black"
     | "primary"
     | "info"
     | "success"
@@ -26,23 +28,27 @@ type BaseCardProps = HTMLAttributes<HTMLDivElement> & {
     | "none";
 
   /**
-   * Adds a flat or a on hover shadow to the card.
+   * The radius of the card.
+   *
+   * @default 'sm'
    */
-  shadow?: "flat" | "hover";
+  rounded?: "none" | "sm" | "md" | "lg";
 };
 
 const radiuses = {
   none: "",
-  sm: "nui-card-rounded",
-  md: "nui-card-smooth",
-  lg: "nui-card-curved",
+  sm: "nui-card-rounded-sm",
+  md: "nui-card-rounded-md",
+  lg: "nui-card-rounded-lg",
 };
 
 const colors = {
-  white: "nui-card-white",
-  "white-contrast": "nui-card-white-contrast",
+  default: "nui-card-default",
+  "default-contrast": "nui-card-default-contrast",
   muted: "nui-card-muted",
   "muted-contrast": "nui-card-muted-contrast",
+  dark: "nui-card-dark",
+  black: "nui-card-black",
   primary: "nui-card-primary",
   info: "nui-card-info",
   success: "nui-card-success",
@@ -57,21 +63,15 @@ const shadows = {
 };
 
 export const BaseCard = forwardRef<HTMLDivElement, BaseCardProps>(
-  function BaseCard(
-    {
-      rounded: roundedProp,
-      color: colorProp,
-      className: classes,
-      children,
-      ...props
-    },
-    ref,
-  ) {
-    const config = useConfig();
+  function BaseCard({ className: classes, children, ...props }, ref) {
+    const color = useNuiDefaultProperty(props, "BaseCard", "color");
+    const rounded = useNuiDefaultProperty(props, "BaseCard", "rounded");
 
-    const rounded = roundedProp ?? config.BaseCard?.rounded;
-
-    const color = colorProp ?? config.BaseCard?.color;
+    const attrs = {
+      ...props,
+      color: undefined,
+      rounded: undefined,
+    };
 
     return (
       <div
@@ -82,7 +82,7 @@ export const BaseCard = forwardRef<HTMLDivElement, BaseCardProps>(
           props.shadow && shadows[props.shadow],
           classes,
         )}
-        {...props}
+        {...attrs}
         ref={ref}
       >
         {children}

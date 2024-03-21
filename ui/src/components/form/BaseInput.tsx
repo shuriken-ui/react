@@ -1,17 +1,18 @@
 import {
-  ReactNode,
+  type HTMLAttributes,
+  type ReactNode,
   forwardRef,
   useImperativeHandle,
   useMemo,
   useRef,
 } from "react";
 import { Icon } from "@iconify/react";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
-import { useNinjaId } from "../../hooks/useNinjaId";
-import { BasePlaceload } from "../base/BasePlaceload";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
+// import { useNinjaId } from "~/hooks/useNinjaId";
+import { BasePlaceload } from "~/components/base/BasePlaceload";
 
-type BaseInputProps = {
+type BaseInputProps = HTMLAttributes<HTMLInputElement> & {
   /**
    * Callback function called when the value of the input changes.
    *
@@ -44,25 +45,6 @@ type BaseInputProps = {
    * The type of input.
    */
   type?: string;
-
-  /**
-   * The radius of the input.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /**
-   * The size of the input.
-   *
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
-   * The contrast of the input.
-   *
-   * @default 'default'
-   */
-  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
 
   /**
    * The label to display for the input.
@@ -98,6 +80,27 @@ type BaseInputProps = {
    * Whether the input is in a loading state.
    */
   loading?: boolean;
+
+  /**
+   * The contrast of the input.
+   *
+   * @default 'default'
+   */
+  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
+
+  /**
+   * The radius of the input.
+   *
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the input.
+   *
+   * @default 'md'
+   */
+  size?: "sm" | "md" | "lg";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
@@ -144,10 +147,10 @@ type BaseInputProps = {
 
 const radiuses = {
   none: "",
-  sm: "nui-input-rounded",
-  md: "nui-input-smooth",
-  lg: "nui-input-curved",
-  full: "nui-input-full",
+  sm: "nui-input-rounded-sm",
+  md: "nui-input-rounded-md",
+  lg: "nui-input-rounded-lg",
+  full: "nui-input-rounded-full",
 };
 
 const sizes = {
@@ -177,32 +180,49 @@ export type BaseInputRef = {
 
 export const BaseInput = forwardRef<BaseInputRef, BaseInputProps>(
   function BaseInput(
-    { stateModifiers, type = "text", error = false, ...props },
+    {
+      placeholder: defaultPlaceholder,
+      loading = false,
+      labelFloat = false,
+      error = false,
+      stateModifiers,
+      type = "text",
+      label,
+      action,
+      id,
+      icon,
+      classes,
+      colorFocus,
+      value,
+      onChange,
+      ...props
+    },
     ref,
   ) {
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const config = useConfig();
+    const contrast = useNuiDefaultProperty(props, "BaseInput", "contrast");
+    const rounded = useNuiDefaultProperty(props, "BaseInput", "rounded");
+    const size = useNuiDefaultProperty(props, "BaseInput", "size");
 
-    const id = useNinjaId(() => props.id);
-
-    const rounded = props.rounded ?? config.BaseInput?.rounded;
-
-    const size = props.size ?? config.BaseInput?.size;
-
-    const contrast = props.contrast ?? config.BaseInput?.contrast;
+    const attrs = {
+      ...props,
+      contrast: undefined,
+      rounded: undefined,
+      size: undefined,
+    };
 
     const placeholder = useMemo(() => {
-      if (props.loading) {
+      if (loading) {
         return undefined;
       }
 
-      if (props.labelFloat) {
-        return props.label;
+      if (labelFloat) {
+        return label;
       }
 
-      return props.placeholder ?? "";
-    }, [props.label, props.labelFloat, props.loading, props.placeholder]);
+      return defaultPlaceholder ?? "";
+    }, [label, labelFloat, loading, defaultPlaceholder]);
 
     function looseToNumber(val: string) {
       const n = Number.parseFloat(val);
@@ -210,13 +230,13 @@ export const BaseInput = forwardRef<BaseInputRef, BaseInputProps>(
       return Number.isNaN(n) ? val : n;
     }
 
-    function handleUpdate(value: string) {
+    function handleUpdate(val: string) {
       if (stateModifiers?.trim) {
-        props.onChange?.(value.trim());
+        onChange?.(val.trim());
       } else if (stateModifiers?.number) {
-        props.onChange?.(looseToNumber(value));
+        onChange?.(looseToNumber(val));
       } else {
-        props.onChange?.(value);
+        onChange?.(val);
       }
     }
 
@@ -226,7 +246,7 @@ export const BaseInput = forwardRef<BaseInputRef, BaseInputProps>(
         get el() {
           return inputRef.current;
         },
-        id,
+        id: id || "",
       }),
       [id],
     );
@@ -238,68 +258,67 @@ export const BaseInput = forwardRef<BaseInputRef, BaseInputProps>(
           contrast && contrasts[contrast],
           size && sizes[size],
           rounded && radiuses[rounded],
-          error && !props.loading && "nui-input-error",
-          props.loading && "nui-input-loading",
-          props.labelFloat && "nui-input-label-float",
-          props.icon && "nui-has-icon",
-          props.colorFocus && "nui-input-focus",
-          props.classes?.wrapper,
+          error && !loading && "nui-input-error",
+          loading && "nui-input-loading",
+          labelFloat && "nui-input-label-float",
+          icon && "nui-has-icon",
+          colorFocus && "nui-input-focus",
+          classes?.wrapper,
         )}
       >
-        {props.label && !props.labelFloat && (
-          <label
-            className={cn("nui-input-label", props.classes?.label)}
-            htmlFor={id}
-          >
-            {props.label}
+        {label && !labelFloat && (
+          <label className={cn("nui-input-label", classes?.label)} htmlFor={id}>
+            {label}
           </label>
         )}
-        <div className={cn("nui-input-outer", props.classes?.outer)}>
+        <div className={cn("nui-input-outer", classes?.outer)}>
           <div>
             {stateModifiers?.lazy ? (
               <input
                 id={id}
                 ref={inputRef}
                 type={type}
-                className={cn("nui-input", props.classes?.input)}
+                className={cn("nui-input", classes?.input)}
                 placeholder={placeholder}
                 onChange={(e) => handleUpdate(e.target.value)}
-                value={props.value}
+                value={value}
+                {...attrs}
               />
             ) : (
               <input
                 id={id}
                 ref={inputRef}
                 type={type}
-                className={cn("nui-input", props.classes?.input)}
+                className={cn("nui-input", classes?.input)}
                 placeholder={placeholder}
                 onInput={(e) => handleUpdate(e.currentTarget.value)}
-                value={props.value}
+                value={value}
+                {...attrs}
               />
             )}
-            {props.label && props.labelFloat && (
+            {label && labelFloat && (
               <label
                 htmlFor={id}
-                className={cn("nui-label-float", props.classes?.label)}
+                className={cn("nui-label-float", classes?.label)}
               >
-                {props.label}
+                {label}
               </label>
             )}
-            {props.loading && (
+            {loading && (
               <div className="nui-input-placeload">
                 <BasePlaceload className="nui-placeload" />
               </div>
             )}
-            {props.icon && (
-              <div className={cn("nui-input-icon", props.classes?.icon)}>
-                <Icon icon={props.icon} className="nui-input-icon-inner" />
+            {icon && (
+              <div className={cn("nui-input-icon", classes?.icon)}>
+                <Icon icon={icon} className="nui-input-icon-inner" />
               </div>
             )}
 
-            {props.action && props.action}
+            {action}
           </div>
           {error && typeof error === "string" && (
-            <span className={cn("nui-input-error-text", props.classes?.error)}>
+            <span className={cn("nui-input-error-text", classes?.error)}>
               {error}
             </span>
           )}

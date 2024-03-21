@@ -1,4 +1,8 @@
-import { ComponentPropsWithRef, ElementType, PropsWithChildren } from "react";
+import type {
+  ComponentPropsWithRef,
+  ElementType,
+  PropsWithChildren,
+} from "react";
 
 /** Polymotphic Component Utils */
 
@@ -15,6 +19,13 @@ type AsProp<C extends ElementType> = {
  */
 
 type PropsToOmit<C extends ElementType, P> = keyof (AsProp<C> & P);
+
+/**
+ * Utility to make nested props optional
+ */
+export type DeepPartial<T> = {
+  [P in keyof T]?: DeepPartial<T[P]>;
+};
 
 /**
  * Polymorphic Component Props
@@ -51,189 +62,135 @@ export type ColorMode = "system" | "dark" | "light";
  */
 
 export type Config = {
-  BaseAccordion?: {
-    /**
-     * The radius of the accordion.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg";
+  // #region base
+  BaseAccordion: {
     /**
      * The action icon of the accordion.
-     *
      */
-    action?: "dot" | "chevron" | "plus";
+    action: "dot" | "chevron" | "plus";
+    /**
+     * Default color for the accordion dot
+     */
+    dotColor:
+      | "default"
+      | "primary"
+      | "success"
+      | "info"
+      | "warning"
+      | "danger"
+      | "dark"
+      | "black";
+    /**
+     * The color of the accordion.
+     */
+    color: "default" | "default-contrast" | "muted" | "muted-contrast";
+    /**
+     * The radius of the accordion.
+     */
+    rounded: "none" | "sm" | "md" | "lg";
   };
-
-  BaseAutocomplete?: {
+  BaseAvatar: {
     /**
-     * The radius of the autocomplete.
-     *
+     * Default color for the avatar
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * The size of the autocomplete.
-     *
-     */
-    size?: "sm" | "md" | "lg";
-    /**
-     * The contrast of the autocomplete.
-     *
-     */
-    contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
-  };
-
-  BaseAutocompleteItem?: {
-    /**
-     * The radius of the autocomplete item.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg";
-  };
-
-  BaseAvatar?: {
-    /**
-     * The size of the avatar.
-     *
-     */
-    size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+    color:
+      | "white"
+      | "muted"
+      | "primary"
+      | "success"
+      | "info"
+      | "warning"
+      | "danger"
+      | "pink"
+      | "yellow"
+      | "indigo"
+      | "violet";
     /**
      * The radius of the avatar.
      *
+     * @type {'none' | 'sm' | 'md' | 'lg' | 'full'}
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+    rounded: "full";
+    /**
+     * The size of the avatar.
+     */
+    size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
   };
-
-  BaseAvatarGroup?: {
+  BaseAvatarGroup: {
     /**
      * The limit of avatars to display.
-     *
      */
-    limit?: number;
+    limit: number;
     /**
      * The size of the avatar group.
-     *
      */
-    size?: "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
+    size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl" | "3xl" | "4xl";
   };
-
-  BaseButton?: {
+  BaseBreadcrumb: {
     /**
-     * Default variant for the BaseButton component
-     *
+     * Defines the hover color of the breadcrumb links
      */
-    variant?: "solid" | "pastel" | "outline";
-    /**
-     * Default rounded for the BaseButton component
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+    color: "primary" | "dark" | "black";
+  };
+  BaseButton: {
     /**
      * Default color for the BaseButton component
-     *
      */
-    color?:
+    color:
       | "default"
+      | "default-contrast"
+      | "muted"
+      | "muted-contrast"
+      | "light"
+      | "dark"
       | "primary"
       | "info"
       | "success"
       | "warning"
       | "danger"
-      | "light"
-      | "muted"
       | "none";
     /**
-     * Default size for the BaseButton component
-     *
+     * Default rounded for the BaseButton component
      */
-    size?: "sm" | "md" | "lg";
-  };
-
-  BaseButtonAction?: {
+    rounded: "none" | "sm" | "md" | "lg" | "full";
     /**
-     * Default rounded for the BaseButtonAction component
-     *
+     * Default size for the BaseButton component
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+    size: "sm" | "md" | "lg";
+    /**
+     * Default variant for the BaseButton component
+     */
+    variant: "solid" | "pastel" | "outline";
+  };
+  BaseButtonAction: {
     /**
      * Default color for the BaseButtonAction component
-     *
      */
-    color?:
+    color:
       | "default"
+      | "default-contrast"
+      | "muted"
+      | "muted-contrast"
+      | "light"
+      | "dark"
       | "primary"
       | "info"
       | "success"
       | "warning"
       | "danger"
-      | "muted"
       | "none";
+    /**
+     * Default rounded for the BaseButtonAction component
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
   };
-
-  BaseButtonClose?: {
-    /**
-     * Default size for the BaseButtonClose component
-     *
-     */
-    size?: "xs" | "sm" | "md" | "lg";
-    /**
-     * Default rounded for the BaseButtonClose component
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+  BaseButtonClose: {
     /**
      * Default color for the BaseButtonClose component
-     *
      */
-    color?:
+    color:
       | "default"
-      | "primary"
-      | "info"
-      | "success"
-      | "warning"
-      | "danger"
-      | "muted"
-      | "none";
-  };
-
-  BaseButtonIcon?: {
-    /**
-     * Default rounded for the BaseButtonIcon component
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * Default color for the BaseButtonIcon component
-     *
-     */
-    color?:
-      | "default"
-      | "primary"
-      | "info"
-      | "success"
-      | "warning"
-      | "danger"
-      | "muted"
-      | "none";
-    /**
-     * Default size for the BaseButton component
-     *
-     */
-    size?: "sm" | "md" | "lg";
-  };
-
-  BaseCard?: {
-    /**
-     * Default rounded for the BaseCard component
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg";
-    /**
-     * Default color for the BaseCard component
-     *
-     */
-    color?:
-      | "white"
-      | "white-contrast"
+      | "default-contrast"
       | "muted"
       | "muted-contrast"
       | "primary"
@@ -242,95 +199,90 @@ export type Config = {
       | "warning"
       | "danger"
       | "none";
+    /**
+     * Default rounded for the BaseButtonClose component
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * Default size for the BaseButtonClose component
+     */
+    size: "xs" | "sm" | "md" | "lg";
   };
-
-  BaseCheckbox?: {
+  BaseButtonGroup: Record<string, never>;
+  BaseButtonIcon: {
     /**
-     * Default rounded for the BaseCheckbox component
-     *
+     * Default color for the BaseButtonIcon component
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * Default color for the BaseCheckbox component
-     *
-     */
-    color?:
+    color:
       | "default"
-      | "light"
+      | "default-contrast"
       | "muted"
-      | "primary"
-      | "info"
-      | "success"
-      | "warning"
-      | "danger";
-  };
-
-  BaseCheckboxAnimated?: {
-    /**
-     * Default color for the BaseCheckbox component
-     *
-     */
-    color?:
+      | "muted-contrast"
       | "light"
-      | "muted"
-      | "primary"
-      | "info"
-      | "success"
-      | "warning"
-      | "danger";
-  };
-
-  BaseDropdown?: {
-    /**
-     * The variant of the dropdown.
-     *
-     */
-    variant?: "button" | "context" | "text";
-    /**
-     * The color of the dropdown button.
-     *
-     */
-    buttonColor?:
-      | "default"
+      | "dark"
       | "primary"
       | "info"
       | "success"
       | "warning"
       | "danger"
-      | "light"
+      | "none";
+    /**
+     * Default rounded for the BaseButtonIcon component
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * Default size for the BaseButton component
+     */
+    size: "sm" | "md" | "lg" | "xl";
+  };
+  BaseCard: {
+    /**
+     * Default color for the BaseCard component
+     */
+    color:
+      | "default"
+      | "default-contrast"
       | "muted"
+      | "muted-contrast"
+      | "dark"
+      | "black"
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "none";
+    /**
+     * Default rounded for the BaseCard component
+     */
+    rounded: "none" | "sm" | "md" | "lg";
+  };
+  BaseDropdown: {
+    /**
+     * The color of the dropdown button.
+     */
+    buttonColor:
+      | "default"
+      | "default-contrast"
+      | "muted"
+      | "muted-contrast"
+      | "light"
+      | "dark"
+      | "black"
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
       | "none";
     /**
      * The color of the dropdown.
-     *
      */
-    color?:
-      | "white"
-      | "white-contrast"
-      | "muted"
-      | "muted-contrast"
-      | "primary"
-      | "info"
-      | "success"
-      | "warning"
-      | "danger"
-      | "none";
-    /**
-     * Default rounded for the BaseDropdown component
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * The orientation of the dropdown.
-     *
-     * @deprecated use placement instead
-     */
-    orientation?: "start" | "end";
+    color: "default" | "default-contrast" | "muted" | "muted-contrast" | "none";
     /**
      * The placement of the dropdown via floating-ui
-     *
      */
-    placement?:
+    placement:
       | "top"
       | "top-start"
       | "top-end"
@@ -344,50 +296,53 @@ export type Config = {
       | "left-start"
       | "left-end";
     /**
+     * Default rounded for the BaseDropdown component
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
      * Default size for the BaseDropdown component menu
-     *
      */
-    size?: "md" | "lg";
+    size: "md" | "lg";
     /**
-     * The label to display for the dropdown.
-     *
+     * The variant of the dropdown.
      */
-    label?: string;
-    /**
-     * The header label to display for the dropdown.
-     *
-     */
-    headerLabel?: string;
-    /**
-     * Used a fixed strategy to float the component
-     *
-     */
-    fixed?: boolean;
+    variant: "button" | "context" | "text";
   };
-
-  BaseDropdownItem?: {
+  BaseDropdownDivider: Record<string, never>;
+  BaseDropdownItem: {
+    /**
+     * The hover color of the dropdown item inner elements.
+     */
+    color:
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "dark"
+      | "black";
+    /**
+     * The contrast of the dropdown item.
+     */
+    contrast: "default" | "contrast";
     /**
      * The radius of the dropdown item.
-     *
      */
-    rounded?: "none" | "sm" | "md" | "lg";
-    /**
-     * The color of the dropdown item.
-     *
-     */
-    color?: "default" | "contrast";
+    rounded: "none" | "sm" | "md" | "lg";
   };
-  BaseHeading?: {
+  BaseHeading: {
     /**
      * The tag of the heading.
-     *
      */
-    as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "span" | "p";
+    as: string;
+    /**
+     * The lead of the heading.
+     */
+    lead: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
     /**
      * The size of the heading.
-     *
      */
-    size?:
+    size:
       | "xs"
       | "sm"
       | "md"
@@ -403,29 +358,19 @@ export type Config = {
       | "9xl";
     /**
      * The weight of the heading.
-     *
      */
-    weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
-    /**
-     * The lead of the heading.
-     *
-     */
-    lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
+    weight: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
   };
-
-  BaseIconBox?: {
-    /**
-     * The variant of the icon box.
-     *
-     */
-    variant?: "solid" | "outline" | "pastel";
+  BaseIconBox: {
     /**
      * The color of the icon box.
-     *
      */
-    color?:
+    color:
       | "default"
-      | "invert"
+      | "default-contrast"
+      | "dark"
+      | "light"
+      | "black"
       | "primary"
       | "info"
       | "success"
@@ -433,120 +378,44 @@ export type Config = {
       | "danger"
       | "none";
     /**
-     * The size of the icon box.
-     *
-     */
-    size?: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
-    /**
      * The radius of the icon box.
-     *
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the icon box.
+     */
+    size: "xs" | "sm" | "md" | "lg" | "xl" | "2xl";
+    /**
+     * The variant of the icon box.
+     */
+    variant: "solid" | "outline" | "pastel";
   };
-
-  BaseInput?: {
-    /**
-     * The radius of the input.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * The size of the input.
-     *
-     */
-    size?: "sm" | "md" | "lg";
-    /**
-     * The contrast of the input.
-     *
-     */
-    contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
-  };
-
-  BaseInputFile?: {
-    /**
-     * The radius of the input.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * The size of the input.
-     *
-     */
-    size?: "sm" | "md" | "lg";
-    /**
-     * The contrast of the input.
-     *
-     */
-    contrast?: "default" | "default-contrast";
-  };
-
-  BaseInputNumber?: {
-    /**
-     * The inputmode to use for the input, usually for mobile devices.
-     *
-     */
-    inputmode?: "decimal" | "numeric";
-    /**
-     * The radius of the input.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * The size of the input.
-     *
-     */
-    size?: "sm" | "md" | "lg";
-    /**
-     * The contrast of the input.
-     *
-     */
-    contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
-  };
-
-  BaseKbd?: {
-    /**
-     * The radius of the kbd.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * The size of the kbd.
-     *
-     */
-    size?: "xs" | "sm" | "md" | "lg";
+  BaseKbd: {
     /**
      * The color of the kbd.
-     *
      */
-    color?: "default" | "muted" | "none";
+    color: "default" | "muted" | "none";
+    /**
+     * The radius of the kbd.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the kbd.
+     */
+    size: "xs" | "sm" | "md" | "lg";
   };
-
-  BaseListbox?: {
+  BaseLink: Record<string, never>;
+  BaseList: Record<string, never>;
+  BaseListItem: Record<string, never>;
+  BaseMessage: {
     /**
-     * The radius of the input.
-     *
+     * The color of the message.
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * The size of the input.
-     *
-     */
-    size?: "sm" | "md" | "lg";
-    /**
-     * The contrast of the input.
-     *
-     */
-    contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
-  };
-
-  BaseMessage?: {
-    /**
-     * The type of the message.
-     *
-     */
-    type?:
+    color:
       | "default"
+      | "default-contrast"
       | "muted"
+      | "muted-muted"
       | "primary"
       | "info"
       | "success"
@@ -554,215 +423,194 @@ export type Config = {
       | "danger";
     /**
      * The radius of the message.
-     *
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * Determines if the message is closable.
-     *
-     */
-    closable?: boolean;
+    rounded: "none" | "sm" | "md" | "lg" | "full";
   };
-
-  BasePagination?: {
+  BasePagination: {
+    /**
+     * The color of the pagination.
+     */
+    color: "primary" | "dark" | "black";
     /**
      * The radius of the pagination.
-     *
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+    rounded: "none" | "sm" | "md" | "lg" | "full";
   };
-
-  BaseParagraph?: {
+  BaseParagraph: {
     /**
      * The tag of the paragraph.
-     *
      */
-    as?: string;
-    /**
-     * The size of the paragraph.
-     *
-     */
-    size?: "md";
-    /**
-     * The weight of the paragraph.
-     *
-     */
-    weight?: "normal";
+    as: string;
     /**
      * The lead of the paragraph.
-     *
      */
-    lead?: "normal";
+    lead: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
+    /**
+     * The size of the paragraph.
+     */
+    size:
+      | "xs"
+      | "sm"
+      | "md"
+      | "lg"
+      | "xl"
+      | "2xl"
+      | "3xl"
+      | "4xl"
+      | "5xl"
+      | "6xl"
+      | "7xl"
+      | "8xl"
+      | "9xl";
+    /**
+     * The weight of the paragraph.
+     */
+    weight: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
   };
-
-  BasePlaceholderPage?: {
+  BasePlaceholderPage: {
     /**
      * The size of the placeholder image.
-     *
      */
-    imageSize?: "xs" | "sm" | "md" | "lg" | "xl";
+    imageSize: "xs" | "sm" | "md" | "lg" | "xl";
   };
-
-  BaseProgress?: {
-    /**
-     * The size of the progress.
-     *
-     */
-    size?: "sm" | "md" | "lg" | "xl";
-    /**
-     * The grey shade of the progress.
-     *
-     */
-    contrast?: "default" | "contrast";
+  BasePlaceload: Record<string, never>;
+  BaseProgress: {
     /**
      * The color of the progress.
-     *
      */
-    color?: "primary" | "info" | "success" | "warning" | "danger";
-    /**
-     * The radius of the progress.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-  };
-
-  BaseProse?: {
-    /**
-     * The radius of the prose.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg";
-  };
-
-  BaseRadio?: {
-    /**
-     * Default color for the BaseRadio component
-     *
-     */
-    color?:
-      | "default"
-      | "light"
-      | "muted"
-      | "primary"
-      | "info"
-      | "success"
-      | "warning"
-      | "danger";
-  };
-
-  BaseSelect?: {
-    /**
-     * The radius of the select.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-    /**
-     * The size of the select.
-     *
-     */
-    size?: "sm" | "md" | "lg";
-    /**
-     * The contrast of the select.
-     *
-     */
-    contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
-  };
-
-  BaseSnack?: {
-    /**
-     * The size of the snack.
-     *
-     */
-    size?: "xs" | "sm" | "md";
-    /**
-     * The color of the snack.
-     *
-     */
-    color?: "default" | "muted";
-  };
-
-  BaseSwitchBall?: {
-    /**
-     * The color of the switch.
-     *
-     */
-    color?: "primary" | "info" | "success" | "warning" | "danger";
-  };
-
-  BaseSwitchThin?: {
-    /**
-     * The color of the switch.
-     *
-     */
-    color?: "primary" | "info" | "success" | "warning" | "danger";
-  };
-
-  BaseTabs?: {
-    /**
-     * The type of the tabs.
-     *
-     */
-    type?: "tabs" | "box";
-    /**
-     * The alignment of the tabs.
-     *
-     */
-    justify?: "start" | "center" | "end";
-  };
-
-  BaseTabSlider?: {
-    /**
-     * The alignment of the tabs.
-     *
-     */
-    justify?: "start" | "center" | "end";
-    /**
-     * The size of the tabs.
-     *
-     */
-    size?: "sm" | "md";
-    /**
-     * The radius of the tabs.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-  };
-  BaseTag?: {
-    /**
-     * The variant of the tag.
-     *
-     */
-    variant?: "solid" | "pastel" | "outline";
-    /**
-     * The color of the tag.
-     *
-     */
-    color?:
-      | "default"
+    color:
       | "primary"
       | "info"
       | "success"
       | "warning"
       | "danger"
-      | "muted";
+      | "light"
+      | "dark"
+      | "black";
+    /**
+     * The grey shade of the progress.
+     */
+    contrast: "default" | "contrast";
+    /**
+     * The radius of the progress.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the progress.
+     */
+    size: "xs" | "sm" | "md" | "lg" | "xl";
+  };
+  BaseProgressCircle: {
+    /**
+     * The color of the progress circle.
+     */
+    color:
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "light"
+      | "dark"
+      | "black";
+  };
+  BaseProse: {
+    /**
+     * The radius of the prose.
+     */
+    rounded: "none" | "sm" | "md" | "lg";
+  };
+  BaseSnack: {
+    /**
+     * The color of the snack.
+     */
+    color: "default" | "muted";
+    /**
+     * The size of the snack.
+     */
+    size: "xs" | "sm" | "md";
+  };
+  BaseTabs: {
+    /**
+     * The color of the active tab.
+     */
+    color: "default" | "primary" | "light" | "dark" | "black";
+    /**
+     * The alignment of the tabs.
+     */
+    justify: "start" | "center" | "end";
+    /**
+     * The type of the tabs.
+     */
+    type: "tabs" | "box";
+  };
+  BaseTabSlider: {
+    /**
+     * The color of the active tab.
+     *
+     * @type {}
+     */
+    color:
+      | "default"
+      | "default-contrast"
+      | "primary"
+      | "light"
+      | "dark"
+      | "black";
+    /**
+     * The alignment of the tabs.
+     */
+    justify: "start" | "center" | "end";
+    /**
+     * The radius of the tabs.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the tabs.
+     */
+    size: "sm" | "md";
+  };
+  BaseTag: {
+    /**
+     * The color of the tag.
+     *
+     * @type {}
+     */
+    color:
+      | "default"
+      | "default-contrast"
+      | "muted"
+      | "muted-contrast"
+      | "light"
+      | "dark"
+      | "black"
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger";
     /**
      * The radius of the tag.
-     *
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+    rounded: "none" | "sm" | "md" | "lg" | "full";
     /**
      * The size of the tag.
-     *
      */
-    size?: "sm" | "md";
+    size: "sm" | "md";
+    /**
+     * The variant of the tag.
+     */
+    variant: "solid" | "pastel" | "outline";
   };
-
-  BaseText?: {
+  BaseText: {
+    /**
+     * The lead of the text span.
+     */
+    lead: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
     /**
      * The size of the text span.
-     *
      */
-    size?:
+    size:
       | "xs"
       | "sm"
       | "md"
@@ -778,117 +626,245 @@ export type Config = {
       | "9xl";
     /**
      * The weight of the text span.
-     *
      */
-    weight?: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
-    /**
-     * The lead of the text span.
-     *
-     */
-    lead?: "none" | "tight" | "snug" | "normal" | "relaxed" | "loose";
+    weight: "light" | "normal" | "medium" | "semibold" | "bold" | "extrabold";
   };
+  BaseThemeSwitch: {
+    /**
+     * Disables transitions when toggling between light and dark mode.
+     */
+    disableTransitions: boolean;
+  };
+  BaseThemeToggle: {
+    /**
+     * Disables transitions when toggling between light and dark mode.
+     */
+    disableTransitions: boolean;
+  };
+  // #endregion
 
-  BaseTextarea?: {
+  // #region form
+  BaseAutocomplete: {
     /**
-     * The radius of the textarea.
-     *
+     * The contrast of the autocomplete.
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
+    contrast: "default" | "default-contrast" | "muted" | "muted-contrast";
     /**
-     * The size of the textarea.
-     *
+     * Translation strings.
      */
-    size?: "sm" | "md" | "lg";
+    i18n: {
+      empty: string;
+      pending: string;
+    };
+    /**
+     * The radius of the autocomplete.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the autocomplete.
+     */
+    size: "sm" | "md" | "lg";
+  };
+  BaseAutocompleteItem: {
+    /**
+     * The radius of the autocomplete item.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+  };
+  BaseCheckbox: {
+    /**
+     * Default color for the BaseCheckbox component
+     */
+    color:
+      | "default"
+      | "muted"
+      | "light"
+      | "dark"
+      | "black"
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger";
+    /**
+     * Default rounded for the BaseCheckbox component
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+  };
+  BaseCheckboxAnimated: {
+    /**
+     * Default color for the BaseCheckbox component
+     */
+    color:
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "light"
+      | "muted"
+      | "dark"
+      | "black";
+  };
+  BaseCheckboxHeadless: Record<string, never>;
+  BaseFullscreenDropfile: {
+    /**
+     * The color of the icon.
+     *
+     * @type {'primary' | 'dark' | 'black'}
+     */
+    color: "primary" | "dark" | "black";
+  };
+  BaseInput: {
+    /**
+     * The contrast of the input.
+     */
+    contrast: "default" | "default-contrast" | "muted" | "muted-contrast";
+    /**
+     * The radius of the input.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the input.
+     */
+    size: "sm" | "md" | "lg";
+  };
+  BaseInputFile: {
+    /**
+     * The contrast of the input.
+     */
+    contrast: "default" | "default-contrast";
+    /**
+     * The radius of the input.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the input.
+     */
+    size: "sm" | "md" | "lg";
+  };
+  BaseInputFileHeadless: Record<string, never>;
+  BaseInputNumber: {
+    /**
+     * The contrast of the input.
+     */
+    contrast: "default" | "default-contrast" | "muted" | "muted-contrast";
+    /**
+     * The radius of the input.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the input.
+     */
+    size: "sm" | "md" | "lg";
+  };
+  BaseListbox: {
+    /**
+     * The contrast of the input.
+     */
+    contrast: "default" | "default-contrast" | "muted" | "muted-contrast";
+    /**
+     * The placement of the dropdown via floating-ui
+     */
+    placement:
+      | "top"
+      | "top-start"
+      | "top-end"
+      | "right"
+      | "right-start"
+      | "right-end"
+      | "bottom"
+      | "bottom-start"
+      | "bottom-end"
+      | "left"
+      | "left-start"
+      | "left-end";
+    /**
+     * The radius of the input.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the input.
+     */
+    size: "sm" | "md" | "lg";
+  };
+  BaseListboxItem: Record<string, never>;
+  BaseRadio: {
+    /**
+     * Default color for the BaseRadio component
+     */
+    color:
+      | "default"
+      | "light"
+      | "muted"
+      | "dark"
+      | "black"
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger";
+  };
+  BaseRadioHeadless: Record<string, never>;
+  BaseSelect: {
+    /**
+     * The contrast of the select.
+     */
+    contrast: "default" | "default-contrast" | "muted" | "muted-contrast";
+    /**
+     * The radius of the select.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the select.
+     */
+    size: "sm" | "md" | "lg";
+  };
+  BaseSwitchBall: {
+    /**
+     * The color of the switch.
+     */
+    color:
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "dark"
+      | "black";
+  };
+  BaseSwitchThin: {
+    /**
+     * The color of the switch.
+     */
+    color:
+      | "primary"
+      | "info"
+      | "success"
+      | "warning"
+      | "danger"
+      | "dark"
+      | "black";
+  };
+  BaseTextarea: {
     /**
      * The contrast of the textarea.
-     *
      */
-    contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
+    contrast: "default" | "default-contrast" | "muted" | "muted-contrast";
+    /**
+     * The radius of the textarea.
+     */
+    rounded: "none" | "sm" | "md" | "lg" | "full";
+    /**
+     * The size of the textarea.
+     */
+    size: "sm" | "md" | "lg";
   };
-
-  BaseTreeSelectItem?: {
+  BaseTreeSelect: Record<string, never>;
+  BaseTreeSelectItem: {
     /**
      * The radius of the tree select item.
-     *
      */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-  };
-
-  defaultShapes: {
-    /**
-     * Default shape for the BaseAccordion component
-     */
-    accordion?: "straight" | "rounded" | "smooth" | "curved";
-    /**
-     * Default shape for the BaseAutocompleteItem component
-     */
-    autocompleteItem?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BaseAvatar component
-     */
-    avatar?: "straight" | "rounded" | "curved" | "full";
-    /**
-     * Default shape for the BaseButton component
-     */
-    button?: "straight" | "rounded" | "curved" | "smooth" | "full";
-    /**
-     * Default shape for the BaseButtonAction component
-     */
-    buttonAction?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BaseButtonClose component
-     */
-    buttonIcon?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BaseButtonClose component
-     */
-    buttonClose?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BaseCard component
-     */
-    card?: "straight" | "rounded" | "smooth" | "curved";
-    /**
-     * Default shape for the BaseDropdown component
-     */
-    dropdown?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BaseIconBox component
-     */
-    iconBox?: "straight" | "rounded" | "curved" | "full";
-    /**
-     * Default shape for all input components component
-     * - BaseAutocomplete
-     * - BaseCheckbox
-     * - BaseInput
-     * - BaseInputFile
-     * - BaseInputListbox
-     * - BaseInputSelect
-     * - BaseInputTextarea
-     */
-    input?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BaseMessage component
-     */
-    message?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BasePagination component
-     */
-    pagination?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BaseProgress component
-     */
-    progress?: "straight" | "rounded" | "curved" | "full";
-    /**
-     * Default shape for the BaseProse component
-     */
-    prose?: "straight" | "rounded" | "curved";
-    /**
-     * Default shape for the BaseTabSlider component
-     */
-    tabSlider?: "straight" | "rounded" | "smooth" | "curved" | "full";
-    /**
-     * Default shape for the BaseTag component
-     */
-    tag?: "straight" | "rounded" | "curved" | "full";
+    rounded: "none" | "sm" | "md" | "lg" | "full";
   };
 };

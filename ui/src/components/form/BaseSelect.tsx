@@ -1,16 +1,16 @@
 import {
-  PropsWithChildren,
-  SelectHTMLAttributes,
+  type PropsWithChildren,
+  type SelectHTMLAttributes,
   forwardRef,
   useImperativeHandle,
   useMemo,
   useRef,
 } from "react";
 import { Icon } from "@iconify/react";
-import { useNinjaId } from "../../hooks/useNinjaId";
-import { cn } from "../../utils";
-import { useConfig } from "../../Provider";
-import { BasePlaceload } from "../base/BasePlaceload";
+import { useNinjaId } from "~/hooks/useNinjaId";
+import { cn } from "~/utils";
+import { useNuiDefaultProperty } from "~/Provider";
+import { BasePlaceload } from "~/components/base/BasePlaceload";
 import { IconChevronDown } from "../icons/IconChevronDown";
 
 type BaseSelectProps = PropsWithChildren<{
@@ -27,20 +27,9 @@ type BaseSelectProps = PropsWithChildren<{
   id?: string;
 
   /**
-   * The radius of the select input.
-   *
-   */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /**
    * The label text for the select input.
    */
   label?: string;
-
-  /**
-   * Empty option text added to the beginning of the select input.
-   */
-  placeholder?: string;
 
   /**
    * If the label should be floating.
@@ -53,6 +42,11 @@ type BaseSelectProps = PropsWithChildren<{
   icon?: string;
 
   /**
+   * The placeholder to display for the select input.
+   */
+  placeholder?: string;
+
+  /**
    * Whether the select input is in a loading state.
    */
   loading?: boolean;
@@ -63,9 +57,9 @@ type BaseSelectProps = PropsWithChildren<{
   disabled?: boolean;
 
   /**
-   * Whether the select input is read-only.
+   * Whether the color of the input should change when it is focused.
    */
-  readonly?: boolean;
+  colorFocus?: boolean;
 
   /**
    * An error message to display, or a boolean indicating whether there is an error.
@@ -73,14 +67,26 @@ type BaseSelectProps = PropsWithChildren<{
   error?: string | boolean;
 
   /**
-   * The size of the select input.
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
    * The contrast of the select input.
+   *
+   * @default 'default'
    */
   contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
+
+  /**
+   * The radius of the select input.
+   *
+   * @since 2.0.0
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the select input.
+   *
+   * @default 'md'
+   */
+  size?: "sm" | "md" | "lg";
 
   /**
    * Classes to apply to the select input.
@@ -90,6 +96,11 @@ type BaseSelectProps = PropsWithChildren<{
      * A class or classes to apply to the wrapper element.
      */
     wrapper?: string | string[];
+
+    /**
+     * A class or classes to apply to the outer element.
+     */
+    outer?: string | string[];
 
     /**
      * A class or classes to apply to the label element.
@@ -120,10 +131,10 @@ type BaseSelectProps = PropsWithChildren<{
 
 const radiuses = {
   none: "",
-  sm: "nui-select-rounded",
-  md: "nui-select-smooth",
-  lg: "nui-select-curved",
-  full: "nui-select-full",
+  sm: "nui-select-rounded-sm",
+  md: "nui-select-rounded-md",
+  lg: "nui-select-rounded-lg",
+  full: "nui-select-rounded-full",
 };
 
 const sizes = {
@@ -156,18 +167,14 @@ export const BaseSelect = forwardRef<
   BaseSelectProps &
     Omit<SelectHTMLAttributes<HTMLSelectElement>, keyof BaseSelectProps>
 >(function BaseSelect(
-  { label = "", onChange = (val) => {}, error = false, children, ...props },
+  { label = "", onChange = () => {}, error = false, children, ...props },
   ref,
 ) {
   const selectRef = useRef<HTMLSelectElement>(null);
 
-  const config = useConfig();
-
-  const rounded = props.rounded ?? config.BaseSelect?.rounded;
-
-  const size = props.size ?? config.BaseSelect?.size;
-
-  const contrast = props.contrast ?? config.BaseSelect?.contrast;
+  const contrast = useNuiDefaultProperty(props, "BaseSelect", "contrast");
+  const rounded = useNuiDefaultProperty(props, "BaseSelect", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseSelect", "size");
 
   const id = useNinjaId(() => props.id);
 
@@ -205,6 +212,7 @@ export const BaseSelect = forwardRef<
         props.loading && "nui-select-loading",
         props.labelFloat && "nui-select-label-float",
         props.icon && "nui-has-icon",
+        props.colorFocus && "nui-select-focus",
         props.classes?.wrapper,
       )}
     >
@@ -216,7 +224,7 @@ export const BaseSelect = forwardRef<
           {label}
         </label>
       )}
-      <div className="nui-select-outer">
+      <div className={cn("nui-select-outer", props.classes?.outer)}>
         <select
           id={id}
           ref={selectRef}

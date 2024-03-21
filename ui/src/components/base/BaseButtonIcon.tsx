@@ -1,8 +1,8 @@
-import { PropsWithChildren, forwardRef } from "react";
-import { useConfig } from "../../Provider";
+import { type PropsWithChildren, forwardRef } from "react";
+import { useNuiDefaultProperty } from "~/Provider";
 import { BasePlaceload } from "./BasePlaceload";
-import { useNinjaButton, NinjaButtonProps } from "../../hooks/useNinjaButton";
-import { cn } from "../../utils";
+import { type NinjaButtonProps, useNinjaButton } from "~/hooks/useNinjaButton";
+import { cn } from "~/utils";
 
 type BaseButtonIconProps = Omit<NinjaButtonProps, "children"> &
   PropsWithChildren<{
@@ -39,17 +39,18 @@ type BaseButtonIconProps = Omit<NinjaButtonProps, "children"> &
     // target?: string;
 
     /**
-     * The radius of the button or link.
-     *
-     */
-    rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-    /**
      * The color of the button.
+     *
+     * @default 'default'
      */
     color?:
       | "default"
+      | "default-contrast"
       | "muted"
+      | "muted-contrast"
+      | "light"
+      | "dark"
+      | "black"
       | "primary"
       | "info"
       | "success"
@@ -58,22 +59,26 @@ type BaseButtonIconProps = Omit<NinjaButtonProps, "children"> &
       | "none";
 
     /**
-     * The size of the button.
+     * The radius of the button or link.
+     *
+     * @default 'sm'
      */
-    size?: "sm" | "md" | "lg";
+    rounded?: "none" | "sm" | "md" | "lg" | "full";
 
     /**
-     * Whether the button or link is in a loading state.
+     * The size of the button.
+     *
+     * @default 'md'
      */
-    // loading?: boolean;
+    size?: "sm" | "md" | "lg";
   }>;
 
 const radiuses = {
   none: "",
-  sm: "nui-button-rounded",
-  md: "nui-button-smooth",
-  lg: "nui-button-curved",
-  full: "nui-button-full",
+  sm: "nui-button-rounded-sm",
+  md: "nui-button-rounded-md",
+  lg: "nui-button-rounded-lg",
+  full: "nui-button-rounded-full",
 };
 
 const sizes = {
@@ -84,7 +89,12 @@ const sizes = {
 
 const colors = {
   default: "nui-button-default",
+  "default-contrast": "nui-button-default-contrast",
   muted: "nui-button-muted",
+  "muted-contrast": "nui-button-muted-contrast",
+  light: "nui-button-light",
+  dark: "nui-button-dark",
+  black: "nui-button-black",
   primary: "nui-button-primary",
   info: "nui-button-info",
   success: "nui-button-success",
@@ -104,7 +114,7 @@ export const BaseButtonIcon = forwardRef<
     rel = "",
     target = "",
     loading = false,
-    className: classes,
+    className,
     children,
     ...props
   },
@@ -118,13 +128,9 @@ export const BaseButtonIcon = forwardRef<
     disabled,
   });
 
-  const config = useConfig();
-
-  const color = props.color ?? config.BaseButtonIcon?.color;
-
-  const rounded = props.rounded ?? config.BaseButtonIcon?.rounded;
-
-  const size = props.size ?? config.BaseButtonIcon?.size;
+  const color = useNuiDefaultProperty(props, "BaseButtonIcon", "color");
+  const rounded = useNuiDefaultProperty(props, "BaseButtonIcon", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseButtonIcon", "size");
 
   return (
     <Component
@@ -134,7 +140,7 @@ export const BaseButtonIcon = forwardRef<
         rounded && radiuses[rounded],
         size && sizes[size],
         color && colors[color],
-        classes,
+        className,
       )}
       {
         ...(props as object) /** TODO: add correct type */
