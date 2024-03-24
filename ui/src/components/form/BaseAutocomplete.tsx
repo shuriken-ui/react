@@ -2,8 +2,8 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  ReactNode,
-  Ref,
+  type ReactNode,
+  type Ref,
   forwardRef,
   useCallback,
   useEffect,
@@ -14,8 +14,8 @@ import { useDebounce } from "use-debounce";
 import { Combobox } from "@headlessui/react";
 import { Float } from "@headlessui-float/react";
 import { Icon } from "@iconify/react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import { useNuiDefaultProperty } from "~/Provider";
+import { cn } from "~/utils";
 import { BasePlaceload } from "../base/BasePlaceload";
 import { BaseAutocompleteItem } from "./BaseAutocompleteItem";
 
@@ -23,7 +23,7 @@ type BaseAutocompleteProps<T = string> = {
   /**
    *
    */
-  value?: T;
+  value?: T | T[];
 
   /**
    * The items to display in the component.
@@ -348,13 +348,11 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
   }: BaseAutocompleteProps<T>,
   ref: Ref<HTMLElement>,
 ) {
-  const config = useConfig();
+  const rounded = useNuiDefaultProperty(props, "BaseAutocomplete", "rounded");
 
-  const rounded = props.rounded ?? config.BaseAutocomplete?.rounded;
+  const size = useNuiDefaultProperty(props, "BaseAutocomplete", "size");
 
-  const size = props.size ?? config.BaseAutocomplete?.size;
-
-  const contrast = props.contrast ?? config.BaseAutocomplete?.contrast;
+  const contrast = useNuiDefaultProperty(props, "BaseAutocomplete", "contrast");
 
   const autocompleteValue = props.value;
 
@@ -628,7 +626,6 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
                           <div className="nui-autocomplete-multiple-list-item">
                             {displayValueResolved(item)}
 
-                            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
                             <button
                               type="button"
                               onClick={() => removeItem(item)}
