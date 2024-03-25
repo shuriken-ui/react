@@ -60,6 +60,7 @@ export const BaseTreeSelectItem = forwardRef<
 
   const ComponentProps = toggle
     ? {
+        type: "button",
         onClick: toggle,
         className: "nui-focus",
       }
@@ -79,9 +80,9 @@ export const BaseTreeSelectItem = forwardRef<
     >
       {children}
 
-      <Component className="flex items-center" {...ComponentProps}>
+      <Component className="flex items-center" {...(ComponentProps as object)}>
         {value && value.media && !value.icon && (
-          <BaseAvatar src={value.media} size="xs" className="me-2" alt="" />
+          <BaseAvatar src={value.media} size="xs" className="me-2" />
         )}
 
         {value && !value.media && value.icon && (
