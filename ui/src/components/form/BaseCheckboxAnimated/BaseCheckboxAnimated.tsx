@@ -2,18 +2,26 @@ import {
   forwardRef,
   useEffect,
   useImperativeHandle,
+  useMemo,
   useRef,
-  useState,
 } from "react";
 import { useNinjaId } from "~/hooks/useNinjaId";
 import { IconCheckCircle } from "~/components/icons";
 import { cn } from "~/utils";
+
+import "./BaseCheckboxAnimated.css";
+import { useNuiDefaultProperty } from "~/Provider";
 
 type BaseCheckboxAnimatedProps = {
   /**
    * The value of the component.
    */
   value?: string;
+
+  /**
+   * Whether the component is checked.
+   */
+  checked?: boolean;
 
   /**
    * The form input identifier.
@@ -23,7 +31,7 @@ type BaseCheckboxAnimatedProps = {
   /**
    * The value of the component.
    */
-  onChange?: (value: string) => void;
+  onChange?: (value: string, checked: boolean) => void;
 
   /**
    * The value to set when the component is checked.
@@ -100,14 +108,13 @@ export const BaseCheckboxAnimated = forwardRef<
       label: [],
       input: [],
     },
-    value = "",
     trueValue = "",
     falseValue = "",
     ...props
   },
   ref,
 ) {
-  const [inputValue, setInputValue] = useState<string | undefined>(value);
+  const color = useNuiDefaultProperty(props, "BaseCheckboxAnimated", "color");
 
   const id = useNinjaId(() => props.id);
 
@@ -117,10 +124,17 @@ export const BaseCheckboxAnimated = forwardRef<
 
   const innerElementRef = useRef<HTMLDivElement>(null);
 
-  const isChecked =
-    value !== undefined &&
-    inputValue === trueValue &&
-    inputValue !== falseValue;
+  const isChecked = useMemo(() => {
+    if (props.checked !== undefined) {
+      return props.checked;
+    }
+
+    return (
+      props.value !== undefined &&
+      props.value === trueValue &&
+      props.value !== falseValue
+    );
+  }, [props.value, props.checked, trueValue, falseValue]);
 
   useImperativeHandle(
     ref,
@@ -138,12 +152,16 @@ export const BaseCheckboxAnimated = forwardRef<
     [],
   );
 
-  function handleChange(val: string) {
+  function handleChange(val: string, checked: boolean) {
+    if (trueValue === "" || falseValue === "") {
+      onChange(val, checked);
+
+      return;
+    }
+
     const checkValue = val === trueValue ? falseValue : trueValue;
 
-    onChange(checkValue);
-
-    setInputValue(checkValue);
+    onChange(checkValue, checked);
   }
 
   useEffect(() => {
@@ -181,23 +199,27 @@ export const BaseCheckboxAnimated = forwardRef<
         ref={inputRef}
         type="checkbox"
         className={cn(
-          "peer cursor-pointer disabled:cursor-not-allowed",
+          "peer cursor-pointer disabled:cursor-not-allowed absolute top-0 left-0 h-full w-full opacity-0 z-[1]",
           classes?.input,
         )}
         checked={isChecked}
-        value={inputValue}
-        onChange={(e) => handleChange(e.target.value)}
+        value={props.value}
+        onChange={(e) => handleChange(e.target.value, e.target.checked)}
       />
 
       <label
         htmlFor={id}
         className={cn(
-          "peer-disabled:opacity-75",
-          props.color && colors[props.color],
+          "peer-disabled:opacity-75 relative size-8",
+          color && colors[color],
           classes?.label,
         )}
       >
-        <div ref={innerElementRef} />
+        <div
+          ref={innerElementRef}
+          className="absolute
+         top-0 left-0 size-8 rounded-[50%] z-0 opacity-100 transition-all duration-200 border border-[var(--animated-checkbox-border)]"
+        />
         <IconCheckCircle />
       </label>
     </div>
