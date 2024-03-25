@@ -30,7 +30,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shuriken-ui/react.git",
-    "directory": "sample-react-library"
+    "directory": "ui"
   },
   "bugs": {
     "url": "https://github.com/shuriken-ui/react/issues"
