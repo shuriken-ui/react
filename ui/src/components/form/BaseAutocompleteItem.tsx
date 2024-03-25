@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable consistent-return */
-import React, { ReactNode, Ref, forwardRef, useMemo } from "react";
+import { forwardRef, useMemo } from "react";
+import type { ReactNode, Ref } from "react";
 import { Icon } from "@iconify/react";
-import { useConfig } from "../../Provider";
-import { cn } from "../../utils";
+import { useConfig } from "~/Provider";
+import { cn } from "~/utils";
 import { BaseAvatar } from "../base/BaseAvatar";
 import { BaseIconBox } from "../base/BaseIconBox";
 import { BaseHeading } from "../base/BaseHeading";
 import { BaseText } from "../base/BaseText";
 
-import { useNinjaMark } from "../../hooks/useNinjaMark";
+import { useNinjaMark } from "~/hooks/useNinjaMark";
 
 type BaseAutocompleteItemProps<T> = {
   /**
@@ -173,7 +174,7 @@ export const BaseAutocompleteItem = forwardRef(function BaseAutocompleteItem<
       )}
       ref={ref}
     >
-      {media && !icon && <BaseAvatar src="media" size="xs" className="me-3" />}
+      {media && !icon && <BaseAvatar src={media} size="xs" className="me-3" />}
       {icon && !media && (
         <BaseIconBox size="sm" rounded="sm" color="none" className="me-1">
           <Icon
