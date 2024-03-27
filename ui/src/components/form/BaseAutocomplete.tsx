@@ -2,8 +2,8 @@
 /* eslint-disable react/jsx-no-useless-fragment */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  ReactNode,
-  Ref,
+  type ReactNode,
+  type Ref,
   forwardRef,
   useCallback,
   useEffect,
@@ -14,7 +14,7 @@ import { useDebounce } from "use-debounce";
 import { Combobox } from "@headlessui/react";
 import { Float } from "@headlessui-float/react";
 import { Icon } from "@iconify/react";
-import { useConfig } from "../../Provider";
+import { useNuiDefaultProperty } from "../../Provider";
 import { cn } from "../../utils";
 import { BasePlaceload } from "../base/BasePlaceload";
 import { BaseAutocompleteItem } from "./BaseAutocompleteItem";
@@ -25,11 +25,6 @@ type BaseAutocompleteProps<T = string> = {
    */
   value?: T;
 
-  /**
-   * The items to display in the component.
-   */
-  items?: T[];
-
   stateModifiers?: { prop?: boolean };
 
   /**
@@ -38,22 +33,9 @@ type BaseAutocompleteProps<T = string> = {
   onChange?: (item: T) => void;
 
   /**
-   * The radius of the component.
-   *
+   * The items to display in the component.
    */
-  rounded?: "none" | "sm" | "md" | "lg" | "full";
-
-  /**
-   * The size of the autocomplete component.
-   *
-   */
-  size?: "sm" | "md" | "lg";
-
-  /**
-   * The contrast of autocomplete component.
-   *
-   */
-  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
+  items?: T[];
 
   /**
    * The label to display for the component.
@@ -69,14 +51,6 @@ type BaseAutocompleteProps<T = string> = {
    * An icon to display for the component.
    */
   icon?: string;
-
-  /**
-   * Translation strings.
-   */
-  i18n?: {
-    pending: string;
-    empty: string;
-  };
 
   /**
    * Placeholder text to display when the component is empty.
@@ -124,31 +98,6 @@ type BaseAutocompleteProps<T = string> = {
    * You can use this method to implement your own filtering logic or to fetch items from an API.
    */
   filterItems?: (query?: string, items?: T[]) => Promise<T[]> | T[];
-
-  /**
-   * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
-   */
-  classes?: {
-    /**
-     * CSS classes to apply to the wrapper element.
-     */
-    wrapper?: string | string[];
-
-    /**
-     * CSS classes to apply to the label element.
-     */
-    label?: string | string[];
-
-    /**
-     * CSS classes to apply to the input element.
-     */
-    input?: string | string[];
-
-    /**
-     * CSS classes to apply to the icon element.
-     */
-    icon?: string | string[];
-  };
 
   /**
    * Allow custom entries by the user
@@ -231,6 +180,68 @@ type BaseAutocompleteProps<T = string> = {
     icon?: T extends object ? keyof T | ((arg: T) => string) : string;
   };
 
+  /**
+   * The contrast of autocomplete component.
+   *
+   * @default 'default'
+   */
+  contrast?: "default" | "default-contrast" | "muted" | "muted-contrast";
+
+  /**
+   * Translation strings.
+   *
+   * @default { empty: 'Nothing found.', pending: 'Loading ...' }
+   */
+  i18n?: {
+    empty: string;
+    pending: string;
+  };
+
+  /**
+   * The radius of the component.
+   *
+   * @since 2.0.0
+   * @default 'sm'
+   */
+  rounded?: "none" | "sm" | "md" | "lg" | "full";
+
+  /**
+   * The size of the autocomplete component.
+   *
+   * @default 'md'
+   */
+  size?: "sm" | "md" | "lg";
+
+  /**
+   * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the label element.
+     */
+    label?: string | string[];
+
+    /**
+     * CSS classes to apply to the input element.
+     */
+    input?: string | string[];
+
+    /**
+     * CSS classes to apply to the icon element.
+     */
+    icon?: string | string[];
+
+    /**
+     * CSS classes to apply to the error element.
+     */
+    error?: string | string[];
+  };
+
   renderClearIcon?: () => ReactNode;
 
   renderDropdownIcon?: (props: { open: boolean }) => ReactNode;
@@ -300,10 +311,10 @@ type BaseAutocompleteProps<T = string> = {
 
 const radiuses = {
   none: "",
-  sm: "nui-autocomplete-rounded",
-  md: "nui-autocomplete-smooth",
-  lg: "nui-autocomplete-curved",
-  full: "nui-autocomplete-full",
+  sm: "nui-autocomplete-rounded-sm",
+  md: "nui-autocomplete-rounded-md",
+  lg: "nui-autocomplete-rounded-lg",
+  full: "nui-autocomplete-rounded-full",
 };
 
 const sizes = {
@@ -327,13 +338,10 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
     placeholder = "",
     label = "",
     error = "",
-    i18n = {
-      pending: "Loading ...",
-      empty: "Nothing found.",
-    },
     loading = false,
     disabled = false,
     clearable = false,
+    clearValue = undefined,
     clearIcon = "lucide:x",
     chipClearIcon = "lucide:x",
     dropdownIcon = "lucide:chevron-down",
@@ -344,19 +352,17 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
     allowCreate = false,
     fixed = false,
     placement = "bottom-start",
+    value,
     ...props
   }: BaseAutocompleteProps<T>,
   ref: Ref<HTMLElement>,
 ) {
-  const config = useConfig();
+  const contrast = useNuiDefaultProperty(props, "BaseAutocomplete", "contrast");
+  const i18n = useNuiDefaultProperty(props, "BaseAutocomplete", "i18n");
+  const rounded = useNuiDefaultProperty(props, "BaseAutocomplete", "rounded");
+  const size = useNuiDefaultProperty(props, "BaseAutocomplete", "size");
 
-  const rounded = props.rounded ?? config.BaseAutocomplete?.rounded;
-
-  const size = props.size ?? config.BaseAutocomplete?.size;
-
-  const contrast = props.contrast ?? config.BaseAutocomplete?.contrast;
-
-  const autocompleteValue = props.value;
+  // const autocompleteValue = props.value;
 
   const [items, setItems] = useState(itemsProp);
 
@@ -368,8 +374,18 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
 
   const [pendingFilter, setPendingFilter] = useState(false);
 
+  const canClear = useMemo(() => {
+    if (!clearable) return false;
+
+    if (Array.isArray(value)) {
+      return value.length > 0;
+    }
+
+    return value !== clearValue;
+  }, [value, clearable, clearValue]);
+
   const defaultDisplayValue = useCallback(
-    (item: any): any => {
+    (item: T): string => {
       if (props.stateModifiers?.prop && props.properties?.value) {
         const attr = props.properties.value;
 
@@ -387,16 +403,16 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
         }
       }
 
-      if (item == null || typeof item === "string") return item;
+      if (item == null || typeof item === "string") return item as string;
       if (
         typeof item === "object" &&
         props.properties?.label &&
         (props.properties.label as string) in item
       ) {
-        return item[props.properties.label];
+        return (item as any)[props.properties.label];
       }
 
-      return item;
+      return item as string;
     },
     [
       items,
@@ -482,40 +498,38 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
   const queryCreate = query === "" ? null : query;
 
   function clear() {
-    handleChange((props.clearValue ?? []) as T);
+    handleChange((clearValue ?? (multiple ? [] : null)) as T);
   }
 
   const iconResolved = useMemo(() => {
     if (
-      autocompleteValue &&
-      typeof autocompleteValue === "object" &&
-      !Array.isArray(autocompleteValue) &&
-      "icon" in autocompleteValue &&
-      typeof autocompleteValue.icon === "string"
+      value &&
+      typeof value === "object" &&
+      !Array.isArray(value) &&
+      "icon" in value &&
+      typeof value.icon === "string"
     ) {
-      return autocompleteValue.icon;
+      return value.icon;
     }
 
     return props.icon;
-  }, [autocompleteValue, props.icon]);
+  }, [value, props.icon]);
 
   function removeItem(item: any) {
-    if (!Array.isArray(autocompleteValue)) {
-      handleChange(props.clearValue as T);
+    if (!Array.isArray(value)) {
+      handleChange(clearValue as T);
 
       return;
     }
 
     // eslint-disable-next-line no-plusplus
-    for (let i = autocompleteValue.length - 1; i >= 0; --i) {
+    for (let i = value.length - 1; i >= 0; --i) {
       if (props.properties?.value) {
-        if (autocompleteValue[i] === item) {
-          autocompleteValue.splice(i, 1);
+        if (value[i] === item) {
+          value.splice(i, 1);
         }
-      }
-      // eslint-disable-next-line eqeqeq
-      else if (autocompleteValue[i] === item) {
-        autocompleteValue.splice(i, 1);
+      } else if (value[i] === item) {
+        value.splice(i, 1);
       }
     }
   }
@@ -566,15 +580,15 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
 
   return (
     <Combobox
-      value={autocompleteValue}
+      value={value}
       // eslint-disable-next-line react/jsx-no-bind
       onChange={handleChange}
-      // by={
-      //   props.stateModifiers?.prop && props.properties?.value
-      //     ? undefined
-      //     : props.properties?.value
-      // }
-      //  multiple={multiple}
+      by={
+        (props.stateModifiers?.prop && props.properties?.value
+          ? undefined
+          : props.properties?.value) as any
+      }
+      multiple={multiple as any}
       disabled={disabled}
       className={cn(
         "nui-autocomplete",
@@ -615,35 +629,33 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
 
           {multiple && (
             <div className="nui-autocomplete-multiple">
-              {Array.isArray(autocompleteValue) &&
-                autocompleteValue.length > 0 && (
-                  <ul className="nui-autocomplete-multiple-list">
-                    {autocompleteValue.map((item) => (
-                      <li key={String(item)}>
-                        {props.renderAutocompleteMultipleListItem?.({
-                          item,
-                          displayValue: displayValueResolved(item),
-                          removeItem,
-                        }) || (
-                          <div className="nui-autocomplete-multiple-list-item">
-                            {displayValueResolved(item)}
+              {Array.isArray(value) && value.length > 0 && (
+                <ul className="nui-autocomplete-multiple-list">
+                  {value.map((item) => (
+                    <li key={String(item)}>
+                      {props.renderAutocompleteMultipleListItem?.({
+                        item,
+                        displayValue: displayValueResolved(item),
+                        removeItem,
+                      }) || (
+                        <div className="nui-autocomplete-multiple-list-item">
+                          {displayValueResolved(item)}
 
-                            {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-                            <button
-                              type="button"
-                              onClick={() => removeItem(item)}
-                            >
-                              <Icon
-                                icon={chipClearIcon}
-                                className="nui-autocomplete-multiple-list-item-icon"
-                              />
-                            </button>
-                          </div>
-                        )}
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                          <button
+                            type="button"
+                            onClick={() => removeItem(item)}
+                          >
+                            <Icon
+                              icon={chipClearIcon}
+                              className="nui-autocomplete-multiple-list-item-icon"
+                            />
+                          </button>
+                        </div>
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
         </>
@@ -654,8 +666,8 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
               className={cn(
                 "nui-autocomplete-input",
                 classes?.input,
-                dropdown && !clearable && "!pe-12",
-                dropdown && clearable && "!pe-[4.5rem]",
+                dropdown && !canClear && "!pe-12",
+                dropdown && canClear && "!pe-[4.5rem]",
               )}
               displayValue={
                 multiple ? undefined : (displayValueResolved as any)
@@ -688,10 +700,9 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
             )}
 
             {clearable &&
-              ((Array.isArray(autocompleteValue) &&
-                autocompleteValue?.length > 0) ||
-                (!Array.isArray(autocompleteValue) &&
-                  autocompleteValue != null)) && (
+              canClear &&
+              ((Array.isArray(value) && value?.length > 0) ||
+                (!Array.isArray(value) && value != null)) && (
                 <button
                   type="button"
                   tabIndex={-1}

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable consistent-return */
-import React, { ReactNode, Ref, forwardRef, useMemo } from "react";
+import React, { type ReactNode, type Ref, forwardRef, useMemo } from "react";
 import { Icon } from "@iconify/react";
 import { useConfig } from "../../Provider";
 import { cn } from "../../utils";
@@ -173,7 +173,9 @@ export const BaseAutocompleteItem = forwardRef(function BaseAutocompleteItem<
       )}
       ref={ref}
     >
-      {media && !icon && <BaseAvatar src="media" size="xs" className="me-3" />}
+      {media && !icon && (
+        <BaseAvatar src={media} size="xs" classes={{ wrapper: "me-3" }} />
+      )}
       {icon && !media && (
         <BaseIconBox size="sm" rounded="sm" color="none" className="me-1">
           <Icon
