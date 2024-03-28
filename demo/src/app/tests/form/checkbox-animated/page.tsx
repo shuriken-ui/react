@@ -1,19 +1,18 @@
-import React from "react";
-
-import { getMeta } from "@/data/sidebar";
 import { Metadata } from "next";
+import React from "react";
+import Checkboxes from "./Checkboxes";
 import NuiPreviewContainer from "@/components/NuiPreviewContainer";
-import CheckboxAnimated from "./CheckboxAnimated";
+import { getMeta } from "@/data/sidebar";
 
 const meta = getMeta("form", "checkboxAnimated");
 
 export const metadata: Metadata = {
   ...meta,
 };
-export default function page() {
+export default function CheckboxPage() {
   return (
     <NuiPreviewContainer title={meta.title}>
-      <CheckboxAnimated />
+      <Checkboxes />
     </NuiPreviewContainer>
   );
 }

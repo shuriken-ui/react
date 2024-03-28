@@ -1,5 +1,4 @@
 import {
-  type HTMLAttributes,
   type MouseEventHandler,
   forwardRef,
   useEffect,
@@ -14,7 +13,7 @@ import { useNinjaId } from "~/hooks/useNinjaId";
 import { IconCheck } from "../icons/IconCheck";
 import { IconIndeterminate } from "../icons/IconIndeterminate";
 
-interface BaseCheckboxProps<T> {
+interface BaseCheckboxAttributes<T> {
   /**
    * The label to display for the checkbox.
    */
@@ -39,18 +38,6 @@ interface BaseCheckboxProps<T> {
    *  if the checkbox is checked
    */
   checked?: boolean;
-
-  /**
-   * The value of the component.
-   * @param checked Whether the checkbox is checked.
-   * @param value The value associated with the checkbox.
-   */
-  onChange?: (checked: boolean, value: NonNullable<T>) => void;
-
-  /**
-   * The function to call when the checkbox is clicked.
-   */
-  onClick?: MouseEventHandler<HTMLInputElement>;
 
   /**
    * The form input identifier.
@@ -116,6 +103,36 @@ interface BaseCheckboxProps<T> {
   };
 }
 
+interface BaseCheckboxEmits<T> {
+  /**
+   * The value of the component.
+   * @param checked Whether the checkbox is checked.
+   * @param value The value associated with the checkbox.
+   */
+  onChange?: (checked: boolean, value: NonNullable<T>) => void;
+
+  /**
+   * The function to call when the checkbox is clicked.
+   */
+  onClick?: MouseEventHandler<HTMLInputElement>;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface BaseCheckboxSlots<T> {
+  //
+}
+
+export interface BaseCheckboxExpose {
+  el: HTMLInputElement | null;
+}
+
+type BaseCheckboxPropsInner<T> = BaseCheckboxAttributes<T> &
+  BaseCheckboxEmits<T> &
+  BaseCheckboxSlots<T>;
+
+export type BaseCheckboxProps<T> = BaseCheckboxPropsInner<T> &
+  Omit<InputHTMLAttributes<HTMLInputElement>, keyof BaseCheckboxPropsInner<T>>;
+
 const radiuses = {
   none: "",
   sm: "nui-checkbox-rounded-sm",
@@ -137,11 +154,7 @@ const colors = {
   danger: "nui-checkbox-danger",
 };
 
-export type BaseCheckboxRef = {
-  el: HTMLInputElement | null;
-};
-
-function BaseCheckboxInner<T = boolean>(
+function BaseCheckboxInner<T>(
   {
     error = "",
     trueValue,
@@ -149,10 +162,8 @@ function BaseCheckboxInner<T = boolean>(
     onChange = () => {},
     ...props
   }: BaseCheckboxProps<T>,
-  ref: ForwardedRef<{
-    el: HTMLInputElement | null;
-  }>,
-) {
+  ref?: ForwardedRef<BaseCheckboxExpose | undefined>,
+): JSX.Element {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const color = useNuiDefaultProperty(props, "BaseCheckbox", "color");
@@ -227,8 +238,8 @@ function BaseCheckboxInner<T = boolean>(
 }
 
 export const BaseCheckbox = forwardRef(BaseCheckboxInner) as <T>(
-  props: BaseCheckboxProps<T> &
-    Omit<InputHTMLAttributes<HTMLInputElement>, keyof BaseCheckboxProps<T>> & {
-      ref?: ForwardedRef<HTMLInputElement>;
-    },
+  props: BaseCheckboxProps<T> & {
+    ref?: ForwardedRef<BaseCheckboxExpose | undefined>;
+  },
+  ref?: ForwardedRef<BaseCheckboxExpose | undefined>,
 ) => ReturnType<typeof BaseCheckboxInner>;

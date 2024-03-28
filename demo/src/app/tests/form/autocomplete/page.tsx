@@ -1,19 +1,18 @@
-import React from "react";
-import NuiPreviewContainer from "@/components/NuiPreviewContainer";
-
-import { getMeta } from "@/data/sidebar";
 import { Metadata } from "next";
-import Autocomplete from "./Autocomplete";
+import React from "react";
+import Autocompletes from "./Autocompletes";
+import NuiPreviewContainer from "@/components/NuiPreviewContainer";
+import { getMeta } from "@/data/sidebar";
 
 const meta = getMeta("form", "autocomplete");
 
 export const metadata: Metadata = {
   ...meta,
 };
-export default function AutocompletePage() {
+export default function CheckboxPage() {
   return (
     <NuiPreviewContainer title={meta.title}>
-      <Autocomplete />
+      <Autocompletes />
     </NuiPreviewContainer>
   );
 }

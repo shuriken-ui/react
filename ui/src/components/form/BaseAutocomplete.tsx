@@ -323,6 +323,7 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
   T = string,
 >(
   {
+    items: itemsProp = [],
     placeholder = "",
     label = "",
     error = "",
@@ -353,15 +354,15 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
 
   const contrast = useNuiDefaultProperty(props, "BaseAutocomplete", "contrast");
 
-  const autocompleteValue = useMemo(() => props.value, [props.value]);
+  const autocompleteValue = props.value;
 
-  const items = useMemo(() => props.items || [], [props.items]);
+  const [items, setItems] = useState(itemsProp);
 
   const [query, setQuery] = useState("");
 
   const [filteredItems, setFilteredItems] = useState<
     Awaited<ReturnType<typeof filterResolved>>
-  >(dropdown ? items : []);
+  >(dropdown ? itemsProp : []);
 
   const [pendingFilter, setPendingFilter] = useState(false);
 
@@ -532,6 +533,10 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
 
     return displayValueResolved(item);
   }
+
+  useEffect(() => {
+    setItems(itemsProp);
+  }, [itemsProp]);
 
   useEffect(() => {
     const cb = async () => {

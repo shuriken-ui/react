@@ -1,9 +1,11 @@
 "use client";
 
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 
 import {
   BaseCheckbox,
+  type BaseCheckboxProps,
+  type BaseCheckboxExpose,
   BaseFocusLoop,
   BaseHeading,
   BaseCheckboxHeadless,
@@ -20,11 +22,30 @@ const Checkboxes = () => {
     second: true,
     third: true,
     fourth: true,
-    fifth: true,
+    fifth: 'true',
     sixth: true,
     seventh: true,
     eighth: true,
   });
+
+  const foo: BaseCheckboxProps<string> = {
+    value: "true",
+    label: "Rounded: none",
+    rounded: "none",
+    color: "muted",
+    onChange: (checked, value) => {
+      console.log(checked, value);
+    },
+  };
+
+
+  const checkboxRef = useRef<BaseCheckboxExpose>();
+  
+  React.useEffect(() => {
+    if (checkboxRef.current?.el) {
+      checkboxRef.current.el.focus();
+    }
+}, [checkboxRef]);
 
   const [disabledValue] = useState(true);
   const [customValue, setCustomValue] = useState("not-checked");
@@ -32,15 +53,15 @@ const Checkboxes = () => {
 
   const [selectedPeople, setSelectedPeople] = useState<string[]>([]);
 
-  function toggleOption(option: string, checked: boolean) {
-    if (checked) {
-      setMultipleValue((oldMultipleValue) => [...oldMultipleValue, option]);
-    } else {
-      setMultipleValue((oldMultipleValue) =>
-        oldMultipleValue.filter((val) => val !== option)
-      );
-    }
-  }
+  // function toggleOption(option: string, checked: boolean) {
+  //   if (checked) {
+  //     setMultipleValue((oldMultipleValue) => [...oldMultipleValue, option]);
+  //   } else {
+  //     setMultipleValue((oldMultipleValue) =>
+  //       oldMultipleValue.filter((val) => val !== option)
+  //     );
+  //   }
+  // }
 
   function toggleSelectedPeople(value: string, checked: boolean) {
     if (checked) {
@@ -60,7 +81,7 @@ const Checkboxes = () => {
             label="Default"
             rounded="none"
             aria-invalid="true"
-            checked={options.first}
+            value={options.first}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
@@ -69,7 +90,7 @@ const Checkboxes = () => {
             label="Muted"
             rounded="none"
             color="muted"
-            checked={options.second}
+            value={options.second}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }))
             }
@@ -78,16 +99,17 @@ const Checkboxes = () => {
             label="Primary"
             rounded="none"
             color="primary"
-            checked={options.third}
+            value={options.third}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }))
             }
           />
           <BaseCheckbox
             label="Info"
+            ref={checkboxRef}
             rounded="none"
             color="info"
-            checked={options.fourth}
+            value={options.fourth}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }))
             }
@@ -96,16 +118,18 @@ const Checkboxes = () => {
             label="Success"
             rounded="none"
             color="success"
-            checked={options.fifth}
-            onChange={(checked) =>
-              setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }))
+            value={options.fifth}
+            trueValue="true"
+            falseValue=""
+            onChange={(_, value) =>
+              setOptions((oldOptions) => ({ ...oldOptions, fifth: value }))
             }
           />
           <BaseCheckbox
             label="Warning"
             rounded="none"
             color="warning"
-            checked={options.sixth}
+            value={options.sixth}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }))
             }
@@ -114,7 +138,7 @@ const Checkboxes = () => {
             label="Danger"
             rounded="none"
             color="danger"
-            checked={options.seventh}
+            value={options.seventh}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }))
             }
@@ -130,7 +154,7 @@ const Checkboxes = () => {
           <BaseCheckbox
             label="Default"
             rounded="sm"
-            checked={options.first}
+            value={options.first}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
@@ -139,7 +163,7 @@ const Checkboxes = () => {
             label="Muted"
             rounded="sm"
             color="muted"
-            checked={options.second}
+            value={options.second}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }))
             }
@@ -148,7 +172,7 @@ const Checkboxes = () => {
             label="Primary"
             rounded="sm"
             color="primary"
-            checked={options.third}
+            value={options.third}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }))
             }
@@ -157,7 +181,7 @@ const Checkboxes = () => {
             label="Info"
             rounded="sm"
             color="info"
-            checked={options.fourth}
+            value={options.fourth}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }))
             }
@@ -166,16 +190,18 @@ const Checkboxes = () => {
             label="Success"
             rounded="sm"
             color="success"
-            checked={options.fifth}
-            onChange={(checked) =>
-              setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }))
+            value={options.fifth}
+            trueValue="true"
+            falseValue=""
+            onChange={(_, value) =>
+              setOptions((oldOptions) => ({ ...oldOptions, fifth: value }))
             }
           />
           <BaseCheckbox
             label="Warning"
             rounded="sm"
             color="warning"
-            checked={options.sixth}
+            value={options.sixth}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }))
             }
@@ -184,7 +210,7 @@ const Checkboxes = () => {
             label="Danger"
             rounded="sm"
             color="danger"
-            checked={options.seventh}
+            value={options.seventh}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }))
             }
@@ -200,7 +226,7 @@ const Checkboxes = () => {
           <BaseCheckbox
             label="Default"
             rounded="md"
-            checked={options.first}
+            value={options.first}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
@@ -209,7 +235,7 @@ const Checkboxes = () => {
             label="Muted"
             rounded="md"
             color="muted"
-            checked={options.second}
+            value={options.second}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }));
             }}
@@ -218,7 +244,7 @@ const Checkboxes = () => {
             label="Primary"
             rounded="md"
             color="primary"
-            checked={options.third}
+            value={options.third}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }))
             }
@@ -227,7 +253,7 @@ const Checkboxes = () => {
             label="Info"
             rounded="md"
             color="info"
-            checked={options.fourth}
+            value={options.fourth}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }))
             }
@@ -236,16 +262,18 @@ const Checkboxes = () => {
             label="Success"
             rounded="md"
             color="success"
-            checked={options.fifth}
-            onChange={(checked) => {
-              setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }));
+            value={options.fifth}
+            trueValue="true"
+            falseValue=""
+            onChange={(_, value) => {
+              setOptions((oldOptions) => ({ ...oldOptions, fifth: value }));
             }}
           />
           <BaseCheckbox
             label="Warning"
             rounded="md"
             color="warning"
-            checked={options.sixth}
+            value={options.sixth}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }));
             }}
@@ -254,7 +282,7 @@ const Checkboxes = () => {
             label="Danger"
             rounded="md"
             color="danger"
-            checked={options.seventh}
+            value={options.seventh}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }));
             }}
@@ -270,7 +298,7 @@ const Checkboxes = () => {
           <BaseCheckbox
             label="Default"
             rounded="lg"
-            checked={options.first}
+            value={options.first}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
@@ -279,7 +307,7 @@ const Checkboxes = () => {
             label="Muted"
             rounded="lg"
             color="muted"
-            checked={options.second}
+            value={options.second}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }));
             }}
@@ -288,7 +316,7 @@ const Checkboxes = () => {
             label="Primary"
             rounded="lg"
             color="primary"
-            checked={options.third}
+            value={options.third}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }));
             }}
@@ -297,7 +325,7 @@ const Checkboxes = () => {
             label="Info"
             rounded="lg"
             color="info"
-            checked={options.fourth}
+            value={options.fourth}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }));
             }}
@@ -306,16 +334,18 @@ const Checkboxes = () => {
             label="Success"
             rounded="lg"
             color="success"
-            checked={options.fifth}
-            onChange={(checked) => {
-              setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }));
+            value={options.fifth}
+            trueValue="true"
+            falseValue=""
+            onChange={(_, value) => {
+              setOptions((oldOptions) => ({ ...oldOptions, fifth: value }));
             }}
           />
           <BaseCheckbox
             label="Warning"
             rounded="lg"
             color="warning"
-            checked={options.sixth}
+            value={options.sixth}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }));
             }}
@@ -324,7 +354,7 @@ const Checkboxes = () => {
             label="Danger"
             rounded="lg"
             color="danger"
-            checked={options.seventh}
+            value={options.seventh}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }));
             }}
@@ -341,7 +371,6 @@ const Checkboxes = () => {
             value={options.first}
             label="Default"
             rounded="full"
-            checked={options.first}
             onChange={(checked) =>
               setOptions((oldOptions) => ({ ...oldOptions, first: checked }))
             }
@@ -351,7 +380,6 @@ const Checkboxes = () => {
             label="Muted"
             rounded="full"
             color="muted"
-            checked={options.second}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, second: checked }));
             }}
@@ -361,7 +389,6 @@ const Checkboxes = () => {
             label="Primary"
             rounded="full"
             color="primary"
-            checked={options.third}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, third: checked }));
             }}
@@ -371,19 +398,19 @@ const Checkboxes = () => {
             label="Info"
             rounded="full"
             color="info"
-            checked={options.fourth}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, fourth: checked }));
             }}
           />
           <BaseCheckbox
             value={options.fifth}
+            trueValue="true"
+            falseValue=""
             label="Success"
             rounded="full"
             color="success"
-            checked={options.fifth}
-            onChange={(checked) => {
-              setOptions((oldOptions) => ({ ...oldOptions, fifth: checked }));
+            onChange={(_, value) => {
+              setOptions((oldOptions) => ({ ...oldOptions, fifth: value }));
             }}
           />
           <BaseCheckbox
@@ -391,7 +418,6 @@ const Checkboxes = () => {
             label="Warning"
             rounded="full"
             color="warning"
-            checked={options.sixth}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, sixth: checked }));
             }}
@@ -401,7 +427,6 @@ const Checkboxes = () => {
             label="Danger"
             rounded="full"
             color="danger"
-            checked={options.seventh}
             onChange={(checked) => {
               setOptions((oldOptions) => ({ ...oldOptions, seventh: checked }));
             }}
@@ -498,56 +523,58 @@ const Checkboxes = () => {
       >
         <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-2xl md:grid-cols-4">
           <BaseCheckbox
-            checked={options.first}
+            value={options.first}
             label="Rounded: none"
             rounded="none"
             classes={{ wrapper: "!text-gray-500" }}
           />
 
           <BaseCheckbox
-            checked={options.second}
+            value={options.second}
             label="Rounded: none"
             rounded="none"
             classes={{ wrapper: "!text-emerald-500" }}
           />
 
           <BaseCheckbox
-            checked={options.third}
+            value={options.third}
             label="Rounded: sm"
             rounded="sm"
             classes={{ wrapper: "!text-yellow-500" }}
           />
 
           <BaseCheckbox
-            checked={options.fourth}
+            value={options.fourth}
             label="Rounded: sm"
             rounded="sm"
             classes={{ wrapper: "!text-pink-500" }}
           />
 
           <BaseCheckbox
-            checked={options.fifth}
+            value={options.fifth}
+            trueValue="true"
+            falseValue=""
             label="Rounded: lg"
             rounded="lg"
             classes={{ wrapper: "!text-indigo-500" }}
           />
 
           <BaseCheckbox
-            checked={options.sixth}
+            value={options.sixth}
             label="Rounded: lg"
             rounded="lg"
             classes={{ wrapper: "!text-primary-500" }}
           />
 
           <BaseCheckbox
-            checked={options.seventh}
+            value={options.seventh}
             label="Rounded: full"
             rounded="full"
             classes={{ wrapper: "!text-amber-500" }}
           />
 
           <BaseCheckbox
-            checked={options.eighth}
+            value={options.eighth}
             label="Rounded: full"
             rounded="full"
             classes={{ wrapper: "!text-rose-500" }}
