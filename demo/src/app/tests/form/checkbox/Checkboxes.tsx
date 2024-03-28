@@ -76,7 +76,6 @@ const Checkboxes = () => {
         title="Rounded: none"
         description="Checkbox component none radius"
       >
-        <pre>{JSON.stringify(Object.keys(checkboxRef?.current ?? {}), null, 2)}</pre>
         <BaseFocusLoop className="grid grid-cols-2 gap-6 md:max-w-lg md:grid-cols-4">
           <BaseCheckbox
             label="Default"
