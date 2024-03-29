@@ -26,7 +26,7 @@ type BaseSnackProps = {
    *
    * @default 'default'
    */
-  color?: "default" | "muted";
+  color?: "default" | "default-contrast" | "muted" | "muted-contrast";
 
   /**
    * The size of the snack.
@@ -34,6 +34,36 @@ type BaseSnackProps = {
    * @default 'md'
    */
   size?: "xs" | "sm" | "md";
+
+  /**
+   * Optional CSS classes to apply to the component inner elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the icon element.
+     */
+    icon?: string | string[];
+
+    /**
+     * CSS classes to apply to the img element.
+     */
+    img?: string | string[];
+
+    /**
+     * CSS classes to apply to the text element.
+     */
+    text?: string | string[];
+
+    /**
+     * CSS classes to apply to the button element.
+     */
+    button?: string | string[];
+  };
 
   /**
    * Click handler
@@ -49,7 +79,9 @@ const sizes = {
 
 const colors = {
   default: "nui-snack-default",
+  "default-contrast": "nui-snack-default-contrast",
   muted: "nui-snack-muted",
+  "muted-contrast": "nui-snack-muted-contrast",
 };
 
 const imageSize: Record<keyof typeof sizes, number> = {
@@ -86,16 +118,17 @@ export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
           size && sizes[size],
           color && colors[color],
           (icon || image) && "nui-has-media",
+          props.classes?.wrapper,
         )}
         ref={ref}
       >
         {icon && !image && (
-          <div className="nui-snack-icon">
+          <div className={cn("nui-snack-icon", props.classes?.icon)}>
             <Icon icon={icon} name={icon} className="nui-snack-icon-inner" />
           </div>
         )}
         {image && !icon && (
-          <div className="nui-snack-image">
+          <div className={cn("nui-snack-image", props.classes?.img)}>
             <Image
               src={image}
               height={imageSize[size ?? "md"]}
@@ -105,9 +138,11 @@ export const BaseSnack = forwardRef<HTMLDivElement, BaseSnackProps>(
             />
           </div>
         )}
-        <span className="nui-snack-text">{label}</span>
+        <span className={cn("nui-snack-text", props.classes?.text)}>
+          {label}
+        </span>
         <BaseButtonClose
-          className="nui-snack-button"
+          className={cn("nui-snack-button", props.classes?.button)}
           rounded="full"
           onClick={onClick}
           size={size}

@@ -524,7 +524,7 @@ export type Config = {
     /**
      * The color of the snack.
      */
-    color: "default" | "muted";
+    color: "default" | "default-contrast" | "muted" | "muted-contrast";
     /**
      * The size of the snack.
      */
