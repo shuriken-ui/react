@@ -368,6 +368,8 @@ export type Config = {
     color:
       | "default"
       | "default-contrast"
+      | "muted"
+      | "muted-contrast"
       | "dark"
       | "light"
       | "black"
