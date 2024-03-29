@@ -425,6 +425,21 @@ export type Config = {
      * The radius of the message.
      */
     rounded: "none" | "sm" | "md" | "lg" | "full";
+
+    /**
+     * Default icons to apply to the messages, when the icon is active.
+     */
+    defaultIcons?: {
+      default?: string;
+      "default-contrast"?: string;
+      muted?: string;
+      "muted-contrast"?: string;
+      info?: string;
+      success?: string;
+      warning?: string;
+      danger?: string;
+      primary?: string;
+    };
   };
   BasePagination: {
     /**

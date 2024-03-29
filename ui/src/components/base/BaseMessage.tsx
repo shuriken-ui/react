@@ -15,6 +15,56 @@ type BaseMessageProps = PropsWithChildren<{
   icon?: boolean | string;
 
   /**
+   * Default icons to apply to the messages, when the icon is active.
+   */
+  defaultIcons?: {
+    /**
+     * The default default icon
+     */
+    default?: string;
+
+    /**
+     * The default default contrast icon
+     */
+    "default-contrast"?: string;
+
+    /**
+     * The default muted icon
+     */
+    muted?: string;
+
+    /**
+     * The default muted contrast icon
+     */
+    "muted-contrast"?: string;
+
+    /**
+     * The default info icon
+     */
+    info?: string;
+
+    /**
+     * The default success icon
+     */
+    success?: string;
+
+    /**
+     * The default warning icon
+     */
+    warning?: string;
+
+    /**
+     * The default danger icon
+     */
+    danger?: string;
+
+    /**
+     * The default primary icon
+     */
+    primary?: string;
+  };
+
+  /**
    * The icon to show in the close button
    */
   closeIcon?: string;
@@ -93,18 +143,6 @@ const colors = {
   danger: "nui-message-danger",
 };
 
-const iconTypes = {
-  info: "akar-icons:info-fill",
-  warning: "ci:warning",
-  danger: "ph:warning-octagon-fill",
-  success: "carbon:checkmark-filled",
-  primary: "",
-  muted: "",
-  "muted-contrast": "",
-  default: "",
-  "default-contrast": "",
-} as const;
-
 export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
   function BaseMessage(
     {
@@ -120,9 +158,9 @@ export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
   ) {
     const color = useNuiDefaultProperty(props, "BaseMessage", "color");
     const rounded = useNuiDefaultProperty(props, "BaseMessage", "rounded");
+    const icons = useNuiDefaultProperty(props, "BaseMessage", "defaultIcons");
 
-    const icon =
-      typeof defaultIcon === "string" ? defaultIcon : iconTypes[color];
+    const icon = typeof defaultIcon === "string" ? defaultIcon : icons[color];
 
     return (
       <div
