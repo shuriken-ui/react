@@ -759,7 +759,7 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
                   pending,
                   items,
                 }) || (
-                  <span className="nui-autocomplete-results-placeholder-text">
+                  <span className="nui-autocomplete-results-placeholder-text text-sm">
                     {i18n.pending}
                   </span>
                 )}
@@ -772,7 +772,7 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
                   pending,
                   items,
                 }) || (
-                  <span className="nui-autocomplete-results-placeholder-text">
+                  <span className="nui-autocomplete-results-placeholder-text text-sm">
                     {i18n.empty}
                   </span>
                 )}
