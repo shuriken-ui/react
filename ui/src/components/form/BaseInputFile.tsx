@@ -85,6 +85,17 @@ type BaseInputFileProps = HTMLAttributes<HTMLInputElement> & {
   size?: "sm" | "md" | "lg";
 
   /**
+   * Translation strings.
+   *
+   * @default { empty: 'No file chosen', invalid: 'Invalid file selected', multiple: '{count} files selected'}
+   */
+  i18n?: {
+    empty: string;
+    invalid: string;
+    multiple: string;
+  };
+
+  /**
    * Optional CSS classes to apply to the wrapper, label, input, text, error, and icon elements.
    */
   classes?: {
@@ -154,7 +165,7 @@ export type BaseInputFileRef = {
 export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
   function BaseInputFile(
     {
-      placeholder = "Choose file",
+      placeholder,
       error = false,
       id,
       loading = false,
@@ -164,15 +175,7 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
       colorFocus,
       value,
       onChange,
-      textValue = (fileList?: FileList | null) => {
-        if (!fileList?.item?.length) {
-          return "No file chosen";
-        }
-
-        return fileList?.item.length === 1
-          ? fileList.item(0)?.name ?? "Invalid file selected"
-          : `${fileList?.item?.length ?? 0} files selected`;
-      },
+      textValue,
       ...props
     },
     ref,
@@ -184,17 +187,20 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
     const contrast = useNuiDefaultProperty(props, "BaseInputFile", "contrast");
     const rounded = useNuiDefaultProperty(props, "BaseInputFile", "rounded");
     const size = useNuiDefaultProperty(props, "BaseInputFile", "size");
+    const i18n = useNuiDefaultProperty(props, "BaseInputFile", "i18n");
 
     const attrs = {
       ...props,
       contrast: undefined,
       rounded: undefined,
       size: undefined,
+      i18n: undefined,
     };
 
     const _id = useNinjaId(() => id);
 
-    const text = textValue(files);
+    const text =
+      textValue !== undefined ? textValue(files) : defaultTextValue(files);
 
     useImperativeHandle(
       ref,
@@ -206,6 +212,19 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
       }),
       [id],
     );
+
+    function defaultTextValue(fileList?: FileList | null) {
+      if (!fileList?.item?.length) {
+        return i18n.empty;
+      }
+
+      return fileList?.item.length === 1
+        ? fileList.item(0)?.name ?? i18n.invalid
+        : i18n.multiple.replaceAll(
+            "{count}",
+            String(fileList?.item?.length ?? 0),
+          );
+    }
 
     return (
       <div
@@ -237,11 +256,12 @@ export const BaseInputFile = forwardRef<BaseInputFileRef, BaseInputFileProps>(
               classes?.input,
             )}
           >
-            <div className={cn("nui-input-file-addon", classes?.text)}>
-              <span className="text-xs">{placeholder}</span>
-
-              {icon && <Icon icon={icon} className={cn(classes?.icon)} />}
-            </div>
+            {(placeholder || icon) && (
+              <div className={cn("nui-input-file-addon", classes?.text)}>
+                {placeholder && <span className="text-xs">{placeholder}</span>}
+                {icon && <Icon icon={icon} className={cn(classes?.icon)} />}
+              </div>
+            )}
 
             <div className="nui-input-file-text">{text}</div>
 

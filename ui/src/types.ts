@@ -742,6 +742,14 @@ export type Config = {
      * The size of the input.
      */
     size: "sm" | "md" | "lg";
+    /**
+     * The translation strings for the input file.
+     */
+    i18n: {
+      empty: string;
+      invalid: string;
+      multiple: string;
+    };
   };
   BaseInputFileHeadless: Record<string, never>;
   BaseInputNumber: {
