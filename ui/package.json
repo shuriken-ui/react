@@ -1,6 +1,6 @@
 {
   "name": "@shuriken-ui/react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "types": "dist/index.d.ts",
   "exports": {
