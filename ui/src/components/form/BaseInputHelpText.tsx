@@ -1,8 +1,8 @@
-import { type PropsWithChildren, forwardRef } from "react";
+import { type HTMLAttributes, forwardRef } from "react";
 import { useNuiDefaultProperty } from "~/Provider";
 import { cn } from "~/utils";
 
-type BaseInputHelpTextProps = PropsWithChildren<{
+type BaseINputHelpTextProps = HTMLAttributes<HTMLSpanElement> & {
   /**
    * The color of the text.
    *
@@ -22,7 +22,7 @@ type BaseInputHelpTextProps = PropsWithChildren<{
     | "warning"
     | "danger"
     | "none";
-}>;
+};
 
 const colors = {
   default: "text-inherit",
@@ -41,14 +41,14 @@ const colors = {
 };
 
 export const BaseInputHelpText = forwardRef<
-  HTMLDivElement,
-  BaseInputHelpTextProps
->(function BaseInputHelpText({ children, ...props }, ref) {
+  HTMLSpanElement,
+  BaseINputHelpTextProps
+>(function BaseInputHelpText({ className: classes, children, ...props }, ref) {
   const color = useNuiDefaultProperty(props, "BaseInputHelpText", "color");
 
   return (
     <span
-      className={cn("nui-input-help-text", color && colors[color])}
+      className={cn("nui-input-help-text", color && colors[color], classes)}
       ref={ref}
     >
       {children}

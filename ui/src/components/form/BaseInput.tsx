@@ -11,6 +11,7 @@ import { cn } from "~/utils";
 import { useNuiDefaultProperty } from "~/Provider";
 // import { useNinjaId } from "~/hooks/useNinjaId";
 import { BasePlaceload } from "~/components/base/BasePlaceload";
+import { BaseInputHelpText } from "~/components/form/BaseInputHelpText";
 
 type BaseInputProps = HTMLAttributes<HTMLInputElement> & {
   /**
@@ -318,9 +319,9 @@ export const BaseInput = forwardRef<BaseInputRef, BaseInputProps>(
             {action}
           </div>
           {error && typeof error === "string" && (
-            <span className={cn("nui-input-error-text", classes?.error)}>
+            <BaseInputHelpText color="danger" className={cn(classes?.error)}>
               {error}
-            </span>
+            </BaseInputHelpText>
           )}
         </div>
       </div>

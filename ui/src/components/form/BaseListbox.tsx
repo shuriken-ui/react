@@ -11,6 +11,7 @@ import { BaseIconBox } from "~/components/base/BaseIconBox";
 
 import { BasePlaceload } from "~/components/base/BasePlaceload";
 import { BaseAvatar } from "~/components/base/BaseAvatar";
+import { BaseInputHelpText } from "~/components/form/BaseInputHelpText";
 
 type BaseListboxProps<T = string> = {
   value?: T;
@@ -539,14 +540,12 @@ export const BaseListbox = forwardRef(function BaseListbox<T = string>(
               </Float.Content>
 
               {error && typeof error === "string" && (
-                <span
-                  className={cn(
-                    "text-danger-600 mt-1 block font-sans text-[0.65rem] font-medium leading-none",
-                    props.classes?.error,
-                  )}
+                <BaseInputHelpText
+                  color="danger"
+                  className={cn(props.classes?.error)}
                 >
                   {error}
-                </span>
+                </BaseInputHelpText>
               )}
             </div>
           </Float>

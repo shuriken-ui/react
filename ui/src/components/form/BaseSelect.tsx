@@ -12,6 +12,7 @@ import { cn } from "~/utils";
 import { useNuiDefaultProperty } from "~/Provider";
 import { BasePlaceload } from "~/components/base/BasePlaceload";
 import { IconChevronDown } from "../icons/IconChevronDown";
+import { BaseInputHelpText } from "~/components/form/BaseInputHelpText";
 
 type BaseSelectProps = PropsWithChildren<{
   /**
@@ -275,9 +276,12 @@ export const BaseSelect = forwardRef<
         </div>
 
         {error && typeof error === "string" && (
-          <span className={cn("nui-select-error-text", props.classes?.error)}>
+          <BaseInputHelpText
+            color="danger"
+            className={cn(props.classes?.error)}
+          >
             {error}
-          </span>
+          </BaseInputHelpText>
         )}
       </div>
     </div>
