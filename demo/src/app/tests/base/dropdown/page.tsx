@@ -169,6 +169,7 @@ function DropdownPage() {
               title="Projects"
               text="View your projects"
               rounded="sm"
+              disabled={true}
             />
             <BaseDropdownItem
               href="#"

@@ -165,6 +165,7 @@ export const BaseDropdownItem = forwardRef<
     rounded: undefined,
     size: undefined,
     variant: undefined,
+    disabled: false,
     classes: undefined,
   };
 
@@ -178,6 +179,7 @@ export const BaseDropdownItem = forwardRef<
             rounded && radiuses[rounded],
             contrast && contrasts[contrast],
             color && colors[color],
+            disabled && "nui-item-disabled",
             classes?.wrapper,
           )}
           onClick={close}
