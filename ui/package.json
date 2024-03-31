@@ -69,7 +69,7 @@
     "@headlessui-float/react": "^0.13.2",
     "@headlessui/react": "^1.7.18",
     "@iconify/react": "^4.1.1",
-    "@shuriken-ui/tailwind": "^3.0.0",
+    "@shuriken-ui/tailwind": "^3.0.1",
     "defu": "^6.1.4",
     "use-debounce": "^10.0.0"
   }
