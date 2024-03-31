@@ -151,6 +151,7 @@ export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
       closable = false,
       closeIcon = "lucide:x",
       onClose = () => {},
+      classes,
       children,
       ...props
     },
@@ -168,7 +169,9 @@ export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
           "nui-message",
           rounded && radiuses[rounded],
           color && colors[color],
-          props?.classes?.wrapper,
+          defaultIcon && icon && "nui-has-icon",
+          !defaultIcon && "nui-has-text",
+          classes?.wrapper,
         )}
         ref={ref}
       >
@@ -182,18 +185,20 @@ export const BaseMessage = forwardRef<HTMLDivElement, BaseMessageProps>(
           {children}
         </span>
         {closable && (
-          <button
-            type="button"
-            tabIndex={0}
-            className={cn("nui-message-close", rounded && radiuses[rounded])}
-            onClick={onClose}
-          >
-            <Icon
-              icon={closeIcon}
-              name="closeIcon"
-              className="nui-close-icon"
-            />
-          </button>
+          <div className="nui-message-close-wrapper">
+            <button
+              type="button"
+              tabIndex={0}
+              className={cn("nui-message-close", rounded && radiuses[rounded])}
+              onClick={onClose}
+            >
+              <Icon
+                icon={closeIcon}
+                name="closeIcon"
+                className="nui-close-icon"
+              />
+            </button>
+          </div>
         )}
       </div>
     );
