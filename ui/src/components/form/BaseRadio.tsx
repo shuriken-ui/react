@@ -7,6 +7,7 @@ import {
 import { cn } from "~/utils";
 import { useNinjaId } from "~/hooks/useNinjaId";
 import { useNuiDefaultProperty } from "~/Provider";
+import { BaseInputHelpText } from "~/components/form/BaseInputHelpText";
 
 type BaseRadioProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -151,7 +152,9 @@ export const BaseRadio = forwardRef<BaseRadioRef, BaseRadioProps>(
           )}
 
           {error && typeof error === "string" && (
-            <div className="nui-radio-error">{error}</div>
+            <div className="nui-radio-error">
+              <BaseInputHelpText color="danger">{error}</BaseInputHelpText>
+            </div>
           )}
         </div>
       </div>

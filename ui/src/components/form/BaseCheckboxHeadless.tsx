@@ -64,7 +64,7 @@ export const BaseCheckboxHeadless = forwardRef<
           id={id}
           ref={ref}
           value={props.value}
-          className="peer absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
+          className="peer absolute inset-0 z-20 h-full w-full cursor-pointer appearance-none"
           type="checkbox"
           checked={props.checked}
           onChange={(event) => {

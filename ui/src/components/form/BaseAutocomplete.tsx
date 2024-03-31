@@ -18,6 +18,7 @@ import { useNuiDefaultProperty } from "~/Provider";
 import { cn } from "~/utils";
 import { BasePlaceload } from "../base/BasePlaceload";
 import { BaseAutocompleteItem } from "./BaseAutocompleteItem";
+import { BaseInputHelpText } from "~/components/form/BaseInputHelpText";
 
 type BaseAutocompleteProps<T = string> = {
   /**
@@ -148,6 +149,11 @@ type BaseAutocompleteProps<T = string> = {
      * CSS classes to apply to the icon element.
      */
     icon?: string | string[];
+
+    /**
+     * CSS classes to apply to the error element.
+     */
+    error?: string | string[];
   };
 
   /**
@@ -169,6 +175,11 @@ type BaseAutocompleteProps<T = string> = {
    * Whether the component can be cleared by the user.
    */
   clearable?: boolean;
+
+  /**
+   * Wether the border should change color when focused
+   */
+  colorFocus?: boolean;
 
   /**
    * Display a chevron icon to open suggestions
@@ -300,10 +311,10 @@ type BaseAutocompleteProps<T = string> = {
 
 const radiuses = {
   none: "",
-  sm: "nui-autocomplete-rounded",
-  md: "nui-autocomplete-smooth",
-  lg: "nui-autocomplete-curved",
-  full: "nui-autocomplete-full",
+  sm: "nui-autocomplete-rounded-sm",
+  md: "nui-autocomplete-rounded-md",
+  lg: "nui-autocomplete-rounded-lg",
+  full: "nui-autocomplete-rounded-full",
 };
 
 const sizes = {
@@ -334,6 +345,7 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
     loading = false,
     disabled = false,
     clearable = false,
+    colorFocus = false,
     clearIcon = "lucide:x",
     chipClearIcon = "lucide:x",
     dropdownIcon = "lucide:chevron-down",
@@ -582,6 +594,8 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
         rounded && radiuses[rounded],
         props.icon && "nui-has-icon",
         props.labelFloat && "nui-autocomplete-label-float",
+        colorFocus && "nui-autocomplete-focus",
+        error && "nui-autocomplete-error",
         loading && "nui-autocomplete-loading",
         "[&_.nui-autocomplete-results]:mt-[unset] [&_.nui-autocomplete-results]:[position:unset]",
       )}
@@ -739,7 +753,9 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
 
         <>
           {error && typeof error === "string" && (
-            <span className="nui-autocomplete-error-text">{error}</span>
+            <BaseInputHelpText color="danger" className={cn(classes?.error)}>
+              {error}
+            </BaseInputHelpText>
           )}
         </>
 
@@ -759,7 +775,7 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
                   pending,
                   items,
                 }) || (
-                  <span className="nui-autocomplete-results-placeholder-text">
+                  <span className="nui-autocomplete-results-placeholder-text text-sm">
                     {i18n.pending}
                   </span>
                 )}
@@ -772,7 +788,7 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
                   pending,
                   items,
                 }) || (
-                  <span className="nui-autocomplete-results-placeholder-text">
+                  <span className="nui-autocomplete-results-placeholder-text text-sm">
                     {i18n.empty}
                   </span>
                 )}

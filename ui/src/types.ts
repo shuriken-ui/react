@@ -368,6 +368,8 @@ export type Config = {
     color:
       | "default"
       | "default-contrast"
+      | "muted"
+      | "muted-contrast"
       | "dark"
       | "light"
       | "black"
@@ -425,6 +427,21 @@ export type Config = {
      * The radius of the message.
      */
     rounded: "none" | "sm" | "md" | "lg" | "full";
+
+    /**
+     * Default icons to apply to the messages, when the icon is active.
+     */
+    defaultIcons?: {
+      default?: string;
+      "default-contrast"?: string;
+      muted?: string;
+      "muted-contrast"?: string;
+      info?: string;
+      success?: string;
+      warning?: string;
+      danger?: string;
+      primary?: string;
+    };
   };
   BasePagination: {
     /**
@@ -524,7 +541,7 @@ export type Config = {
     /**
      * The color of the snack.
      */
-    color: "default" | "muted";
+    color: "default" | "default-contrast" | "muted" | "muted-contrast";
     /**
      * The size of the snack.
      */
@@ -765,6 +782,14 @@ export type Config = {
      * The size of the input.
      */
     size: "sm" | "md" | "lg";
+  };
+  BaseInputHelpText: {
+    /**
+     * The color of the text.
+     *
+     * @type {'default' | 'default-contrast' | 'muted' | 'muted-contrast' | 'light' | 'dark' | 'black' | 'primary' | 'info' | 'success' | 'warning' | 'danger' | 'none'}
+     */
+    color: "default";
   };
   BaseListbox: {
     /**

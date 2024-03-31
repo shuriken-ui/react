@@ -82,7 +82,7 @@ export const BaseRadioHeadless = forwardRef<
         <input
           ref={inputRef}
           type="radio"
-          className="peer absolute inset-0 z-20 h-full w-full cursor-pointer opacity-0"
+          className="peer absolute inset-0 z-20 h-full w-full cursor-pointer appearance-none"
           {...props}
           onChange={(e) => onChange(e.target.value)}
         />

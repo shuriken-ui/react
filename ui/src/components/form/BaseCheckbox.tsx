@@ -12,6 +12,7 @@ import { useNuiDefaultProperty } from "~/Provider";
 import { useNinjaId } from "~/hooks/useNinjaId";
 import { IconCheck } from "../icons/IconCheck";
 import { IconIndeterminate } from "../icons/IconIndeterminate";
+import { BaseInputHelpText } from "~/components/form/BaseInputHelpText";
 
 interface BaseCheckboxAttributes<T> {
   /**
@@ -230,7 +231,9 @@ function BaseCheckboxInner<T>(
           </label>
         )}
         {error && typeof error === "string" && (
-          <div className="nui-checkbox-error">{error}</div>
+          <div className="nui-checkbox-error">
+            <BaseInputHelpText color="danger">{error}</BaseInputHelpText>
+          </div>
         )}
       </div>
     </div>

@@ -12,6 +12,7 @@ import { useNuiDefaultProperty } from "~/Provider";
 import { useNinjaId } from "~/hooks/useNinjaId";
 import { cn } from "~/utils";
 import { BasePlaceload } from "~/components/base/BasePlaceload";
+import { BaseInputHelpText } from "~/components/form/BaseInputHelpText";
 
 type BaseTextareaProps = {
   /**
@@ -353,9 +354,12 @@ export const BaseTextarea = forwardRef<
         )}
 
         {error && typeof error === "string" && (
-          <span className={cn("nui-textarea-error-text", props.classes?.error)}>
+          <BaseInputHelpText
+            color="danger"
+            className={cn(props.classes?.error)}
+          >
             {error}
-          </span>
+          </BaseInputHelpText>
         )}
       </div>
     </div>

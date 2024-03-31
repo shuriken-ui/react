@@ -22,6 +22,41 @@ type BasePlaceholderPageProps = PropsWithChildren<{
    * @default 'xs'
    */
   imageSize?: "xs" | "sm" | "md" | "lg" | "xl";
+
+  /**
+   * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
+   */
+  classes?: {
+    /**
+     * CSS classes to apply to the wrapper element.
+     */
+    wrapper?: string | string[];
+
+    /**
+     * CSS classes to apply to the inner element.
+     */
+    inner?: string | string[];
+
+    /**
+     * CSS classes to apply to the img element.
+     */
+    img?: string | string[];
+
+    /**
+     * CSS classes to apply to the content element.
+     */
+    content?: string | string[];
+
+    /**
+     * CSS classes to apply to the title element.
+     */
+    title?: string | string[];
+
+    /**
+     * CSS classes to apply to the subtitle element.
+     */
+    subtitle?: string | string[];
+  };
 }>;
 
 const sizes = {
@@ -42,24 +77,39 @@ export const BasePlaceholderPage = forwardRef<
 
   return (
     <div
-      className={cn("nui-placeholder-page", imageSize && sizes[imageSize])}
+      className={cn(
+        "nui-placeholder-page",
+        imageSize && sizes[imageSize],
+        props.classes?.wrapper,
+      )}
       ref={ref}
     >
-      <div className="nui-placeholder-page-inner">
+      <div className={cn("nui-placeholder-page-inner", props.classes?.inner)}>
         {props.image && (
-          <div className="nui-placeholder-page-img">{props.image}</div>
+          <div className={cn("nui-placeholder-page-img", props.classes?.img)}>
+            {props.image}
+          </div>
         )}
-        <div className="nui-placeholder-page-content">
+        <div
+          className={cn("nui-placeholder-page-content", props.classes?.content)}
+        >
           <BaseHeading
             as="h4"
             weight="medium"
             size="xl"
-            className="nui-placeholder-page-title"
+            className={cn("nui-placeholder-page-title", props.classes?.title)}
           >
             {props.title}
           </BaseHeading>
           {props.subtitle && (
-            <p className="nui-placeholder-page-subtitle">{props.subtitle}</p>
+            <p
+              className={cn(
+                "nui-placeholder-page-subtitle",
+                props.classes?.subtitle,
+              )}
+            >
+              {props.subtitle}
+            </p>
           )}
           {children}
         </div>
