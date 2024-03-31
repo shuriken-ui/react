@@ -775,6 +775,14 @@ export type Config = {
      */
     size: "sm" | "md" | "lg";
   };
+  BaseInputHelpText: {
+    /**
+     * The color of the text.
+     *
+     * @type {'default' | 'default-contrast' | 'muted' | 'muted-contrast' | 'light' | 'dark' | 'black' | 'primary' | 'info' | 'success' | 'warning' | 'danger' | 'none'}
+     */
+    color: "default";
+  };
   BaseListbox: {
     /**
      * The contrast of the input.

@@ -94,6 +94,8 @@ export * from "./form/BaseInputFileHeadless";
 
 export * from "./form/BaseInputNumber";
 
+export * from "./form/BaseInputHelpText";
+
 export * from "./form/BaseRadio";
 
 export * from "./form/BaseRadioHeadless";
