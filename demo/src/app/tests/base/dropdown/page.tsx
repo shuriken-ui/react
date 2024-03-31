@@ -389,8 +389,29 @@ function DropdownPage() {
         title="Text: start"
         description="Dropdown text start position"
       >
-        <div className="flex justify-start w-full">
+        <div className="flex justify-start w-full gap-8">
           <BaseDropdown variant="text" label="Dropdown">
+            <BaseDropdownItem
+              href="#"
+              title="Profile"
+              text="View your profile"
+              rounded="sm"
+            />
+            <BaseDropdownItem
+              href="#"
+              title="Projects"
+              text="View your projects"
+              rounded="sm"
+            />
+            <BaseDropdownItem href="#" title="Team" text="Manage your team" />
+            <BaseDropdownItem
+              href="#"
+              title="Settings"
+              text="Set your preferences"
+              rounded="sm"
+            />
+          </BaseDropdown>
+          <BaseDropdown variant="text" buttonColor="info" label="Dropdown">
             <BaseDropdownItem
               href="#"
               title="Profile"
