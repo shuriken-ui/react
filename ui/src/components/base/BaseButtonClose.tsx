@@ -33,7 +33,7 @@ type BaseButtonCloseProps = ButtonHTMLAttributes<HTMLButtonElement> & {
    *
    * @default 'sm'
    */
-  size?: "xs" | "sm" | "md" | "lg";
+  size?: "xs" | "sm" | "md" | "lg" | "xl";
 };
 
 const sizes = {
@@ -41,6 +41,7 @@ const sizes = {
   sm: "nui-button-sm",
   md: "nui-button-md",
   lg: "nui-button-lg",
+  xl: "nui-button-xl",
 };
 
 const radiuses = {
