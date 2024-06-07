@@ -156,7 +156,7 @@ export type Config = {
     /**
      * Default size for the BaseButton component
      */
-    size: "sm" | "md" | "lg";
+    size: "sm" | "md" | "lg" | "xl";
     /**
      * Default variant for the BaseButton component
      */
@@ -206,7 +206,7 @@ export type Config = {
     /**
      * Default size for the BaseButtonClose component
      */
-    size: "xs" | "sm" | "md" | "lg";
+    size: "xs" | "sm" | "md" | "lg" | "xl";
   };
   BaseButtonGroup: Record<string, never>;
   BaseButtonIcon: {
@@ -680,7 +680,7 @@ export type Config = {
     /**
      * The size of the autocomplete.
      */
-    size: "sm" | "md" | "lg";
+    size: "sm" | "md" | "lg" | "xl";
   };
   BaseAutocompleteItem: {
     /**
@@ -744,7 +744,7 @@ export type Config = {
     /**
      * The size of the input.
      */
-    size: "sm" | "md" | "lg";
+    size: "sm" | "md" | "lg" | "xl";
   };
   BaseInputFile: {
     /**
@@ -758,7 +758,7 @@ export type Config = {
     /**
      * The size of the input.
      */
-    size: "sm" | "md" | "lg";
+    size: "sm" | "md" | "lg" | "xl";
     /**
      * The translation strings for the input file.
      */
@@ -781,7 +781,7 @@ export type Config = {
     /**
      * The size of the input.
      */
-    size: "sm" | "md" | "lg";
+    size: "sm" | "md" | "lg" | "xl";
   };
   BaseInputHelpText: {
     /**
@@ -819,7 +819,7 @@ export type Config = {
     /**
      * The size of the input.
      */
-    size: "sm" | "md" | "lg";
+    size: "sm" | "md" | "lg" | "xl";
   };
   BaseListboxItem: Record<string, never>;
   BaseRadio: {
@@ -851,7 +851,7 @@ export type Config = {
     /**
      * The size of the select.
      */
-    size: "sm" | "md" | "lg";
+    size: "sm" | "md" | "lg" | "xl";
   };
   BaseSwitchBall: {
     /**
