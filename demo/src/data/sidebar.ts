@@ -238,6 +238,12 @@ export const sidebarlinks = {
         href: "/tests/form/input",
         description: "Input component",
       },
+      inputNumber: {
+        icon: "system-uicons:calendar-move",
+        title: "BaseInputNumber",
+        href: "/tests/form/input-number",
+        description: "Input Number component",
+      },
       listbox: {
         title: "BaseListbox",
         icon: "system-uicons:list",
