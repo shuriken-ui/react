@@ -93,7 +93,7 @@ const Select = () => {
       </NuiPreview>
 
       <NuiPreview title="Size" description="Select component sizes">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -102,7 +102,7 @@ const Select = () => {
               }
               size="sm"
               rounded="md"
-              label="Rounded: md"
+              label="Size: sm"
             >
               <option value="">Select a hero</option>
               <option value="Superman">Superman</option>
@@ -112,7 +112,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -121,7 +120,7 @@ const Select = () => {
               }
               size="md"
               rounded="md"
-              label="Rounded: md"
+              label="Size: md"
             >
               <option value="">Select a hero</option>
               <option value="Superman">Superman</option>
@@ -131,7 +130,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -140,7 +138,25 @@ const Select = () => {
               }
               size="lg"
               rounded="md"
-              label="Rounded: md"
+              label="Size: lg"
+            >
+              <option value="">Select a hero</option>
+              <option value="Superman">Superman</option>
+              <option value="Batman">Batman</option>
+              <option value="Iron man">Iron man</option>
+              <option value="Magneto">Magneto</option>
+              <option value="Cyclops">Cyclops</option>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              size="xl"
+              rounded="md"
+              label="Size: xl"
             >
               <option value="">Select a hero</option>
               <option value="Superman">Superman</option>
@@ -157,7 +173,7 @@ const Select = () => {
         title="Contrast: default-contrast"
         description="Select component default contrast"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -177,7 +193,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -197,7 +212,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -206,6 +220,25 @@ const Select = () => {
               }
               contrast="default-contrast"
               size="lg"
+              rounded="md"
+              label="Rounded: md"
+            >
+              <option value="">Select a hero</option>
+              <option value="Superman">Superman</option>
+              <option value="Batman">Batman</option>
+              <option value="Iron man">Iron man</option>
+              <option value="Magneto">Magneto</option>
+              <option value="Cyclops">Cyclops</option>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              contrast="default-contrast"
+              size="xl"
               rounded="md"
               label="Rounded: md"
             >
@@ -221,7 +254,7 @@ const Select = () => {
       </NuiPreview>
 
       <NuiPreview title="Contrast: muted" description="Select component muted">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -241,7 +274,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -261,7 +293,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -270,6 +301,25 @@ const Select = () => {
               }
               contrast="muted"
               size="lg"
+              rounded="md"
+              label="Rounded: md"
+            >
+              <option value="">Select a hero</option>
+              <option value="Superman">Superman</option>
+              <option value="Batman">Batman</option>
+              <option value="Iron man">Iron man</option>
+              <option value="Magneto">Magneto</option>
+              <option value="Cyclops">Cyclops</option>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              contrast="muted"
+              size="xl"
               rounded="md"
               label="Rounded: md"
             >
@@ -288,7 +338,7 @@ const Select = () => {
         title="Contrast: muted-contrast"
         description="Select component muted contrast"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -308,7 +358,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -328,7 +377,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -337,6 +385,25 @@ const Select = () => {
               }
               contrast="muted-contrast"
               size="lg"
+              rounded="md"
+              label="Rounded: md"
+            >
+              <option value="">Select a hero</option>
+              <option value="Superman">Superman</option>
+              <option value="Batman">Batman</option>
+              <option value="Iron man">Iron man</option>
+              <option value="Magneto">Magneto</option>
+              <option value="Cyclops">Cyclops</option>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              contrast="muted-contrast"
+              size="xl"
               rounded="md"
               label="Rounded: md"
             >
@@ -355,7 +422,7 @@ const Select = () => {
         title="Option group"
         description="Select component option groups"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -378,7 +445,6 @@ const Select = () => {
               </optgroup>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -401,7 +467,6 @@ const Select = () => {
               </optgroup>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -409,6 +474,28 @@ const Select = () => {
                 setOptions((oldOptions) => ({ ...oldOptions, third: value }))
               }
               size="lg"
+              rounded="md"
+              label="Rounded: md"
+            >
+              <option value="">Select a hero</option>
+              <optgroup label="Marvel">
+                <option value="Iron man">Iron man</option>
+                <option value="Magneto">Magneto</option>
+                <option value="Cyclops">Cyclops</option>
+              </optgroup>
+              <optgroup label="DC Comics">
+                <option value="Superman">Superman</option>
+                <option value="Batman">Batman</option>
+              </optgroup>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              size="xl"
               rounded="md"
               label="Rounded: md"
             >
@@ -428,7 +515,7 @@ const Select = () => {
       </NuiPreview>
 
       <NuiPreview title="Icon" description="Select component icons">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -448,7 +535,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -468,7 +554,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -477,6 +562,25 @@ const Select = () => {
               }
               icon="fa6-solid:mask"
               size="lg"
+              rounded="md"
+              label="Rounded: md"
+            >
+              <option value="">Select a hero</option>
+              <option value="Superman">Superman</option>
+              <option value="Batman">Batman</option>
+              <option value="Iron man">Iron man</option>
+              <option value="Magneto">Magneto</option>
+              <option value="Cyclops">Cyclops</option>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              icon="fa6-solid:mask"
+              size="xl"
               rounded="md"
               label="Rounded: md"
             >
@@ -492,7 +596,7 @@ const Select = () => {
       </NuiPreview>
 
       <NuiPreview title="Error" description="Select component errors">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -512,7 +616,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -532,7 +635,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -540,6 +642,25 @@ const Select = () => {
                 setOptions((oldOptions) => ({ ...oldOptions, third: value }))
               }
               size="lg"
+              rounded="md"
+              label="Rounded: md"
+              error="This field is required"
+            >
+              <option value="">Select a hero</option>
+              <option value="Superman">Superman</option>
+              <option value="Batman">Batman</option>
+              <option value="Iron man">Iron man</option>
+              <option value="Magneto">Magneto</option>
+              <option value="Cyclops">Cyclops</option>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              size="xl"
               rounded="md"
               label="Rounded: md"
               error="This field is required"
@@ -556,7 +677,7 @@ const Select = () => {
       </NuiPreview>
 
       <NuiPreview title="Error: icon" description="Select component errors">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -577,7 +698,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -598,7 +718,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -607,6 +726,26 @@ const Select = () => {
               }
               icon="fa6-solid:mask"
               size="lg"
+              rounded="md"
+              label="Rounded: md"
+              error="This field is required"
+            >
+              <option value="">Select a hero</option>
+              <option value="Superman">Superman</option>
+              <option value="Batman">Batman</option>
+              <option value="Iron man">Iron man</option>
+              <option value="Magneto">Magneto</option>
+              <option value="Cyclops">Cyclops</option>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              icon="fa6-solid:mask"
+              size="xl"
               rounded="md"
               label="Rounded: md"
               error="This field is required"
@@ -624,7 +763,7 @@ const Select = () => {
 
       <NuiPreview
         title="Label: float"
-        description="Autocomplete component label float"
+        description="Select component label float"
       >
         <div className="grid gap-6 md:max-w-lg md:grid-cols-2">
           <BaseSelect
@@ -721,6 +860,41 @@ const Select = () => {
             }
             icon="fa6-solid:mask"
             size="lg"
+            rounded="md"
+            label="Rounded: md"
+            labelFloat
+          >
+            <option value="">Select a hero</option>
+            <option value="Superman">Superman</option>
+            <option value="Batman">Batman</option>
+            <option value="Iron man">Iron man</option>
+            <option value="Magneto">Magneto</option>
+            <option value="Cyclops">Cyclops</option>
+          </BaseSelect>
+          <BaseSelect
+            value={options.third}
+            onChange={(value) =>
+              setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+            }
+            size="xl"
+            rounded="md"
+            label="Rounded: md"
+            labelFloat
+          >
+            <option value="">Select a hero</option>
+            <option value="Superman">Superman</option>
+            <option value="Batman">Batman</option>
+            <option value="Iron man">Iron man</option>
+            <option value="Magneto">Magneto</option>
+            <option value="Cyclops">Cyclops</option>
+          </BaseSelect>
+          <BaseSelect
+            value={options.third}
+            onChange={(value) =>
+              setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+            }
+            icon="fa6-solid:mask"
+            size="xl"
             rounded="md"
             label="Rounded: md"
             labelFloat
@@ -737,7 +911,7 @@ const Select = () => {
 
       <NuiPreview
         title="Loading"
-        description="Autocomplete component loading state"
+        description="Select component loading state"
       >
         <div className="grid gap-6 md:max-w-lg md:grid-cols-2">
           <BaseSelect
@@ -834,6 +1008,41 @@ const Select = () => {
             }
             icon="fa6-solid:mask"
             size="lg"
+            rounded="md"
+            label="Rounded: md"
+            loading
+          >
+            <option value="">Select a hero</option>
+            <option value="Superman">Superman</option>
+            <option value="Batman">Batman</option>
+            <option value="Iron man">Iron man</option>
+            <option value="Magneto">Magneto</option>
+            <option value="Cyclops">Cyclops</option>
+          </BaseSelect>
+          <BaseSelect
+            value={options.third}
+            onChange={(value) =>
+              setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+            }
+            size="xl"
+            rounded="md"
+            label="Rounded: md"
+            loading
+          >
+            <option value="">Select a hero</option>
+            <option value="Superman">Superman</option>
+            <option value="Batman">Batman</option>
+            <option value="Iron man">Iron man</option>
+            <option value="Magneto">Magneto</option>
+            <option value="Cyclops">Cyclops</option>
+          </BaseSelect>
+          <BaseSelect
+            value={options.third}
+            onChange={(value) =>
+              setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+            }
+            icon="fa6-solid:mask"
+            size="xl"
             rounded="md"
             label="Rounded: md"
             loading
@@ -852,7 +1061,7 @@ const Select = () => {
         title="Disabled"
         description="Select component disabled state"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseSelect
               value={options.first}
@@ -872,7 +1081,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.second}
@@ -892,7 +1100,6 @@ const Select = () => {
               <option value="Cyclops">Cyclops</option>
             </BaseSelect>
           </div>
-
           <div className="flex-1">
             <BaseSelect
               value={options.third}
@@ -900,6 +1107,25 @@ const Select = () => {
                 setOptions((oldOptions) => ({ ...oldOptions, third: value }))
               }
               size="lg"
+              rounded="md"
+              label="Rounded: md"
+              disabled
+            >
+              <option value="">Select a hero</option>
+              <option value="Superman">Superman</option>
+              <option value="Batman">Batman</option>
+              <option value="Iron man">Iron man</option>
+              <option value="Magneto">Magneto</option>
+              <option value="Cyclops">Cyclops</option>
+            </BaseSelect>
+          </div>
+          <div className="flex-1">
+            <BaseSelect
+              value={options.third}
+              onChange={(value) =>
+                setOptions((oldOptions) => ({ ...oldOptions, third: value }))
+              }
+              size="xl"
               rounded="md"
               label="Rounded: md"
               disabled
