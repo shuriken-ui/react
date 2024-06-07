@@ -100,10 +100,10 @@ const badgeColors = {
 };
 
 const sizes = {
-  sm: "nui-button-small",
-  md: "nui-button-medium",
-  lg: "nui-button-large",
-  xl: "nui-button-big",
+  sm: "nui-button-sm",
+  md: "nui-button-md",
+  lg: "nui-button-lg",
+  xl: "nui-button-xl",
 };
 
 const radiuses = {

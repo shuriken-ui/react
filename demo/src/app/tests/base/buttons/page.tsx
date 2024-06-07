@@ -1,4 +1,4 @@
-import { BaseButton, BaseHeading } from "@shuriken-ui/react";
+import { BaseButton, BaseButtonGroup } from "@shuriken-ui/react";
 import { Metadata } from "next";
 import React from "react";
 import NuiPreviewContainer from "@/components/NuiPreviewContainer";
@@ -36,6 +36,9 @@ export default function ButtonsPage() {
           <BaseButton size="lg" rounded="md">
             Button
           </BaseButton>
+          <BaseButton size="xl" rounded="md">
+            Button
+          </BaseButton>
         </div>
       </NuiPreview>
 
@@ -48,6 +51,9 @@ export default function ButtonsPage() {
             Button
           </BaseButton>
           <BaseButton size="lg" rounded="md" badge badgePulse>
+            Button
+          </BaseButton>
+          <BaseButton size="xl" rounded="md" badge badgePulse>
             Button
           </BaseButton>
         </div>
@@ -235,7 +241,7 @@ export default function ButtonsPage() {
         title="Group"
         description="Button component inside a button group"
       >
-        <BaseButton>
+        <BaseButtonGroup>
           <BaseButton color="default">
             <Iconify icon="lucide:edit-3" className="-ms-1 h-3 w-3" />
             <span>Edit</span>
@@ -252,7 +258,7 @@ export default function ButtonsPage() {
             <Iconify icon="lucide:share-2" className="-ms-1 h-3 w-3" />
             <span>Share</span>
           </BaseButton>
-        </BaseButton>
+        </BaseButtonGroup>
       </NuiPreview>
     </NuiPreviewContainer>
   );
