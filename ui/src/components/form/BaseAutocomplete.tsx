@@ -48,7 +48,7 @@ type BaseAutocompleteProps<T = string> = {
    * The size of the autocomplete component.
    *
    */
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 
   /**
    * The contrast of autocomplete component.
@@ -321,6 +321,7 @@ const sizes = {
   sm: "nui-autocomplete-sm",
   md: "nui-autocomplete-md",
   lg: "nui-autocomplete-lg",
+  xl: "nui-autocomplete-xl",
 };
 
 const contrasts = {
@@ -744,7 +745,13 @@ export const BaseAutocomplete = forwardRef(function BaseAutocomplete<
             {loading && (
               <div className="nui-autocomplete-placeload">
                 <BasePlaceload
-                  className={cn("nui-placeload", props.icon && "ms-6")}
+                  className={cn(
+                    "nui-placeload",
+                    props.icon && size === "sm" && "ms-4",
+                    props.icon && size === "md" && "ms-6",
+                    props.icon && size === "lg" && "ms-8",
+                    props.icon && size === "xl" && "ms-10",
+                  )}
                 />
               </div>
             )}

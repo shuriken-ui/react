@@ -180,7 +180,7 @@ const Autcompletes = () => {
       
 
       <NuiPreview title="Size" description="Autocomplete component sizes">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseAutocomplete
               value={first}
@@ -191,7 +191,6 @@ const Autcompletes = () => {
               onChange={(value) => setFirst(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={second}
@@ -202,13 +201,22 @@ const Autcompletes = () => {
               onChange={(value) => setSecond(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={third}
               items={frameworks}
               size="lg"
               label="Size: lg"
+              placeholder="Ex: javascript"
+              onChange={(value) => setThird(value)}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseAutocomplete
+              value={third}
+              items={frameworks}
+              size="xl"
+              label="Size: xl"
               placeholder="Ex: javascript"
               onChange={(value) => setThird(value)}
             />
@@ -220,7 +228,7 @@ const Autcompletes = () => {
         title="Contrast: default-contrast"
         description="Autocomplete component default contrast"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseAutocomplete
               value={first}
@@ -232,7 +240,6 @@ const Autcompletes = () => {
               onChange={(value) => setFirst(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={second}
@@ -244,7 +251,6 @@ const Autcompletes = () => {
               onChange={(value) => setSecond(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={third}
@@ -252,6 +258,17 @@ const Autcompletes = () => {
               contrast="default-contrast"
               size="lg"
               label="Size: lg"
+              placeholder="Ex: javascript"
+              onChange={(value) => setThird(value)}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseAutocomplete
+              value={third}
+              items={frameworks}
+              contrast="default-contrast"
+              size="xl"
+              label="Size: xl"
               placeholder="Ex: javascript"
               onChange={(value) => setThird(value)}
             />
@@ -263,7 +280,7 @@ const Autcompletes = () => {
         title="Contrast: muted"
         description="Autocomplete component muted"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseAutocomplete
               value={first}
@@ -275,7 +292,6 @@ const Autcompletes = () => {
               onChange={(value) => setFirst(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={second}
@@ -287,7 +303,6 @@ const Autcompletes = () => {
               onChange={(value) => setSecond(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={third}
@@ -295,6 +310,17 @@ const Autcompletes = () => {
               contrast="muted"
               size="lg"
               label="Size: lg"
+              placeholder="Ex: javascript"
+              onChange={(value) => setThird(value)}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseAutocomplete
+              value={third}
+              items={frameworks}
+              contrast="muted"
+              size="xl"
+              label="Size: xl"
               placeholder="Ex: javascript"
               onChange={(value) => setThird(value)}
             />
@@ -306,7 +332,7 @@ const Autcompletes = () => {
         title="Contrast: muted-contrast"
         description="Autocomplete component muted contrast"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseAutocomplete
               value={first}
@@ -318,7 +344,6 @@ const Autcompletes = () => {
               onChange={(value) => setFirst(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={second}
@@ -330,7 +355,6 @@ const Autcompletes = () => {
               onChange={(value) => setSecond(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={third}
@@ -342,11 +366,22 @@ const Autcompletes = () => {
               onChange={(value) => setThird(value)}
             />
           </div>
+          <div className="flex-1">
+            <BaseAutocomplete
+              value={third}
+              items={frameworks}
+              contrast="muted-contrast"
+              size="xl"
+              label="Size: xl"
+              placeholder="Ex: javascript"
+              onChange={(value) => setThird(value)}
+            />
+          </div>
         </div>
       </NuiPreview>
 
       <NuiPreview title="Error" description="Autocomplete component error">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseAutocomplete
               value={first}
@@ -358,7 +393,6 @@ const Autcompletes = () => {
               onChange={(value) => setFirst(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={second}
@@ -370,13 +404,23 @@ const Autcompletes = () => {
               onChange={(value) => setSecond(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={third}
               items={frameworks}
               size="lg"
               label="Size: lg"
+              placeholder="Ex: javascript"
+              error="Please select a framework"
+              onChange={(value) => setThird(value)}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseAutocomplete
+              value={third}
+              items={frameworks}
+              size="xl"
+              label="Size: xl"
               placeholder="Ex: javascript"
               error="Please select a framework"
               onChange={(value) => setThird(value)}
@@ -389,7 +433,7 @@ const Autcompletes = () => {
         title="Disabled"
         description="Autocomplete component disabled"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseAutocomplete
               value={first}
@@ -401,7 +445,6 @@ const Autcompletes = () => {
               onChange={(value) => setFirst(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={second}
@@ -413,7 +456,6 @@ const Autcompletes = () => {
               onChange={(value) => setSecond(value)}
             />
           </div>
-
           <div className="flex-1">
             <BaseAutocomplete
               value={third}
@@ -425,11 +467,22 @@ const Autcompletes = () => {
               onChange={(value) => setThird(value)}
             />
           </div>
+          <div className="flex-1">
+            <BaseAutocomplete
+              value={third}
+              items={frameworks}
+              size="xl"
+              label="Size: xl"
+              placeholder="Ex: javascript"
+              disabled
+              onChange={(value) => setThird(value)}
+            />
+          </div>
         </div>
       </NuiPreview>
 
       <NuiPreview title="Icon" description="Autocomplete component icon">
-        <div className="flex flex-wrap items-end gap-5 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-5 max-w-5xl">
           <div className="flex-1">
             <BaseAutocomplete
               value={sixth}
@@ -459,6 +512,18 @@ const Autcompletes = () => {
               items={frameworks}
               icon="lucide:search"
               size="lg"
+              placeholder="e.g. Nuxt"
+              label="Framework"
+              colorFocus
+              onChange={(value) => setSixth(value)}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseAutocomplete
+              value={sixth}
+              items={frameworks}
+              icon="lucide:search"
+              size="xl"
               placeholder="e.g. Nuxt"
               label="Framework"
               colorFocus
@@ -472,7 +537,7 @@ const Autcompletes = () => {
         title="Clearable"
         description="Autocomplete component clear button"
       >
-        <div className="flex flex-wrap items-end gap-5 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-5 max-w-5xl">
           <div className="flex-1">
             <BaseAutocomplete
               value={seventh}
@@ -504,6 +569,19 @@ const Autcompletes = () => {
               items={frameworks}
               icon="lucide:search"
               size="lg"
+              placeholder="e.g. Nuxt"
+              label="Framework"
+              clearable
+              clearValue="Nuxt"
+              onChange={(value) => setNinth(value)}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseAutocomplete
+              value={ninth}
+              items={frameworks}
+              icon="lucide:search"
+              size="xl"
               placeholder="e.g. Nuxt"
               label="Framework"
               clearable
@@ -613,7 +691,6 @@ const Autcompletes = () => {
             labelFloat
             onChange={(value) => setTenth(value)}
           />
-
           <BaseAutocomplete
             value={eleventh}
             items={frameworks}
@@ -634,12 +711,32 @@ const Autcompletes = () => {
             labelFloat
             onChange={(value) => setTenth(value)}
           />
-
           <BaseAutocomplete
             value={eleventh}
             items={frameworks}
             icon="lucide:search"
             size="lg"
+            rounded="md"
+            placeholder="e.g. Nuxt"
+            label="Framework"
+            labelFloat
+            onChange={(value) => setEleventh(value)}
+          />
+          <BaseAutocomplete
+            value={tenth}
+            items={frameworks}
+            size="xl"
+            rounded="md"
+            placeholder="e.g. Nuxt"
+            label="Framework"
+            labelFloat
+            onChange={(value) => setTenth(value)}
+          />
+          <BaseAutocomplete
+            value={eleventh}
+            items={frameworks}
+            icon="lucide:search"
+            size="xl"
             rounded="md"
             placeholder="e.g. Nuxt"
             label="Framework"
@@ -684,7 +781,6 @@ const Autcompletes = () => {
             loading
             onChange={(value) => setTenth(value)}
           />
-
           <BaseAutocomplete
             value={eleventh}
             items={frameworks}
@@ -705,12 +801,32 @@ const Autcompletes = () => {
             loading
             onChange={(value) => setTenth(value)}
           />
-
           <BaseAutocomplete
             value={eleventh}
             items={frameworks}
             icon="lucide:search"
             size="lg"
+            rounded="md"
+            placeholder="e.g. Nuxt"
+            label="Framework"
+            loading
+            onChange={(value) => setEleventh(value)}
+          />
+          <BaseAutocomplete
+            value={tenth}
+            items={frameworks}
+            size="xl"
+            rounded="md"
+            placeholder="e.g. Nuxt"
+            label="Framework"
+            loading
+            onChange={(value) => setTenth(value)}
+          />
+          <BaseAutocomplete
+            value={eleventh}
+            items={frameworks}
+            icon="lucide:search"
+            size="xl"
             rounded="md"
             placeholder="e.g. Nuxt"
             label="Framework"
