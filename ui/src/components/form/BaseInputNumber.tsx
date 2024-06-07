@@ -130,7 +130,7 @@ type BaseInputNumberProps = HTMLAttributes<HTMLInputElement> & {
    *
    * @default 'md'
    */
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
@@ -190,6 +190,7 @@ const sizes = {
   sm: "nui-input-number-sm",
   md: "nui-input-number-md",
   lg: "nui-input-number-lg",
+  xl: "nui-input-number-xl",
 };
 
 const contrasts = {
