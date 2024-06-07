@@ -136,37 +136,46 @@ const Listbox = () => {
       </NuiPreview>
 
       <NuiPreview title="Size" description="Listbox component sizes">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
               onChange={setRadiusValue}
-              label="Rounded: md"
+              label="Size: sm"
               size="sm"
               items={frameworks}
               placeholder="Select a framework"
               rounded="md"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
               onChange={setRadiusValue}
-              label="Rounded: md"
+              label="Size: md"
               size="md"
               items={frameworks}
               placeholder="Select a framework"
               rounded="md"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
               onChange={setRadiusValue}
-              label="Rounded: md"
+              label="Size: lg"
               size="lg"
+              items={frameworks}
+              placeholder="Select a framework"
+              rounded="md"
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={radiusValue}
+              onChange={setRadiusValue}
+              label="Size: xl"
+              size="xl"
               items={frameworks}
               placeholder="Select a framework"
               rounded="md"
@@ -179,7 +188,7 @@ const Listbox = () => {
         title="Contrast: default-contrast"
         description="Listbox component default contrast"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -192,7 +201,6 @@ const Listbox = () => {
               rounded="md"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -205,7 +213,6 @@ const Listbox = () => {
               rounded="md"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -213,6 +220,18 @@ const Listbox = () => {
               contrast="default-contrast"
               label="Rounded: md"
               size="lg"
+              items={frameworks}
+              placeholder="Select a framework"
+              rounded="md"
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={radiusValue}
+              onChange={setRadiusValue}
+              contrast="default-contrast"
+              label="Rounded: md"
+              size="xl"
               items={frameworks}
               placeholder="Select a framework"
               rounded="md"
@@ -222,7 +241,7 @@ const Listbox = () => {
       </NuiPreview>
 
       <NuiPreview title="Contrast: muted" description="Listbox component muted">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -235,7 +254,6 @@ const Listbox = () => {
               rounded="md"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -248,7 +266,6 @@ const Listbox = () => {
               rounded="md"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -256,6 +273,18 @@ const Listbox = () => {
               contrast="muted"
               label="Rounded: md"
               size="lg"
+              items={frameworks}
+              placeholder="Select a framework"
+              rounded="md"
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={radiusValue}
+              onChange={setRadiusValue}
+              contrast="muted"
+              label="Rounded: md"
+              size="xl"
               items={frameworks}
               placeholder="Select a framework"
               rounded="md"
@@ -268,7 +297,7 @@ const Listbox = () => {
         title="Contrast: muted-contrast"
         description="Listbox component muted contrast"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -281,7 +310,6 @@ const Listbox = () => {
               rounded="md"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -294,7 +322,6 @@ const Listbox = () => {
               rounded="md"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -302,6 +329,18 @@ const Listbox = () => {
               contrast="muted-contrast"
               label="Rounded: md"
               size="lg"
+              items={frameworks}
+              placeholder="Select a framework"
+              rounded="md"
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={radiusValue}
+              onChange={setRadiusValue}
+              contrast="muted-contrast"
+              label="Rounded: md"
+              size="xl"
               items={frameworks}
               placeholder="Select a framework"
               rounded="md"
@@ -311,7 +350,7 @@ const Listbox = () => {
       </NuiPreview>
 
       <NuiPreview title="Error" description="Listbox component errors">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -324,7 +363,6 @@ const Listbox = () => {
               error="This field is required"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -337,13 +375,24 @@ const Listbox = () => {
               error="This field is required"
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
               onChange={setRadiusValue}
               label="Rounded: md"
               size="lg"
+              items={frameworks}
+              placeholder="Select a framework"
+              rounded="md"
+              error="This field is required"
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={radiusValue}
+              onChange={setRadiusValue}
+              label="Rounded: md"
+              size="xl"
               items={frameworks}
               placeholder="Select a framework"
               rounded="md"
@@ -354,7 +403,7 @@ const Listbox = () => {
       </NuiPreview>
 
       <NuiPreview title="Disabled" description="Listbox component disabled">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -367,7 +416,6 @@ const Listbox = () => {
               disabled
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
@@ -380,13 +428,24 @@ const Listbox = () => {
               disabled
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={radiusValue}
               onChange={setRadiusValue}
               label="Rounded: md"
               size="lg"
+              items={frameworks}
+              placeholder="Select a framework"
+              rounded="md"
+              disabled
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={radiusValue}
+              onChange={setRadiusValue}
+              label="Rounded: md"
+              size="xl"
               items={frameworks}
               placeholder="Select a framework"
               rounded="md"
@@ -465,6 +524,31 @@ const Listbox = () => {
             value={assigneeValue}
             onChange={setAssigneeValue}
             size="lg"
+            rounded="md"
+            label="Hobbies"
+            items={people}
+            properties={{
+              value: "id",
+              label: "name",
+              sublabel: "text",
+              media: "media",
+            }}
+            labelFloat
+          />
+          <BaseListbox
+            value={radiusValue}
+            onChange={setRadiusValue}
+            label="Rounded: md"
+            size="xl"
+            items={frameworks}
+            placeholder="Select a framework"
+            rounded="md"
+            labelFloat
+          />
+          <BaseListbox
+            value={assigneeValue}
+            onChange={setAssigneeValue}
+            size="xl"
             rounded="md"
             label="Hobbies"
             items={people}
@@ -556,11 +640,36 @@ const Listbox = () => {
             }}
             loading
           />
+          <BaseListbox
+            value={radiusValue}
+            onChange={setRadiusValue}
+            label="Rounded: md"
+            size="xl"
+            items={frameworks}
+            placeholder="Select a framework"
+            rounded="md"
+            loading
+          />
+          <BaseListbox
+            value={assigneeValue}
+            onChange={setAssigneeValue}
+            size="xl"
+            rounded="md"
+            label="Hobbies"
+            items={people}
+            properties={{
+              value: "id",
+              label: "name",
+              sublabel: "text",
+              media: "media",
+            }}
+            loading
+          />
         </div>
       </NuiPreview>
 
       <NuiPreview title="Sublabel" description="Listbox component sublabels">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={hobbiesValue}
@@ -576,7 +685,6 @@ const Listbox = () => {
               }}
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={hobbiesValue}
@@ -592,12 +700,26 @@ const Listbox = () => {
               }}
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={hobbiesValue}
               onChange={setHobbiesValue}
               size="lg"
+              rounded="md"
+              label="Hobbies"
+              items={hobbies}
+              properties={{
+                value: "id",
+                label: "name",
+                sublabel: "text",
+              }}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={hobbiesValue}
+              onChange={setHobbiesValue}
+              size="xl"
               rounded="md"
               label="Hobbies"
               items={hobbies}
@@ -612,7 +734,7 @@ const Listbox = () => {
       </NuiPreview>
 
       <NuiPreview title="Icon" description="Listbox component icons">
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={hobbiesValue}
@@ -629,7 +751,6 @@ const Listbox = () => {
               }}
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={hobbiesValue}
@@ -646,12 +767,27 @@ const Listbox = () => {
               }}
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={hobbiesValue}
               onChange={setHobbiesValue}
               size="lg"
+              rounded="md"
+              label="Hobbies"
+              items={hobbies}
+              properties={{
+                value: "id",
+                label: "name",
+                sublabel: "text",
+                icon: "icon",
+              }}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={hobbiesValue}
+              onChange={setHobbiesValue}
+              size="xl"
               rounded="md"
               label="Hobbies"
               items={hobbies}
@@ -667,7 +803,7 @@ const Listbox = () => {
       </NuiPreview>
 
       <NuiPreview title="Image" description="Listbox component images">
-        <div className="flex flex-wrap items-end gap-3 max-w-4xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={assigneeValue}
@@ -684,7 +820,6 @@ const Listbox = () => {
               }}
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={assigneeValue}
@@ -701,12 +836,27 @@ const Listbox = () => {
               }}
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={assigneeValue}
               onChange={setAssigneeValue}
               size="lg"
+              rounded="md"
+              label="Hobbies"
+              items={people}
+              properties={{
+                value: "id",
+                label: "name",
+                sublabel: "text",
+                media: "media",
+              }}
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={assigneeValue}
+              onChange={setAssigneeValue}
+              size="xl"
               rounded="md"
               label="Hobbies"
               items={people}
@@ -725,7 +875,7 @@ const Listbox = () => {
         title="Multiple"
         description="Listbox component multiple selection"
       >
-        <div className="flex flex-wrap items-end gap-3 max-w-3xl">
+        <div className="flex flex-wrap items-end gap-3 max-w-5xl">
           <div className="flex-1">
             <BaseListbox
               value={multipleValues}
@@ -743,7 +893,6 @@ const Listbox = () => {
               multiple
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={multipleValues}
@@ -761,12 +910,28 @@ const Listbox = () => {
               multiple
             />
           </div>
-
           <div className="flex-1">
             <BaseListbox
               value={multipleValues}
               onChange={setMultipleValues}
               size="lg"
+              rounded="md"
+              label="Hobbies"
+              items={people}
+              properties={{
+                value: "id",
+                label: "name",
+                sublabel: "text",
+                media: "media",
+              }}
+              multiple
+            />
+          </div>
+          <div className="flex-1">
+            <BaseListbox
+              value={multipleValues}
+              onChange={setMultipleValues}
+              size="xl"
               rounded="md"
               label="Hobbies"
               items={people}

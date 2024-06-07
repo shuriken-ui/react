@@ -158,7 +158,7 @@ type BaseListboxProps<T = string> = {
    *
    * @default 'md'
    */
-  size?: "sm" | "md" | "lg";
+  size?: "sm" | "md" | "lg" | "xl";
 
   /**
    * Optional CSS classes to apply to the wrapper, label, input, addon, error, and icon elements.
@@ -208,6 +208,7 @@ const sizes = {
   sm: "nui-listbox-sm",
   md: "nui-listbox-md",
   lg: "nui-listbox-lg",
+  xl: "nui-listbox-xl",
 };
 
 const contrasts = {
@@ -465,19 +466,23 @@ export const BaseListbox = forwardRef(function BaseListbox<T = string>(
                         "nui-listbox-placeload nui-loading-placeload",
                         (props.properties?.media && size === "sm") ||
                           (props.properties?.icon && size === "sm")
-                          ? "ms-5"
+                          ? "ms-6"
                           : "",
                         (props.properties?.media && size === "md") ||
                           (props.properties?.icon && size === "md")
-                          ? "ms-6"
+                          ? "ms-8"
                           : "",
                         (props.properties?.media && size === "lg") ||
                           (props.properties?.icon && size === "lg")
-                          ? "ms-7"
+                          ? "ms-9"
+                          : "",
+                        (props.properties?.media && size === "xl") ||
+                          (props.properties?.icon && size === "xl")
+                          ? "ms-9"
                           : "",
                       )}
                     >
-                      <BasePlaceload className="nui-placeload" />
+                      <BasePlaceload className="nui-placeload !w-[70%]" />
                     </div>
                   )}
                 </div>
