@@ -46,6 +46,9 @@ export default function ButtonIconPage() {
           <BaseButtonIcon size="lg" rounded="md">
             <Iconify icon="ph:game-controller-duotone" className="h-6 w-6" />
           </BaseButtonIcon>
+          <BaseButtonIcon size="xl" rounded="md">
+            <Iconify icon="ph:game-controller-duotone" className="h-7 w-7" />
+          </BaseButtonIcon>
         </div>
       </NuiPreview>
 
